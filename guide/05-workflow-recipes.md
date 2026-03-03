@@ -19,7 +19,7 @@ Module này không dạy lý thuyết -- nó cung cấp quy trình copy-paste ch
 
 **Bước 1 -- Brief và Outline:**
 
-```
+```text
 Tôi cần viết {{loai_tai_lieu}} cho {{san_pham_he_thong}}.
 
 Background:
@@ -36,7 +36,7 @@ Với mỗi section, note ngắn 1 dòng về nội dung chính.
 
 **Bước 2 -- Review và điều chỉnh outline:**
 
-```
+```text
 Điều chỉnh outline:
 - {{them_bo_gop_tach_sections}}
 - {{thay_doi_thu_tu_neu_can}}
@@ -46,7 +46,7 @@ Confirm outline cuối cùng trước khi viết.
 
 **Bước 3 -- Viết từng section:**
 
-```
+```text
 Viết section "{{ten_section}}" theo outline đã thống nhất.
 
 Tuân thủ:
@@ -57,7 +57,7 @@ Tuân thủ:
 
 **Bước 4 -- Review tổng thể:**
 
-```
+```text
 Đọc lại toàn bộ tài liệu từ đầu đến cuối và kiểm tra:
 
 1. Consistency: thuật ngữ, capitalization, format
@@ -82,7 +82,7 @@ Liệt kê mọi issue tìm được.
 
 ### Review toàn diện
 
-```
+```text
 [Upload file]
 
 Review tài liệu này theo các tiêu chí sau.
@@ -102,7 +102,7 @@ Bảng tóm tắt assessment > Chi tiết từng issue > Overall recommendation.
 
 ### Review chuyên sâu cho procedures
 
-```
+```text
 [Upload file hướng dẫn sử dụng]
 
 Đóng vai {{persona_nguoi_dung}} đọc tài liệu này lần đầu.
@@ -174,7 +174,7 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 
 ### Tạo glossary từ tài liệu hiện có
 
-```
+```text
 [Upload 3-5 tài liệu mẫu của team]
 
 Phân tích các tài liệu đã upload và:
@@ -192,7 +192,7 @@ Sắp xếp theo alphabet.
 
 ### Kiểm tra tính nhất quán
 
-```
+```text
 [Upload file tài liệu + glossary]
 
 So sánh tài liệu với glossary đã upload.
@@ -214,7 +214,7 @@ Báo cáo dạng bảng với vị trí cụ thể (section + paragraph).
 
 ### Tạo report Word
 
-```
+```text
 Tạo file Word (.docx) cho {{loai_bao_cao}}:
 
 Thông tin:
@@ -230,7 +230,7 @@ Format:
 
 ### Tạo Excel tracking
 
-```
+```text
 Tạo file Excel (.xlsx) cho {{muc_dich_tracking}}:
 
 Columns:
@@ -244,7 +244,7 @@ Thêm:
 
 ### Tạo presentation
 
-```
+```text
 Tạo file PowerPoint (.pptx) cho {{muc_dich_presentation}}.
 
 Nội dung {{so_slides}} slides:
@@ -263,7 +263,7 @@ Style: clean, professional, ít text trên mỗi slide, dùng diagrams khi có t
 
 ### Research nhanh (Web Search)
 
-```
+```text
 Tìm kiếm và tổng hợp thông tin về {{chu_de}}:
 
 1. {{khia_canh_1}}
@@ -281,7 +281,7 @@ URL: https://support.anthropic.com/en/articles/11088861
 
 Khi cần research kỹ hơn -- competitive analysis, technology landscape, industry standards -- dùng Research. Claude tự động tìm kiếm nhiều nguồn, tổng hợp, và tạo báo cáo chi tiết.
 
-```
+```text
 Sử dụng Research để nghiên cứu:
 {{chu_de_can_research}}
 
@@ -375,7 +375,7 @@ flowchart TD
 
 ### Convert Word sang Markdown
 
-```
+```text
 [Upload file Word]
 
 Chuyển tài liệu Word này sang Markdown format:
@@ -390,7 +390,7 @@ Output: file Markdown hoàn chỉnh.
 
 ### Restructure tài liệu cũ
 
-```
+```text
 [Upload file tài liệu cũ]
 
 Tài liệu này được viết {{thoi_gian}} trước và cần cập nhật.
@@ -426,7 +426,7 @@ Chưa cần viết lại -- chỉ cần assessment và migration plan.
 
 ### Workflow ví dụ
 
-```
+```text
 Tôi cần tạo một trang Notion mới với nội dung:
 - Title: "Documentation Standards v2.0"
 - Sections: {{danh_sach_sections}}
@@ -514,7 +514,7 @@ flowchart TD
 
 **Giai đoạn 3 — Setup folder qua Cowork:**
 
-```
+```text
 Đọc CLAUDE.md và git log --oneline -10 nếu có.
 
 Tạo cấu trúc thư mục cho dự án "{{tên dự án}}":
@@ -536,7 +536,7 @@ Sau khi tạo xong, commit với message mô tả cấu trúc đã tạo.
 
 **Giai đoạn 4 — Draft nội dung qua Project Chat:**
 
-```
+```text
 Viết section "{{tên section}}" cho {{tên tài liệu}}.
 
 Tuân thủ:
@@ -555,7 +555,7 @@ Output: nội dung Markdown hoàn chỉnh cho section này.
 
 Khi cần mang kết quả từ Chat/Project vào Cowork, tạo file trung gian:
 
-```
+```text
 Tóm tắt kết quả research/decisions đã thảo luận thành format
 có thể paste vào file. Cấu trúc:
 
@@ -598,7 +598,7 @@ Output: text sẵn sàng copy vào file .md
 
 Trả lời 3 câu hỏi trong 1 prompt trước khi bắt đầu chain:
 
-```
+```text
 Tôi cần {{mô_tả_task_tổng_thể}}.
 
 Trước khi bắt đầu, trả lời 3 câu hỏi:
@@ -618,7 +618,7 @@ Trước khi bắt đầu, trả lời 3 câu hỏi:
 
 Yêu cầu Claude tạo bảng task map từ câu trả lời ở bước 1:
 
-```
+```text
 Dựa trên scope analysis trên, tạo bảng task map:
 
 | Step | Mục tiêu | Input từ step trước | Output cần có | Review checkpoint |
@@ -632,7 +632,7 @@ Mỗi step phải có stopping criteria rõ ràng — step này XONG khi nào?
 
 Checklist 5 items trước khi bắt đầu chain:
 
-```
+```text
 - [ ] Số steps hợp lý? (không quá nhỏ gộp nhiều việc, không quá lớn chia quá mịn)
 - [ ] Dependency map đúng thứ tự? (step trước tạo đúng output step sau cần)
 - [ ] Mỗi step có clear stopping criteria?
@@ -652,7 +652,7 @@ Checklist 5 items trước khi bắt đầu chain:
 
 Trước khi sửa bất kỳ file nào, scan impact trước:
 
-```
+```text
 Trước khi sửa {{tên file/section}}, scan toàn bộ thư mục và liệt kê:
 
 1. Files nào có reference đến {{nội dung sẽ thay đổi}}
@@ -665,7 +665,7 @@ Chưa sửa gì — chỉ report impact.
 
 Nguyên tắc: luôn list đầy đủ tên files sẽ sửa và khóa scope rõ ràng.
 
-```
+```text
 Thực hiện thay đổi sau:
 - File: {{tên file}}
 - Thay đổi: {{mô tả cụ thể}}
@@ -681,7 +681,7 @@ KHÔNG chạm files khác ngoài danh sách này.
 
 Sau khi sửa xong, update tất cả references:
 
-```
+```text
 Vừa sửa {{file A}}: {{mô tả thay đổi}}.
 
 Scan toàn bộ thư mục, tìm tất cả chỗ reference đến {{nội dung cũ}}.
@@ -691,7 +691,7 @@ Sau đó sửa từng chỗ.
 
 Verification prompt cuối cùng:
 
-```
+```text
 Chạy consistency check toàn bộ:
 1. Cross-references còn valid không? (links, "xem mục X", "xem file Y")
 2. Terminology nhất quán không? (cùng concept dùng cùng từ)
@@ -726,7 +726,7 @@ flowchart TD
 
 Trả lời trước khi mở Cowork:
 
-```
+```text
 - [ ] Output mong muốn là gì? (files cụ thể, format, nơi lưu)
 - [ ] Files nào bị tạo mới / sửa / chỉ đọc?
 - [ ] Task nào phải hoàn thành trước task nào?
@@ -737,7 +737,7 @@ Trả lời trước khi mở Cowork:
 
 Dùng template này cho mỗi task trong chuỗi nhiều sessions:
 
-```
+```text
 ## Task {{số}} / {{tổng số tasks}}
 
 Mục tiêu: {{1 câu mô tả kết quả mong đợi}}
