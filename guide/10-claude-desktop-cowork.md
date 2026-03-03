@@ -241,10 +241,10 @@ cho vận hành hệ thống AMR tại nhà máy Phenikaa-X.
 # Folder Instructions — Claude Guide Project
 
 ## Project overview
-Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 11 modules hướng dẫn sử dụng Claude AI.
+Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
 
 ## Folder structure
-- guide/ — 11 module files (00-overview đến 10-claude-desktop-cowork) + reference/
+- guide/ — 12 module files (00-overview đến 11-cowork-workflows) + reference/
 - project-state.md — project overview
 - VERSION — single source of truth cho version number
 
@@ -1792,6 +1792,7 @@ Các vấn đề phổ biến khi sử dụng Claude Desktop và Cowork.
 
 **Tiếp theo:**
 
+- [Module 11](11-cowork-workflows.md) — 12 workflows copy-paste sẵn sàng dùng cho Cowork
 - [Module 02](02-setup-personalization.md) — cấu hình Claude.ai (web) chi tiết
 - [Module 05](05-workflow-recipes.md) — quy trình copy-paste cho từng loại task
 - [Module 06](06-tools-features.md) — cheat sheet tính năng Claude
