@@ -6,7 +6,7 @@ Quick commit workflow. Thực hiện tuần tự:
 
 4. Phân tích changes và đề xuất commit message:
    - Format: `Module XX: mô tả ngắn` (nếu thay đổi liên quan module)
-   - Format: `Infra: mô tả ngắn` (nếu thay đổi .claude/, _memory/, _scaffold/)
+   - Format: `Infra: mô tả ngắn` (nếu thay đổi .claude/, _scaffold/)
    - Format: `Docs: mô tả ngắn` (nếu thay đổi README, project-state...)
    - Tiếng Việt, tối đa 72 ký tự dòng đầu
 
@@ -26,6 +26,6 @@ Proposed commit: "{message}"
 Rules:
 - KHÔNG tự ý commit — PHẢI có user confirm
 - KHÔNG dùng `git add -A` — liệt kê files cụ thể khi stage
-- KHÔNG commit `.bak` files hoặc `_memory/` — cảnh báo nếu có trong changes
+- KHÔNG commit `.bak` files — cảnh báo nếu có trong changes
 - KHÔNG push nếu user chưa chọn push
-- Nếu có `.bak` hoặc `_memory/` trong changes: cảnh báo và hỏi có muốn exclude không
+- Nếu có `.bak` trong changes: cảnh báo và hỏi có muốn exclude không

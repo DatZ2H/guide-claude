@@ -37,7 +37,7 @@ VERSION                 SSOT cho version number
 - **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
 
 ## Rules — PHẢI tuân thủ
-1. **Backup trước khi sửa:** KHÔNG edit file trong `guide/` mà không tạo `.bak` trước
+1. **Git-first backup:** Chạy `/checkpoint` trước khi bắt đầu edit module lớn. File `.bak` không nên tạo (đã trong `.gitignore`) — trừ khi làm việc offline không có Git access.
 2. **Check version:** khi edit module → đọc `VERSION` trước
 3. **Version bump:** sửa `VERSION` trước — module headers tự reflect, KHÔNG sửa thủ công từng file
 4. **No destructive git:** KHÔNG force push, reset --hard, hoặc xóa branch mà không hỏi user
@@ -87,9 +87,8 @@ VERSION                 SSOT cho version number
 ## Module status (quick ref)
 | Range | Status |
 |-------|--------|
-| 00, 02, 04, 05, 10 | Draft v3.5–v4.0 (updated for 2-tier) |
-| 01, 03, 06–09 | Draft v3.4 (chưa update) |
-| reference/ | config-architecture (v4.0), skills-list |
+| 00–10 | Sprint-patched v4.2 — 10/11 modules 🟢, modules 05+10 cần polish |
+| reference/ | config-architecture 🟢 8.0, skills-list 🟡 7.5 (cần currency check) |
 
 ## Khi nào update file này
 - Thêm skill mới → update bảng Available skills

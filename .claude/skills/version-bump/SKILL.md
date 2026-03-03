@@ -1,6 +1,6 @@
 ---
 name: version-bump
-description: Workflow bump version cho Guide Claude project: cập nhật VERSION file, thêm changelog entry vào 00-overview.md, update session-state và decisions-log. Trigger khi user nói "bump version", "lên version", "release v[X.X]", hoặc "version mới". KHÔNG tự ý bump — luôn confirm version number với user trước.
+description: Workflow bump version cho Guide Claude project: cập nhật VERSION file, thêm changelog entry vào 00-overview.md, update project-state.md. Trigger khi user nói "bump version", "lên version", "release v[X.X]", hoặc "version mới". KHÔNG tự ý bump — luôn confirm version number với user trước.
 ---
 
 # Version Bump Workflow — Guide Claude Project
@@ -29,8 +29,7 @@ Nếu user confirm đủ → tiến hành.
 
 Đọc:
 - `VERSION` — version cũ
-- `_memory/session-state.md` — key changes trong session(s) này
-- `_memory/decisions-log.md` — decisions gần nhất (sẽ dùng cho changelog)
+- `git log --oneline -10` — recent changes (dùng cho changelog)
 - `project-state.md` — bảng trạng thái modules
 
 ### Bước 2 — Tạo backup
@@ -58,7 +57,7 @@ Thêm entry MỚI ở đầu (trước version cũ):
 ```markdown
 ### Version [X.X] ([MM/YYYY])
 
-- [Thay đổi 1 — từ session-state và decisions-log]
+- [Thay đổi 1 — từ git log]
 - [Thay đổi 2]
 - ...
 - Bump version từ [old version]
@@ -80,20 +79,7 @@ Cập nhật dòng đầu:
 Version guide: [new version] | Last synced: [date]
 ```
 
-### Bước 7 — Cập nhật _memory/session-state.md
-
-Thêm vào "Last session":
-```
-- Version bumped: [old] → [new]
-```
-
-### Bước 8 — Append decisions-log
-
-```markdown
-| [date] | Version bump [old] → [new] | Sprint [X] complete — [1 dòng tóm tắt sprint] | Version bump workflow |
-```
-
-### Bước 9 — Xác nhận hoàn thành
+### Bước 7 — Xác nhận hoàn thành
 
 Output summary:
 
@@ -104,10 +90,8 @@ Files đã cập nhật:
 - VERSION: [old] → [new]
 - guide/00-overview.md: thêm changelog entry (backup: .bak)
 - project-state.md: version header updated
-- _memory/session-state.md: noted
-- _memory/decisions-log.md: entry added
 
-Bước tiếp theo: upload project-state.md mới lên Project Knowledge (xem 10.8.2).
+Bước tiếp theo: commit changes và upload project-state.md lên Project Knowledge nếu cần.
 ```
 
 ## Rules

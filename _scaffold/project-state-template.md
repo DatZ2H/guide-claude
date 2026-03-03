@@ -25,20 +25,16 @@ Version: {{version}} | Last updated: {{date}}
 ├── {{content_folder}}/          Tầng A — Content
 │   └── {{content_structure}}
 │
-├── .claude/                     Tầng B — Infrastructure
-│   ├── CLAUDE.md
-│   └── skills/
-│
-└── _memory/                     Tầng C — Persistence
-    ├── session-state.md
-    └── decisions-log.md
+└── .claude/                     Tầng B — Infrastructure
+    ├── CLAUDE.md
+    └── skills/
 ```
 
 ## Quyết định gần nhất
 
 | Ngày | Quyết định | Rationale |
 |------|-----------|-----------|
-| {{date}} | Khởi tạo project với 3-tier architecture | Phân tách content vs infrastructure vs persistence |
+| {{date}} | Khởi tạo project với 2-tier architecture | Phân tách content vs infrastructure |
 | {{date}} | {{decision_2}} | {{rationale_2}} |
 | {{date}} | {{decision_3}} | {{rationale_3}} |
 

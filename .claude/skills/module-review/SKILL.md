@@ -22,7 +22,7 @@ Hỏi user module nào cần review (nếu chưa rõ). Đọc file `guide/[XX]-[
 
 Cũng đọc:
 - `VERSION` — version hiện tại
-- `_memory/decisions-log.md` — xem có decisions nào ảnh hưởng module này không
+- `git log --oneline -10` — xem có changes nào ảnh hưởng module này không
 
 ### Bước 2 — Đánh giá theo 5 tiêu chí
 

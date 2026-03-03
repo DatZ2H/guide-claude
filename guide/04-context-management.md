@@ -315,7 +315,7 @@ URL: https://www.anthropic.com/engineering/effective-context-engineering-for-ai-
 
 | Thao tác | Nghĩa | Ví dụ thực tế |
 |----------|-------|----------------|
-| **WRITE** | Ghi thông tin ra ngoài để dùng lại sau | Cập nhật `session-state.md` cuối Cowork session, ghi decisions vào `decisions-log.md` |
+| **WRITE** | Ghi thông tin ra ngoài để dùng lại sau | Cập nhật `project-state.md`, ghi commit message có rationale cho decisions quan trọng |
 | **SELECT** | Chọn đúng thông tin đưa vào context | Upload chỉ glossary + style guide vào Project, không upload toàn bộ vault |
 | **COMPRESS** | Nén thông tin để fit context | Tóm tắt 5 trang research thành 1 trang key findings trước khi upload |
 | **ISOLATE** | Tách context giữa các task | Mỗi Cowork task = 1 scope riêng; dùng Project riêng cho từng dự án lớn |

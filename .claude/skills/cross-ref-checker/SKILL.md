@@ -19,9 +19,7 @@ Kích hoạt khi user:
 ### Nhóm 1 — File paths lỗi thời (Critical)
 - `outputs/` hoặc `_project-setup/` → phải là `guide/` hoặc `.claude/`
 - `00-README.md` → phải là `00-overview.md`
-- `_memory/context-map.md` → phải là `_memory/session-state.md`
-- `_memory/handoff.md` → phải là `_memory/session-state.md`
-- `_memory/todo.md` → đã bỏ, dùng TodoWrite built-in hoặc session-state
+- `_memory/` → đã deprecated, xóa references
 
 ### Nhóm 2 — Version references (High)
 - Hardcoded `**Version:** X.X` trong module headers → phải link về `VERSION` file
@@ -31,8 +29,8 @@ Kích hoạt khi user:
 - `[[wikilink]]` hoặc `[text](path)` trỏ đến file không tồn tại trong guide/
 - Module-to-module references kiểu "xem Module X, mục Y.Z" → verify heading vẫn tồn tại
 
-### Nhóm 4 — _memory/ 4-file pattern (Low — chỉ trong body, không phải changelog)
-- Bất kỳ nơi nào hướng dẫn dùng 4 files (context-map + handoff + todo + decisions-log) cùng nhau → update thành 2 files pattern
+### Nhóm 4 — _memory/ references (Low — chỉ trong body, không phải changelog)
+- Bất kỳ nơi nào còn reference đến `_memory/` → đã deprecated, cần xóa hoặc update
 
 ## Quy trình
 

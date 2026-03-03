@@ -110,6 +110,17 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 ## Thông tin cập nhật
 
+### Version 4.2 (03/2026)
+
+- Fix 12 Medium issues Sprint 3 (M-01, M-04, M-06–M-08, M-11, M-13, M-14, M-16–M-18): guide/05, guide/07, guide/08, guide/10, ref/skills-list
+- Fix 12 accuracy/terminology issues Sprint 2 (8H + 4M): guide/00, guide/01, guide/03, guide/06, guide/08, guide/10, ref/skills-list
+- Audit cycle hoàn tất: 24/25 issues resolved (9 Critical + 14 High + 12 Medium) — overall health 7.2 → 8.3/10
+- Update CLAUDE.md: sửa module status, thêm Thinking terminology rule (Extended thinking ≠ Adaptive Thinking), cập nhật folder structure, skills/commands list
+- Xóa `.claude/worktrees/` orphan artifact, dọn `_scaffold/memory-starter/` deprecated folder
+- Sửa stale references: ET/AT terminology, Extended thinking UI setting vs API feature, deprecated session-state.md references
+- Thêm deprecation notes cho config-architecture.md (session-state template)
+- Bump version từ 4.1
+
 ### Version 4.1 (03/2026)
 
 - Thêm `guide/reference/config-architecture.md` — single source of truth cho 6 lớp cấu hình Claude (Profile Preferences → Global CLAUDE.md → Project Instructions → Project Knowledge → Folder Instructions → Skills)

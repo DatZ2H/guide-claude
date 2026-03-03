@@ -1,6 +1,6 @@
 ---
 name: session-start
-description: Workflow mở đầu Cowork session cho Guide Claude project. Trigger khi user bắt đầu session mới, nói "bắt đầu", "tiếp tục", "session mới", hoặc hỏi "còn lại gì cần làm". Đọc _memory/ và trả về orientation ngắn gọn trước khi làm việc.
+description: Workflow mở đầu Cowork session cho Guide Claude project. Trigger khi user bắt đầu session mới, nói "bắt đầu", "tiếp tục", "session mới", hoặc hỏi "còn lại gì cần làm". Đọc git history và trả về orientation ngắn gọn trước khi làm việc.
 ---
 
 # Session Start Workflow — Guide Claude Project
@@ -16,13 +16,11 @@ Kích hoạt khi user:
 
 ## Quy trình
 
-### Bước 1 — Đọc memory files (LUÔN làm trước)
+### Bước 1 — Đọc trạng thái từ git (LUÔN làm trước)
 
-Đọc 2 files theo thứ tự:
-1. `_memory/session-state.md` — active tasks, last session summary
-2. `_memory/decisions-log.md` — 5 decisions gần nhất (cuối file)
-
-Sau đó đọc `VERSION` để biết version hiện tại.
+1. Đọc `VERSION` — version hiện tại
+2. Chạy `git log --oneline -5` — 5 commits gần nhất
+3. Chạy `git status --short` — đếm files modified/untracked
 
 ### Bước 2 — Orientation summary (ngắn gọn, ~5 dòng)
 
@@ -30,10 +28,9 @@ Output theo format cố định:
 
 ```
 **Session orientation — Guide Claude v[VERSION]**
-- Last session ([date]): [1 dòng tóm tắt]
-- Active tasks: [list task chưa done từ session-state]
-- Pending decisions: [nếu có decisions-log entry chưa được reflect vào modules]
-- Suggested next: [1 action cụ thể dựa trên active tasks]
+- Last commit: [hash] [message]
+- Working tree: [N] modified, [M] untracked
+- Suggested next: [1 action cụ thể dựa trên recent commits và working tree]
 ```
 
 ### Bước 3 — Hỏi confirm
@@ -43,15 +40,15 @@ Kết thúc bằng: "Tiếp tục với [suggested action] hay anh muốn làm v
 ## Rules
 
 - KHÔNG tự ý bắt đầu làm gì trước khi user confirm
-- Nếu session-state.md và decisions-log.md không tồn tại → báo "files _memory/ chưa có, khởi tạo không?" và dừng
-- Giữ orientation summary dưới 10 dòng — đủ để orient, không cần đọc thêm
-- Nếu VERSION file không tồn tại → ghi "(xem VERSION file — không tìm thấy)"
+- KHÔNG đọc project-state.md (tốn token) — chỉ đọc khi user yêu cầu rõ
+- Giữ orientation summary dưới 8 dòng — đủ để orient, không cần đọc thêm
+- Nếu VERSION file không tồn tại → ghi "(VERSION file — không tìm thấy)"
 
 ## Ví dụ output
 
 ```
-**Session orientation — Guide Claude v3.5**
-- Last session (2026-03-02): Task 3 hoàn thành — update 4 modules + cross-reference sweep
-- Active tasks: Task 2 (Skills), Task 4 (_scaffold/), Task 5 (version bump → v4.0)
-- Suggested next: Task 2 — tạo Skills cho .claude/skills/ (đang làm)
+**Session orientation — Guide Claude v4.1**
+- Last commit: 13f41da Thêm 4 core slash commands
+- Working tree: 3 modified, 0 untracked
+- Suggested next: Cross-ref sweep cho modules chưa update (01, 03, 06–09)
 ```
