@@ -1,0 +1,36 @@
+> Claude Guide cho Kỹ sư Phenikaa-X
+> Bộ tài liệu hướng dẫn kỹ sư tại Phenikaa-X sử dụng Claude AI
+> cho công việc kỹ thuật (AMR, ROS, SLAM, Lidar).
+> Ngôn ngữ: Tiếng Việt, thuật ngữ kỹ thuật tiếng Anh.
+
+## Modules
+
+- guide/00-overview.md: Giới thiệu tổng quan, changelog
+- guide/01-quick-start.md: Bắt đầu nhanh với Claude
+- guide/02-setup-personalization.md: Cấu hình và cá nhân hóa
+- guide/03-prompt-engineering.md: Kỹ thuật viết prompt hiệu quả
+- guide/04-context-management.md: Quản lý context window
+- guide/05-workflow-recipes.md: Quy trình làm việc mẫu
+- guide/06-tools-features.md: Tính năng và công cụ Claude
+- guide/07-template-library.md: Thư viện template prompt
+- guide/08-mistakes-fixes.md: Lỗi thường gặp và cách sửa
+- guide/09-evaluation-framework.md: Framework đánh giá output
+- guide/10-claude-desktop-cowork.md: Claude Desktop, Cowork setup, security, troubleshooting
+- guide/11-cowork-workflows.md: 12 workflow templates cho Cowork (AMR engineering focus)
+
+## Reference
+
+- guide/reference/config-architecture.md: 6 lớp cấu hình Claude (SSOT)
+- guide/reference/skills-list.md: Danh sách skills và plugins
+
+## Key Concepts
+
+- AMR (Autonomous Mobile Robot)
+- Cowork: Claude Desktop agentic feature cho knowledge workers
+- CLAUDE.md: Folder Instructions cho Claude Code/Cowork
+- Scheduled Tasks: tác vụ tự động định kỳ
+- Skills: slash commands mở rộng tính năng
+
+## Audience
+
+Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X

@@ -9,8 +9,9 @@ Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 11 modules 
 
 ## Folder structure
 ```
-guide/                  11 module files (00→10) + reference/
+guide/                  12 module files (00→11) + reference/
 guide/reference/        config-architecture.md, skills-list.md
+machine-readable/       llms.txt (machine-readable index theo convention Florian Bruniaux)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
 .claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
@@ -88,6 +89,7 @@ VERSION                 SSOT cho version number
 | Range | Status |
 |-------|--------|
 | 00–10 | Sprint-patched v4.2 — 10/11 modules 🟢, modules 05+10 cần polish |
+| 11 | New v5.0 🔵 — 12 workflow templates, chưa audit |
 | reference/ | config-architecture 🟢 8.0, skills-list 🟡 7.5 (cần currency check) |
 
 ## Khi nào update file này
