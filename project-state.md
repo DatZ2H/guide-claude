@@ -15,15 +15,15 @@ Development — đang iterate, chưa publish. Mục tiêu: 11 modules hoàn ch�
 | 02 | guide/02-setup-personalization.md | 8.0 🟢 | Sprint-patched v4.2 |
 | 03 | guide/03-prompt-engineering.md | 8.8 🟢 | Sprint-patched v4.2 |
 | 04 | guide/04-context-management.md | 8.0 🟢 | Sprint-patched v4.2 |
-| 05 | guide/05-workflow-recipes.md | 7.8 🟡 | Sprint-patched v4.2 — cần polish |
-| 06 | guide/06-tools-features.md | 8.3 🟢 | Sprint-patched v4.2 |
+| 05 | guide/05-workflow-recipes.md | 7.8 🟡 | Updated v5.0 — thêm 2 Cowork recipes |
+| 06 | guide/06-tools-features.md | 8.3 🟢 | Updated v5.0 — Sonnet 4.6 default |
 | 07 | guide/07-template-library.md | 8.8 🟢 | Sprint-patched v4.2 |
 | 08 | guide/08-mistakes-fixes.md | 8.0 🟢 | Sprint-patched v4.2 |
 | 09 | guide/09-evaluation-framework.md | 8.8 🟢 | Sprint-patched v4.2 |
-| 10 | guide/10-claude-desktop-cowork.md | 7.8 🟡 | Sprint-patched v4.2 — cần polish |
-| 11 | guide/11-cowork-workflows.md | — 🔵 | New v5.0 — 12 workflow templates |
+| 10 | guide/10-claude-desktop-cowork.md | TBD 🟡 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting |
+| 11 | guide/11-cowork-workflows.md | TBD 🔵 | New v5.0 — 12 workflow templates |
 | ref | guide/reference/config-architecture.md | 8.0 🟢 | Sprint-patched v4.2 |
-| ref | guide/reference/skills-list.md | 7.5 🟡 | Cần currency check |
+| ref | guide/reference/skills-list.md | 7.5 🟡 | Updated v5.0 — enterprise plugins |
 
 > Audit cycle v4.2: 24/25 issues resolved, overall health 8.3/10. Sẵn sàng internal review.
 
