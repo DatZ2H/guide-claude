@@ -37,7 +37,7 @@ VERSION                 SSOT cho version number
 - **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
 
 ## Rules — PHẢI tuân thủ
-1. **Git-first backup:** Chạy `/checkpoint` trước khi bắt đầu edit module lớn. File `.bak` không nên tạo (đã trong `.gitignore`) — trừ khi làm việc offline không có Git access.
+1. **Git-first backup:** Chạy `/checkpoint` trước khi bắt đầu edit module lớn. File `.bak` không nên tạo (đã thêm vào `.gitignore`) — trừ khi làm việc offline không có Git access.
 2. **Check version:** khi edit module → đọc `VERSION` trước
 3. **Version bump:** sửa `VERSION` trước — module headers tự reflect, KHÔNG sửa thủ công từng file
 4. **No destructive git:** KHÔNG force push, reset --hard, hoặc xóa branch mà không hỏi user
