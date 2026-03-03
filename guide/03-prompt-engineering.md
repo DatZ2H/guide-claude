@@ -295,7 +295,7 @@ Với task phức tạp (debugging, so sánh, phân tích), hướng dẫn Claud
 [Nguồn: Anthropic Docs - Let Claude think (chain of thought)]
 URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/chain-of-thought
 
-**Lưu ý:** Claude 4.x có Adaptive Thinking -- tự động quyết định khi nào cần suy nghĩ sâu. Bạn không cần luôn nói "think step-by-step". Chỉ dùng khi muốn kiểm soát quy trình suy luận cụ thể.
+**Lưu ý:** Khi bật Extended thinking (UI toggle), Claude TỰ ĐỘNG suy luận từng bước. Bạn không cần luôn nói "think step-by-step". Chỉ dùng chain-of-thought khi muốn kiểm soát quy trình suy luận cụ thể mà không bật Extended thinking.
 
 **So sánh:**
 

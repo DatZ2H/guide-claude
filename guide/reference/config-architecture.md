@@ -16,7 +16,7 @@ Claude có 6 lớp cấu hình, chia theo hai surface chính. Mỗi lớp có sc
 SCOPE: GLOBAL (tất cả conversations/tasks)
 │
 ├── [claude.ai]  Profile Preferences      → Settings > Profile
-├── [Cowork]     Global CLAUDE.md         → ~/.claude/CLAUDE.md (file)
+├── [CC]         Global CLAUDE.md         → ~/.claude/CLAUDE.md (file, không phải UI setting)
 │
 SCOPE: PROJECT/FOLDER (một nhóm công việc cụ thể)
 │
@@ -38,7 +38,7 @@ SCOPE: ON-DEMAND (chạy khi gọi)
 | Lớp | Surface | Vị trí | Scope | Versioning | Shareable | Thay đổi khi nào |
 |-----|---------|--------|-------|------------|-----------|-----------------|
 | Profile Preferences | Claude.ai | Settings > Profile | Account-wide | Không (UI) | Không | Role/context của bạn thay đổi |
-| Global CLAUDE.md | Cowork | `~/.claude/CLAUDE.md` | Tất cả tasks | Không (user-level) | Không tự động | Identity/toolchain thay đổi |
+| Global CLAUDE.md | CC (file) | `~/.claude/CLAUDE.md` | Tất cả tasks | Không (user-level) | Không tự động | Identity/toolchain thay đổi |
 | Project Instructions | Claude.ai | Project Settings | Một Project | Không (UI) | Không | Mục đích project thay đổi |
 | Project Knowledge | Claude.ai | Project > Content | Một Project | Không (UI) | Với team | Có tài liệu mới |
 | Folder Instructions | Cowork | `project/.claude/CLAUDE.md` | Một folder | **Có** (Git) | **Có** (commit) | Project structure thay đổi |
@@ -168,13 +168,14 @@ Project Knowledge/
 | Shareable | Có (commit) | Không |
 | Scope | Một folder | Một Project |
 
-**3-Tier Architecture:** Folder Instructions là trung tâm của pattern:
+**2-Tier Architecture:** Folder Instructions là trung tâm của pattern:
 ```
 project/
 ├── .claude/
 │   ├── CLAUDE.md    ← Folder Instructions (bạn đang ở đây)
 │   └── skills/      ← On-demand workflows
-└── _memory/         ← Session persistence
+├── _memory/         ← (deprecated — dùng git history thay thế)
+└── project-state.md ← Project overview
 ```
 
 **Template:** → Xem `_scaffold/.claude/CLAUDE-template.md`
@@ -287,8 +288,8 @@ _scaffold/
 ├── global-instructions/            ← Template Global CLAUDE.md (tham khảo)
 │   └── global-CLAUDE-phenikaa-x.md
 │
-└── memory-starter/
-    ├── session-state.md
+└── memory-starter/             ← DEPRECATED (Phase 5, 2026) — pattern "_memory/" đã bỏ
+    ├── session-state.md            Không dùng template này cho project mới
     └── decisions-log.md
 ```
 

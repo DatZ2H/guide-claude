@@ -6,7 +6,9 @@
 ## Folder structure
 - {{content_folder}}/ — {{content_folder_description}}
 - .claude/skills/ — {{skills_description}}
-- _memory/ — session-state.md + decisions-log.md
+- .claude/commands/ — slash commands (/start, /checkpoint, v.v.)
+- .claude/SETUP.md — maintainer guide (skills, commands, conventions)
+- .claude/settings.json — project automation settings (hooks, permissions)
 - project-state.md — context transfer document (briefing cho Project Chat khi cần)
 - VERSION — single source of truth cho version number
 
@@ -14,11 +16,6 @@
 - {{language_conventions}}
 - {{naming_conventions}}
 - {{source_marker_conventions}}
-
-## Memory protocol
-- Đầu session: đọc `_memory/session-state.md` và `_memory/decisions-log.md`
-- Khi quyết định quan trọng: append vào `_memory/decisions-log.md`
-- Cuối session: update `_memory/session-state.md`
 
 ## Rules
 - {{specific_rules}}

@@ -33,7 +33,7 @@ Tích hợp sẵn trên mọi surface (claude.ai, Cowork, Claude Code, API). Cla
 
 | Tên | Mô tả ngắn | Repository URL | Cài đặt |
 |-----|-------------|----------------|---------|
-| `doc-coauthoring` | Workflow co-authoring tài liệu có cấu trúc | github.com/anthropics/skills/tree/main/skills/doc-coauthoring | Xem hướng dẫn bên dưới |
+| `doc-coauthoring` | Workflow co-authoring tài liệu có cấu trúc | github.com/anthropics/skills/tree/main/skills/doc-coauthoring [Cần xác minh] | Xem hướng dẫn bên dưới |
 | `internal-comms` | Template viết internal communications | github.com/anthropics/skills/tree/main/skills/internal-comms | Xem hướng dẫn bên dưới |
 | `skill-creator` | Tạo mới, sửa, đo lường hiệu quả skill | github.com/anthropics/skills/tree/main/skills/skill-creator | Xem hướng dẫn bên dưới |
 
@@ -53,7 +53,7 @@ Cách cài đặt theo từng surface:
 | `product-management` | Hỗ trợ PM workflows (PRD, roadmap, specs) | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/product-management | Xem hướng dẫn bên dưới |
 | `data` | Phân tích dữ liệu, visualization | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/data | Xem hướng dẫn bên dưới |
 
-Anthropic cung cấp 11 plugins chính thức tại repo `anthropics/knowledge-work-plugins`. Ngoài 3 plugin liệt kê ở đây, còn có: sales, marketing, finance, legal, customer-support, enterprise-search, bio-research, cowork-plugin-management.
+Anthropic cung cấp 11+ plugins chính thức tại repo `anthropics/knowledge-work-plugins`. Ngoài 3 plugin liệt kê ở đây, còn có: sales, marketing, finance, legal, customer-support, enterprise-search, bio-research, cowork-plugin-management. [Cập nhật 03/2026 — kiểm tra repo để xem danh sách mới nhất]
 
 Cách cài đặt theo từng surface:
 
@@ -68,24 +68,24 @@ Cách cài đặt theo từng surface:
 
 ### 5a. Từ skillhub.club
 
-| ID | Tên | Author | skillhub URL | CLI install |
-|----|-----|--------|--------------|-------------|
-| SH1 | `docs-review` | @metabase | skillhub.club/skills/metabase-metabase-docs-review | `npx @skill-hub/cli install docs-review` |
-| SH2 | `obsidian-markdown` | @kepano | skillhub.club/skills/kepano-obsidian-markdown | `npx @skill-hub/cli install obsidian-markdown` |
-| SH3 | `voice-and-tone` | @lerianstudio | skillhub.club/skills/lerianstudio-voice-and-tone | `npx @skill-hub/cli install voice-and-tone` |
-| SH4 | `mermaidjs-v11` | @mrgoonie | skillhub.club/skills/mrgoonie-mermaidjs-v11 | `npx @skill-hub/cli install mermaidjs-v11` |
-| SH5 | `knowledge-capture` | @rsmdt | skillhub.club/skills/rsmdt-knowledge-capture | `npx @skill-hub/cli install knowledge-capture` |
-| SH6 | `technical-clarity` | @panaversity | skillhub.club/skills/panaversity-technical-clarity | `npx @skill-hub/cli install technical-clarity` |
-| SH7 | `troubleshooting-docs` | @glittercowboy | skillhub.club/skills/glittercowboy-troubleshooting-docs | `npx @skill-hub/cli install troubleshooting-docs` |
-| SH8 | `organizing-documentation` | @cipherstash | skillhub.club/skills/cipherstash-organizing-documentation | `npx @skill-hub/cli install organizing-documentation` |
-| SH9 | `architecture-design` | @rsmdt | skillhub.club/skills/rsmdt-architecture-design | `npx @skill-hub/cli install architecture-design` |
-| SH10 | `specification-management` | @rsmdt | skillhub.club/skills/rsmdt-specification-management | `npx @skill-hub/cli install specification-management` |
-| SH11 | `document-converter` | @benbrastmckie | skillhub.club/skills/benbrastmckie-document-converter | `npx @skill-hub/cli install document-converter` |
-| SH12 | `technical-writing` | @rsmdt | skillhub.club/skills/rsmdt-technical-writing | `npx @skill-hub/cli install technical-writing` |
-| SH13 | `format-markdown-table` | @maslennikov-ig | skillhub.club/skills/maslennikov-ig-format-markdown-table | `npx @skill-hub/cli install format-markdown-table` |
-| SH14 | `context-optimization` | @muratcankoylan | skillhub.club/skills/muratcankoylan-agent-skills-for-context-engineering-context-optimization | `npx @skill-hub/cli install context-optimization` |
-| SH15 | `documentation-review` | @lerianstudio | skillhub.club/skills/lerianstudio-documentation-review | `npx @skill-hub/cli install documentation-review` |
-| SH16 | `md-docs` | @paulrberg | skillhub.club/skills/paulrberg-md-docs | `npx @skill-hub/cli install md-docs` |
+| ID   | Tên                        | Author          | skillhub URL                                                                                  | CLI install                                           |
+| ---- | -------------------------- | --------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| SH1  | `docs-review`              | @metabase       | skillhub.club/skills/metabase-metabase-docs-review                                            | `npx @skill-hub/cli install docs-review`              |
+| SH2  | `obsidian-markdown`        | @kepano         | skillhub.club/skills/kepano-obsidian-markdown                                                 | `npx @skill-hub/cli install obsidian-markdown`        |
+| SH3  | `voice-and-tone`           | @lerianstudio   | skillhub.club/skills/lerianstudio-voice-and-tone                                              | `npx @skill-hub/cli install voice-and-tone`           |
+| SH4  | `mermaidjs-v11`            | @mrgoonie       | skillhub.club/skills/mrgoonie-mermaidjs-v11                                                   | `npx @skill-hub/cli install mermaidjs-v11`            |
+| SH5  | `knowledge-capture`        | @rsmdt          | skillhub.club/skills/rsmdt-knowledge-capture                                                  | `npx @skill-hub/cli install knowledge-capture`        |
+| SH6  | `technical-clarity`        | @panaversity    | skillhub.club/skills/panaversity-technical-clarity                                            | `npx @skill-hub/cli install technical-clarity`        |
+| SH7  | `troubleshooting-docs`     | @glittercowboy  | skillhub.club/skills/glittercowboy-troubleshooting-docs                                       | `npx @skill-hub/cli install troubleshooting-docs`     |
+| SH8  | `organizing-documentation` | @cipherstash    | skillhub.club/skills/cipherstash-organizing-documentation                                     | `npx @skill-hub/cli install organizing-documentation` |
+| SH9  | `architecture-design`      | @rsmdt          | skillhub.club/skills/rsmdt-architecture-design                                                | `npx @skill-hub/cli install architecture-design`      |
+| SH10 | `specification-management` | @rsmdt          | skillhub.club/skills/rsmdt-specification-management                                           | `npx @skill-hub/cli install specification-management` |
+| SH11 | `document-converter`       | @benbrastmckie  | skillhub.club/skills/benbrastmckie-document-converter                                         | `npx @skill-hub/cli install document-converter`       |
+| SH12 | `technical-writing`        | @rsmdt          | skillhub.club/skills/rsmdt-technical-writing                                                  | `npx @skill-hub/cli install technical-writing`        |
+| SH13 | `format-markdown-table`    | @maslennikov-ig | skillhub.club/skills/maslennikov-ig-format-markdown-table                                     | `npx @skill-hub/cli install format-markdown-table`    |
+| SH14 | `context-optimization`     | @muratcankoylan | skillhub.club/skills/muratcankoylan-agent-skills-for-context-engineering-context-optimization | `npx @skill-hub/cli install context-optimization`     |
+| SH15 | `documentation-review`     | @lerianstudio   | skillhub.club/skills/lerianstudio-documentation-review                                        | `npx @skill-hub/cli install documentation-review`     |
+| SH16 | `md-docs`                  | @paulrberg      | skillhub.club/skills/paulrberg-md-docs                                                        | `npx @skill-hub/cli install md-docs`                  |
 
 ### 5b. Từ GitHub
 

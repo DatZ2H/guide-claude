@@ -211,7 +211,7 @@ Tài liệu này là kết quả merge từ 2 nguồn:
 Các thay đổi so với cả hai nguồn:
 
 - Cập nhật model mới: Claude Opus 4.6, Sonnet 4.6 (1M context beta), Haiku 4.5
-- Adaptive Thinking là phương thức khuyến nghị, thay cho Extended Thinking (deprecated) — hỗ trợ Opus 4.6 và Sonnet 4.6
+- Extended thinking (UI toggle) có trên Opus 4.6 và Sonnet 4.6 — bật trong "Search and tools"
 - Prefill Response đã deprecated từ Claude 4.6 -- loại bỏ khỏi tài liệu
 - Thêm MCP Connectors mở rộng (Notion, Jira, v.v.)
 - Context Awareness -- tính năng mới cho Opus 4.6 và Sonnet 4.6
@@ -252,23 +252,20 @@ Guide Claude/
 │
 ├── .claude/                      ← Infrastructure (cho tác giả)
 │   ├── CLAUDE.md                 Folder Instructions — Project context & rules
+│   ├── settings.json             Hooks (SessionStart)
+│   ├── commands/                 Slash commands (/start, /checkpoint...)
 │   └── skills/                   Skills on-demand cho documentation workflow
-│
-├── _memory/                      ← Persistence qua sessions
-│   ├── session-state.md          Trạng thái session hiện tại, active tasks
-│   └── decisions-log.md          Log quyết định + rationale
 │
 ├── _scaffold/                    ← Starter templates cho project Cowork mới
 │   ├── README-scaffold.md        Hướng dẫn setup
 │   ├── CLAUDE-template.md        Template Folder Instructions
 │   ├── project-state-template.md Template context transfer doc
 │   ├── VERSION                   Giá trị khởi đầu "1.0"
-│   ├── memory-starter/           Starter files cho _memory/
 │   ├── skill-templates/          Template tạo skill mới (tham khảo)
 │   ├── project-instructions/     Templates cho claude.ai Project Instructions
 │   └── global-instructions/      Template Global CLAUDE.md cho Cowork
 │
-├── project-state.md              ← Context transfer document (paste vào Project Chat khi cần)
+├── project-state.md              ← Project overview (cho người đọc)
 └── VERSION                       ← Version number (single source of truth)
 ```
 

@@ -320,7 +320,7 @@ Khi dùng cả Project Chat và Cowork, phần lớn công việc nên diễn ra
 | Layer | Chứa gì | Ở đâu | Vai trò |
 |-------|---------|-------|---------|
 | **Layer 1: Constitution** | `project-state.md` + Custom Instructions | Project Knowledge | Briefing context khi brainstorm trên Project Chat |
-| **Layer 2: Working Directory** | Toàn bộ module files, drafts, `_memory/` | Cowork folder | Nơi làm việc chính (Cowork-primary) |
+| **Layer 2: Working Directory** | Toàn bộ module files, drafts, `.claude/` | Cowork folder | Nơi làm việc chính (Cowork-primary) |
 
 **Quy tắc:**
 
@@ -454,14 +454,16 @@ Memory Synthesis là feature cho phép Claude tổng hợp và lưu thông tin t
 
 ### Điều quan trọng cần nhớ
 
-**Memory CÓ hoạt động trong Projects — với memory space riêng cho mỗi Project.** Mỗi Project có memory space isolated, tách biệt với global memory và các Projects khác. Điều này đảm bảo context không bị lẫn giữa các dự án.
+**Memory chỉ hoạt động trong conversations thường (standalone) — KHÔNG trong Projects.**
 
-| Làm việc ở đâu | Memory space | Context đến từ đâu |
-|----------------|-------------|---------------------|
-| Conversation thường (không trong Project) | **Global memory** | Global memory + conversation hiện tại |
-| Conversation trong Project | **Project memory (riêng)** | Project Instructions + Knowledge + Project memory + conversation hiện tại |
+Khi bạn chat trong một Project, Memory feature không áp dụng. "Bộ nhớ" của Project đến từ **Project Instructions** và **Project Knowledge** — hai thứ bạn thiết lập thủ công, không phải do Claude tự học.
 
-[Cập nhật 03/2026 — Memory trong Projects đã được Anthropic triển khai với project-scoped architecture]
+| Làm việc ở đâu | Memory có dùng? | Context đến từ đâu |
+|----------------|:---------------:|---------------------|
+| Conversation thường (standalone) | **Có** | Memory synthesis + conversation hiện tại |
+| Conversation trong Project | **Không** | Project Instructions + Project Knowledge + conversation hiện tại |
+
+> **Tóm lại:** Dùng Memory cho preferences cá nhân xuyên suốt (không cần Project). Dùng Project Instructions + Knowledge để "nhớ" context trong một dự án cụ thể.
 
 ### Quản lý Memory
 
@@ -573,7 +575,7 @@ flowchart TD
     A["Profile Preferences"] --> B["Ap dung GLOBAL\n(moi conversation)"]
     C["Project Instructions"] --> D["Ap dung trong PROJECT\n(override Profile)"]
     E["Styles"] --> F["Ap dung theo STYLE duoc chon\n(format, tone)"]
-    G["Memory"] --> H["Ap dung cross-conversation\n(global + project-scoped)"]
+    G["Memory"] --> H["Ap dung cross-conversation\n(chi standalone, khong trong Project)"]
 
     B --> I["Claude responds"]
     D --> I
@@ -586,9 +588,9 @@ flowchart TD
 | **Profile Preferences** | Tất cả conversations | Thấp nhất (bị override bởi Project Instructions) | 1 lần, cập nhật khi đổi role |
 | **Project Instructions** | Conversations trong Project | Cao nhất | Mỗi khi tạo Project mới |
 | **Styles** | Conversation đang dùng Style đó | Song song với Instructions | Chọn theo task |
-| **Memory** | Global + Project-scoped (cross-conversation) | Bổ sung | Tự động (hoặc tắt) |
+| **Memory** | Standalone conversations (cross-conversation) | Bổ sung | Tự động (hoặc tắt) |
 
-**Quy tắc ưu tiên:** Khi có conflict, Project Instructions > Profile Preferences. Memory trong Projects dùng project-scoped space riêng, không chia sẻ với global memory.
+**Quy tắc ưu tiên:** Khi có conflict, Project Instructions > Profile Preferences. Memory chỉ áp dụng trong standalone conversations — không hoạt động trong Projects.
 
 ---
 

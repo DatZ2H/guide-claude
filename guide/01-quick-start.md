@@ -156,7 +156,7 @@ Hoàn thành checklist sau để xác nhận bạn đã nắm cơ bản:
 
 **3. Đừng ngại yêu cầu lại (iterate).** Nếu kết quả chưa đúng ý, nói cụ thể điều gì chưa đúng. Thay vì "Làm lại đi" (Claude không biết sửa gì), hãy nói "Phần Safety cần chi tiết hơn, rút ngắn mỗi section còn 3 bullet points."
 
-**4. Mỗi conversation là một context riêng.** Claude không nhớ gì giữa các cuộc hội thoại trừ khi bật Memory. Nếu chuyển từ "debug Lidar" sang "viết SOP charging", hãy tạo conversation mới.
+**4. Mỗi conversation là một context riêng.** Claude không nhớ gì giữa các cuộc hội thoại trừ khi bật Memory (Settings > Capabilities — có trên mọi plan). Nếu chuyển từ "debug Lidar" sang "viết SOP charging", hãy tạo conversation mới.
 
 **5. Claude sẽ nói "tôi không biết".** Đây là điểm mạnh, không phải điểm yếu. Nếu Claude không chắc, nó sẽ nói thẳng thay vì bịa ra câu trả lời. Tuy nhiên, luôn verify thông tin quan trọng -- không AI nào hoàn hảo 100%.
 

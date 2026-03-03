@@ -1003,7 +1003,7 @@ Cowork dùng **Sonnet 4.6 mặc định** với context window lên đến **1M 
 | Conversation messages (bạn + Claude) | | ✅ |
 | Tool calls + results (đọc file, tạo file, v.v.) | | ✅ |
 
-**Khi context tiến gần giới hạn**, Cowork dùng cơ chế **context editing** — tự động loại bỏ tool calls và kết quả cũ (stale) khỏi context, giữ lại conversation flow. Anthropic report cơ chế này giảm ~72.5% token consumption.
+**Khi context tiến gần giới hạn**, Cowork dùng cơ chế **compaction** (context compaction) — tự động nén tool calls và kết quả cũ (stale) khỏi context, giữ lại conversation flow.
 
 **Dấu hiệu context đang đầy** (quan sát thực tế):
 
@@ -1269,6 +1269,8 @@ CLAUDE.md là file instructions mà CC đọc tự động khi mở session tron
 > **Mẹo:** Giữ CLAUDE.md dưới 80 dòng. Rules càng ngắn, Claude tuân thủ càng tốt. Chi tiết workflow đặt trong slash commands và skills.
 
 ### 10.13.3 Slash commands cho documentation
+
+> **Lưu ý:** Slash commands (`.claude/commands/`) phù hợp cho workflow tuần tự đơn giản. Với capabilities phức tạp hơn — on-demand loading, nhiều bước có điều kiện, reusable across projects — dùng **Skills** (`.claude/skills/`, xem mục 10.12). Hai format có thể dùng song song trong cùng project.
 
 Slash commands là file markdown trong `.claude/commands/` — mỗi file định nghĩa 1 workflow mà bạn gọi bằng `/tên-command`. Đây là cách biến prompt dài thành lệnh ngắn, tiết kiệm token và đảm bảo quy trình nhất quán.
 

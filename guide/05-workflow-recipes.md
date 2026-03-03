@@ -123,7 +123,7 @@ Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất h
 
 **Khi nào dùng:** Debug lỗi hệ thống, phân tích log, xác định root cause.
 
-**Setup:** Nên bật Adaptive Thinking cho các case phức tạp (nhiều module liên quan). Upload log files trực tiếp.
+**Setup:** Nên bật Extended thinking cho các case phức tạp (nhiều module liên quan). Upload log files trực tiếp.
 
 ### Prompt chuẩn
 
@@ -156,9 +156,9 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 </requirements>
 ```
 
-### Khi nào bật Adaptive Thinking
+### Khi nào bật Extended thinking
 
-| Bật Adaptive Thinking | Không cần |
+| Bật Extended thinking | Không cần |
 |----------------------|-----------|
 | Log có nhiều warning từ nhiều module | Lỗi đơn giản, error message rõ ràng |
 | Cần phân biệt nguyên nhân gốc vs. hệ quả dây chuyền | Đã biết nguyên nhân, chỉ cần fix |
@@ -475,7 +475,7 @@ flowchart TD
 **Setup cần thiết:**
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
-- Thư mục project đã có `_memory/` folder (xem Module 04, mục 4.7)
+- Thư mục project đã có `.claude/CLAUDE.md` (xem Module 10, mục 10.13)
 - Project Knowledge chỉ chứa `project-state.md` (xem Module 04, mục 4.9 — Two-Layer Knowledge)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
@@ -504,14 +504,14 @@ flowchart TD
 | **4. Draft** | Project (iterate nội dung) hoặc Cowork (ghi file) | Project: Custom Instructions giữ tone nhất quán. Cowork: output thẳng vào file | "Viết section {{tên}} theo outline. Tuân thủ style guide trong Project Knowledge." |
 | **5. Review** | Project | So sánh draft với glossary, style guide đã upload | "Review file {{tên}} theo 6 tiêu chí (Recipe 5.2). So sánh với glossary.md." |
 | **6. Finalize** | Cowork | Batch operations: chuyển format, tổ chức, rename | "Chuyển tất cả file .md trong drafts/ sang .docx trong output/. Thêm header chuẩn." |
-| **7. Update** *(optional)* | Cowork → Project Knowledge | Export trạng thái → upload khi cần briefing Project Chat | "Cập nhật project-state.md từ _memory/ và file system hiện tại. Output sẵn sàng upload vào Project Knowledge." |
+| **7. Update** *(optional)* | Cowork → Project Knowledge | Export trạng thái → upload khi cần briefing Project Chat | "Cập nhật project-state.md từ git log và file system hiện tại. Output sẵn sàng upload vào Project Knowledge." |
 
 ### Prompts chi tiết cho từng giai đoạn
 
 **Giai đoạn 3 — Setup folder qua Cowork:**
 
 ```
-Đọc file _memory/session-state.md nếu có.
+Đọc CLAUDE.md và git log --oneline -10 nếu có.
 
 Tạo cấu trúc thư mục cho dự án "{{tên dự án}}":
 
@@ -520,14 +520,14 @@ Tạo cấu trúc thư mục cho dự án "{{tên dự án}}":
 - output/          — file hoàn chỉnh
 - references/      — tài liệu tham khảo
 - templates/       — mẫu tài liệu
-- _memory/         — context cho Cowork sessions (session-state.md + decisions-log.md)
+- .claude/         — Folder Instructions + skills
 
 Tạo file placeholder (.md) cho mỗi section trong outline:
 {{danh sách sections}}
 
 Mỗi file placeholder chứa: heading, mục đích section (1 dòng), "[TBD]".
 
-Sau khi tạo xong, update _memory/session-state.md với danh sách files đã tạo.
+Sau khi tạo xong, commit với message mô tả cấu trúc đã tạo.
 ```
 
 **Giai đoạn 4 — Draft nội dung qua Project Chat:**

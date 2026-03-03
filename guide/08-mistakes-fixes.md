@@ -123,15 +123,15 @@ File ở xa trong context dễ bị "quên".
 
 ## 8.4 Nhóm 4: Sử dụng tools không hiệu quả
 
-### Lỗi: Bật Adaptive Thinking cho mọi câu hỏi
+### Lỗi: Bật Extended thinking cho mọi câu hỏi
 
-Adaptive Thinking tốn thời gian và tokens. Không cần cho Q&A đơn giản.
+Extended thinking tốn thời gian và tokens. Không cần cho Q&A đơn giản.
 
 **Fix:** Chỉ bật cho: debug phức tạp, phân tích multi-module, so sánh giải pháp, code review lớn. Tắt cho: hỏi đáp nhanh, viết email, format tài liệu.
 
 ### Lỗi: Connect quá nhiều MCP Connectors
 
-Mỗi connector tốn context tokens ngay cả khi không dùng.
+Connector chỉ tốn tokens khi được gọi trong conversation. Tuy nhiên, connect quá nhiều tăng complexity và rủi ro chia sẻ data không cần thiết.
 
 **Fix:** Chỉ connect services thực sự cần. Disconnect khi xong.
 
@@ -141,13 +141,13 @@ Mỗi conversation lại phải giải thích context, standards, format từ đ
 
 **Fix:** Tạo Project với Instructions và Knowledge. Chi tiết: Module 02.
 
-### Lỗi: Thêm "think step-by-step" khi đã bật Adaptive Thinking
+### Lỗi: Thêm "think step-by-step" khi đã bật Extended thinking
 
-Khi Adaptive Thinking đã bật, Claude TỰ ĐỘNG suy luận từng bước. Thêm instructions thừa có thể làm giảm hiệu quả.
+Khi Extended thinking đã bật, Claude TỰ ĐỘNG suy luận từng bước. Thêm instructions thừa có thể làm giảm hiệu quả.
 
-[Nguồn: Anthropic Docs - Adaptive Thinking Tips]
+[Nguồn: Anthropic Docs - Extended Thinking Tips]
 
-**Fix:** Khi bật Adaptive Thinking, viết prompt đơn giản và rõ ràng. Bỏ chain-of-thought instructions.
+**Fix:** Khi bật Extended thinking, viết prompt đơn giản và rõ ràng. Bỏ chain-of-thought instructions.
 
 ---
 
@@ -356,7 +356,7 @@ Output khong dung y?
 Claude khong nho context?
 |-- Chat thuong          --> Dung Projects
 |-- Da trong Project     --> Kiem tra instructions
-|-- Can nho dai han      --> Bat Memory (Pro)
+|-- Can nho dai han      --> Bat Memory
 
 Chat luong giam?
 |-- Chat qua dai         --> Bat dau chat moi
