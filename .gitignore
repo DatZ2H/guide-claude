@@ -15,4 +15,5 @@ desktop.ini
 # OneDrive conflict files
 *-conflict-*
 #
-*.bak
+*.bak*
+.claude/settings.local.json
