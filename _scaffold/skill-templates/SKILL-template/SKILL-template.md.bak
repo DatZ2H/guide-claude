@@ -1,0 +1,52 @@
+---
+name: {{skill_name}}
+description: {{one_line_description}}
+---
+
+# {{Skill Title}}
+
+## Khi nào activate
+Skill này được trigger khi:
+- {{trigger_condition_1}}
+- {{trigger_condition_2}}
+
+## Input cần có
+- {{required_input_1}}
+- {{required_input_2}}
+
+## Workflow
+
+1. **{{step_1_name}}** — {{step_1_description}}
+2. **{{step_2_name}}** — {{step_2_description}}
+3. **{{step_3_name}}** — {{step_3_description}}
+
+## Output
+
+{{describe_what_the_skill_produces}}
+
+## Rules
+- {{rule_1}}
+- {{rule_2}}
+- KHÔNG thực hiện nếu thiếu {{critical_input}} — hỏi user trước
+
+---
+<!-- HƯỚNG DẪN TẠO SKILL MỚI (xóa section này sau khi điền xong)
+
+Thay các {{placeholder}} sau:
+
+{{skill_name}}              → Tên ngắn gọn dùng để gọi skill, ví dụ: "session-start"
+{{one_line_description}}    → 1 câu mô tả skill làm gì và khi nào dùng
+{{Skill Title}}             → Tiêu đề đầy đủ, ví dụ: "Session Start Workflow"
+{{trigger_condition_1..2}}  → Khi nào Claude nên activate skill này (từ khóa, tình huống)
+{{required_input_1..2}}     → Những gì Claude cần có trước khi chạy skill
+{{step_1..3_name}}          → Tên ngắn cho từng bước
+{{step_1..3_description}}   → Mô tả chi tiết bước đó làm gì
+{{output_description}}      → Skill produce ra gì? File? Message? Action?
+{{rule_1..2}}               → Constraints quan trọng (KHÔNG làm X nếu Y, luôn confirm trước khi Z)
+{{critical_input}}          → Input bắt buộc phải có, thiếu thì không chạy
+
+Đặt file này tại: .claude/skills/{{skill_name}}.md
+Trong .claude/CLAUDE.md thêm dòng: "Skills: {{skill_name}} — {{one_line_description}}"
+
+Xóa toàn bộ section comment này trước khi lưu.
+-->
