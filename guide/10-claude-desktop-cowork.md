@@ -245,19 +245,13 @@ cho vận hành hệ thống AMR tại nhà máy Phenikaa-X.
 
 ## Folder structure
 - guide/ — 11 module files (00-overview đến 10-claude-desktop-cowork) + reference/
-- _memory/ — session-state.md + decisions-log.md
-- project-state.md — context transfer document (briefing cho Project Chat khi cần)
+- project-state.md — project overview
 - VERSION — single source of truth cho version number
 
 ## Conventions
 - Language: Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
 - Source markers: [Nguồn: ...] cho official, [Ứng dụng Kỹ thuật] cho applied examples
 - File naming: lowercase, dấu gạch ngang, có số thứ tự module (01-, 02-...)
-
-## Memory protocol
-- Đầu session: đọc _memory/session-state.md và _memory/decisions-log.md
-- Khi quyết định quan trọng: append vào _memory/decisions-log.md
-- Cuối session: update _memory/session-state.md
 
 ## Rules
 - KHÔNG sửa file trong guide/ mà không tạo backup (.bak) trước
@@ -467,7 +461,7 @@ Skills được lưu tại `.claude/skills/` trong thư mục project — đây 
 .claude/
 ├── CLAUDE.md              ← Folder Instructions (xem mục 10.4)
 └── skills/                ← Project-level skills
-    ├── session-start/     ← Orient đầu session, đọc _memory/, gợi ý next action
+    ├── session-start/     ← Orient đầu session, đọc git history, gợi ý next action
     ├── cross-ref-checker/ ← Scan stale references trước khi release
     ├── module-review/     ← Checklist 5 tiêu chí quality review
     └── version-bump/      ← Workflow chốt version: VERSION + changelog + project-state
@@ -477,7 +471,7 @@ Skills được lưu tại `.claude/skills/` trong thư mục project — đây 
 
 | Skill | Trigger phrase | Mục đích |
 |-------|----------------|---------|
-| `session-start` | "bắt đầu", "tiếp tục", "còn lại gì" | Đọc _memory/, orientation 5 dòng, gợi ý next action |
+| `session-start` | "bắt đầu", "tiếp tục", "còn lại gì" | Đọc git history, orientation 5 dòng, gợi ý next action |
 | `cross-ref-checker` | "kiểm tra cross-references", "scan stale" | Tìm file paths lỗi, version refs hardcode, _memory/ patterns cũ |
 | `module-review` | "review module X", "đánh giá chất lượng" | Checklist: accuracy, consistency, completeness, clarity, actionability |
 | `version-bump` | "bump version", "release vX.X" | Cập nhật VERSION → changelog → project-state theo đúng thứ tự |
@@ -684,7 +678,7 @@ Cấu hình không phải setup một lần là xong. Đây là phần kỹ sư 
 
 2. **Test Project Instructions:** Mở conversation mới trong Project → hỏi câu generic → Claude có tự maintain role đã set không?
 
-3. **Test Folder Instructions:** Mở Cowork session mới → không nói gì → Claude có đọc `_memory/` và báo orientation không (nếu có skill `session-start`)?
+3. **Test Folder Instructions:** Mở Cowork session mới → không nói gì → Claude có nhận diện project context và báo orientation không (nếu có skill `session-start`)?
 
 4. **Test Skill:** Gõ trigger phrase → Claude có activate đúng workflow không? Nếu không: kiểm tra lại `description` field trong SKILL.md và folder structure.
 
@@ -801,58 +795,34 @@ flowchart TD
 
 [Cập nhật 03/2026]
 
-Cowork không có memory giữa tasks (xem 10.10). Pattern `_memory/` folder biến file system thành bộ nhớ có cấu trúc, giúp duy trì continuity qua nhiều sessions.
+> **DEPRECATED (03/2026):** Pattern `_memory/` folder đã deprecated. Git history thay thế hoàn toàn — ít overhead, không cần maintain thêm files. Dùng `.claude/CLAUDE.md` + `git log` + SessionStart hook thay thế. Xem mục 10.13 (Claude Code cho Documentation Workflow).
 
-**Lý thuyết:** Xem Module 04, mục 4.7 — Context Engineering & External Memory.
+Nội dung bên dưới giữ lại làm tham khảo cho ai đã dùng pattern này.
+
+<details>
+<summary>Chi tiết _memory/ pattern (deprecated)</summary>
+
+Cowork không có memory giữa tasks (xem 10.10). Pattern `_memory/` folder biến file system thành bộ nhớ có cấu trúc.
 
 **Cấu trúc:**
 
 ```
 project-folder/
 ├── _memory/
-│   ├── session-state.md     ← Trạng thái session hiện tại, active tasks, key files
-│   └── decisions-log.md     ← Quyết định + lý do (tích lũy qua sessions)
+│   ├── session-state.md     ← Trạng thái session hiện tại
+│   └── decisions-log.md     ← Quyết định + lý do (tích lũy)
 ├── (project files)
 └── ...
 ```
 
-> **Lý do 2 files thay vì 4:** `handoff.md` và `todo.md` overlap với `session-state.md`. `context-map.md` dễ stale — Claude đọc file system trực tiếp hiệu quả hơn. `TodoWrite` built-in đã handle task tracking. Kết quả: ít overhead hơn, dễ maintain hơn. Xem decisions-log 2026-03-02.
+**Thay thế hiện tại:**
 
-**Folder Instructions cho thư mục có `_memory/`:**
+| Cũ (`_memory/`) | Mới (Git-based) |
+|-----------------|-----------------|
+| `session-state.md` | `git log --oneline -10` + SessionStart hook |
+| `decisions-log.md` | Commit messages có rationale + CLAUDE.md |
 
-Thêm vào Folder Instructions của thư mục project:
-
-```
-## Memory Protocol
-- Đầu session: đọc _memory/session-state.md và _memory/decisions-log.md.
-- Khi đưa ra quyết định quan trọng: append vào _memory/decisions-log.md.
-- Cuối session (hoặc khi tôi yêu cầu): cập nhật _memory/session-state.md.
-```
-
-**Prompt mở đầu session có `_memory/`:**
-
-```
-Đọc _memory/session-state.md và _memory/decisions-log.md.
-Tóm tắt: đã làm gì, còn gì chưa xong.
-Sau đó tiếp tục với: {{mô tả việc cần làm}}
-```
-
-**Prompt kết thúc session:**
-
-```
-Trước khi kết thúc:
-1. Cập nhật _memory/session-state.md — tóm tắt session này, active tasks còn lại
-2. Cập nhật _memory/decisions-log.md nếu có quyết định mới
-```
-
-**Khi nào dùng `_memory/` vs `handover-note.md` đơn lẻ (10.10):**
-
-| Tình huống | Dùng |
-|-----------|------|
-| Task ngắn, 1-2 sessions | `handover-note.md` đơn lẻ (đủ rồi) |
-| Dự án nhiều ngày, nhiều sessions | `_memory/` folder |
-| Cần nhớ lại lý do quyết định cũ | `_memory/` (có decisions-log) |
-| Nhiều người cùng dùng Cowork trên 1 folder | `_memory/` (shared context) |
+</details>
 
 ### 10.8.2 project-state.md — Context Transfer Document
 
@@ -873,17 +843,16 @@ Khi dùng Hybrid Workflow, Project Knowledge có nguy cơ **desync** với Cowor
 **Prompt export (chạy trên Cowork khi cần update):**
 
 ```
-Đọc _memory/session-state.md, _memory/decisions-log.md, và kiểm tra trạng thái
-từng module file trong thư mục.
+Kiểm tra trạng thái từng module file trong thư mục và đọc git log gần nhất.
 
 Cập nhật project-state.md với:
 1. Bảng trạng thái modules — version hiện tại và ghi chú thay đổi gần nhất
 2. Cây thư mục — đọc file system thực tế
-3. Quyết định gần nhất — import 8 decisions mới nhất từ decisions-log.md
+3. Quyết định gần nhất — lấy từ git log
 
-Giữ nguyên: Phase, Conventions, Hướng dẫn cho Claude.
+Giữ nguyên: Phase, Conventions.
 
-Output: cập nhật file project-state.md trong thư mục, sẵn sàng upload vào Project Knowledge.
+Output: cập nhật file project-state.md trong thư mục.
 ```
 
 **Khi nào cần update:**
@@ -891,12 +860,11 @@ Output: cập nhật file project-state.md trong thư mục, sẵn sàng upload 
 | Trigger | Mô tả |
 |---------|-------|
 | Sau milestone | Hoàn thành module, chốt section lớn, version bump |
-| Trước Project Chat task mới | Nếu Cowork đã thay đổi đáng kể kể từ lần upload trước |
-| >3 decisions mới quan trọng | Khi `decisions-log.md` có nhiều addition ảnh hưởng đến hướng dự án |
+| Thay đổi cấu trúc | Rename files, thêm/xóa folders, thay đổi conventions |
 
 ### 10.8.3 `_scaffold/` — Starter Template cho Project Mới
 
-Thay vì thiết lập `_memory/`, `project-state.md`, `.claude/CLAUDE.md`, và `VERSION` từ đầu cho mỗi dự án mới, **Guide Claude project cung cấp `_scaffold/`** — bộ template đã được chuẩn hóa theo pattern 3-tier.
+Thay vì thiết lập `project-state.md`, `.claude/CLAUDE.md`, và `VERSION` từ đầu cho mỗi dự án mới, **Guide Claude project cung cấp `_scaffold/`** — bộ template đã được chuẩn hóa theo 2-tier architecture.
 
 **Cấu trúc `_scaffold/`:**
 
@@ -906,10 +874,6 @@ _scaffold/
 ├── CLAUDE-template.md           Template cho .claude/CLAUDE.md
 ├── project-state-template.md    Template cho project-state.md
 ├── VERSION                      Giá trị khởi đầu "1.0"
-│
-├── memory-starter/              Starter files cho _memory/
-│   ├── session-state.md
-│   └── decisions-log.md
 │
 ├── skill-templates/             Template tạo skill mới (tham khảo — KHÔNG copy)
 │   └── SKILL-template/          ← mỗi skill là folder
@@ -1172,7 +1136,7 @@ Sau đó tiếp tục với: [mô tả việc cần làm tiếp]
 
 | Aspect | Claude.ai (Chat) | Cowork |
 |--------|-------------------|--------|
-| **Context window** | 200K tokens (standard); 1M beta (Opus 4.6, Sonnet 4.6, Sonnet 4.5) | **1M tokens (beta, Sonnet 4.6 mặc định)** |
+| **Context window** | 200K tokens (standard); 1M beta (Opus 4.6, Sonnet 4.6) | **1M tokens (beta, Sonnet 4.6 mặc định)** |
 | **Memory giữa conversations** | Có (Memory feature, Pro+ plans) | **Không** |
 | **Handover** | Prompt-based (Module 04) | File-based (handover-note.md) |
 | **Context persistence** | Projects + Memory + Past Chats | Global + Folder Instructions + Files |
@@ -1240,8 +1204,260 @@ Tóm tắt Global Instructions và Folder Instructions (nếu có) bạn đang n
 
 ---
 
+## 10.13 Claude Code cho Documentation Workflow
+
+Claude Code (CC) là CLI agent chạy trong terminal, dùng chung kiến trúc agent với Cowork nhưng tối ưu cho workflow có Git. Section này hướng dẫn dùng CC cho dự án documentation — không cần biết code, chỉ cần biết vài lệnh cơ bản.
+
+[Ứng dụng Kỹ thuật]
+
+### 10.13.1 Khi nào dùng CC vs Cowork vs claude.ai
+
+Mỗi công cụ có thế mạnh riêng cho documentation. Bảng dưới giúp chọn đúng tool cho đúng task.
+
+| Task | claude.ai | Cowork | Claude Code |
+|------|-----------|--------|-------------|
+| Brainstorm cấu trúc tài liệu | **Dùng** — tương tác nhanh, có Project Knowledge | — | — |
+| Viết 1 SOP mới từ outline | OK — copy-paste output | **Dùng** — tạo file trực tiếp | OK — tạo file + commit |
+| Edit nhiều module cùng lúc | — | OK — file access | **Dùng** — multi-file edit + diff review |
+| Kiểm tra cross-links, heading hierarchy | — | Viết prompt mỗi lần | **Dùng** — slash commands tự động |
+| Version control tài liệu | — | — | **Dùng** — Git tích hợp sẵn |
+| Review thay đổi trước khi publish | — | — | **Dùng** — `git diff`, pre-commit hooks |
+| Tạo template cho project mới | — | **Dùng** — copy file nhanh | OK |
+
+**Quy tắc đơn giản:** Nếu dự án documentation cần Git (version history, review changes, rollback) → dùng CC. Nếu chỉ cần tạo/sửa file đơn lẻ → Cowork đủ rồi.
+
+### 10.13.2 Setup CLAUDE.md cho documentation project
+
+CLAUDE.md là file instructions mà CC đọc tự động khi mở session trong thư mục. Đối với doc project, file này cần 4 phần chính.
+
+**Cấu trúc tối thiểu:**
+
+```markdown
+# CLAUDE.md — {{project_name}}
+
+## Project context
+{{mô tả project, đối tượng, phase hiện tại}}
+
+## Folder structure
+{{liệt kê cấu trúc thư mục chính}}
+
+## Writing standards
+- Heading hierarchy: # title → ## section → ### subsection
+- Code blocks luôn có language tag
+- Cross-links dùng relative paths
+
+## Rules
+- Backup trước khi sửa file content
+- Commit message tiếng Việt, ngắn gọn
+```
+
+**Ví dụ thực tế** — trích từ CLAUDE.md của dự án Guide Claude:
+
+```markdown
+## Language rules
+- Ngôn ngữ chính: Tiếng Việt
+- Thuật ngữ kỹ thuật: giữ tiếng Anh — KHÔNG Việt hóa
+- Placeholders: {{variable}}
+- Source markers: [Nguồn: ...], [Ứng dụng Kỹ thuật], [Cập nhật MM/YYYY]
+
+## Rules — PHẢI tuân thủ
+1. KHÔNG edit file trong guide/ mà không tạo .bak trước
+2. Khi edit module → đọc VERSION trước
+3. Version bump: sửa VERSION trước — module headers tự reflect
+```
+
+> **Mẹo:** Giữ CLAUDE.md dưới 80 dòng. Rules càng ngắn, Claude tuân thủ càng tốt. Chi tiết workflow đặt trong slash commands và skills.
+
+### 10.13.3 Slash commands cho documentation
+
+Slash commands là file markdown trong `.claude/commands/` — mỗi file định nghĩa 1 workflow mà bạn gọi bằng `/tên-command`. Đây là cách biến prompt dài thành lệnh ngắn, tiết kiệm token và đảm bảo quy trình nhất quán.
+
+**Cấu trúc thư mục:**
+
+```text
+.claude/
+└── commands/
+    ├── start.md            /start — orientation đầu session
+    ├── checkpoint.md       /checkpoint — commit nhanh
+    ├── validate-doc.md     /validate-doc 03 — kiểm tra 1 module
+    └── weekly-review.md    /weekly-review — báo cáo tuần
+```
+
+**4 commands thiết yếu cho doc project:**
+
+| Command | Chức năng | Khi nào dùng |
+|---------|-----------|-------------|
+| `/start` | Đọc VERSION + git log, báo trạng thái | Đầu mỗi session |
+| `/checkpoint` | Stage files, đề xuất commit message, hỏi confirm | Sau mỗi milestone nhỏ |
+| `/validate-doc 03` | Kiểm tra heading, cross-links, code blocks, markers | Sau khi edit module |
+| `/weekly-review` | Scan 11 modules, check consistency, suggest priorities | Mỗi tuần 1 lần |
+
+**Ví dụ `/start` — orientation đầu session:**
+
+```markdown
+Chạy orientation đầu session. Thực hiện tuần tự:
+
+1. Đọc file VERSION — lấy version number
+2. Chạy git status --short — đếm số files modified/untracked
+3. Chạy git log --oneline -5 — lấy 5 commits gần nhất
+
+Output một block duy nhất, format:
+
+Project v{version} | Branch: {branch}
+Last commit: {hash} {message}
+Working tree: {N} modified, {M} untracked
+
+Rules:
+- KHÔNG đọc project-state.md (tốn token)
+- Tổng output KHÔNG quá 6 dòng
+```
+
+**Ví dụ `/checkpoint` — commit nhanh:**
+
+```markdown
+Quick commit workflow. Thực hiện tuần tự:
+
+1. Chạy git status — show modified/untracked files
+2. Chạy git diff --stat — summary thay đổi
+3. Đề xuất commit message (tiếng Việt, tối đa 72 ký tự)
+4. Hỏi user confirm trước khi commit
+
+Rules:
+- KHÔNG tự ý commit — PHẢI có user confirm
+- KHÔNG commit .bak files — cảnh báo nếu có
+```
+
+> Xem thêm: [Module 05](05-workflow-recipes.md) — Workflow Recipes cho các quy trình chi tiết.
+
+### 10.13.4 Git workflow cho documentation
+
+Git không chỉ dành cho code — đây là công cụ version control mạnh nhất cho documentation. CC tích hợp Git sẵn, cho phép bạn track thay đổi, review trước khi publish, và rollback khi cần.
+
+**Branch naming cho doc project:**
+
+```text
+feat/add-module-07-templates    ← thêm nội dung mới
+fix/broken-crosslinks-module03  ← sửa lỗi
+docs/update-readme              ← cập nhật metadata
+```
+
+**Commit message conventions:**
+
+```text
+Module 03: Thêm ví dụ Phenikaa-X cho section prompt engineering
+Infra: Thêm pre-commit hook kiểm tra heading hierarchy
+Docs: Update project-state.md sau version bump 4.1
+```
+
+**Pre-commit hook — tự động kiểm tra trước mỗi commit:**
+
+CC hỗ trợ Git hooks. Ví dụ pre-commit hook kiểm tra 3 điều mỗi lần commit:
+
+```bash
+#!/usr/bin/env bash
+# .git/hooks/pre-commit — validate guide/ markdown files
+
+# Check 1: VERSION file tồn tại
+if [ ! -f "$REPO_ROOT/VERSION" ]; then
+  ERRORS+="[VERSION]  VERSION file missing\n"
+fi
+
+# Check 2: Heading hierarchy — không skip level
+# Scan tất cả guide/*.md, flag H1→H3 hoặc H2→H4
+
+# Check 3: Broken relative links
+# Tìm [text](path), resolve path, kiểm tra file tồn tại
+```
+
+Khi có lỗi, commit bị block với thông báo cụ thể:
+
+```text
+❌ Pre-commit validation failed!
+
+[Headings] guide/03-prompt-engineering.md:42 — H4 after H2 (skipped H3)
+[Links]    guide/05-workflow-recipes.md:87 — broken link: ../99-nonexistent.md
+
+Fix errors above, then commit again.
+```
+
+**SessionStart hook — context tự động đầu session:**
+
+File `.claude/settings.json` cho phép chạy lệnh tự động khi mở CC session:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "v=$(cat VERSION 2>/dev/null || echo '?'); n=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' '); echo \"Project Guide Claude v${v}. ${n} files modified since last commit.\""
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Output inject vào đầu mỗi session: `Project Guide Claude v4.1. 2 files modified since last commit.`
+
+[Cập nhật 03/2026]
+
+### 10.13.5 Token optimization cho non-coding users
+
+Claude Code tính phí theo token — mỗi lần Claude đọc file hoặc chạy lệnh đều tiêu tốn token. Những kỹ thuật dưới đây giúp giảm chi phí mà không giảm chất lượng.
+
+**Chọn đúng model:**
+
+| Tình huống | Model | Lý do |
+|-----------|-------|-------|
+| Edit module, search, review | Sonnet | Nhanh, rẻ, đủ cho hầu hết tác vụ |
+| Quyết định kiến trúc, refactor lớn | Opus | Cần reasoning sâu hơn |
+| Grep, tìm file, check format | Sonnet | Không cần model mạnh |
+
+**Đọc file thông minh:**
+
+```text
+# Đọc cả file 1200 dòng — tốn token
+"Đọc guide/10-claude-desktop-cowork.md"
+
+# Chỉ đọc phần cần thiết — tiết kiệm 80% token
+"Đọc guide/10-claude-desktop-cowork.md từ dòng 757 đến 830"
+```
+
+CC hỗ trợ `offset` và `limit` khi đọc file — luôn dùng khi file lớn hơn 500 dòng.
+
+**Dùng slash commands thay vì viết prompt dài:**
+
+```text
+# Viết prompt mỗi lần — ~200 tokens/lần
+"Đọc VERSION, chạy git status, git log -5, tóm tắt trạng thái..."
+
+# Dùng command — ~5 tokens
+/start
+```
+
+**Dùng auto-activate skills:**
+
+Skills là file markdown trong `.claude/skills/` mà CC tự động kích hoạt dựa trên context — không cần gọi thủ công. Ví dụ: skill `doc-standard-enforcer` tự activate khi bạn nói "edit module" hoặc "thêm content", tự động áp dụng writing standards mà không cần nhắc lại rules mỗi lần.
+
+**Tóm tắt tiết kiệm token:**
+
+| Kỹ thuật | Tiết kiệm | Cách làm |
+|----------|-----------|----------|
+| Sonnet thay Opus | ~60% chi phí | Mặc định Sonnet, chỉ switch khi cần |
+| Đọc file có offset/limit | ~80% cho file lớn | Chỉ đọc phần cần thiết |
+| Slash commands | ~95% cho prompt lặp lại | `/start` thay vì viết dài |
+| Auto-activate skills | ~100% — tự động | Rules apply mà không tốn prompt tokens |
+| SessionStart hook | ~100% — tự động | Context inject miễn phí |
+
+---
+
 **Tiếp theo:**
 
-- Module 02: Setup & Personalization — cấu hình Claude.ai (web) chi tiết
-- Module 05: Workflow Recipes — quy trình copy-paste cho từng loại task
-- Module 06: Tools & Features — cheat sheet tính năng Claude
+- [Module 02](02-setup-personalization.md) — cấu hình Claude.ai (web) chi tiết
+- [Module 05](05-workflow-recipes.md) — quy trình copy-paste cho từng loại task
+- [Module 06](06-tools-features.md) — cheat sheet tính năng Claude

@@ -5,16 +5,17 @@ Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 11 modules 
 - **Version:** xem file `VERSION` (SSOT)
 - **Phase:** Development — đang iterate, chưa publish
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
-- **Architecture:** 3-tier — guide/ (content) + .claude/ (infra) + _memory/ (persistence)
+- **Architecture:** 2-tier — guide/ (content) + .claude/ (infra)
 
 ## Folder structure
 ```
 guide/                  11 module files (00→10) + reference/
 guide/reference/        config-architecture.md, skills-list.md
-.claude/                CLAUDE.md, SETUP.md, skills/
-_scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/, memory-starter/)
-_memory/                session-state.md + decisions-log.md
-project-state.md        Context transfer document (briefing cho Project Chat)
+.claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
+.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/
+.claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
+_scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/)
+project-state.md        Project overview (cho người đọc)
 VERSION                 SSOT cho version number
 ```
 
@@ -26,31 +27,28 @@ VERSION                 SSOT cho version number
   - `[Nguồn: ...]` — official documentation
   - `[Ứng dụng Kỹ thuật]` — applied examples
   - `[Cập nhật MM/YYYY]` — time-sensitive content
+- **Thinking features:** `Extended thinking` = UI toggle (Settings > Search and tools). `Adaptive Thinking` = API feature (`thinking: {type: "adaptive"}`). KHÔNG dùng hoán đổi.
 
 ## Writing standards
 - **Heading hierarchy:** `#` title → `##` section → `###` subsection — KHÔNG skip level
 - **Code blocks:** luôn kèm language tag (```python, ```yaml, ```bash...)
 - **Cross-links:** dùng relative paths (`../guide/04-context-management.md#section`)
 - **File naming:** lowercase, dấu gạch ngang, prefix số thứ tự (01-, 02-...)
-- **Module header:** mỗi module có version link `[VERSION](../VERSION)` — KHÔNG hardcode version
-
-## Memory protocol
-- **Đầu session:** đọc `_memory/session-state.md` + `_memory/decisions-log.md`
-- **Khi quyết định quan trọng:** append vào `_memory/decisions-log.md`
-- **Cuối session:** update `_memory/session-state.md`
+- **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
 
 ## Rules — PHẢI tuân thủ
 1. **Backup trước khi sửa:** KHÔNG edit file trong `guide/` mà không tạo `.bak` trước
 2. **Check version:** khi edit module → đọc `VERSION` trước
 3. **Version bump:** sửa `VERSION` trước — module headers tự reflect, KHÔNG sửa thủ công từng file
 4. **No destructive git:** KHÔNG force push, reset --hard, hoặc xóa branch mà không hỏi user
-5. **project-state.md:** update sau milestone lớn hoặc trước khi brainstorm trên Project Chat
+5. **project-state.md:** update sau milestone lớn (version bump, structural changes)
+6. **Pre-publish verify:** trước khi document Memory/plan availability hoặc feature defaults, verify tại support.claude.com — features thay đổi thường xuyên
 
 ## Git workflow
 - **Branch naming:** `feat/<topic>`, `fix/<topic>`, `docs/<topic>`
 - **Commit message:** tiếng Việt ngắn gọn, ví dụ: `Thêm cross-link module 03 → config-architecture`
-- **Main branch:** `main` — luôn tạo PR thay vì push trực tiếp
-- **Không commit:** `.bak` files, `_memory/` (personal state)
+- **Main branch:** `master` — luôn tạo PR thay vì push trực tiếp
+- **Không commit:** `.bak` files
 
 ## Token optimization
 - **Default model:** Sonnet — dùng cho hầu hết tác vụ (edit, search, review)
@@ -59,18 +57,37 @@ VERSION                 SSOT cho version number
 - **Skill thay vì prompt dài:** dùng skill có sẵn thay vì viết lại instructions mỗi lần
 
 ## Available skills
+*Project skills (`.claude/skills/`):*
+
 | Skill | Trigger |
 |-------|---------|
 | `/session-start` | Bắt đầu session mới, "tiếp tục", "còn lại gì" |
 | `/version-bump` | "bump version", "lên version", "release vX.X" |
-| `/simplify` | Review code quality sau khi edit |
+| `/doc-standard-enforcer` | Edit module, thêm content trong `guide/` |
+| `/cross-ref-checker` | Kiểm tra cross-references trong module |
+| `/module-review` | Deep review một module (underlying skill cho `/review-module`) |
 
-<!-- Placeholder: thêm skills mới ở đây -->
+*Global built-in (không phải project skill):*
+
+| Skill | Note |
+|-------|------|
+| `/simplify` | Review code quality — available toàn Claude Code |
+
+## Available commands
+*(`.claude/commands/`)*
+
+| Command | Trigger |
+|---------|---------|
+| `/start` | Đầu mỗi session |
+| `/checkpoint` | Quick commit |
+| `/validate-doc` | Kiểm tra module — argument: số module (vd `03`) |
+| `/review-module` | Deep review module — argument: số module (vd `06`) |
+| `/weekly-review` | Review hàng tuần |
 
 ## Module status (quick ref)
 | Range | Status |
 |-------|--------|
-| 00, 02, 04, 05, 10 | Draft v3.5–v4.0 (updated for 3-tier) |
+| 00, 02, 04, 05, 10 | Draft v3.5–v4.0 (updated for 2-tier) |
 | 01, 03, 06–09 | Draft v3.4 (chưa update) |
 | reference/ | config-architecture (v4.0), skills-list |
 
