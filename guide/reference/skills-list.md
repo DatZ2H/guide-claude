@@ -1,6 +1,6 @@
 # Danh sách Skills & Plugins — Phenikaa-X
 
-Cập nhật: 2026-03-01 | Phân loại: Type × Trust
+Cập nhật: 2026-03-03 | Phân loại: Type × Trust
 
 ---
 
@@ -55,10 +55,39 @@ Cách cài đặt theo từng surface:
 
 Anthropic cung cấp 11+ plugins chính thức tại repo `anthropics/knowledge-work-plugins`. Ngoài 3 plugin liệt kê ở đây, còn có: sales, marketing, finance, legal, customer-support, enterprise-search, bio-research, cowork-plugin-management. [Cập nhật 03/2026 — kiểm tra repo để xem danh sách mới nhất]
 
+**Enterprise plugins:** Anthropic cung cấp thêm bộ enterprise-tier plugins (ước tính 13+ packages) cho Team/Enterprise plan — bao gồm SSO integration, audit logging, custom connectors. Cần xác minh danh sách đầy đủ tại admin console.
+
 Cách cài đặt theo từng surface:
 
-- **Cowork:** Sidebar > Plugins > Browse > tìm tên plugin > Install.
+- **Cowork:** Sidebar > Plugins > Browse > tìm tên plugin > Install. Hoặc: Settings > **Customize** tab > Plugins.
 - **Claude Code:** `claude plugin marketplace add anthropics/knowledge-work-plugins` → `claude plugin install <tên>`
+
+---
+
+## 4b. Scheduled Tasks (Cowork only)
+
+[Cập nhật 03/2026]
+
+Scheduled Tasks không phải Skills hay Plugins — đây là tính năng riêng của Cowork cho phép chạy prompt tự động theo lịch. Không cần file cài đặt, cấu hình trực tiếp trong Cowork UI.
+
+| Thuộc tính | Chi tiết |
+|------------|----------|
+| **Surface** | Cowork (Claude Desktop) — không có trên claude.ai |
+| **Cài đặt** | Claude Desktop > Cowork > Scheduled Tasks > New Task |
+| **Cú pháp lịch** | Cron standard: `phút giờ ngày_tháng tháng ngày_tuần` |
+| **Yêu cầu** | Máy phải đang bật khi task chạy |
+| **Use case** | Weekly report, daily log digest, monthly summary |
+
+**Ví dụ cron syntax:**
+
+```
+0 8 * * 1      # Mỗi thứ Hai 8:00 AM
+0 17 * * 5     # Mỗi thứ Sáu 5:00 PM
+0 9 1 * *      # Ngày 1 hàng tháng 9:00 AM
+0 9 * * 1-5    # Mỗi ngày trong tuần 9:00 AM
+```
+
+**Chi tiết và recipe:** Module 10, mục 10.5 | Module 05, mục 5.16
 
 ---
 
