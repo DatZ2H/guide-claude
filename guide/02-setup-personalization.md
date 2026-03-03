@@ -108,7 +108,7 @@ Project Instructions là **system prompt** cho project. Tất cả conversations
 
 > **Template files độc lập:** Các templates dưới đây cũng có sẵn dưới dạng file riêng tại `_scaffold/project-instructions/` — copy và paste phần giữa `---COPY START---` và `---COPY END---` vào Project Settings > Instructions. Xem `_scaffold/project-instructions/README.md` để biết cách chọn template phù hợp.
 >
-> So sánh Project Instructions với Folder Instructions (Cowork): xem `guide/reference/config-architecture.md`, mục "Lớp 3 và Lớp 5".
+> So sánh Project Instructions với Folder Instructions (Cowork): xem `reference/config-architecture.md`, mục "Lớp 3 và Lớp 5".
 
 #### Template cơ bản
 
@@ -511,7 +511,7 @@ MCP (Model Context Protocol) Connectors cho phép Claude truy cập dữ liệu 
 
 ### Lưu ý khi sử dụng
 
-- Mỗi connector tốn thêm **context tokens** -- chỉ connect khi thực sự cần
+- Mỗi connector tốn **context tokens** khi fetch data -- chỉ connect khi thực sự cần
 - Data từ connectors được load vào context window -- ảnh hưởng đến conversation capacity
 - Review quyền truy cập định kỳ -- disconnect những service không còn dùng
 

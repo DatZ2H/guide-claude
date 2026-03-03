@@ -431,7 +431,7 @@ Tôi cần tạo một trang Notion mới với nội dung:
 
 **Setup:** Settings > Connected Apps > Connect service cần thiết.
 
-**Lưu ý:** Mỗi connector tốn context tokens. Chỉ connect khi thực sự cần.
+**Lưu ý:** Mỗi connector tốn context tokens khi fetch data. Chỉ connect khi thực sự cần.
 
 ---
 

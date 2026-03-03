@@ -26,7 +26,7 @@ SCOPE: PROJECT/FOLDER (một nhóm công việc cụ thể)
 │
 SCOPE: ON-DEMAND (chạy khi gọi)
 │
-└── [Cowork]     Skills                   → project-folder/.claude/skills/
+└── [Cowork/CC]  Skills                   → project-folder/.claude/skills/
     [Cowork]     Plugins                  → Cài đặt qua Claude Desktop
     [Cowork]     Scheduled Tasks          → Cài đặt trong Cowork UI
 ```

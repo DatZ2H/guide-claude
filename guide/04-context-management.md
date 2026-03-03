@@ -507,7 +507,7 @@ flowchart LR
 **Layer 1 — Constitution (Project Knowledge):**
 
 - `project-state.md` — **context transfer document**: trạng thái modules, quyết định gần nhất, cây thư mục — upload khi cần briefing Project Chat
-- Custom Instructions — quy tắc hành vi của Claude trong Project Chat
+- Project Instructions — quy tắc hành vi của Claude trong Project Chat
 
 **Layer 2 — Working Directory (Cowork folder):**
 

@@ -80,7 +80,7 @@ Thay các {{placeholder}} sau:
   → Tình huống khác (không chỉ phrase), ví dụ: "Chuẩn bị bump version"
 
 {{required_input_1..2}}
-  → Những gì phải có trước khi skill chạy, ví dụ: "_memory/session-state.md"
+  → Những gì phải có trước khi skill chạy, ví dụ: "VERSION", "project-state.md"
 
 {{step_1..3_name}}
   → Tên ngắn cho bước, ví dụ: "Đọc context", "Phân tích", "Output report"
@@ -102,7 +102,7 @@ Thay các {{placeholder}} sau:
 SAU KHI ĐIỀN XONG:
 - Xóa toàn bộ section comment này
 - Thêm skill vào .claude/CLAUDE.md:
-  ## Skills
+  ## Available skills
   - `{{skill_name}}` — {{one_line_description}}
 - Test: mở Cowork session mới → gõ trigger phrase → verify Claude activate đúng
 -->

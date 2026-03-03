@@ -122,6 +122,8 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 - Update Module 02: thêm cross-link → `_scaffold/project-instructions/` + `config-architecture.md`
 - Sửa path `skills-list.md` → `guide/reference/skills-list.md` trong Module 10 (§10.6.2)
 - Deprecate `_scaffold/skill-templates/SKILL-template.md` → moved to `.bak`
+- Deprecate `_memory/` folder và xóa `_scaffold/memory-starter/` — chuyển từ 3-tier (`guide/` + `.claude/` + `_memory/`) sang 2-tier (`guide/` + `.claude/`)
+- Fix 12 accuracy/terminology issues (Sprint 2): guide/06 §6.1 §6.3, guide/02 §2.4, guide/08, guide/10, guide/01, ref/config-architecture, ref/skills-list, _scaffold/CLAUDE-template
 - Bump version từ 4.0
 
 ### Version 4.0 (03/2026)

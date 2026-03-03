@@ -371,7 +371,7 @@ Skills mở rộng khả năng của Claude cho task chuyên biệt bằng cách
 
 ### 10.6.1 Khái niệm — Skill, Plugin, và các thành phần khác
 
-Skill là thư mục chứa file SKILL.md (instructions kèm metadata) cùng scripts và resources tùy chọn. Claude đọc metadata (~100 tokens mỗi skill) khi khởi động session. Khi task của người dùng match với mô tả của skill, Claude tự động load full nội dung SKILL.md vào context, rồi load thêm scripts và references khi cần. Cơ chế "progressive disclosure" này giúp cài nhiều skills mà không chiếm context thừa — Claude chỉ biết skill tồn tại cho đến khi thực sự cần dùng.
+Skill là thư mục chứa file SKILL.md (instructions kèm metadata) cùng scripts và resources tùy chọn. Claude đọc metadata (~100 tokens mỗi skill) khi khởi động session. Khi task của người dùng match với mô tả của skill, Claude tự động load full nội dung SKILL.md vào context, rồi load thêm scripts và references khi cần. Cơ chế "progressive disclosure" này giúp cài nhiều skills mà không chiếm context thừa — Claude chỉ biết skill tồn tại cho đến khi thực sự cần dùng. **Lưu ý:** auto-activation dựa trên LLM reasoning (đọc mô tả skill và đánh giá relevance), không phải keyword matching cứng — không đảm bảo kích hoạt 100% trong mọi trường hợp.
 
 Plugin là package đóng gói nhiều thành phần: skills, slash commands, connectors, và sub-agents. Cài plugin một lần, skills bên trong tự kích hoạt khi relevant, slash commands cần gõ "/" để gọi. Plugin là cách chia sẻ và phân phối skills theo role hoặc team. MCP Connector kết nối Claude với service bên ngoài (Notion, Jira, Google Drive). MCP cung cấp DATA từ service, skill cung cấp WORKFLOW để làm việc với data đó — hai thứ bổ sung nhau, không thay thế.
 
@@ -432,7 +432,7 @@ Danh sách chi tiết từng skill với URL, mô tả, và hướng dẫn cài 
 
 ### 10.6.4 Cài đặt theo từng surface
 
-**claude.ai (Web/App).** Pre-built Skills đã tích hợp sẵn — chỉ cần bật Settings > Capabilities > Code execution and file creation. Custom Skills: vào Settings > Features > upload file .skill (ZIP chứa SKILL.md + resources). Custom skills trên claude.ai chỉ available cho user đó, không share được cho team members.
+**claude.ai (Web/App).** Pre-built Skills đã tích hợp sẵn — chỉ cần bật Settings > Capabilities > Code execution and file creation. Custom Skills: vào Settings > Features > upload file .skill (ZIP chứa SKILL.md + resources) [Cần xác minh path — UI có thể thay đổi]. Custom skills trên claude.ai chỉ available cho user đó, không share được cho team members.
 
 [Nguồn: Anthropic API Docs — Agent Skills overview]
 URL: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
@@ -1404,7 +1404,7 @@ File `.claude/settings.json` cho phép chạy lệnh tự động khi mở CC se
 }
 ```
 
-Output inject vào đầu mỗi session: `Project Guide Claude v4.1. 2 files modified since last commit.`
+Output inject vào đầu mỗi session: `Project Guide Claude v4.1. 2 files modified since last commit.` *(version number sẽ tự cập nhật theo file `VERSION` — không cần sửa thủ công khi bump version)*
 
 [Cập nhật 03/2026]
 
