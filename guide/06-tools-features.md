@@ -35,17 +35,19 @@ Module này là cheat sheet tra cứu nhanh tất cả tính năng của Claude.
 
 ## 6.2 Chọn Model
 
-[Cập nhật 02/2026]
+[Cập nhật 03/2026]
 
 | Model | Điểm mạnh | Khi nào dùng | Tốc độ |
 |-------|----------|-------------|--------|
-| **Claude Opus 4.6** | Suy luận sâu nhất, Extended thinking | Debug phức tạp, phân tích multi-system, kiến trúc hệ thống | Chậm nhất |
-| **Claude Sonnet 4.6** | Cân bằng tốc độ và chất lượng, Extended thinking, 1M context (beta) | Công việc hàng ngày, viết tài liệu, code review | Trung bình |
+| **Claude Opus 4.6** | Suy luận sâu nhất, Extended thinking | Reasoning chuyên sâu: phân tích pháp lý, nghiên cứu khoa học, đánh giá kiến trúc hệ thống phức tạp | Chậm nhất |
+| **Claude Sonnet 4.6** | Cân bằng tốc độ và chất lượng, Extended thinking, 1M context (beta) | Công việc hàng ngày, viết tài liệu, code review, agentic tasks và automation | Trung bình |
 | **Claude Haiku 4.5** | Nhanh nhất, chi phí thấp | Q&A nhanh, tra cứu, task đơn giản | Nhanh nhất |
 
 **Cách chọn model:** Click tên model ở đầu conversation > Chọn model muốn dùng.
 
-**Quy tắc chọn nhanh:** Bắt đầu với Sonnet 4.6 cho hầu hết công việc. Chuyển sang Opus 4.6 khi cần suy luận sâu. Dùng Haiku 4.5 cho task nhanh không cần chất lượng cao.
+**Quy tắc chọn nhanh:** Bắt đầu với **Sonnet 4.6** cho hầu hết công việc — bao gồm cả agentic tasks và automation workflows. Chuyển sang **Opus 4.6** chỉ khi cần suy luận rất sâu (phân tích pháp lý, nghiên cứu khoa học, multi-system architecture critique). Dùng Haiku 4.5 cho task nhanh không cần chất lượng cao.
+
+> **[Cập nhật 03/2026] OSWorld benchmark (agentic tasks):** Sonnet 4.6 đạt 72.5% vs Opus 4.6 đạt 72.7% — chênh lệch không đáng kể cho automation và workflow. Opus chỉ vượt trội rõ ràng ở deep reasoning benchmark (GPQA Diamond: 91.3%). Với công việc kỹ thuật hàng ngày, Sonnet 4.6 là lựa chọn mặc định. [Nguồn: Anthropic Model Cards]
 
 ### Context Window
 

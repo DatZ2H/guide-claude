@@ -241,10 +241,10 @@ cho vận hành hệ thống AMR tại nhà máy Phenikaa-X.
 # Folder Instructions — Claude Guide Project
 
 ## Project overview
-Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 11 modules hướng dẫn sử dụng Claude AI.
+Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
 
 ## Folder structure
-- guide/ — 11 module files (00-overview đến 10-claude-desktop-cowork) + reference/
+- guide/ — 12 module files (00-overview đến 11-cowork-workflows) + reference/
 - project-state.md — project overview
 - VERSION — single source of truth cho version number
 
@@ -328,21 +328,33 @@ Hai file có thể overlap nhau ở phần context chung — đó là bình thư
 
 [Nguồn: Anthropic Help Center — Schedule recurring tasks in Cowork]
 URL: https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-cowork
+[Cập nhật 03/2026]
 
 Scheduled Tasks cho phép Cowork tự động chạy task theo lịch — daily, weekly, hourly — miễn máy tính bật và Claude Desktop đang mở.
+
+> ⚠️ **Quan trọng:** Scheduled tasks **chỉ chạy khi máy tính đang bật và Claude Desktop app đang mở**. Nếu máy ngủ hoặc app đóng, task sẽ bỏ lỡ — Cowork sẽ chạy bù khi hệ thống available trở lại. [Nguồn: Anthropic Support]
+
+Mỗi scheduled task chạy trong **Cowork session riêng biệt** — có access đến toàn bộ tools, plugins, và MCP servers đã kết nối, giống như bạn tự tay mở session và chạy task đó.
 
 ### Cách tạo
 
 **Cách 1 — Qua lệnh `/schedule`:**
 
 1. Trong bất kỳ Cowork session nào, gõ `/schedule`
-2. Claude hướng dẫn setup: tên task, prompt, tần suất
+2. Claude hướng dẫn setup từng bước
 
 **Cách 2 — Qua giao diện:**
 
 1. Click **"Scheduled"** trên sidebar trái
 2. Click **"+ New task"**
-3. Cấu hình: tên, prompt, tần suất (hourly/daily/weekly/weekdays/manual), model, thư mục
+3. Điền 4 thành phần:
+
+| Thành phần | Mô tả | Ví dụ |
+|------------|-------|-------|
+| **Name** | Tên task ngắn gọn | "Daily AMR Log Summary" |
+| **Prompt instructions** | Mô tả đầy đủ việc cần làm | "Đọc tất cả log files trong logs/ từ hôm qua. Tổng hợp errors theo robot ID. Tạo file daily-report-[ngày].md" |
+| **Frequency** | Lịch chạy: hourly / daily / weekly / weekdays / manual | `daily` lúc 08:00 |
+| **Model choice** | Sonnet (đủ cho hầu hết tasks) hoặc Opus (khi cần reasoning sâu) | Sonnet 4.6 |
 
 ### Use cases cho Phenikaa-X
 
@@ -350,13 +362,13 @@ Scheduled Tasks cho phép Cowork tự động chạy task theo lịch — daily,
 
 | Task | Tần suất | Prompt mẫu |
 |------|----------|-------------|
-| Tổng hợp log lỗi robot | Daily (sáng) | "Đọc tất cả log files trong logs/ từ hôm qua. Tổng hợp errors theo robot ID. Tạo file daily-report-[ngày].md" |
-| Review tính nhất quán SOP | Weekly | "So sánh tất cả SOP trong approved/ với glossary.md. Báo cáo thuật ngữ không nhất quán" |
-| Backup và version check | Daily | "Kiểm tra files nào thay đổi trong 24h qua. Tạo changelog entry trong CHANGELOG.md" |
+| Tổng hợp test logs AMR theo tuần | Weekly (sáng thứ Hai) | "Đọc tất cả file trong `logs/test/` từ 7 ngày qua. Tổng hợp: số lần lỗi theo robot ID, top 3 loại lỗi phổ biến, robot nào cần bảo trì. Tạo file `weekly-amr-summary-[tuần].md` trong `reports/`." |
+| Kiểm tra trạng thái ROS services hàng ngày | Daily (08:00) | "Đọc `ros-services/status.json` và `ros-services/logs/`. Báo cáo: node nào đang chạy, node nào offline, có lần restart bất thường trong 24h qua không. Tạo file `daily-ros-status-[ngày].md`." |
+| Review tính nhất quán SOP | Weekly | "So sánh tất cả SOP trong `approved/` với `glossary.md`. Báo cáo thuật ngữ không nhất quán và đề xuất sửa." |
+| Backup và version check | Daily | "Kiểm tra files nào thay đổi trong 24h qua. Tạo changelog entry trong `CHANGELOG.md`." |
 
 ### Giới hạn quan trọng
 
-- Task **chỉ chạy** khi máy tính bật VÀ Claude Desktop đang mở
 - Nếu bỏ lỡ (máy ngủ, app đóng) → Cowork sẽ chạy bù khi hệ thống available
 - **Không dùng cho workloads quan trọng** — Cowork là research preview
 - Bắt đầu với task low-risk, tránh sensitive data
@@ -993,6 +1005,22 @@ URL: https://www.anthropic.com/news/claude-sonnet-4-6
 
 Cowork dùng **Sonnet 4.6 mặc định** với context window lên đến **1M tokens (beta)** — tương đương khoảng 2,500–3,500 trang text. Lưu ý: Opus 4.6, Sonnet 4.6, và Sonnet 4.5 đều hỗ trợ 1M tokens beta; Cowork chọn Sonnet 4.6 làm default vì cân bằng tốc độ và chất lượng.
 
+### Chọn model cho Cowork
+
+[Nguồn: Anthropic — Claude Sonnet 4.6 announcement]
+[Cập nhật 03/2026]
+
+Theo OSWorld benchmark — đánh giá khả năng thao tác máy tính của AI agent — Sonnet 4.6 và Opus 4.6 cho kết quả gần như tương đương:
+
+| Model | OSWorld score | Context | Output | Khi nào dùng |
+|-------|:---:|:---:|:---:|---|
+| **Sonnet 4.6** | 72.5% | 1M tokens (beta) | 128K tokens | Hầu hết Cowork tasks — file operations, batch processing, automation |
+| **Opus 4.6** | 72.7% | 1M tokens (beta) | 128K tokens | Deep reasoning (phân tích kỹ thuật phức tạp), multi-agent coordination |
+
+Cả hai model đều hỗ trợ **Adaptive Thinking** — tự điều chỉnh effort tùy độ phức tạp của task.
+
+**Quy tắc thực hành:** Bắt đầu với Sonnet. Switch sang Opus chỉ khi output cần reasoning sâu hơn rõ rệt — Opus có giá cao hơn Sonnet đáng kể.
+
 **Context window chứa gì:**
 
 | Thành phần | Luôn có | Tăng theo thời gian |
@@ -1458,8 +1486,313 @@ Skills là file markdown trong `.claude/skills/` mà CC tự động kích hoạ
 
 ---
 
+## 10.14 Desktop Commander & Cross-session Memory
+
+[Nguồn: Anthropic Help Center — Desktop Commander]
+URL: https://support.claude.com/en/articles/desktop-commander
+[Cập nhật 03/2026]
+
+Desktop Commander là **extension chính thức của Anthropic** — cài từ **Customize tab** trong Claude Desktop (không phải third-party). Đây là cách bổ sung memory cross-session và file system access mở rộng mà không cần cấu hình MCP thủ công.
+
+### 3 tính năng chính
+
+| Tính năng | Mô tả |
+|-----------|-------|
+| **File system access mở rộng** | Truy cập file ngoài thư mục Cowork đã chọn — hữu ích khi cần đọc reference files ở nhiều location |
+| **Cross-session memory qua `memory.md`** | File markdown tại `~/memory.md` (hoặc path tùy chọn) — Claude đọc tự động đầu mỗi session, cho phép lưu context giữa các Cowork tasks |
+| **Quản lý MCP server** | Cài và quản lý MCP servers qua UI thay vì chỉnh sửa config JSON thủ công |
+
+### Template memory.md cho kỹ sư Phenikaa-X
+
+[Ứng dụng Kỹ thuật]
+
+File `~/Workspace/memory.md` — Claude đọc trước mỗi Cowork session khi Desktop Commander được bật:
+
+```markdown
+# Memory — {{Họ tên}} @ Phenikaa-X
+
+## AMR Context
+- Robot models đang vận hành: AMR-001 đến AMR-005
+- Tech stack: ROS2 Humble, Cartographer SLAM, 2D Lidar
+- Workspace chính: D:\PhenikaaX\Cowork\
+- Log directory: D:\PhenikaaX\Logs\
+
+## Projects hiện tại
+- [{{Tên project 1}}]: {{mô tả ngắn, status}}
+- [{{Tên project 2}}]: {{mô tả ngắn, status}}
+
+## Conventions
+- File format mặc định: Markdown (.md)
+- Naming: lowercase, dấu gạch ngang, có version (ví dụ: sop-amr003-v2.md)
+- Language: Tiếng Việt, thuật ngữ kỹ thuật tiếng Anh
+
+## Notes
+{{ghi chú tùy ý — quyết định đã đưa ra, preferences, shortcuts hay dùng}}
+```
+
+### Workflow sử dụng memory.md
+
+Prompt mở đầu session khi có Desktop Commander:
+
+```text
+Đọc ~/Workspace/memory.md trước. Sau đó [yêu cầu cụ thể].
+```
+
+Cập nhật memory sau session:
+
+```text
+Cập nhật ~/Workspace/memory.md với: [thông tin mới cần lưu lại cho session sau].
+```
+
+> **Lưu ý:** `memory.md` chỉ là text file — không có sync magic. Bạn phải chủ động yêu cầu Claude đọc và cập nhật. Với project có Git, kết hợp `memory.md` với SessionStart hook (xem mục 10.13.4) cho workflow tối ưu nhất.
+
+---
+
+## 10.15 Customize Tab — Skills, Connectors & Plugins
+
+[Nguồn: Anthropic Help Center — Use plugins in Cowork]
+URL: https://support.claude.com/en/articles/13837440-use-plugins-in-cowork
+[Cập nhật 03/2026]
+
+**Customize tab** trong Claude Desktop gom toàn bộ extensibility vào một nơi: Skills, Connectors, và Plugins. Đây là điểm khởi đầu để mở rộng khả năng của Cowork.
+
+> **Xem thêm:** Mục 10.6 mô tả chi tiết kiến trúc skills, phân loại, và workflow cài đặt đầy đủ.
+
+### Skills — Slash commands mở rộng
+
+Skills cung cấp slash commands xử lý file chuyên biệt:
+
+| Slash command | Chức năng |
+|---------------|-----------|
+| `/pdf` | Tạo file PDF từ nội dung |
+| `/docx` | Tạo file Word (.docx) |
+| `/xlsx` | Tạo file Excel (.xlsx) |
+| `/pptx` | Tạo file PowerPoint |
+
+**Skill chaining:** Có thể kết hợp nhiều skills trong một task — ví dụ: đọc log file → phân tích → xuất báo cáo PDF.
+
+**Official skills repository:**
+URL: https://github.com/anthropics/skills — danh sách skills được Anthropic review và maintain.
+
+### Connectors — Kết nối dữ liệu
+
+Connectors cho phép Claude truy cập data từ nguồn bên ngoài. Có 3 loại:
+
+| Loại | Mô tả | Ví dụ |
+|------|-------|-------|
+| **Web search** | Claude tìm kiếm web trong khi làm task | Kiểm tra version mới nhất của ROS2 khi viết SOP |
+| **Desktop/local files** | Truy cập file system ngoài thư mục Cowork đã chọn | Đọc reference docs trong thư mục khác |
+| **Custom JSON** | Kết nối API tùy chỉnh qua REST endpoint | Internal API của Phenikaa-X |
+
+**Per-tool permissions** — kiểm soát từng connector:
+
+- **Allow** — tự động thực hiện không cần hỏi
+- **Ask** — hỏi confirm trước mỗi lần dùng
+- **Block** — không bao giờ dùng
+
+Khuyến nghị: bắt đầu với **Ask** cho mọi connector mới. Chuyển sang **Allow** chỉ sau khi đã verify hoạt động đúng.
+
+### Plugins — Bộ công cụ theo role
+
+Plugins đóng gói skills + connectors + MCP servers thành bộ cài đặt hoàn chỉnh. Hai tầng:
+
+**11 Official Plugins (Anthropic):**
+
+| Plugin | Dùng cho |
+|--------|----------|
+| Asana | Task management |
+| Canva | Thiết kế đồ họa |
+| Cloudflare | Infrastructure management |
+| Figma | UI/UX design collaboration |
+| **GitHub** | Code review, issue tracking |
+| Google Drive | Document management |
+| **Jira** | Project & issue tracking |
+| **Linear** | Engineering project management |
+| **Notion** | Knowledge base, docs |
+| Sentry | Error monitoring |
+| **Slack** | Team communication |
+
+**13 Enterprise Plugins mới (02/2026):**
+
+Google Workspace, DocuSign, FactSet, Apollo, Clay, Outreach, Similarweb, MSCI, LegalZoom, Harvey, WordPress, và các partners khác.
+
+[Nguồn: Anthropic — Claude integrations]
+URL: https://claude.ai/plugins
+[Cập nhật 03/2026]
+
+**Private Marketplace — Team & Enterprise plans:**
+
+Team/Enterprise admins có thể tạo private plugin marketplace kết nối GitHub repo nội bộ — kiểm soát plugins nào employees được cài, phân phối plugins nội bộ không chia sẻ ra ngoài.
+
+### Ví dụ Phenikaa-X
+
+[Ứng dụng Kỹ thuật]
+
+| Nhu cầu | Plugin/Connector khuyến nghị |
+|---------|------------------------------|
+| Code review, track issues firmware AMR | GitHub plugin |
+| Quản lý task sprint của Automation Team | Jira hoặc Linear plugin |
+| Knowledge base kỹ thuật, SOP library | Notion plugin |
+| Tìm thông tin kỹ thuật khi viết tài liệu | Web search connector |
+
+**Starter setup cho kỹ sư Phenikaa-X:**
+
+1. Bật **Web search** connector (Ask mode) — hữu ích khi viết tài liệu cần reference
+2. Cài **GitHub plugin** nếu team dùng GitHub cho AMR firmware
+3. Cài **Notion plugin** nếu team đang dùng Notion cho knowledge base
+
+---
+
+## 10.16 Context Compaction & Agent Teams
+
+[Nguồn: Anthropic Help Center — Context compaction in Cowork]
+URL: https://support.claude.com/en/articles/context-compaction
+[Cập nhật 03/2026]
+
+Hai tính năng đang trong giai đoạn beta/preview — có thể thay đổi trước khi release chính thức.
+
+### Context Compaction (beta)
+
+Context compaction tự động nén conversation history khi context window tiến gần giới hạn, cho phép session kéo dài hơn mà không cần tạo task mới và viết handover file.
+
+**Cách hoạt động:**
+
+- Cowork tự động detect khi context đầy
+- Nén tool calls và kết quả cũ (stale) — giữ lại conversation flow và decisions quan trọng
+- Session tiếp tục mà không bị gián đoạn
+
+**Hệ quả thực tế:** Giảm tần suất cần tạo task mới + handover file (xem mục 10.10). Nhưng với task dài phức tạp, vẫn nên chủ động tạo task mới sau mỗi milestone — không phụ thuộc hoàn toàn vào compaction.
+
+> Mục 10.10 (Context window) mô tả cơ chế compaction trong bối cảnh task lifecycle.
+
+### Agent Teams (research preview)
+
+Agent Teams cho phép nhiều Claude agents phối hợp trong cùng một task. Kiến trúc:
+
+```text
+Orchestrator Agent
+├── Sub-agent 1: nghiên cứu, tổng hợp thông tin
+├── Sub-agent 2: viết nội dung
+└── Sub-agent 3: review và format
+```
+
+**Use case tiềm năng cho Phenikaa-X:**
+
+- Orchestrator nhận task "tạo báo cáo monthly AMR performance"
+- Sub-agent 1 đọc và phân tích log files từ 5 robots
+- Sub-agent 2 viết narrative report dựa trên analysis
+- Sub-agent 3 format và tạo file PDF/docx cuối cùng
+
+> **Trạng thái:** Research preview — tính năng đang thay đổi. Không dùng cho production workloads.
+
+---
+
+## 10.17 Security Best Practices
+
+[Cập nhật 03/2026]
+
+Section này bổ sung mục 10.7 (An toàn khi dùng Cowork) với Golden Rules và thông tin data privacy.
+
+> **Xem thêm:** Mục 10.7 — nguyên tắc an toàn cơ bản khi cấu hình folder access và file recovery.
+
+### Golden Rules — Trước mỗi Cowork session
+
+*Adapted từ Florian Bruniaux's claude-cowork-guide, CC BY-SA 4.0*
+
+**1. Luôn review execution plan trước khi approve.**
+Khi Claude đề xuất plan nhiều bước → đọc từng bước trước khi bấm "Approve". Chú ý bước nào xóa/overwrite file, bước nào truy cập folder ngoài workspace.
+
+**2. Chỉ grant access dedicated folder — không Documents, Desktop, hay system folders.**
+Tạo thư mục chuyên dụng (ví dụ: `D:\PhenikaaX\Cowork\`) và chỉ grant access thư mục đó.
+
+**3. Không lưu credentials hay API keys trong workspace.**
+File trong workspace đều có thể được Claude đọc. Không đặt `.env` files, token files, hay credentials trong thư mục đã grant access.
+
+**4. Verify file download trước khi mở.**
+File download từ web qua Cowork có thể chứa prompt injection — nội dung cố tình hướng dẫn Claude làm gì đó bạn không muốn. Scan file trước khi để Claude đọc.
+
+**5. Backup trước khi xóa — Cowork delete là permanent.**
+Cowork không có Recycle Bin. File bị xóa không thể khôi phục trừ khi có backup hoặc Git. Xem mục 10.7 (File Recovery) và mục 10.13.4 (Git workflow).
+
+### Data Privacy — Những gì Anthropic nhận được
+
+[Nguồn: Anthropic — Data privacy controls]
+URL: https://claude.ai/settings/data-privacy-controls
+[Cập nhật 03/2026 — verify trước khi dùng làm policy reference]
+
+Khi dùng Cowork, prompts và file contents được gửi đến Anthropic servers để xử lý.
+
+| Plan | Retention | Training |
+|------|-----------|----------|
+| **Pro/Max** (default) | 5 năm | Opt-in (không training nếu bạn không chọn) |
+| **Pro/Max** (opt-out) | 30 ngày | Không training |
+| **Enterprise** | 0 ngày | Không training |
+
+**Cách opt-out (Pro/Max):**
+Vào https://claude.ai/settings/data-privacy-controls → chọn retention policy và training preferences.
+
+**Khuyến nghị cho Phenikaa-X:**
+
+- Files chứa IP kỹ thuật, thông số robot, source code proprietary → không đặt trong Cowork workspace
+- Với thông tin nhạy cảm cấp doanh nghiệp → xem xét Enterprise plan (0 retention)
+- Documents kỹ thuật nội bộ dùng hàng ngày → Pro plan với opt-out là acceptable
+
+---
+
+## 10.18 Troubleshooting
+
+[Nguồn: Anthropic Help Center — Claude Desktop troubleshooting]
+URL: https://support.claude.com/en/articles/claude-desktop-troubleshooting
+[Cập nhật 03/2026]
+
+Các vấn đề phổ biến khi sử dụng Claude Desktop và Cowork.
+
+### VPN conflict — Cowork không kết nối được
+
+**Triệu chứng:** Cowork báo lỗi kết nối hoặc không respond sau khi bật VPN.
+
+**Nguyên nhân:** VPN routing conflict giữa Claude Desktop và network stack — đặc biệt phổ biến khi dùng VM (máy ảo) với VPN gateway.
+
+**Giải pháp:** Tắt VPN khi sử dụng Cowork. Nếu cần VPN cho công việc khác → dùng 2 thiết bị hoặc chia session: Cowork trên thiết bị không có VPN, tools cần VPN trên thiết bị còn lại.
+
+### Usage limit — Cowork báo hết quota
+
+**Triệu chứng:** "You've reached your usage limit" hoặc Cowork chậm lại đột ngột.
+
+**Cơ chế:** Pro plan cho phép ~1–1.5 giờ sử dụng intensive liên tục, reset mỗi 5 giờ. Max plan có quota gấp 5x–20x Pro. [Cập nhật 03/2026 — con số có thể thay đổi, verify tại support.claude.com]
+
+**Giải pháp:**
+
+- Chờ reset (theo dõi thời điểm limit bắt đầu)
+- Switch sang Claude.ai Chat cho tasks không cần file access trong khi chờ
+- Nếu thường xuyên hit limit → xem xét upgrade lên Max plan
+
+### Cowork không thấy trong Claude Desktop
+
+**Triệu chứng:** Chỉ thấy tab Chat, không có tab Cowork.
+
+**Giải pháp:**
+
+1. Claude Desktop → **Help** → **Check for Updates**
+2. Cài bản mới nhất và restart
+3. Verify plan đang dùng là Pro, Max, Team, hoặc Enterprise (Cowork không có trên Free plan)
+
+### File không accessible — Claude báo không đọc được file
+
+**Triệu chứng:** Claude nói "I don't have access to that file" dù file rõ ràng tồn tại.
+
+**Giải pháp:**
+
+1. Kiểm tra file có nằm trong thư mục đã được grant access không
+2. Nếu nằm ngoài → grant access thư mục chứa file đó qua Customize tab
+3. Nếu đã grant → thử đóng và mở lại Cowork session
+4. Windows-specific: kiểm tra file permissions (chuột phải → Properties → Security)
+
+---
+
 **Tiếp theo:**
 
+- [Module 11](11-cowork-workflows.md) — 12 workflows copy-paste sẵn sàng dùng cho Cowork
 - [Module 02](02-setup-personalization.md) — cấu hình Claude.ai (web) chi tiết
 - [Module 05](05-workflow-recipes.md) — quy trình copy-paste cho từng loại task
 - [Module 06](06-tools-features.md) — cheat sheet tính năng Claude

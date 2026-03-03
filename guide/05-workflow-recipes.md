@@ -758,6 +758,174 @@ KHÔNG làm: {{boundaries — files không được sửa, scope không được
 
 ---
 
+## 5.15 Recipe: Cowork Batch Processing
+
+[Cập nhật 03/2026]
+
+**Khi nào dùng:** Xử lý nhiều files cùng lúc trong Cowork — convert format hàng loạt, extract thông tin từ nhiều tài liệu, tổ chức lại cấu trúc thư mục lớn.
+
+### Quy trình 4 bước
+
+**Bước 1 — Chọn folder và scope:**
+
+```text
+Đọc danh sách files trong {{thư_mục}}:
+- Liệt kê tất cả files có extension {{ext}}
+- Tổng số: bao nhiêu files?
+- Preview 3 files đầu để confirm format đúng trước khi chạy full batch.
+```
+
+**Bước 2 — Mô tả input/output:**
+
+```text
+Input: {{mô tả format hiện tại — ví dụ: file .docx, có heading Word styles}}
+Output mong muốn: {{mô tả format đích — ví dụ: file .md, heading #/##/###}}
+Quy tắc convert: {{quy tắc đặc thù — ví dụ: bảng Word → Markdown table, hình ảnh → [Image: tên file]}}
+Đặt file output vào: {{thư mục đích}}
+```
+
+**Bước 3 — Review plan trước khi chạy:**
+
+```text
+Trước khi bắt đầu, liệt kê:
+1. Số files sẽ xử lý
+2. Files nào có thể gặp vấn đề (format không chuẩn, kích thước lớn)
+3. Thứ tự xử lý nếu có dependency
+
+Đề xuất batch size hợp lý.
+Chưa chạy — chờ approve.
+```
+
+**Bước 4 — Approve và chạy batch:**
+
+```text
+OK, chạy batch convert theo plan đã thống nhất.
+Sau mỗi {{N}} files, báo cáo trạng thái: đã xong X/total, lỗi nếu có.
+```
+
+### Prompt template: Batch convert Word → Markdown
+
+```text
+Trong thư mục {{input_folder}}, convert tất cả file .docx sang Markdown:
+
+Quy tắc:
+- Heading styles (H1→H3) → # / ## / ###
+- Bold/Italic → **bold** / *italic*
+- Tables → Markdown table
+- Hình ảnh → [Image: {{tên file gốc}}]
+- Footnotes → ghi chú ở cuối section
+
+Output: lưu file .md vào {{output_folder}}, giữ tên file gốc.
+Báo cáo khi hoàn thành: số thành công, số lỗi, danh sách file lỗi nếu có.
+```
+
+### Tips
+
+- **Chia batch nếu > 20 files.** Xử lý quá nhiều cùng lúc tăng rủi ro lỗi giữa chừng và khó track kết quả.
+- **Dùng Sonnet cho batch tasks.** Opus không cần thiết cho convert/extract — Sonnet nhanh hơn và tiết kiệm quota.
+- **Preview 3 files trước khi chạy full batch.** Phát hiện vấn đề format sớm, tránh phải redo toàn bộ.
+- **Backup thư mục input trước khi chạy** nếu script có thể ghi đè — dùng Git commit hoặc copy thủ công.
+
+[Ứng dụng Kỹ thuật] Ví dụ: Convert 45 SOP Word docs sang Markdown để đưa vào knowledge base. Chia thành 3 batch (15 files/batch), preview batch đầu xác nhận heading styles đúng, chạy lần lượt. Phát hiện 3 files có hình ảnh embedded cần xử lý thủ công — tách riêng, không block batch còn lại.
+
+---
+
+## 5.16 Recipe: Cowork + Scheduled Tasks cho báo cáo định kỳ
+
+[Cập nhật 03/2026]
+
+**Khi nào dùng:** Cần tạo output tự động theo lịch định kỳ — weekly test report, monthly summary, daily log digest — không cần mở Cowork thủ công mỗi lần.
+
+**Yêu cầu:** Claude Desktop với Cowork (Pro plan trở lên). Máy phải đang bật vào thời điểm scheduled task chạy.
+
+### Quy trình 3 bước
+
+**Bước 1 — Tạo prompt template:**
+
+Viết prompt hoàn chỉnh với tất cả instructions. Scheduled task chạy prompt này tự động — không có người ở đó để clarify, nên prompt phải self-contained.
+
+```text
+[Scheduled task — chạy mỗi {{ngày}} lúc {{giờ}}]
+
+Đọc files trong {{thư_mục_data}}:
+- {{file_pattern_1}} — chứa {{loại_data_1}}
+- {{file_pattern_2}} — chứa {{loại_data_2}}
+
+Tổng hợp thành báo cáo tuần:
+1. Tóm tắt executive: 3-5 điểm chính
+2. Metrics so với tuần trước: {{danh_sách_KPI}}
+3. Issues phát sinh: list với severity
+4. Actions needed: ai cần làm gì trước {{deadline}}
+
+Lưu báo cáo tại: {{output_folder}}/report-{{ngày}}.md
+Format ngày: YYYY-MM-DD
+```
+
+**Bước 2 — Test manual trước khi schedule:**
+
+```text
+Chạy thử prompt báo cáo này một lần với data hiện tại.
+Confirm: output format đúng, file được lưu đúng chỗ, không có lỗi.
+```
+
+**Bước 3 — Setup Scheduled Task trong Cowork:**
+
+Trong Claude Desktop > Cowork > Scheduled Tasks:
+
+1. Tạo task mới
+2. Paste prompt template
+3. Chọn schedule: Daily / Weekly / Monthly + thời điểm
+4. Cron syntax nếu cần lịch phức tạp:
+
+| Lịch | Cron syntax |
+|------|-------------|
+| Mỗi thứ Hai 8:00 AM | `0 8 * * 1` |
+| Mỗi thứ Sáu 5:00 PM | `0 17 * * 5` |
+| Ngày 1 hàng tháng 9:00 AM | `0 9 1 * *` |
+| Mỗi ngày trong tuần 9:00 AM | `0 9 * * 1-5` |
+
+### Prompt template: Weekly test report
+
+```text
+[Scheduled task — chạy mỗi thứ Sáu 5:00 PM]
+
+Đọc tất cả file log trong tests/results/ từ tuần này (thứ Hai đến hôm nay).
+File pattern: test-*.log
+
+Tạo Weekly Test Report:
+
+## Summary
+- Tổng test cases: X passed / Y failed / Z skipped
+- Pass rate: X%
+
+## Failed Tests
+| Test | Error | Module | Priority |
+|------|-------|--------|----------|
+[liệt kê từng test fail]
+
+## Trends so tuần trước
+[so sánh pass rate, module có nhiều fail nhất]
+
+## Actions Needed
+[issues cần fix trước release tiếp theo]
+
+Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
+```
+
+### Tips
+
+- **Máy phải đang bật.** Scheduled Tasks chạy trên máy local — không chạy được nếu máy tắt hoặc ngủ.
+- **Cron syntax chuẩn 5 trường:** `phút giờ ngày_tháng tháng ngày_tuần`. Sai cú pháp → task không chạy.
+- **Prompt phải self-contained.** Không dùng "như đã nói", "nhớ lần trước" — mỗi lần chạy là conversation mới.
+- **Test manual ít nhất 1 lần** trước khi để chạy tự động. Kiểm tra: file được lưu đúng path, format đúng.
+- **Đặt output vào folder có Git** để track lịch sử báo cáo theo thời gian.
+
+[Ứng dụng Kỹ thuật] Ví dụ: Tự động tổng hợp SLAM performance log mỗi sáng thứ Hai. Prompt đọc slam-*.log từ tuần trước, tạo bảng so sánh localization accuracy, loop closure rate, và mapping drift theo ngày. Output file .md trong reports/weekly/ → commit tự động vào Git → team xem trên GitHub.
+
+**Chi tiết Scheduled Tasks:** Xem Module 10, mục 10.5.
+
+---
+
 **Tiếp theo:**
 
 - Module 07: Template Library -- tất cả templates copy-paste cho mọi tình huống
