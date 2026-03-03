@@ -124,8 +124,20 @@ npx @skill-hub/cli install md-docs
 
 ---
 
-## 7. Ghi chú
+## 7. Custom Skills — Phenikaa-X (Project Skills)
 
-Custom Skills (Phenikaa-X) sẽ được bổ sung khi hoàn thành.
+Skills nội bộ dùng trong Guide Claude project, nằm tại `.claude/skills/`. Chỉ hoạt động trong Cowork (Claude Code) khi mở đúng thư mục project.
+
+| Tên | Trigger | Chức năng |
+|-----|---------|-----------|
+| `session-start` | `/start` hoặc "bắt đầu session" | Orientation đầu session: đọc git log, trả về tóm tắt trạng thái project |
+| `version-bump` | `/version-bump`, "lên version vX.X" | Bump VERSION file, thêm changelog entry, update project-state.md |
+| `doc-standard-enforcer` | Khi edit file trong `guide/` | Enforce writing standards: heading hierarchy, code block tags, cross-links |
+| `cross-ref-checker` | Kiểm tra module | Scan cross-references, báo cáo broken links và inconsistencies |
+| `module-review` | `/review-module <số>` | Deep review 1 module theo scoring rubric |
+
+---
+
+## 8. Ghi chú
 
 Skills KHÔNG sync giữa các surface. Skill cài trên claude.ai không tự có trên Cowork hay Claude Code. Cần cài riêng cho từng surface. (Nguồn: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)

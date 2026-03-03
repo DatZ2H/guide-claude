@@ -70,6 +70,8 @@ Liệt kê mọi issue tìm được.
 
 **Tip thực tế:** Ở bước 3, viết từng section riêng lẻ trong các messages khác nhau. Không nên yêu cầu Claude viết hết cả tài liệu 20-30 trang trong một message -- chất lượng sẽ giảm ở các phần cuối do context dài.
 
+[Ứng dụng Kỹ thuật] Ví dụ: Viết User Guide cho AMR-500. Bước 1 brief — "Viết user guide cho robot tự hành AMR-500, vận hành trong nhà máy sản xuất linh kiện điện tử. Target audience: kỹ thuật viên vận hành, quen xe nâng thông thường, chưa có background lập trình. Sau khi đọc, người đọc có thể khởi động, vận hành cơ bản, và xử lý 5 lỗi thường gặp." Bước 2 điều chỉnh — tách riêng "Safety Procedures" thành section đầu tiên. Bước 3 — viết mỗi section trong 1 message riêng (Safety → Startup → Navigation Modes → Emergency Stop → Error Codes), không gộp cả guide vào 1 prompt.
+
 ---
 
 ## 5.2 Recipe: Review và cải thiện tài liệu (Document Review)
@@ -201,6 +203,8 @@ Tìm mọi trường hợp thuật ngữ trong tài liệu không khớp với g
 
 Báo cáo dạng bảng với vị trí cụ thể (section + paragraph).
 ```
+
+[Ứng dụng Kỹ thuật] Ví dụ: Team R&D dùng lẫn lộn "robot tự hành" / "AGV" / "AMR" / "xe tự hành" — cùng 1 concept, 4 cách gọi khác nhau trong SOP, maintenance manual, incident report, training material. Upload 4 tài liệu → Claude trích xuất glossary → chuẩn hóa: "AMR" là thuật ngữ chính thức; "AGV" chỉ dùng khi so sánh với công nghệ cũ (dây chuyền guided wire). Sau đó dùng prompt "Kiểm tra tính nhất quán" để scan và đánh dấu 23 chỗ cần fix trong 4 files.
 
 ---
 
