@@ -7,16 +7,33 @@ Tài liệu này dành cho **maintainer mới** hoặc khi setup lại môi trư
 
 ## Skills đang dùng (Project-level)
 
-4 skills trong `.claude/skills/` — active khi làm việc trong folder này:
+5 skills trong `.claude/skills/` — active khi làm việc trong folder này:
 
 | Skill | Trigger phrase | Mục đích |
 |-------|----------------|---------|
-| `session-start` | "bắt đầu", "tiếp tục", "còn lại gì" | Đọc `_memory/`, orientation 5 dòng, gợi ý next action |
+| `session-start` | "bắt đầu", "tiếp tục", "còn lại gì" | Đọc git history, orientation 5 dòng, gợi ý next action |
 | `version-bump` | "bump version", "release vX.X" | Cập nhật VERSION → changelog → project-state đúng thứ tự |
 | `cross-ref-checker` | "kiểm tra cross-references", "scan stale" | Tìm stale file paths, hardcoded versions trong guide/ |
 | `module-review` | "review module X", "đánh giá chất lượng" | Checklist 5 tiêu chí: accuracy, consistency, completeness, clarity, actionability |
+| `doc-standard-enforcer` | Tự động khi edit/tạo content trong `guide/` | Enforce writing standards: code block tags, heading hierarchy, language rules |
 
 Skills nằm trong `.claude/skills/[tên-skill]/SKILL.md` — xem từng file để biết chi tiết workflow.
+
+---
+
+## Commands đang dùng (Project-level)
+
+5 commands trong `.claude/commands/` — gọi bằng slash command:
+
+| Command | Trigger | Mục đích |
+|---------|---------|---------|
+| `/start` | Đầu mỗi session | Orientation: version, branch, git status, last commit |
+| `/checkpoint` | Sau khi hoàn thành task | Quick commit với staged files, format message tự động |
+| `/validate-doc` | `/validate-doc 03` | Validate 1 module: code block tags, heading hierarchy, VERSION link |
+| `/review-module` | `/review-module 06` | Deep review module: accuracy, consistency, completeness, clarity |
+| `/weekly-review` | Đầu tuần | 5-bước review: git log, module health, issues, priorities, checkpoint |
+
+Commands nằm trong `.claude/commands/[tên].md` — xem từng file để biết chi tiết workflow.
 
 ---
 
@@ -53,25 +70,10 @@ Claude đọc file này tự động khi bắt đầu Cowork session trong folde
 
 ---
 
-## Memory Files (cần khởi tạo nếu chưa có)
-
-```
-_memory/
-├── session-state.md     ← Trạng thái task hiện tại + last session summary
-└── decisions-log.md     ← Audit trail quyết định thiết kế
-```
-
-Nếu hai files này không tồn tại → skill `session-start` sẽ hỏi có muốn khởi tạo không.
-
-Template để khởi tạo: `_scaffold/memory-starter/`
-
----
-
 ## Checklist cho maintainer mới
 
 - [ ] Đọc `project-state.md` để nắm trạng thái dự án
-- [ ] Đọc `_memory/session-state.md` để biết task đang làm dở
-- [ ] Đọc `_memory/decisions-log.md` để hiểu các quyết định đã đưa ra
+- [ ] Đọc `git log --oneline -20` để xem recent changes
 - [ ] Setup Global CLAUDE.md nếu chưa có (xem mục Global Instructions trên)
 - [ ] Test skill `session-start`: gõ "bắt đầu" → Claude phải báo orientation
 - [ ] Đọc `VERSION` để biết version hiện tại
