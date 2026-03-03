@@ -14,3 +14,5 @@ desktop.ini
 
 # OneDrive conflict files
 *-conflict-*
+#
+*.bak
