@@ -1,7 +1,7 @@
 # Module 09: Evaluation Framework -- Đánh giá chất lượng output
 
 **Thời gian đọc:** 10 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
 

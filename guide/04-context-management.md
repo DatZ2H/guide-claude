@@ -1,7 +1,7 @@
 # Module 04: Context Management
 
 **Thời gian đọc:** 15 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
 

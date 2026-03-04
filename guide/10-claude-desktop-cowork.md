@@ -1,7 +1,7 @@
 # Module 10: Claude Desktop & Cowork
 
 **Thời gian đọc:** 25 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Module 11: Cowork Workflows Library
 
 **Thời gian đọc:** 30 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-03 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-03 | Models: xem [specs](reference/model-specs.md)
 
 ---
 

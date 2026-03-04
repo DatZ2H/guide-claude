@@ -1,7 +1,7 @@
 # Module 02: Setup & Personalization
 
 **Thời gian đọc:** 20 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-02-28 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-02-28 | Models: xem [specs](reference/model-specs.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Module 06: Tools & Features
 
 **Thời gian đọc:** 15 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
 
@@ -11,25 +11,9 @@ Module này là cheat sheet tra cứu nhanh tất cả tính năng của Claude.
 
 ## 6.1 Tổng quan tính năng theo Plan
 
-[Cập nhật 03/2026]
+Claude có nhiều plan từ Free đến Enterprise với tính năng khác nhau.
 
-| Tính năng | Free | Pro ($20/th) | Max ($100–200/th) | Team ($25/ng/th) | Enterprise |
-|-----------|------|-------------|-------------------|------------------|------------|
-| Chat cơ bản | Có | Có | Có | Có | Có |
-| Web Search | Có | Có | Có | Có | Có |
-| Artifacts | Có | Có | Có | Có | Có |
-| Upload files | Có | Có | Có | Có | Có |
-| Projects | 5 projects | Không giới hạn | Không giới hạn | + Shared | + Admin |
-| File Creation (docx, pptx...) | Có | Có | Có | Có | Có |
-| Styles (preset + custom) | Có | Có | Có | Có | Có |
-| Memory | Có | Có | Có | Có | Có |
-| Extended Thinking | Hạn chế | Có | Có | Có | Có |
-| Chọn model | Không | Có | Có + Opus mặc định | Có | Có |
-| MCP Connectors | Không | Có | Có | Có | Có |
-| Research | Không | Có | Có | Có | Có |
-| Dung lượng sử dụng | Thấp | 5x Free | Cao hơn ($100: ~10x, $200: ~20x) | 5x Free | Custom |
-
-**Lưu ý:** Bảng này cập nhật đến 03/2026. Anthropic thường xuyên cập nhật features -- kiểm tra claude.ai cho thông tin mới nhất. Memory hiện có trên Free plan từ Q1/2026. Max plan có 2 tier giá: $100/th và $200/th (dung lượng cao hơn).
+Chi tiết plan và features: xem [Model Specs](reference/model-specs.md#feature-availability-by-plan)
 
 ---
 
@@ -37,28 +21,11 @@ Module này là cheat sheet tra cứu nhanh tất cả tính năng của Claude.
 
 [Cập nhật 03/2026]
 
-| Model | Điểm mạnh | Khi nào dùng | Tốc độ |
-|-------|----------|-------------|--------|
-| **Claude Opus 4.6** | Suy luận sâu nhất, Extended thinking | Reasoning chuyên sâu: phân tích pháp lý, nghiên cứu khoa học, đánh giá kiến trúc hệ thống phức tạp | Chậm nhất |
-| **Claude Sonnet 4.6** | Cân bằng tốc độ và chất lượng, Extended thinking, 1M context (beta) | Công việc hàng ngày, viết tài liệu, code review, agentic tasks và automation | Trung bình |
-| **Claude Haiku 4.5** | Nhanh nhất, chi phí thấp | Q&A nhanh, tra cứu, task đơn giản | Nhanh nhất |
-
 **Cách chọn model:** Click tên model ở đầu conversation > Chọn model muốn dùng.
 
 **Quy tắc chọn nhanh:** Bắt đầu với **Sonnet 4.6** cho hầu hết công việc — bao gồm cả agentic tasks và automation workflows. Chuyển sang **Opus 4.6** chỉ khi cần suy luận rất sâu (phân tích pháp lý, nghiên cứu khoa học, multi-system architecture critique). Dùng Haiku 4.5 cho task nhanh không cần chất lượng cao.
 
-> **[Cập nhật 03/2026] OSWorld benchmark (agentic tasks):** Sonnet 4.6 đạt 72.5% vs Opus 4.6 đạt 72.7% — chênh lệch không đáng kể cho automation và workflow. Opus chỉ vượt trội rõ ràng ở deep reasoning benchmark (GPQA Diamond: 91.3%). Với công việc kỹ thuật hàng ngày, Sonnet 4.6 là lựa chọn mặc định. [Nguồn: Anthropic Model Cards]
-
-### Context Window
-
-| Model             | Context Window                           | Tương đương                 |
-| ----------------- | ---------------------------------------- | --------------------------- |
-| Claude Opus 4.6   | 200,000 tokens (chuẩn), 1M tokens (beta) | 500–700 / 2,500–3,500 trang |
-| Claude Sonnet 4.6 | 200,000 tokens (chuẩn), 1M tokens (beta) | 500–700 / 2,500–3,500 trang |
-| Claude Haiku 4.5  | 200,000 tokens                           | 500–700 trang               |
-
-
-[Nguồn: Anthropic Docs - Models Overview]
+Chi tiết và so sánh: xem [Model Specs](reference/model-specs.md)
 
 ---
 
