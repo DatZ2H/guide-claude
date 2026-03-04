@@ -57,7 +57,7 @@ Ba công cụ dùng chung kiến trúc agent Anthropic, nhưng môi trường th
 
 ### Quy tắc chọn công cụ
 
-```
+```text
 Cần brainstorm / viết nội dung → claude.ai
       ↓ nếu cần tạo/sửa file
 Không cần Git → Cowork đủ rồi
@@ -511,7 +511,7 @@ Subagents là Claude instance độc lập chạy song song hoặc tuần tự v
 
 Subagent là Claude instance chạy trong isolated context — không chia sẻ conversation history với main session. Main session gửi task, subagent thực hiện rồi trả summary. Điểm mấu chốt: subagent không bị bias bởi context trước đó, nên phù hợp cho review độc lập.
 
-```
+```text
 Main session (Writer)          Subagent (Reviewer)
 ┌─────────────────────┐       ┌─────────────────────┐
 │ Viết SOP onboarding │──────→│ Review SOP theo      │
@@ -671,62 +671,517 @@ Xem thêm: [Claude Code Setup — Essential Commands](reference/claude-code-setu
 
 ## 12.9 Git Integration cho Documentation
 
-Claude Code tích hợp Git natively: tạo branch, commit, đọc git history trong session. Section này hướng dẫn thiết lập Git workflow cho documentation project — branch naming convention, commit message format, pre-commit hooks để validate trước khi commit. Trình bày `SessionStart` hook: chạy tự động khi mở session, hiển thị git status và nhắc checkpoint.
+Claude Code tích hợp Git natively: tạo branch, commit, đọc git history trong session. Section này hướng dẫn thiết lập Git workflow cho documentation project — branch naming convention, commit message format, và hooks tự động hóa validation trước mỗi commit. Ví dụ thực tế lấy từ Guide Claude project.
 
 [Nguồn: Claude Code Docs — Git Integration]
 
-[Full content sẽ viết ở S17/S18]
+### Branch Naming Convention
+
+Quy ước đặt tên branch giúp team hiểu mục đích ngay từ tên:
+
+| Prefix | Dùng khi | Ví dụ |
+|--------|----------|-------|
+| `feat/` | Thêm module hoặc section mới | `feat/add-module-07` |
+| `fix/` | Sửa lỗi nội dung, broken links | `fix/broken-crosslinks` |
+| `docs/` | Cập nhật README, changelog | `docs/update-readme` |
+| `ref/` | Refactor cấu trúc, không đổi nội dung | `ref/reorganize-reference` |
+
+Khai báo convention trong CLAUDE.md để Claude tuân thủ khi tạo branch:
+
+```text
+## Git workflow
+- Branch naming: feat/<topic>, fix/<topic>, docs/<topic>
+- Main branch: master — luôn tạo PR thay vì push trực tiếp
+```
+
+### Commit Message Conventions
+
+Commit message nên ngắn gọn, mô tả *what changed*. Ngôn ngữ tùy team — Guide Claude dùng tiếng Việt:
+
+```text
+# Pattern: <Action>: <scope> — <mô tả ngắn>
+Thêm cross-link module 03 → config-architecture
+Ref: Module 05 — rewrite từ AMR-focused sang Documentation-first
+Fix: broken anchor link section 12.3
+Bump v5.1 → v6.0: Phase 4 Full Rewrite
+```
+
+Khai báo trong CLAUDE.md — Claude sẽ đọc `git log` để follow convention tự động.
+
+### Hooks — Tự động hóa trước và sau mỗi session
+
+Claude Code hỗ trợ hooks trong `.claude/settings.json` — chạy shell commands tự động theo sự kiện.
+
+**PreToolUse hook — validate trước khi commit:**
+
+```jsonc
+// .claude/settings.json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [{
+          "type": "command",
+          "command": "bash .claude/hooks/pre-commit-doc.sh"
+        }]
+      }
+    ]
+  }
+}
+```
+
+Script `pre-commit-doc.sh` có thể kiểm tra:
+
+```bash
+#!/bin/bash
+# Check heading hierarchy trong các file .md đã staged
+STAGED_MD=$(git diff --cached --name-only -- '*.md')
+for f in $STAGED_MD; do
+  # Detect heading skip: ## ngay sau # mà không có ## trung gian
+  if grep -Pn '^#{4,}' "$f" | head -1; then
+    echo "BLOCK: Heading skip detected in $f"
+    exit 1
+  fi
+done
+```
+
+**SessionStart hook — inject context khi mở session:**
+
+```jsonc
+{
+  "hooks": {
+    "SessionStart": [{
+      "hooks": [{
+        "type": "command",
+        "command": "echo \"Project $(cat VERSION) | Branch: $(git branch --show-current) | Modified: $(git status --short | wc -l) files\""
+      }]
+    }]
+  }
+}
+```
+
+Output hiển thị ngay khi session bắt đầu — không cần gõ `/start` thủ công.
+
+[Ứng dụng Kỹ thuật]
+
+### Ví dụ thực tế — Guide Claude project
+
+```text
+Branch:  feat/claude-code-docs
+Commits: tiếng Việt, pattern "<Action>: <scope> — <detail>"
+Hooks:   SessionStart inject version + branch + file count
+Flow:    /checkpoint → commit → validate → push → PR to master
+```
+
+Toàn bộ convention được khai báo trong `.claude/CLAUDE.md` section `## Git workflow` — Claude đọc mỗi session và follow tự động, không cần nhắc lại.
 
 ## 12.10 Verification & Quality Assurance
 
-Pattern hiệu quả nhất trong documentation QA là cung cấp cho Claude checklist kiểm tra output của chính nó — thay vì chỉ yêu cầu "viết tốt". Section này trình bày `/validate-doc` (heading hierarchy, language tags, cross-links, emoji policy), `cross-ref-checker` skill (phát hiện broken links), và nguyên tắc thiết kế checklist có tiêu chí pass/fail rõ ràng.
+"Give Claude a way to verify its work" — đây là practice có đòn bẩy cao nhất khi dùng Claude Code cho documentation. Thay vì chỉ yêu cầu "viết tốt", cung cấp tiêu chí pass/fail rõ ràng để Claude tự kiểm tra output. Section này trình bày 3 strategy verification và nguyên tắc "trust but verify" từ Mintlify.
 
-[Full content sẽ viết ở S17/S18]
+[Nguồn: Claude Code Docs — Best Practices]
+
+### 3 Verification Strategies
+
+| Strategy | Cách dùng | Ví dụ |
+|----------|-----------|-------|
+| **Verification criteria trong prompt** | Thêm checklist vào cuối prompt — Claude tự kiểm tra trước khi trả kết quả | "Viết SOP, sau đó kiểm tra: mỗi step có action verb, heading hierarchy đúng, không hardcode version" |
+| **Automated checks qua commands** | Chạy slash command hoặc skill sau khi edit | `/validate-doc 05` — kiểm tra heading, language tags, cross-links, source markers |
+| **Subagent review** | Dùng isolated reviewer không bị bias bởi writing context | "Dùng subagent review Module 03 cho consistency với existing SOPs" |
+
+### Verification criteria trong prompt
+
+Pattern đơn giản nhất — thêm checklist vào prompt:
+
+```text
+Viết SOP quy trình deploy firmware cho AMR.
+
+Sau khi viết xong, tự kiểm tra:
+- [ ] Mỗi step bắt đầu bằng action verb (Mở, Chạy, Kiểm tra...)
+- [ ] Heading hierarchy đúng: ## section → ### subsection
+- [ ] Không hardcode version — tham chiếu {{VERSION}}
+- [ ] Có ít nhất 1 source marker: [Nguồn: ...] hoặc [Ứng dụng Kỹ thuật]
+- [ ] Cross-links dùng relative paths, không absolute URLs
+Nếu có item fail, sửa trước khi trả kết quả.
+```
+
+Claude sẽ iterate nội bộ trước khi output — giảm edit rounds cho user.
+
+### Automated checks — `/validate-doc`
+
+Command `/validate-doc` chạy 5 checks tự động:
+
+```text
+/validate-doc 05
+
+Output:
+✅ Heading hierarchy: OK
+✅ Code blocks: all have language tags
+❌ Cross-links: L47 "../guide/03-xxx.md#section" — anchor not found
+✅ Source markers: 4 found, format OK
+✅ Version reference: no hardcoded version
+```
+
+Kết hợp với `cross-ref-checker` skill — phát hiện broken links across toàn bộ `guide/`:
+
+```text
+Kiểm tra cross-references trong module 05.
+# Skill cross-ref-checker tự kích hoạt, scan tất cả relative links
+```
+
+### Nguyên tắc "Trust but Verify"
+
+> [!WARNING]
+> "Don't publish something just because Claude suggested it." — Mintlify engineering team đã học bài này khi dùng Claude Code viết documentation: output quality cao, nhưng occasional hallucination về API endpoints hoặc code examples vẫn xảy ra. [Nguồn: Mintlify Blog]
+
+**Checklist trước khi publish:**
+
+- Code examples: chạy thử hoặc cross-check với source code
+- API endpoints/URLs: verify bằng browser hoặc `curl`
+- Version numbers: đối chiếu với `VERSION` file hoặc changelog
+- Feature availability: verify tại official docs — features thay đổi thường xuyên
+- Cross-links: chạy `/validate-doc` — Claude tự check nhưng vẫn có thể miss
+
+[Ứng dụng Kỹ thuật]
 
 ## 12.11 Permissions & Safety
 
-Claude Code có hệ thống permissions granular: cho phép hoặc deny từng tool (read, write, bash, git) theo scope session hoặc project. Lệnh `/permissions` hiển thị và chỉnh sửa permissions hiện tại. Section này hướng dẫn cấu hình permissions tối giản cho documentation workflow (thường không cần bash rộng), và giải thích sandbox mode — dry-run trước khi approve execute.
+Claude Code có hệ thống permissions granular: cho phép hoặc deny từng tool (Read, Write, Edit, Bash) theo scope. Section này hướng dẫn cấu hình permissions tối giản cho documentation workflow — mở đủ quyền để edit docs, khóa những gì không cần. Bao gồm sandbox mode cho review an toàn.
 
 Xem thêm: [Claude Code Setup — Permission Templates](reference/claude-code-setup.md#permission-templates).
 
 [Nguồn: Claude Code Docs — Permissions]
 
-[Full content sẽ viết ở S17/S18]
+### `/permissions` — Xem và chỉnh sửa
+
+Gõ `/permissions` trong session để xem rules hiện tại và chỉnh sửa trực tiếp.
+
+Rules được lưu trong `.claude/settings.json` (shared, commit vào git) hoặc `.claude/settings.local.json` (cá nhân, gitignored).
+
+### Allow/Deny Patterns
+
+```jsonc
+// .claude/settings.json
+{
+  "permissions": {
+    "allow": [
+      "Read",              // đọc mọi file
+      "Edit guide/**",     // edit markdown trong guide/
+      "Bash(git *)"        // git operations
+    ],
+    "deny": [
+      "Write .env",        // không ghi file nhạy cảm
+      "Bash(rm *)",        // không xóa file
+      "Bash(curl *)"       // không gọi external URLs
+    ]
+  }
+}
+```
+
+**Template cho documentation project:**
+
+| Rule | Lý do |
+|------|-------|
+| `allow Read` | Claude cần đọc mọi file để hiểu context |
+| `allow Edit guide/**` | Chỉ cho phép edit trong thư mục docs |
+| `allow Bash(git *)` | Git operations: commit, branch, status |
+| `deny Bash(rm *)` | Ngăn xóa file — dùng git revert thay thế |
+| `deny Write .env` | Không ghi file chứa secrets |
+
+### Sandbox Mode
+
+Sandbox mode giới hạn network access và file system — hữu ích khi review tài liệu từ nguồn không tin cậy hoặc test skill mới.
+
+Kích hoạt:
+
+```bash
+claude --sandbox
+```
+
+Trong sandbox: Claude đọc file bình thường nhưng không thể gọi external URLs, chạy arbitrary bash, hoặc ghi file ngoài thư mục project.
+
+**Khi nào dùng sandbox:**
+
+- Review pull request từ contributor bên ngoài
+- Test skill/command mới trước khi deploy cho team
+- Dry-run workflow phức tạp trước khi approve
+
+### `--dangerously-skip-permissions`
+
+> [!WARNING]
+> Flag `--dangerously-skip-permissions` bỏ qua toàn bộ permission checks — Claude có thể đọc, ghi, xóa bất kỳ file nào và chạy bất kỳ command nào mà không hỏi. Chỉ dùng trong môi trường sandbox hoặc CI/CD pipeline có kiểm soát. KHÔNG dùng trên máy cá nhân với dữ liệu quan trọng.
+
+```bash
+# CI/CD pipeline — chạy trong container isolated
+claude -p "Validate all modules" --dangerously-skip-permissions
+
+# KHÔNG BAO GIỜ làm thế này trên máy cá nhân
+# claude --dangerously-skip-permissions  ← NGUY HIỂM
+```
 
 ## 12.12 Token Optimization & Cost
 
-Model selection là đòn bẩy lớn nhất cho cost: Haiku cho tác vụ đơn giản (format check, batch rename), Sonnet cho editing và review thông thường, Opus chỉ khi cần phân tích kiến trúc phức tạp. `/compact` tóm tắt context dài để giảm token trong session nhiều file. Section này còn đề cập `offset`/`limit` khi đọc file lớn, và `effort` level để điều chỉnh thinking depth.
+Claude Code tính token mỗi API call — context càng lớn, cost càng cao. Section này trình bày các đòn bẩy giảm cost mà không giảm chất lượng: model selection, compact strategy, đọc file thông minh, và slash commands thay prompt dài.
 
 Xem thêm: [Model Specs & Pricing](reference/model-specs.md).
 
 [Nguồn: Claude Code Docs — Token Usage]
 
-[Full content sẽ viết ở S17/S18]
+### Model Selection — đòn bẩy lớn nhất
+
+Chọn model phù hợp giảm cost 5-20x mà không ảnh hưởng output quality cho tác vụ đơn giản.
+
+| Model | Khi nào dùng | Ví dụ documentation |
+|-------|-------------|---------------------|
+| **Haiku** | Tác vụ đơn giản, format check | Batch rename headings, check language tags |
+| **Sonnet** | Editing, review, viết nội dung (default) | Viết section mới, `/validate-doc`, `/checkpoint` |
+| **Opus** | Phân tích kiến trúc, refactor phức tạp | Rewrite module, multi-file consistency review |
+
+Chuyển model trong session:
+
+```text
+/model opus       # trước tác vụ phức tạp
+# ... làm việc ...
+/model sonnet     # quay lại default khi xong
+```
+
+Xem flowchart chọn model chi tiết: [Model Specs](reference/model-specs.md).
+
+### `/compact` — Nén context khi session dài
+
+`/compact` tóm tắt conversation hiện tại, giải phóng context window. Thêm custom instruction để giữ thông tin quan trọng:
+
+```text
+/compact Focus on cross-link changes, bỏ qua format fixes
+/compact Giữ lại danh sách files đã edit và issues còn open
+```
+
+**Khi nào compact:** Sau 10+ turns, sau khi đọc nhiều file lớn, hoặc khi Claude bắt đầu chậm hoặc quên context trước đó.
+
+### Đọc file thông minh — `offset`/`limit`
+
+Với file >500 dòng, đọc toàn bộ tốn token không cần thiết. Chỉ đọc phần cần thiết:
+
+```text
+# Thay vì đọc toàn bộ module 700 dòng:
+Đọc guide/12-claude-code-documentation.md
+
+# Đọc chỉ section cần edit:
+Đọc guide/12-claude-code-documentation.md từ dòng 672 đến 704
+```
+
+Khai báo trong CLAUDE.md để Claude tự áp dụng:
+
+```text
+## Token optimization
+- Đọc file có offset/limit khi file > 500 dòng
+```
+
+### Effort Level
+
+Biến môi trường `CLAUDE_CODE_EFFORT_LEVEL` điều chỉnh thinking depth — ảnh hưởng trực tiếp đến token usage:
+
+```bash
+# Low effort — format fixes, simple edits
+CLAUDE_CODE_EFFORT_LEVEL=low claude -p "Fix typos in README.md"
+
+# Default — editing, review thông thường
+claude
+
+# High effort — complex analysis, architectural decisions
+CLAUDE_CODE_EFFORT_LEVEL=high claude -p "Review toàn bộ cross-references"
+```
+
+### Slash Commands vs Typed Prompts — token savings
+
+Slash commands tiết kiệm token đáng kể so với gõ prompt dài:
+
+| Cách gọi | Input tokens |
+|-----------|-------------|
+| Gõ prompt 5 dòng mô tả workflow | ~200 tokens |
+| `/checkpoint` (command file ~10 dòng) | ~50 tokens |
+| Skill auto-activate (0 prompt input) | 0 prompt tokens |
+
+Commands và skills load instructions từ file — không cần gõ lại mỗi lần. Skills auto-activate còn hiệu quả hơn: khi context match trigger, skill kích hoạt mà user không cần gõ gì — 0 prompt tokens cho phần kích hoạt.
+
+> [!TIP]
+> Kết hợp 3 đòn bẩy cho cost optimization tốt nhất: (1) chọn đúng model, (2) `/compact` khi session dài, (3) dùng commands/skills thay prompt dài. Với project documentation thông thường, Sonnet + `/compact` mỗi 10 turns đã đủ.
 
 ## 12.13 Batch & Automation
 
-Claude Code hỗ trợ non-interactive mode qua `claude -p "prompt"` — cho phép pipe input/output, tích hợp CI pipeline, và fan-out pattern (nhiều instance song song). Section này trình bày các use case documentation: validate docs trong PR check, auto-generate changelog từ git diff, batch format nhiều file. Bao gồm ví dụ tích hợp GitHub Actions.
+Claude Code hỗ trợ non-interactive mode qua `claude -p "prompt"` — chạy một lần, trả kết quả, thoát. Kết hợp với pipe, fan-out, và CI integration để tự động hóa documentation tasks mà không cần mở session interactive.
 
 [Nguồn: Claude Code Docs — CLI Usage]
 
-[Full content sẽ viết ở S17/S18]
+### `claude -p` — Non-interactive Mode
+
+Chạy một prompt duy nhất, nhận output, thoát:
+
+```bash
+# Scan broken cross-links, output CSV
+claude -p "Scan guide/ tìm broken cross-links, output dạng CSV: file,line,broken_link"
+
+# Generate changelog từ git diff
+claude -p "Đọc git log --oneline -10, viết changelog entry cho VERSION update"
+```
+
+Thêm `--output-format json` để nhận structured output — dễ parse trong script:
+
+```bash
+claude -p "List all ## headings in guide/05-workflow-recipes.md" \
+  --output-format json
+```
+
+### Pipe Input/Output
+
+Pipe file content trực tiếp vào Claude — không cần Claude tự đọc:
+
+```bash
+# Liệt kê recipe names từ module
+cat guide/05-workflow-recipes.md | claude -p "Liệt kê tất cả recipe names (## headings)"
+
+# Pipe git diff để tạo commit message
+git diff --staged | claude -p "Viết commit message tiếng Việt, ≤72 ký tự"
+```
+
+### Fan-out Pattern — Batch nhiều file
+
+Chạy Claude song song trên từng file — mỗi instance nhận 1 file:
+
+```bash
+for file in guide/*.md; do
+  claude -p "Check heading hierarchy in $file. Return OK or list violations." \
+    --allowedTools "Read" &
+done
+wait
+```
+
+Flag `--allowedTools "Read"` giới hạn Claude chỉ được đọc — không edit, không bash. An toàn cho batch validation.
+
+### CI Integration — GitHub Actions
+
+Chạy docs linting tự động trong PR check:
+
+```yaml
+# .github/workflows/docs-lint.yml
+name: Docs Lint
+on: [pull_request]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Validate changed docs
+        run: |
+          CHANGED=$(git diff --name-only origin/master -- 'guide/*.md')
+          for f in $CHANGED; do
+            claude -p "Validate $f: heading hierarchy, language tags, cross-links. Output: OK or violations list." \
+              --allowedTools "Read,Glob,Grep" \
+              --dangerously-skip-permissions
+          done
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+```
+
+> [!WARNING]
+> `--dangerously-skip-permissions` chấp nhận được trong CI container — môi trường ephemeral, không có dữ liệu nhạy cảm. KHÔNG dùng trên máy cá nhân (xem [12.11](#1211-permissions--safety)).
+
+[Ứng dụng Kỹ thuật]
 
 ## 12.14 Plugins & MCP cho Documentation
 
-MCP (Model Context Protocol) cho phép Claude Code kết nối external services qua standardized interface. Lệnh `claude mcp add` thêm plugin từ marketplace hoặc custom server. Section này điểm qua các plugin có ích cho documentation: GitHub (đọc issues, tạo PR comment), Notion (sync markdown ↔ Notion), và hướng dẫn approve permissions cho từng plugin.
+MCP (Model Context Protocol) cho phép Claude Code kết nối external services — GitHub, Notion, Slack — qua standardized interface. Plugins cung cấp tools (đọc/ghi data), còn Skills dạy Claude *cách dùng* tools đó trong workflow cụ thể.
 
 [Nguồn: Claude Code Docs — MCP]
 
-[Full content sẽ viết ở S17/S18]
+### Thêm MCP Server
+
+```bash
+# Thêm GitHub MCP — đọc issues, PRs, comments
+claude mcp add github
+
+# Thêm Notion MCP — query databases, đọc pages
+claude mcp add notion
+
+# Xem danh sách MCP servers đã kết nối
+claude mcp list
+```
+
+Sau khi add, Claude có thể gọi tools từ MCP server trực tiếp trong session.
+
+### Plugins hữu ích cho Documentation
+
+| Plugin | Dùng cho | Ví dụ |
+|--------|----------|-------|
+| **GitHub** | PR management, issue tracking | "Tạo PR comment tóm tắt changes trong guide/" |
+| **Notion** | Knowledge base, cross-reference | "Query Notion database tìm SOPs liên quan đến module 05" |
+| **Slack** | Notifications, review requests | "Gửi summary review vào channel #docs" |
+| **Filesystem** | Đọc files ngoài project scope | Access shared docs từ thư mục khác |
+
+### "MCP provides tools, Skills teach how to use them"
+
+MCP server cung cấp *capabilities* (đọc Notion page, tạo GitHub PR). Nhưng Claude không tự biết *khi nào* và *cách nào* dùng tools đó trong documentation workflow. Đó là vai trò của Skills:
+
+```text
+MCP (tool):   notion-search → trả về danh sách pages
+Skill (how):  "Khi user nói 'kiểm tra cross-ref', search Notion
+               cho SOPs liên quan, so sánh với guide/ content"
+```
+
+Kết hợp: MCP mở rộng khả năng, Skill chuẩn hóa cách dùng.
+
+### Approve Permissions cho Plugins
+
+Mỗi MCP tool cần approve lần đầu sử dụng. Có thể pre-approve trong `.claude/settings.json`:
+
+```jsonc
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__list_issues",
+      "mcp__notion__search"
+    ]
+  }
+}
+```
+
+> [!TIP]
+> Chỉ pre-approve tools bạn hiểu rõ. MCP tools có thể đọc/ghi data bên ngoài — review permissions trước khi allow cho toàn team.
 
 ## 12.15 External Resources & Further Reading
 
-Tổng hợp tài liệu tham khảo và community resources cho Claude Code documentation workflow. Ưu tiên đọc: official docs, changelog để track feature mới, community patterns cho documentation-specific use cases.
+Tổng hợp tài liệu tham khảo cho Claude Code documentation workflow. Bảng dưới xếp theo thứ tự ưu tiên đọc — từ essential đến niche.
 
-- [Claude Code Official Docs](https://code.claude.com/docs)
-- [Claude Code Setup Cheat Sheet](reference/claude-code-setup.md)
-- [Model Specs & Pricing](reference/model-specs.md)
-- [Skills List](reference/skills-list.md)
-- [Config Architecture](reference/config-architecture.md)
+### Official Documentation
 
-[Full content sẽ viết ở S17/S18]
+| Resource | Mô tả | Khi nào đọc |
+|----------|-------|-------------|
+| [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code/) | Tài liệu chính thức đầy đủ | Đọc đầu tiên — reference cho mọi feature |
+| [Best Practices](https://docs.anthropic.com/en/docs/claude-code/best-practices) | CLAUDE.md design, verification, cost | Sau khi setup xong, trước khi bắt đầu project |
+| [Extend Claude Code](https://docs.anthropic.com/en/docs/claude-code/extending) | Skills vs hooks vs MCP comparison | Khi cần chọn mechanism mở rộng |
+| [Claude Code Changelog](https://docs.anthropic.com/en/docs/claude-code/changelog) | Feature mới, breaking changes | Mỗi tuần — features thay đổi nhanh |
+
+### Project References
+
+| Resource | Đường dẫn |
+|----------|-----------|
+| Claude Code Setup Cheat Sheet | [reference/claude-code-setup.md](reference/claude-code-setup.md) |
+| Model Specs & Pricing | [reference/model-specs.md](reference/model-specs.md) |
+| Skills List | [reference/skills-list.md](reference/skills-list.md) |
+| Config Architecture (6 lớp) | [reference/config-architecture.md](reference/config-architecture.md) |
+
+### Related Modules
+
+| Module | Liên quan | Khi nào đọc |
+|--------|-----------|-------------|
+| [Module 10: Cowork](10-claude-desktop-cowork.md) | So sánh Claude Desktop vs Claude Code | Khi cần quyết định dùng tool nào cho tác vụ cụ thể |
+| [Module 05: Workflow Recipes](05-workflow-recipes.md) | Documentation patterns, SOP templates | Khi cần template cho tác vụ documentation lặp lại |
+
+### Community & Blog
+
+- [Mintlify Blog — Claude Code for Docs](https://mintlify.com/blog) — Kinh nghiệm thực tế dùng Claude Code viết documentation, bao gồm bài học "trust but verify"
+- [Claude Code GitHub Issues](https://github.com/anthropics/claude-code/issues) — Bug reports, feature requests, community workarounds
+
+[Nguồn: Claude Code Docs]
