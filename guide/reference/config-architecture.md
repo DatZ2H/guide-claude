@@ -96,7 +96,7 @@ SCOPE: ON-DEMAND (chạy khi gọi)
 
 **Là gì:** System prompt áp dụng cho TẤT CẢ conversations trong một claude.ai Project. Đây là cách "setup Claude cho một mục đích cụ thể" trên claude.ai.
 
-**Đặt ở đâu:** Project > (⚙️) Settings > Instructions
+**Đặt ở đâu:** Project > Settings > Instructions
 
 **Loại nội dung phù hợp:**
 - Role của Claude trong project này ("bạn là Senior Robotics Engineer")
@@ -193,7 +193,7 @@ project/
 Tôi cần automation X → câu hỏi đầu tiên:
 │
 ├── Cần chạy tự động theo lịch? → Scheduled Task
-├── Cần workflow nhiều bước khi tôi gọi? → Skill ✓
+├── Cần workflow nhiều bước khi tôi gọi? → Skill ✅
 └── Chỉ cần prompt tái sử dụng? → Prompt Template (Module 07)
 ```
 
