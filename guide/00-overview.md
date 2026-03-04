@@ -1,6 +1,6 @@
 # Claude Guide cho Kỹ sư Phenikaa-X
 
-**Version:** xem [VERSION](../VERSION) | **Cập nhật:** 2026-03-02
+**Version:** xem [VERSION](../VERSION) | **Cập nhật:** 2026-03-04
 **Claude models:** Opus 4.6 / Sonnet 4.6 / Haiku 4.5
 
 ---
@@ -116,6 +116,16 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 ---
 
 ## Thông tin cập nhật
+
+### Version 5.1 (03/2026)
+
+- Thêm reference/model-specs.md — bảng so sánh Opus/Sonnet/Haiku với decision guide
+- Thêm cột Audience (maintainer/end-user/both) và badge [Approved PX] vào skills-list
+- Thêm cột Trust và section Khuyến nghị cài đặt vào skills-list
+- Cập nhật headers 11 modules: link model-specs.md thay vì hardcode model names
+- Thêm Icon & Emoji Rules vào CLAUDE.md, overview, release-checklist
+- Xóa emoji vi phạm trong config-architecture.md
+- Bump version từ 5.0
 
 ### Version 5.0 (03/2026)
 

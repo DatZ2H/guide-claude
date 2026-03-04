@@ -10,7 +10,30 @@ Nguồn chính thức:
 
 ## Chọn Model — Decision Flowchart
 
-[placeholder — sẽ tạo ở S05]
+```mermaid
+flowchart TD
+    Start([Cần chọn model]) --> Q1{Task cần suy luận sâu\nhoặc complex analysis?}
+    Q1 -->|Có| Q2{Phân tích kiến trúc hệ thống\nhoặc nghiên cứu khoa học?}
+    Q1 -->|Không| Q3{Q&A nhanh hoặc\ntra cứu đơn giản?}
+
+    Q2 -->|Có| Opus[Opus 4.6\nDeep reasoning]
+    Q2 -->|Không| Sonnet[Sonnet 4.6\nDefault — Cân bằng tốt nhất]
+
+    Q3 -->|Có| Haiku[Haiku 4.5\nNhanh nhất]
+    Q3 -->|Không| Sonnet
+```
+
+**Nguyên tắc đơn giản:** Nếu không chắc → dùng **Sonnet 4.6**. Switch sang Opus khi cần suy luận kiến trúc phức tạp. Switch sang Haiku chỉ khi cần trả lời nhanh, không cần độ sâu.
+
+### Ví dụ thực tế
+
+| Task | Model | Lý do |
+|------|-------|-------|
+| Đánh giá trade-off 3 thuật toán SLAM cho kho xưởng | Opus 4.6 | Cần so sánh kiến trúc, suy luận kỹ thuật sâu |
+| Viết tài liệu kỹ thuật cho navigation stack | Sonnet 4.6 | Viết tài liệu — cân bằng chất lượng/tốc độ |
+| Review code Python cho ROS2 node | Sonnet 4.6 | Code review — agentic task thường ngày |
+| Tra cứu: Haiku 4.5 có Extended Thinking không? | Haiku 4.5 | Q&A đơn giản, cần trả lời nhanh |
+| Tạo draft SOP quy trình AMR deployment | Sonnet 4.6 | Viết tài liệu có cấu trúc, không cần deep reasoning |
 
 ## Model Comparison
 
