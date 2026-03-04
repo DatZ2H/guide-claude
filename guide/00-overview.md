@@ -117,6 +117,20 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 ## Thông tin cập nhật
 
+### Version 6.0 (03/2026)
+
+- **Phase 4 Full Rewrite:** Rewrite toàn bộ ví dụ trong Modules 03, 05, 07, 08, 11 sang doc context thực tế (AMR, ROS, SLAM, Lidar)
+- Thêm AMR tips, Model tips, Skill tips cho tất cả ví dụ và templates
+- Module 05: rewrite 14 recipes theo hybrid pattern (doc context + tips)
+- Module 07: thêm doc context + tips cho 22 templates T-01 đến T-22
+- Module 11: thêm hybrid pattern cho 12 Cowork workflows (11.1–11.12)
+- Cross-module fix: thêm language tags cho code blocks, link tất cả cross-refs (03, 05, 07, 08, 11)
+- Thêm Skill-Recipe Mapping vào skills-list.md
+
+> **Migration notes:** Đây là major rewrite — ví dụ trong 5 modules chuyển từ generic sang doc context Phenikaa-X. Cross-references giờ là clickable links thay vì text-only. Không có breaking changes về cấu trúc modules.
+
+- Bump version từ 5.1
+
 ### Version 5.1 (03/2026)
 
 - Thêm reference/model-specs.md — bảng so sánh Opus/Sonnet/Haiku với decision guide
