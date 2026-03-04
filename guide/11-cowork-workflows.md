@@ -60,7 +60,15 @@ Lưu file output là `SOP-{{ten_viet_tat}}-v1.0.md` trong cùng folder.
 - Với SOP dài >20 bước, thêm dòng "Tạo checklist tóm tắt riêng trong file `SOP-{{ten_viet_tat}}-checklist.md`" vào prompt.
 - Sau khi Claude tạo SOP, chạy lại với prompt: "Review SOP vừa tạo. Liệt kê các bước thiếu hoặc không rõ ràng theo quan điểm của người mới bắt đầu."
 
-[Ứng dụng Kỹ thuật] Viết SOP vận hành AMR tại trạm sạc: Folder input gồm meeting notes buổi training, draft checklist của operator hiện tại, và spec sheet pin AMR-500. Claude đọc 3 nguồn, phát hiện mâu thuẫn về thứ tự "ngắt kết nối cáp" vs "tắt nguồn trước", đánh dấu `[CONFLICT]` để team leader confirm. Output: `SOP-AMR-charging-v1.0.md` với 12 bước có safety warnings ở bước 4 (tiếp xúc điện) và bước 9 (di chuyển robot đang sạc).
+**Ví dụ:** Viết Style Guide cho team documentation. Folder `sop-input/` chứa: email thread thảo luận conventions, 2 tài liệu mẫu "viết đúng" của senior writer, và draft naming convention từ team lead. `{{ten_quy_trinh}}` = "Viết và xuất bản tài liệu kỹ thuật". Claude đọc 3 nguồn, phát hiện mâu thuẫn: email nói "dùng Title Case cho headings", tài liệu mẫu lại dùng Sentence case → đánh dấu `[CONFLICT]`. Output: `SOP-doc-style-guide-v1.0.md` gồm 8 sections: Scope → Heading Rules → Terminology → Tone & Voice → Code Block Standards → Image Guidelines → Review Checklist → Revision History.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho viết SOP vận hành AMR.
+> Thay: `{{ten_quy_trinh}}` = "Vận hành AMR tại trạm sạc", input folder chứa meeting notes buổi training + draft checklist operator + spec sheet pin AMR-500.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp tài liệu từ nhiều nguồn — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chon-model)
+
+> [!TIP] **Skill:** `doc-coauthoring` — workflow co-authoring tài liệu có cấu trúc, phù hợp cho SOP multi-section.
 
 ---
 
@@ -111,7 +119,13 @@ Lưu báo cáo là `review-report-{{YYYY-MM-DD}}.md` trong folder.
 - Thêm dòng "Với issues liên quan đến accuracy, trích dẫn câu/đoạn cụ thể cần verify" để report có thể action ngay.
 - Nếu review theo góc độ người dùng cuối: "Đọc mỗi tài liệu như một {{ky_thuat_vien_moi}} lần đầu tiếp xúc. Liệt kê những điểm gây bối rối."
 
-[Ứng dụng Kỹ thuật] Review 8 bản SOP của team AMR: Claude đọc 8 file, phát hiện SOP-003 và SOP-007 dùng tên khác nhau cho cùng một component (gọi là "charging pad" trong SOP-003, "docking station" trong SOP-007), flagging inconsistency. Report xếp hạng SOP-005 là "cần sửa gấp" vì thiếu emergency stop procedure. Action items được nhóm theo owner: 3 items cho Kỹ thuật viên A, 2 items cho Team Lead.
+**Ví dụ:** Review 6 SOP drafts của team documentation trước deadline xuất bản. Folder chứa 6 file `.md` + `_style-guide.md`. `{{ten_standard_hoac_style_guide}}` = "Documentation Style Guide v2.0". Claude review 6 files, phát hiện: SOP-003 và SOP-005 dùng thuật ngữ khác nhau cho cùng một bước ("submit for review" vs "gửi review" — inconsistency Anh-Việt), SOP-001 thiếu section "Revision History". Report xếp hạng SOP-004 là "cần sửa gấp" vì thiếu 3 steps quan trọng trong quy trình approval. Action items nhóm theo owner: 4 items cho Writer A, 2 items cho Editor B.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho batch review SOP vận hành AMR.
+> Thay: folder chứa 8 SOP files + `_style-guide.md` = "AMR Documentation Standard". Focus thêm tiêu chí: safety warnings đầy đủ, emergency stop procedure có trong mọi SOP.
+
+> [!TIP] **Model:** Sonnet 4.6 cho batch review — xử lý nhiều files mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chon-model)
 
 ---
 
@@ -169,7 +183,13 @@ Lưu output là `weekly-report-{{YYYY-WXX}}.md`.
 - Để báo cáo phù hợp audience: với technical audience, giữ error codes và stack traces; với management/khách hàng, thêm "Translate technical issues sang business impact khi report."
 - Để chạy đều đặn mỗi tuần: pin folder `weekly-logs/` trong Cowork sidebar và lưu prompt vào file `_weekly-prompt.md` — mỗi thứ Sáu chỉ cần mở Cowork, paste prompt, xong trong <1 phút.
 
-[Ứng dụng Kỹ thuật] Weekly AMR deployment report: Folder chứa deployment logs (3 AMR units), 2 maintenance tickets, và daily standup notes. Claude tổng hợp: AMR-001 deploy thành công, AMR-002 có navigation error lúc 14:23 thứ Tư (resolved), AMR-003 delayed 2 ngày do firmware issue (open). Executive summary nêu đúng 3 highlights. Report gửi được luôn cho Project Manager mà không cần edit thêm.
+**Ví dụ:** Tạo báo cáo tuần cho documentation team. Folder `weekly-logs/` chứa: task tracker export (ai viết gì, status), review notes từ 3 reviewers, và daily standup notes. `{{vi_du_manager_ky_thuat_hoac_khach_hang}}` = "Documentation Manager". Claude tổng hợp: 5 SOP hoàn thành draft, 2 đang review (1 có 8 comments chưa resolve), 1 blocked vì thiếu input từ engineering. Executive summary nêu đúng 3 highlights. Metrics: 8/12 docs on track, 2 at risk, 2 delayed. Report gửi được ngay cho Manager mà không cần edit thêm.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho weekly AMR deployment report.
+> Thay: `{{vi_du_manager_ky_thuat_hoac_khach_hang}}` = "Project Manager", folder chứa deployment logs (3 AMR units) + maintenance tickets + daily standup notes. Thêm KPIs: uptime %, navigation errors, charging cycles.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp log — task thường ngày, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chon-model)
 
 ---
 

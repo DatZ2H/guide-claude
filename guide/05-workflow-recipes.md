@@ -70,7 +70,15 @@ Liệt kê mọi issue tìm được.
 
 **Tip thực tế:** Ở bước 3, viết từng section riêng lẻ trong các messages khác nhau. Không nên yêu cầu Claude viết hết cả tài liệu 20-30 trang trong một message -- chất lượng sẽ giảm ở các phần cuối do context dài.
 
-[Ứng dụng Kỹ thuật] Ví dụ: Viết User Guide cho AMR-500. Bước 1 brief — "Viết user guide cho robot tự hành AMR-500, vận hành trong nhà máy sản xuất linh kiện điện tử. Target audience: kỹ thuật viên vận hành, quen xe nâng thông thường, chưa có background lập trình. Sau khi đọc, người đọc có thể khởi động, vận hành cơ bản, và xử lý 5 lỗi thường gặp." Bước 2 điều chỉnh — tách riêng "Safety Procedures" thành section đầu tiên. Bước 3 — viết mỗi section trong 1 message riêng (Safety → Startup → Navigation Modes → Emergency Stop → Error Codes), không gộp cả guide vào 1 prompt.
+**Ví dụ:** Viết Style Guide cho team documentation. Bước 1 brief — `{{loai_tai_lieu}}` = "Style Guide", `{{san_pham_he_thong}}` = "bộ tài liệu kỹ thuật nội bộ", `{{mo_ta_nguoi_doc}}` = "kỹ sư và technical writer, trình độ tiếng Anh B2+", `{{ket_qua_mong_doi}}` = "viết tài liệu đúng format, terminology, và tone thống nhất". Bước 2 — tách "Terminology Rules" và "Formatting Rules" thành 2 sections riêng thay vì gộp. Bước 3 — viết từng section: Scope → Terminology → Formatting → Tone & Voice → Examples → Checklist.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho viết User Guide AMR hoặc SOP vận hành robot.
+> Thay: `{{loai_tai_lieu}}` = "User Guide", `{{san_pham_he_thong}}` = "AMR-500, nhà máy sản xuất linh kiện điện tử", `{{mo_ta_nguoi_doc}}` = "kỹ thuật viên vận hành, quen xe nâng, chưa có background lập trình".
+
+> [!TIP] **Model:** Sonnet 4.6 cho viết tài liệu có cấu trúc — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chon-model)
+
+> [!TIP] **Skill:** `doc-coauthoring` — workflow co-authoring tài liệu, tự động chia bước outline → draft → review.
 
 ---
 
@@ -117,7 +125,15 @@ Bảng tóm tắt assessment > Chi tiết từng issue > Overall recommendation.
 Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất hiện trong tài liệu.
 ```
 
-**Ví dụ Phenikaa-X:** Review SOP vận hành AMR -- persona là "kỹ thuật viên mới, chưa từng dùng robot tự hành, quen với xe nâng thông thường".
+**Ví dụ:** Review SOP draft của đồng nghiệp theo rubric. Upload SOP "Quy trình xuất bản tài liệu kỹ thuật" + style guide của team. Dùng prompt "Review toàn diện" với `{{mo_ta_audience}}` = "technical writer mới, chưa quen quy trình nội bộ". Claude đánh giá 6 tiêu chí, phát hiện: Accuracy [Pass], Clarity [Needs Improvement] — 3 thuật ngữ không nhất quán, 2 steps thiếu expected result. Dùng tiếp prompt "Review chuyên sâu cho procedures" với `{{persona_nguoi_dung}}` = "nhân viên mới ngày đầu" → phát hiện step 4 giả định người đọc biết dùng Git mà chưa giải thích.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho review SOP vận hành AMR.
+> Thay: `{{mo_ta_audience}}` = "kỹ thuật viên vận hành, quen xe nâng, chưa từng dùng robot tự hành", `{{persona_nguoi_dung}}` = "kỹ thuật viên mới ngày đầu nhận robot".
+
+> [!TIP] **Model:** Sonnet 4.6 cho review tài liệu — đủ khả năng phát hiện issues mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chon-model)
+
+> [!TIP] **Skill:** `doc-coauthoring` — hỗ trợ structured review với rubric và feedback có cấu trúc.
 
 ---
 
@@ -131,7 +147,7 @@ Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất h
 
 ```xml
 <role>
-Senior Robotics Engineer chuyên troubleshooting hệ thống AMR.
+{{vai_tro}} chuyên troubleshooting {{linh_vuc}}.
 </role>
 
 <task>
@@ -139,7 +155,7 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 </task>
 
 <context>
-- Robot/Hệ thống: {{ten_he_thong}}
+- Hệ thống: {{ten_he_thong}}
 - Môi trường: {{mo_ta_moi_truong}}
 - Vấn đề: {{mo_ta_van_de}}
 - Thời gian xuất hiện: {{thoi_gian}}
@@ -165,6 +181,14 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 | Log có nhiều warning từ nhiều module | Lỗi đơn giản, error message rõ ràng |
 | Cần phân biệt nguyên nhân gốc vs. hệ quả dây chuyền | Đã biết nguyên nhân, chỉ cần fix |
 | Tương tác giữa nhiều subsystems | Lỗi nằm trong 1 module duy nhất |
+
+**Ví dụ:** Phân tích validation report của bộ tài liệu kỹ thuật — 47 warnings từ 3 công cụ check (broken links, format violations, terminology mismatches). Setup: `{{vai_tro}}` = "Senior Technical Writer", `{{linh_vuc}}` = "documentation quality". Upload validation log → Claude xác định root cause: file `api-reference.md` bị rename gây cascade 32 broken links (68% warnings). 10 terminology warnings do glossary chưa update sau khi team đổi thuật ngữ. 5 format violations cần fix riêng. Phân biệt rõ: rename file là nguyên nhân gốc, broken links là hệ quả.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho troubleshoot lỗi hệ thống AMR.
+> Thay: `{{vai_tro}}` = "Senior Robotics Engineer", `{{linh_vuc}}` = "hệ thống AMR", `{{ten_he_thong}}` = "AMR-500", `{{loai_data}}` = "ROS2 log + Lidar diagnostics".
+
+> [!TIP] **Model:** Sonnet 4.6 cho troubleshooting thông thường. Chuyển Opus 4.6 khi log có nhiều module tương tác phức tạp. Xem [decision flowchart](reference/model-specs.md#chon-model)
 
 ---
 
