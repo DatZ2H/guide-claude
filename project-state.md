@@ -4,7 +4,7 @@ Version: xem `VERSION` (hiện tại: 5.0) | Updated: 2026-03-03
 
 ## Phase
 
-Development — đang iterate, chưa publish. Mục tiêu: 11 modules hoàn chỉnh cho kỹ sư Phenikaa-X (tự động hóa, R&D, Robotics).
+Internal Review — v5.0 cho team Phenikaa-X dùng thử. Mục tiêu: 12 modules hoàn chỉnh cho kỹ sư Phenikaa-X (tự động hóa, R&D, Robotics).
 
 ## Trạng thái modules
 
@@ -25,7 +25,7 @@ Development — đang iterate, chưa publish. Mục tiêu: 11 modules hoàn ch�
 | ref | guide/reference/config-architecture.md | 8.0 🟢 | Sprint-patched v4.2 |
 | ref | guide/reference/skills-list.md | 7.5 🟡 | Updated v5.0 — enterprise plugins |
 
-> Audit cycle v4.2: 24/25 issues resolved, overall health 8.3/10. Sẵn sàng internal review.
+> v5.0 released for internal review. Modules 10+11: scored after review cycle.
 
 ## Cấu trúc thư mục
 
