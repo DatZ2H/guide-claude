@@ -18,49 +18,62 @@ Module này tổng hợp những lỗi phổ biến nhất khi sử dụng Claud
 **Sai:**
 
 ```
-Viết tài liệu cho robot.
+Viết Style Guide cho tài liệu kỹ thuật.
 ```
 
 **Đúng:**
 
 ```
-Viết SOP kiểm tra Lidar trước khi vận hành robot AMR-003.
-Audience: kỹ thuật viên bảo trì (biết cơ bản về robot, không phải developer).
-Format: checklist với criteria pass/fail.
-Độ dài: tối đa 2 trang.
+Viết Style Guide cho tài liệu kỹ thuật Phenikaa-X.
+Scope: SOP vận hành và Technical Specifications.
+Audience: Technical Writers và kỹ sư viết tài liệu (không phải end-users).
+Sections bắt buộc: Terminology, Heading levels, Code formatting, Source citation.
+Format: Bảng rule + ví dụ cho mỗi rule. Độ dài: tối đa 4 trang.
 ```
 
-**Tại sao:** Prompt đầu thiếu: loại tài liệu, audience, format, scope. Claude phải đoán tất cả.
+**Tại sao:** Prompt đầu thiếu: scope, audience, sections cần có, format, và độ dài. Claude phải đoán tất cả.
+
+> [!NOTE] **AMR Context** — "Viết SOP kiểm tra Lidar trước khi vận hành robot AMR-003. Audience: kỹ thuật viên bảo trì (biết cơ bản về robot, không phải developer). Format: checklist với criteria pass/fail. Độ dài: tối đa 2 trang."
+
+> [!TIP] **Model:** Sonnet 4.6 — Tác vụ viết tài liệu có cấu trúc. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### Lỗi: Thiếu context quan trọng
 
 **Sai:**
 
 ```
-Fix lỗi navigation cho tôi.
+Review tài liệu này cho tôi.
 ```
 
 **Đúng:**
 
 ```
-Robot AMR-003 chạy ROS2 Humble, dùng Cartographer SLAM.
-Lỗi: robot dừng đột ngột sau 2 giờ vận hành trong nhà máy 2000m2.
-Log error: [paste log]
-Đã thử: restart node, re-calibrate Lidar -- vẫn lỗi.
+Review Technical Spec "AMR Navigation System v2.1" (đính kèm).
+Document type: Technical Specification, audience: R&D engineers.
+Focus: Completeness và accuracy của performance specs, consistency với v2.0.
+Đã tự check: Structure và format — OK. Cần help về technical content.
 ```
 
-**Quy tắc:** Cung cấp 4 thông tin: Hệ thống gì? Lỗi gì? Đã thử gì? Log/evidence?
+**Quy tắc:** Cung cấp 4 thông tin: Tài liệu gì? Audience là ai? Focus vào khía cạnh nào? Đã tự kiểm tra gì rồi?
+
+> [!NOTE] **AMR Context** — "Robot AMR-003 chạy ROS2 Humble, dùng Cartographer SLAM. Lỗi: robot dừng đột ngột sau 2 giờ vận hành trong nhà máy 2000m2. Log error: [paste log]. Đã thử: restart node, re-calibrate Lidar — vẫn lỗi."
+
+> [!TIP] **Model:** Sonnet 4.6 — Review văn bản kỹ thuật. Dùng Opus 4.6 khi phân tích lỗi phức tạp cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### Lỗi: Yêu cầu nhiều thứ trong 1 prompt
 
 **Sai:**
 
 ```
-Viết SOP cho 5 quy trình vận hành robot, review code navigation stack,
-và tạo báo cáo sự cố tuần trước.
+Viết Style Guide, review 3 SOPs hiện có theo Style Guide đó,
+và tạo template mới cho Technical Specification.
 ```
 
 **Đúng:** Tách thành 3 conversations hoặc 3 messages riêng biệt. Mỗi lần focus 1 task.
+
+> [!NOTE] **AMR Context** — "Viết SOP cho 5 quy trình vận hành robot, review code navigation stack, và tạo báo cáo sự cố tuần trước." — Cùng vấn đề: 3 tasks khác nhau, cần tách riêng.
+
+> [!TIP] **Model:** Sonnet 4.6 cho mỗi task riêng. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -179,6 +192,10 @@ Review lại response trước. Có thông tin nào bạn không chắc chắn 1
 Nếu có, đánh dấu và đề xuất cách verify.
 ```
 
+> [!NOTE] **AMR Context** — Khi hỏi về specs kỹ thuật AMR: "Nếu không chắc về thông số này, nói rõ mức độ tin cậy. Đánh dấu [FACT] cho thông tin từ datasheet, [INFERENCE] cho suy luận từ kinh nghiệm."
+
+> [!TIP] **Model:** Opus 4.6 — Nội dung safety-critical (specs robot, thông số an toàn) cần accuracy cao. Dùng Sonnet cho tài liệu hành chính thông thường. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### Claude từ chối không cần thiết
 
 Đôi khi Claude từ chối task hoàn toàn hợp lệ vì hiểu sai ý định.
@@ -283,6 +300,10 @@ Kiểm tra output vừa tạo trước khi tiếp tục bước tiếp theo.
 Trả lời 3 câu hỏi trên. Nếu phát hiện vấn đề, liệt kê cụ thể.
 </output_format>
 ```
+
+> [!NOTE] **AMR Context** — Dùng validation prompt sau khi Claude tạo SOP template: "Kiểm tra template vừa tạo: 1. Có đủ 10 sections chuẩn SOP không? 2. Terminology có nhất quán với Glossary đã cung cấp không? 3. Có section nào ambiguous không?"
+
+> [!TIP] **Model:** Sonnet 4.6 — Validation là tác vụ kiểm tra checklist đơn giản, không cần Opus. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 #### Pattern C — Git approach
 
