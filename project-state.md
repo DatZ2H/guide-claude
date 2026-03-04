@@ -4,29 +4,31 @@ Version: xem `VERSION` (hiện tại: 7.0) | Updated: 2026-03-04
 
 ## Phase
 
-Internal Review — v5.0 cho team Phenikaa-X dùng thử. Mục tiêu: 13 modules hoàn chỉnh cho kỹ sư Phenikaa-X (tự động hóa, R&D, Robotics).
+v7.0 — Upgrade hoàn tất (2026-03-04). 9 quyết định D1-D9 đã triển khai qua 22 sessions. Sẵn sàng cho Internal Review tại Phenikaa-X.
 
 ## Trạng thái modules
 
 | Module | File | Score | Status |
 |--------|------|:-----:|--------|
-| 00 | guide/00-overview.md | 8.8 🟢 | Sprint-patched v4.2 |
-| 01 | guide/01-quick-start.md | 8.3 🟢 | Sprint-patched v4.2 |
-| 02 | guide/02-setup-personalization.md | 8.0 🟢 | Sprint-patched v4.2 |
-| 03 | guide/03-prompt-engineering.md | 8.8 🟢 | Sprint-patched v4.2 |
-| 04 | guide/04-context-management.md | 8.0 🟢 | Sprint-patched v4.2 |
-| 05 | guide/05-workflow-recipes.md | 7.8 🟡 | Updated v5.0 — thêm 2 Cowork recipes |
-| 06 | guide/06-tools-features.md | 8.3 🟢 | Updated v5.0 — Sonnet 4.6 default |
-| 07 | guide/07-template-library.md | 8.8 🟢 | Sprint-patched v4.2 |
-| 08 | guide/08-mistakes-fixes.md | 8.0 🟢 | Sprint-patched v4.2 |
-| 09 | guide/09-evaluation-framework.md | 8.8 🟢 | Sprint-patched v4.2 |
-| 10 | guide/10-claude-desktop-cowork.md | TBD 🟡 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting |
-| 11 | guide/11-cowork-workflows.md | TBD 🔵 | New v5.0 — 12 workflow templates |
-| 12 | guide/12-claude-code-documentation.md | TBD 🔵 | New v6.5 — Claude Code Documentation |
-| ref | guide/reference/config-architecture.md | 8.0 🟢 | Sprint-patched v4.2 |
-| ref | guide/reference/skills-list.md | 7.5 🟡 | Updated v5.0 — enterprise plugins |
+| 00 | guide/00-overview.md | 🟢 | v7.0 — 13 modules, dependency tags, Learning Paths updated |
+| 01 | guide/01-quick-start.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
+| 02 | guide/02-setup-personalization.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
+| 03 | guide/03-prompt-engineering.md | 🟢 | v7.0 — Full rewrite S11, 7 AMR callouts, 15 model hints |
+| 04 | guide/04-context-management.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
+| 05 | guide/05-workflow-recipes.md | 🟢 | v7.0 — Full rewrite S09/S10, 16 AMR callouts, 18 model hints |
+| 06 | guide/06-tools-features.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
+| 07 | guide/07-template-library.md | 🟢 | v7.0 — Full rewrite S12, 22 AMR callouts, 26 model hints |
+| 08 | guide/08-mistakes-fixes.md | 🟢 | v7.0 — Full rewrite S11, 5 AMR callouts, 5 model hints |
+| 09 | guide/09-evaluation-framework.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
+| 10 | guide/10-claude-desktop-cowork.md | 🟢 | v7.0 — Refactored S19: 10.13 → intro + redirect to M12 |
+| 11 | guide/11-cowork-workflows.md | 🟢 | v7.0 — Full rewrite S08/S10, 12 AMR callouts, 13 model hints |
+| 12 | guide/12-claude-code-documentation.md | 🔵 | New v6.5/v7.0 — Claude Code Documentation, 1190 lines, 26 sections |
+| ref | guide/reference/config-architecture.md | 🟢 | v7.0 — SSOT: 6 lớp cấu hình Claude |
+| ref | guide/reference/model-specs.md | 🟢 | New v5.1 — Mermaid flowchart, 5 AMR examples, Feature table |
+| ref | guide/reference/skills-list.md | 🟢 | v7.0 — Trust labels, Audience tags, [Approved PX], Skill-Recipe Mapping |
+| ref | guide/reference/claude-code-setup.md | 🔵 | New v6.5 — CC cheat sheet, Workflow-first, 272 lines |
 
-> v5.0 released for internal review. Modules 10+11: scored after review cycle.
+> v7.0 released 2026-03-04. Toàn bộ 22 sessions hoàn tất. 0 banned emoji, 0 stale anchors, 6 project skills operational.
 
 ## Cấu trúc thư mục
 
@@ -62,6 +64,10 @@ Guide Claude/
 
 | Ngày | Quyết định | Rationale |
 |------|-----------|-----------|
+| 2026-03-04 | D9: Claude Code cho Documentation — Option D Hybrid (Module 12 + reference/claude-code-setup.md) | Narrative guide + lookup cheat sheet cho kỹ sư dùng CC trong doc workflow |
+| 2026-03-04 | D8 Emoji policy: Allowlist ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵, Obsidian callouts cho prose | Nhất quán, không noise, dễ maintain |
+| 2026-03-04 | D4 Hybrid examples: Doc context (primary) + AMR callout + model hint | Tăng relevance cho kỹ sư kỹ thuật mà không mất tính tổng quát |
+| 2026-03-04 | D6 Centralize specs: reference/model-specs.md làm SSOT | Tránh stale data phân tán trong 13 modules |
 | 2026-03-03 | Option B cho v5.0: refactor Module 10 + thêm Module 11 + machine-readable layer | Module 10 quá tải → tách setup/security; Module 11 = 12 workflow templates AMR |
 | 2026-03-03 | Thêm machine-readable/llms.txt (convention Florian Bruniaux, CC BY-SA 4.0) | Cho phép AI tools index guide dễ hơn; chuẩn bị cho publish |
 | 2026-03-03 | Bump v4.1 → v4.2: audit cycle closed (24/25 issues) | Ghi nhận 3 sprints fix, health 7.2→8.3/10 |
