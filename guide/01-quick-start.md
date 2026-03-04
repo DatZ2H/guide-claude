@@ -1,8 +1,11 @@
 # Module 01: Quick Start -- Bắt đầu với Claude trong 15 phút
 
 **Thời gian đọc:** 15 phút | **Mức độ:** Beginner
-**Cập nhật:** 2026-02-28 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-02-28 | Models: xem [specs](reference/model-specs.md)
 
+---
+depends-on: [reference/model-specs]
+impacts: []
 ---
 
 Module này giúp bạn bắt đầu sử dụng Claude ngay lập tức. Không cần XML tags, không cần kỹ thuật nâng cao. Chỉ cần đăng nhập và làm theo 4 bước.

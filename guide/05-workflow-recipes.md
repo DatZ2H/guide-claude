@@ -1,8 +1,11 @@
 # Module 05: Workflow Recipes
 
 **Thời gian đọc:** 25 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
+---
+depends-on: [reference/model-specs, 04-context-management, 07-template-library, 10-claude-desktop-cowork]
+impacts: [03-prompt-engineering, 10-claude-desktop-cowork, 11-cowork-workflows]
 ---
 
 Module này không dạy lý thuyết -- nó cung cấp quy trình copy-paste cho từng loại công việc cụ thể. Mỗi recipe bao gồm: khi nào dùng, setup cần thiết, prompts cụ thể, và tips thực tế.
@@ -70,7 +73,15 @@ Liệt kê mọi issue tìm được.
 
 **Tip thực tế:** Ở bước 3, viết từng section riêng lẻ trong các messages khác nhau. Không nên yêu cầu Claude viết hết cả tài liệu 20-30 trang trong một message -- chất lượng sẽ giảm ở các phần cuối do context dài.
 
-[Ứng dụng Kỹ thuật] Ví dụ: Viết User Guide cho AMR-500. Bước 1 brief — "Viết user guide cho robot tự hành AMR-500, vận hành trong nhà máy sản xuất linh kiện điện tử. Target audience: kỹ thuật viên vận hành, quen xe nâng thông thường, chưa có background lập trình. Sau khi đọc, người đọc có thể khởi động, vận hành cơ bản, và xử lý 5 lỗi thường gặp." Bước 2 điều chỉnh — tách riêng "Safety Procedures" thành section đầu tiên. Bước 3 — viết mỗi section trong 1 message riêng (Safety → Startup → Navigation Modes → Emergency Stop → Error Codes), không gộp cả guide vào 1 prompt.
+**Ví dụ:** Viết Style Guide cho team documentation. Bước 1 brief — `{{loai_tai_lieu}}` = "Style Guide", `{{san_pham_he_thong}}` = "bộ tài liệu kỹ thuật nội bộ", `{{mo_ta_nguoi_doc}}` = "kỹ sư và technical writer, trình độ tiếng Anh B2+", `{{ket_qua_mong_doi}}` = "viết tài liệu đúng format, terminology, và tone thống nhất". Bước 2 — tách "Terminology Rules" và "Formatting Rules" thành 2 sections riêng thay vì gộp. Bước 3 — viết từng section: Scope → Terminology → Formatting → Tone & Voice → Examples → Checklist.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho viết User Guide AMR hoặc SOP vận hành robot.
+> Thay: `{{loai_tai_lieu}}` = "User Guide", `{{san_pham_he_thong}}` = "AMR-500, nhà máy sản xuất linh kiện điện tử", `{{mo_ta_nguoi_doc}}` = "kỹ thuật viên vận hành, quen xe nâng, chưa có background lập trình".
+
+> [!TIP] **Model:** Sonnet 4.6 cho viết tài liệu có cấu trúc — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `doc-coauthoring` — workflow co-authoring tài liệu, tự động chia bước outline → draft → review.
 
 ---
 
@@ -117,7 +128,15 @@ Bảng tóm tắt assessment > Chi tiết từng issue > Overall recommendation.
 Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất hiện trong tài liệu.
 ```
 
-**Ví dụ Phenikaa-X:** Review SOP vận hành AMR -- persona là "kỹ thuật viên mới, chưa từng dùng robot tự hành, quen với xe nâng thông thường".
+**Ví dụ:** Review SOP draft của đồng nghiệp theo rubric. Upload SOP "Quy trình xuất bản tài liệu kỹ thuật" + style guide của team. Dùng prompt "Review toàn diện" với `{{mo_ta_audience}}` = "technical writer mới, chưa quen quy trình nội bộ". Claude đánh giá 6 tiêu chí, phát hiện: Accuracy [Pass], Clarity [Needs Improvement] — 3 thuật ngữ không nhất quán, 2 steps thiếu expected result. Dùng tiếp prompt "Review chuyên sâu cho procedures" với `{{persona_nguoi_dung}}` = "nhân viên mới ngày đầu" → phát hiện step 4 giả định người đọc biết dùng Git mà chưa giải thích.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho review SOP vận hành AMR.
+> Thay: `{{mo_ta_audience}}` = "kỹ thuật viên vận hành, quen xe nâng, chưa từng dùng robot tự hành", `{{persona_nguoi_dung}}` = "kỹ thuật viên mới ngày đầu nhận robot".
+
+> [!TIP] **Model:** Sonnet 4.6 cho review tài liệu — đủ khả năng phát hiện issues mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `doc-coauthoring` — hỗ trợ structured review với rubric và feedback có cấu trúc.
 
 ---
 
@@ -131,7 +150,7 @@ Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất h
 
 ```xml
 <role>
-Senior Robotics Engineer chuyên troubleshooting hệ thống AMR.
+{{vai_tro}} chuyên troubleshooting {{linh_vuc}}.
 </role>
 
 <task>
@@ -139,7 +158,7 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 </task>
 
 <context>
-- Robot/Hệ thống: {{ten_he_thong}}
+- Hệ thống: {{ten_he_thong}}
 - Môi trường: {{mo_ta_moi_truong}}
 - Vấn đề: {{mo_ta_van_de}}
 - Thời gian xuất hiện: {{thoi_gian}}
@@ -165,6 +184,14 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 | Log có nhiều warning từ nhiều module | Lỗi đơn giản, error message rõ ràng |
 | Cần phân biệt nguyên nhân gốc vs. hệ quả dây chuyền | Đã biết nguyên nhân, chỉ cần fix |
 | Tương tác giữa nhiều subsystems | Lỗi nằm trong 1 module duy nhất |
+
+**Ví dụ:** Phân tích validation report của bộ tài liệu kỹ thuật — 47 warnings từ 3 công cụ check (broken links, format violations, terminology mismatches). Setup: `{{vai_tro}}` = "Senior Technical Writer", `{{linh_vuc}}` = "documentation quality". Upload validation log → Claude xác định root cause: file `api-reference.md` bị rename gây cascade 32 broken links (68% warnings). 10 terminology warnings do glossary chưa update sau khi team đổi thuật ngữ. 5 format violations cần fix riêng. Phân biệt rõ: rename file là nguyên nhân gốc, broken links là hệ quả.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho troubleshoot lỗi hệ thống AMR.
+> Thay: `{{vai_tro}}` = "Senior Robotics Engineer", `{{linh_vuc}}` = "hệ thống AMR", `{{ten_he_thong}}` = "AMR-500", `{{loai_data}}` = "ROS2 log + Lidar diagnostics".
+
+> [!TIP] **Model:** Sonnet 4.6 cho troubleshooting thông thường. Chuyển Opus 4.6 khi log có nhiều module tương tác phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -204,7 +231,13 @@ Tìm mọi trường hợp thuật ngữ trong tài liệu không khớp với g
 Báo cáo dạng bảng với vị trí cụ thể (section + paragraph).
 ```
 
-[Ứng dụng Kỹ thuật] Ví dụ: Team R&D dùng lẫn lộn "robot tự hành" / "AGV" / "AMR" / "xe tự hành" — cùng 1 concept, 4 cách gọi khác nhau trong SOP, maintenance manual, incident report, training material. Upload 4 tài liệu → Claude trích xuất glossary → chuẩn hóa: "AMR" là thuật ngữ chính thức; "AGV" chỉ dùng khi so sánh với công nghệ cũ (dây chuyền guided wire). Sau đó dùng prompt "Kiểm tra tính nhất quán" để scan và đánh dấu 23 chỗ cần fix trong 4 files.
+**Ví dụ:** Chuẩn hóa terminology cho bộ tài liệu kỹ thuật đa ngôn ngữ. Team dùng lẫn "user guide" / "user manual" / "hướng dẫn người dùng" / "tài liệu hướng dẫn" — 4 cách gọi cho cùng 1 loại tài liệu — trong 6 files khác nhau. Upload 6 files → Claude trích xuất glossary → chuẩn hóa: "User Guide" (tiếng Anh) và "Hướng dẫn Người dùng" (tiếng Việt) là thuật ngữ chính thức, không viết tắt, không dùng "manual". Dùng prompt "Kiểm tra tính nhất quán" → phát hiện 31 chỗ cần fix.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho chuẩn hóa terminology AMR trong bộ tài liệu R&D.
+> Thay: upload SOP + maintenance manual + incident report + training material → chuẩn hóa "AMR" là thuật ngữ chính thức, "AGV" chỉ dùng khi so sánh công nghệ cũ (dây chuyền guided wire).
+
+> [!TIP] **Model:** Sonnet 4.6 cho extract và compare terminology — tác vụ này không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -255,6 +288,14 @@ Style: clean, professional, ít text trên mỗi slide, dùng diagrams khi có t
 
 **Lưu ý:** Cần bật "Code execution and file creation" trong Settings > Capabilities để tạo file xlsx, docx.
 
+**Ví dụ:** Tạo Quarterly Documentation Audit Report. `{{loai_bao_cao}}` = "Q1 2026 Technical Documentation Audit", nội dung gồm danh sách tài liệu review, compliance rate theo tiêu chí, issues phân loại theo severity, recommended actions. Output `.docx` với header công ty, ToC tự động, bảng summary ở trang đầu, page numbers.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho tạo báo cáo AMR định kỳ.
+> Thay: `{{loai_bao_cao}}` = "Monthly AMR Fleet Performance Report", `{{noi_dung_chinh}}` = dữ liệu từ fleet management system (uptime, mission success rate, incidents). Tạo Excel tracking với conditional formatting: uptime < 95% → đỏ, 95–99% → vàng, ≥ 99% → xanh.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tạo file report — không cần deep reasoning, chủ yếu là formatting. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 5.6 Recipe: Research và tổng hợp
@@ -302,6 +343,14 @@ Tạo báo cáo tổng hợp với citations.
 
 **Cách bật:** Message input > Click "Search and tools" > Chọn "Web Search" hoặc "Research".
 
+**Ví dụ:** Research toolchain cho technical documentation — so sánh Confluence, Notion, MkDocs cho team kỹ thuật 15 người. Dùng Web Search quick lookup cho pricing và feature list. Dùng Research deep dive để tổng hợp: setup complexity, search capability, versioning, export formats, và integration với CI/CD. Output: báo cáo so sánh có citations, recommendation cụ thể theo context của team.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho research công nghệ hoặc tiêu chuẩn AMR.
+> Thay: `{{chu_de}}` = "AMR safety standards — ISO 3691-4 và ANSI/ITSDF B56.5", focus vào requirements cho facility layout, speed limits, warning systems. Hoặc research so sánh SLAM algorithms (GMapping vs Cartographer vs RTAB-Map) cho warehouse environment.
+
+> [!TIP] **Model:** Sonnet 4.6 cho web search nhanh. Chuyển Opus 4.6 khi cần tổng hợp báo cáo dài từ nhiều nguồn phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 5.7 Recipe: Structured Output cho automation
@@ -327,34 +376,31 @@ Trả về CHỈ JSON, không markdown, không giải thích.
 Theo đúng schema sau:
 
 {
-  "robot_id": "string",
-  "timestamp": "string (ISO 8601)",
-  "errors": [
+  "document_id": "string",
+  "validated_at": "string (ISO 8601)",
+  "violations": [
     {
-      "module": "string (lidar | slam | navigation | motor)",
+      "type": "string (broken_link | format | terminology | missing_section)",
       "severity": "string (critical | warning | info)",
-      "message": "string",
-      "suggested_fix": "string"
+      "location": "string (section + line)",
+      "message": "string"
     }
   ],
-  "root_cause": "string",
-  "recommended_action": "string"
+  "summary": { "pass": "number", "fail": "number", "total": "number" },
+  "recommendation": "string"
 }
 </output_format>
 ```
 
 **Tip:** Thêm "Trả về CHỈ JSON, không markdown, không giải thích" để tránh Claude wrap output trong code block.
 
-### Ứng dụng Phenikaa-X
+**Ví dụ:** Parse kết quả từ documentation linting tool (Vale, markdownlint) sang JSON để feed vào CI/CD dashboard. `{{loai_data}}` = "Vale lint output", `{{data_input}}` = paste raw lint output. Claude phân tích và trả về JSON theo schema trên: document_id, violations (type, severity, location), summary (pass/fail count), recommendation. Dashboard tự động highlight file nào có fail > 5 violations.
 
-[Ứng dụng Kỹ thuật]
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho parse log AMR dạng JSON.
+> Thay: `{{loai_data}}` = "ROS2 diagnostic log", `{{data_input}}` = paste Lidar/SLAM error output. Schema: robot_id, timestamp, errors (module: lidar | slam | navigation | motor, severity, message, suggested_fix), root_cause, recommended_action.
 
-| Use case | Lợi ích |
-|----------|---------|
-| Parse Lidar error logs tự động | Feed trực tiếp vào dashboard monitoring |
-| Trích xuất thông số từ datasheet | Tự động so sánh specs giữa các sensor |
-| Tạo incident report có cấu trúc | Đồng bộ format cho mọi incident |
-| Đánh giá code review | Tích hợp vào CI/CD pipeline |
+> [!TIP] **Model:** Sonnet 4.6 cho structured output — tác vụ rule-based, không cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### Khi nào dùng
 
@@ -407,6 +453,14 @@ Hãy:
 Chưa cần viết lại -- chỉ cần assessment và migration plan.
 ```
 
+**Ví dụ:** Migration 20 SOP Word docs sang Markdown để đưa vào MkDocs knowledge base. Dùng "Convert Word → Markdown" với quy tắc chuẩn — phát hiện 4 files có embedded images cần xử lý thủ công, tách riêng. Dùng "Restructure tài liệu cũ" cho 3 SOPs viết từ 2019: Claude đánh dấu 40% nội dung [Review] (procedure đã thay đổi), 20% [Rewrite] (tool outdated), 15% [Add] (thiếu sections theo tiêu chuẩn mới) — tạo migration plan trước khi bắt tay viết lại.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho migration tài liệu AMR.
+> Thay: convert maintenance manuals từ Word → Markdown để đưa vào internal knowledge base; hoặc restructure SOP vận hành viết từ 2020 — đánh dấu phần procedure đã thay đổi sau khi nâng cấp phần mềm AMR.
+
+> [!TIP] **Model:** Sonnet 4.6 cho convert và restructure — không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 5.9 Recipe: Sử dụng MCP Connectors trong workflow
@@ -436,6 +490,14 @@ Tôi cần tạo một trang Notion mới với nội dung:
 **Setup:** Settings > Connected Apps > Connect service cần thiết.
 
 **Lưu ý:** Mỗi connector tốn context tokens khi fetch data. Chỉ connect khi thực sự cần.
+
+**Ví dụ:** Đồng bộ kết quả documentation audit vào Notion team workspace. Kết nối Google Drive để đọc audit report, tạo Notion page "Documentation Audit Q1 2026" với sections: Executive Summary, Issues by Module, Action Items. Sau khi tạo xong, push link vào Slack #docs-team. Thay vì copy-paste thủ công qua 3 tools, toàn bộ quy trình xong trong 1 prompt.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho workflow AMR documentation.
+> Thay: kết nối GitHub để đọc open issues từ ROS2 repo, tổng hợp thành Notion page "AMR Software Issues — Tuần X". Hoặc: sau khi tạo incident report, push tóm tắt vào Slack #amr-ops.
+
+> [!TIP] **Model:** Sonnet 4.6 cho connector workflows — tác vụ chủ yếu là read/write data, không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -468,6 +530,13 @@ flowchart TD
 | **Publish** | Format đúng? Metadata đầy đủ? Version đúng? |
 | **Maintain** | Review date đặt? Owner assigned? |
 
+**Ví dụ:** Tạo Technical Specification cho module cảm biến mới — đi qua đủ các giai đoạn: Research (5.6) tìm datasheet + communication protocol → Template (5.5) tạo boilerplate spec `.docx` → Draft (5.1) viết từng section: Overview, Electrical Interface, Software API, Test Criteria → Review (5.2) 6 tiêu chí → Terminology (5.4) đối chiếu glossary → Publish (5.5) export `.pdf` → Distribute (5.9) push lên Confluence qua MCP → Maintain (5.8) lên lịch review sau mỗi firmware release.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho tạo SOP vận hành AMR-500 từ đầu — đặc biệt khi cần tạo đồng thời User Guide + Maintenance Manual + Quick Reference Card cho cùng một sản phẩm.
+
+> [!TIP] **Model:** Chọn model theo giai đoạn: Sonnet 4.6 cho Draft, Review, Terminology. Opus 4.6 khi Research cần tổng hợp nhiều nguồn phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 5.11 Recipe: Hybrid Workflow — Chat + Project + Cowork
@@ -479,8 +548,8 @@ flowchart TD
 **Setup cần thiết:**
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
-- Thư mục project đã có `.claude/CLAUDE.md` (xem Module 10, mục 10.13)
-- Project Knowledge chỉ chứa `project-state.md` (xem Module 04, mục 4.9 — Two-Layer Knowledge)
+- Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md))
+- Project Knowledge chỉ chứa `project-state.md` (xem [Module 04, mục 4.9](../guide/04-context-management.md) — Two-Layer Knowledge)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
 
@@ -584,9 +653,17 @@ Output: text sẵn sàng copy vào file .md
 
 2. **Sync context bằng files, không bằng memory.** Copy-paste kết quả quan trọng vào file trong thư mục project. Cowork đọc file, không đọc Chat/Project history.
 
-3. **Dùng Two-Layer Knowledge khi files thay đổi thường xuyên qua Cowork** (xem Module 04, mục 4.9). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
+3. **Dùng Two-Layer Knowledge khi files thay đổi thường xuyên qua Cowork** (xem [Module 04, mục 4.9](../guide/04-context-management.md)). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
 
-4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: Module 10, mục 10.8.2.
+4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: [Module 10, mục 10.8.2](../guide/10-claude-desktop-cowork.md).
+
+**Ví dụ:** Xây dựng Documentation Package cho tính năng phần mềm mới — gồm User Guide + API Reference + Release Notes. Giai đoạn 1: Chat research doc versioning best practices. Giai đoạn 2: Plan outline trong Project Chat, Project Knowledge chứa style guide + glossary. Giai đoạn 3: Cowork setup thư mục (`docs/user-guide/`, `docs/api-ref/`, `docs/release-notes/`). Giai đoạn 4: Draft từng section ở Project Chat, copy nội dung về Cowork ghi file. Giai đoạn 5: Project Review — so sánh với style guide, check terminology. Giai đoạn 6: Cowork finalize — chuyển sang `.docx`, thêm headers chuẩn. Giai đoạn 7: Export `project-state.md` → upload vào Project Knowledge để brief session tiếp theo.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho xây dựng Training Package AMR.
+> Thay: giai đoạn 1 research safety standards (ISO 3691-4), giai đoạn 3 setup `training/operator-guide/`, `training/maintenance/`, `training/quick-ref/`. Project Knowledge chứa AMR spec sheet + existing SOPs làm references.
+
+> [!TIP] **Model:** Sonnet 4.6 cho hầu hết giai đoạn. Opus 4.6 cho giai đoạn 1 (Research) và 5 (Review tài liệu phức tạp). Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -640,7 +717,13 @@ Checklist 5 items trước khi bắt đầu chain:
 - [ ] Biết bước nào cần backup trước khi thực hiện?
 ```
 
-[Ứng dụng Kỹ thuật] Ví dụ: tạo báo cáo đánh giá hiệu suất AMR 3 tháng. Step 1: thu thập và chuẩn hóa data từ 3 nguồn (fleet management, maintenance log, incident report). Step 2: phân tích trends theo KPIs đã định nghĩa. Step 3: tạo bảng so sánh target vs actual. Step 4: viết executive summary + recommendations. Step 5: format thành report hoàn chỉnh. Review checkpoint sau Step 1 (data đủ chưa?) và Step 3 (số liệu khớp chưa?) trước khi viết narrative.
+**Ví dụ:** Planning chain prompt để tạo User Guide cho phần mềm mới — 5 steps: (1) research conventions, (2) tạo outline, (3) viết từng section, (4) review + fix, (5) publish. Scope analysis: output cuối = User Guide 20 trang (.docx); artifacts = `outline.md`, `draft-sections/`, `review-notes.md`, `user-guide-v1.docx`; dependency = step 3 cần outline từ step 2, step 4 cần draft từ step 3, còn step 1 và 2 có thể làm nối tiếp ngay. Task map có review checkpoint sau step 2 (outline đủ rõ chưa?) và step 4 (chất lượng đạt chưa?). Nếu bỏ qua planning, thường phát hiện ở step 3 rằng outline chưa rõ scope → phải quay lại step 2.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho planning chain prompt tạo báo cáo đánh giá hiệu suất AMR 3 tháng.
+> Step 1: thu thập và chuẩn hóa data từ 3 nguồn (fleet management, maintenance log, incident report). Step 2: phân tích trends theo KPIs. Step 3: tạo bảng so sánh target vs actual. Step 4: viết executive summary + recommendations. Step 5: format thành report hoàn chỉnh. Review checkpoint sau Step 1 (data đủ chưa?) và Step 3 (số liệu khớp chưa?).
+
+> [!TIP] **Model:** Sonnet 4.6 cho planning và chain prompts thông thường. Chuyển Opus 4.6 khi task map có nhiều dependencies phức tạp cần phân tích kỹ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -701,9 +784,15 @@ Chạy consistency check toàn bộ:
 Liệt kê mọi inconsistency tìm được.
 ```
 
-[Ứng dụng Kỹ thuật] Ví dụ dùng chính Guide này: khi sửa section numbering ở Module 10 (10.7 → 10.8), cascade update cần chạy qua README.md, Module 02 (learning path references), Module 06 (cross-references), Module 08 (error references). Không chạy Impact Analysis trước → dễ bỏ sót reference ở Module 08.
+**Ví dụ:** Rename endpoint trong API spec — `POST /device/status` đổi thành `POST /device/state`. Impact Analysis: endpoint này được reference trong `api-reference.md`, `integration-guide.md`, `changelog.md`, và 3 code examples trong tutorial. Giai đoạn 2 edit với explicit scope: sửa `api-reference.md` và `changelog.md` trước, giữ nguyên tutorial code examples đến khi code base confirm rename. Giai đoạn 3 cascade update: scan tìm 7 references còn lại, update từng chỗ. Consistency check cuối: cross-references valid, `state` thay `status` nhất quán ở tất cả files đã sửa. Không chạy Impact Analysis trước → dễ bỏ sót reference trong tutorial.
 
-**Cross-reference:** Template T-21 (Multi-file Consistency Check, Module 07) là phiên bản template của recipe này.
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này khi đổi tên module hoặc interface trong tài liệu AMR.
+> Ví dụ: đổi `navigation_manager` → `path_planner` trong tài liệu ROS2. Impact Analysis quét qua API docs, SOP vận hành, maintenance manual, training slides. Cascade update đảm bảo không file nào còn reference tên cũ.
+
+> [!TIP] **Model:** Sonnet 4.6 cho multi-file editing — tác vụ chủ yếu là search-and-update, không cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+**Cross-reference:** [Template T-21](../guide/07-template-library.md#t-21-multi-file-consistency-check) (Multi-file Consistency Check, Module 07) là phiên bản template của recipe này.
 
 ---
 
@@ -752,9 +841,15 @@ Stopping criteria: Task này xong khi {{điều kiện rõ ràng, verify đượ
 KHÔNG làm: {{boundaries — files không được sửa, scope không được mở rộng}}
 ```
 
-[Ứng dụng Kỹ thuật] Ví dụ: Guide update v3.3 → v3.4. Tại sao chia thành nhiều tasks thay vì 1 task duy nhất? Vì mỗi module là file riêng, cross-references giữa modules cần verify sau mỗi batch edit, và context window hữu hạn — nhồi tất cả thay đổi vào 1 session tăng rủi ro Claude quên instruction ở cuối. Thứ tự: sửa nội dung trước (Modules 03, 04, 08, 09, 05), update cross-references sau (Module 02, 07), cuối cùng update metadata (README, CHANGELOG).
+**Ví dụ:** Planning update bộ tài liệu kỹ thuật cho software release v4.0 — 12 files, nhiều cross-references. Áp dụng 4 câu hỏi scope: output = 12 files updated + release notes mới; files sửa theo nhóm = nội dung (modules 03, 04, 08, 09, 05) → cross-refs (modules 02, 07) → metadata (README, CHANGELOG); thứ tự rõ ràng: nội dung trước, cross-refs sau, metadata cuối; backup = git commit trước mỗi batch. Planning 8 phút phát hiện step "update cross-refs" bị bỏ thiếu nếu không plan — nếu sửa nội dung xong rồi mới nghĩ đến cross-refs sẽ mất thêm 1 pass scan.
 
-**Cross-reference:** Template T-22 (Cowork Task Plan, Module 07). Module 10, mục 10.9 (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho planning update tài liệu AMR khi nâng cấp firmware.
+> Scope: User Guide + SOP + Maintenance Manual + Quick Reference (4 files có dependency). Thứ tự: update specs kỹ thuật trước → cập nhật SOP procedure → update Quick Reference cuối. Backup: git commit trước mỗi file group.
+
+> [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). [Module 10, mục 10.9](../guide/10-claude-desktop-cowork.md) (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
 
 ---
 
@@ -826,7 +921,13 @@ Báo cáo khi hoàn thành: số thành công, số lỗi, danh sách file lỗi
 - **Preview 3 files trước khi chạy full batch.** Phát hiện vấn đề format sớm, tránh phải redo toàn bộ.
 - **Backup thư mục input trước khi chạy** nếu script có thể ghi đè — dùng Git commit hoặc copy thủ công.
 
-[Ứng dụng Kỹ thuật] Ví dụ: Convert 45 SOP Word docs sang Markdown để đưa vào knowledge base. Chia thành 3 batch (15 files/batch), preview batch đầu xác nhận heading styles đúng, chạy lần lượt. Phát hiện 3 files có hình ảnh embedded cần xử lý thủ công — tách riêng, không block batch còn lại.
+**Ví dụ:** Convert 45 SOP Word docs sang Markdown để đưa vào MkDocs knowledge base. Bước 1: scan `docs/sop/`, liệt kê 45 file `.docx`, preview 3 files đầu xác nhận Word heading styles được map đúng. Bước 2: input = `.docx` với Word styles, output = `.md` với `#/##/###`, hình ảnh → `[Image: tên file]`, lưu vào `docs/sop-md/`. Bước 3: plan phát hiện 3 files có embedded images cần xử lý thủ công — tách khỏi batch chính. Bước 4: chạy 3 batch 14 files, báo cáo sau mỗi batch. Kết quả: 42 files convert thành công, 3 files embedded images xử lý riêng mà không block batch còn lại.
+
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho batch convert tài liệu AMR.
+> Thay: convert maintenance manuals + SOP AMR từ Word → Markdown để đưa vào internal knowledge base. Preview 3 files đầu để xác nhận heading styles đúng trước khi chạy full batch. Chia batch nhỏ (10–15 files) nếu files có nhiều hình ảnh kỹ thuật.
+
+> [!TIP] **Model:** Sonnet 4.6 cho batch tasks — convert và extract không cần reasoning sâu, Sonnet nhanh hơn và tiết kiệm quota. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -920,9 +1021,15 @@ Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
 - **Test manual ít nhất 1 lần** trước khi để chạy tự động. Kiểm tra: file được lưu đúng path, format đúng.
 - **Đặt output vào folder có Git** để track lịch sử báo cáo theo thời gian.
 
-[Ứng dụng Kỹ thuật] Ví dụ: Tự động tổng hợp SLAM performance log mỗi sáng thứ Hai. Prompt đọc slam-*.log từ tuần trước, tạo bảng so sánh localization accuracy, loop closure rate, và mapping drift theo ngày. Output file .md trong reports/weekly/ → commit tự động vào Git → team xem trên GitHub.
+**Ví dụ:** Tự động tạo Weekly Documentation Audit Report mỗi thứ Sáu 5:00 PM. Prompt đọc validation output từ `docs/validation-results/` (Vale + markdownlint), tổng hợp: tổng violations theo module, so sánh với tuần trước, liệt kê files vượt threshold (> 5 violations), action items. Lưu tại `reports/weekly/doc-audit-{{YYYY-MM-DD}}.md`. Test manual lần đầu xác nhận format đúng → setup cron `0 17 * * 5`. Sau 4 tuần: team phát hiện trend Module 08 consistently nhiều violations → ưu tiên fix.
 
-**Chi tiết Scheduled Tasks:** Xem Module 10, mục 10.5.
+> [!NOTE] **AMR Context**
+> Áp dụng recipe này cho tổng hợp SLAM performance log tự động.
+> Prompt đọc `slam-*.log` từ tuần trước, tạo bảng so sánh localization accuracy, loop closure rate, và mapping drift theo ngày. Output `.md` trong `reports/weekly/` → commit vào Git → team xem trên GitHub. Cron: `0 8 * * 1` (mỗi sáng thứ Hai 8:00 AM).
+
+> [!TIP] **Model:** Sonnet 4.6 cho scheduled tasks — đọc log, tổng hợp, và format báo cáo không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+**Chi tiết Scheduled Tasks:** Xem [Module 10, mục 10.5](../guide/10-claude-desktop-cowork.md#105-scheduled-tasks--tự-động-hóa-định-kỳ).
 
 ---
 

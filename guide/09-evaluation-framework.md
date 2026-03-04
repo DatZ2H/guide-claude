@@ -1,8 +1,11 @@
 # Module 09: Evaluation Framework -- Đánh giá chất lượng output
 
 **Thời gian đọc:** 10 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-01 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
+---
+depends-on: [reference/model-specs, 10-claude-desktop-cowork]
+impacts: [08-mistakes-fixes, 11-cowork-workflows]
 ---
 
 Module này cung cấp framework đánh giá chất lượng output từ Claude. Thay vì cảm tính "tốt" hay "chưa tốt", bạn sẽ có tiêu chí cụ thể để đánh giá và cải thiện prompts.

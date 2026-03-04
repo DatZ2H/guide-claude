@@ -1,8 +1,11 @@
 # Module 11: Cowork Workflows Library
 
 **Thời gian đọc:** 30 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-03 | Claude Opus 4.6 / Sonnet 4.6
+**Cập nhật:** 2026-03-03 | Models: xem [specs](reference/model-specs.md)
 
+---
+depends-on: [reference/model-specs, 05-workflow-recipes, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+impacts: [10-claude-desktop-cowork]
 ---
 
 Module này cung cấp workflows copy-paste sẵn sàng dùng cho Cowork — chế độ làm việc trực tiếp trên file system của Claude Desktop. Mỗi workflow bao gồm: mục tiêu, setup, prompt template, và tips thực tế.
@@ -60,7 +63,15 @@ Lưu file output là `SOP-{{ten_viet_tat}}-v1.0.md` trong cùng folder.
 - Với SOP dài >20 bước, thêm dòng "Tạo checklist tóm tắt riêng trong file `SOP-{{ten_viet_tat}}-checklist.md`" vào prompt.
 - Sau khi Claude tạo SOP, chạy lại với prompt: "Review SOP vừa tạo. Liệt kê các bước thiếu hoặc không rõ ràng theo quan điểm của người mới bắt đầu."
 
-[Ứng dụng Kỹ thuật] Viết SOP vận hành AMR tại trạm sạc: Folder input gồm meeting notes buổi training, draft checklist của operator hiện tại, và spec sheet pin AMR-500. Claude đọc 3 nguồn, phát hiện mâu thuẫn về thứ tự "ngắt kết nối cáp" vs "tắt nguồn trước", đánh dấu `[CONFLICT]` để team leader confirm. Output: `SOP-AMR-charging-v1.0.md` với 12 bước có safety warnings ở bước 4 (tiếp xúc điện) và bước 9 (di chuyển robot đang sạc).
+**Ví dụ:** Viết Style Guide cho team documentation. Folder `sop-input/` chứa: email thread thảo luận conventions, 2 tài liệu mẫu "viết đúng" của senior writer, và draft naming convention từ team lead. `{{ten_quy_trinh}}` = "Viết và xuất bản tài liệu kỹ thuật". Claude đọc 3 nguồn, phát hiện mâu thuẫn: email nói "dùng Title Case cho headings", tài liệu mẫu lại dùng Sentence case → đánh dấu `[CONFLICT]`. Output: `SOP-doc-style-guide-v1.0.md` gồm 8 sections: Scope → Heading Rules → Terminology → Tone & Voice → Code Block Standards → Image Guidelines → Review Checklist → Revision History.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho viết SOP vận hành AMR.
+> Thay: `{{ten_quy_trinh}}` = "Vận hành AMR tại trạm sạc", input folder chứa meeting notes buổi training + draft checklist operator + spec sheet pin AMR-500.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp tài liệu từ nhiều nguồn — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `/doc-standard-enforcer` — enforce writing standards cho SOP output trước khi finalize.
 
 ---
 
@@ -111,7 +122,13 @@ Lưu báo cáo là `review-report-{{YYYY-MM-DD}}.md` trong folder.
 - Thêm dòng "Với issues liên quan đến accuracy, trích dẫn câu/đoạn cụ thể cần verify" để report có thể action ngay.
 - Nếu review theo góc độ người dùng cuối: "Đọc mỗi tài liệu như một {{ky_thuat_vien_moi}} lần đầu tiếp xúc. Liệt kê những điểm gây bối rối."
 
-[Ứng dụng Kỹ thuật] Review 8 bản SOP của team AMR: Claude đọc 8 file, phát hiện SOP-003 và SOP-007 dùng tên khác nhau cho cùng một component (gọi là "charging pad" trong SOP-003, "docking station" trong SOP-007), flagging inconsistency. Report xếp hạng SOP-005 là "cần sửa gấp" vì thiếu emergency stop procedure. Action items được nhóm theo owner: 3 items cho Kỹ thuật viên A, 2 items cho Team Lead.
+**Ví dụ:** Review 6 SOP drafts của team documentation trước deadline xuất bản. Folder chứa 6 file `.md` + `_style-guide.md`. `{{ten_standard_hoac_style_guide}}` = "Documentation Style Guide v2.0". Claude review 6 files, phát hiện: SOP-003 và SOP-005 dùng thuật ngữ khác nhau cho cùng một bước ("submit for review" vs "gửi review" — inconsistency Anh-Việt), SOP-001 thiếu section "Revision History". Report xếp hạng SOP-004 là "cần sửa gấp" vì thiếu 3 steps quan trọng trong quy trình approval. Action items nhóm theo owner: 4 items cho Writer A, 2 items cho Editor B.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho batch review SOP vận hành AMR.
+> Thay: folder chứa 8 SOP files + `_style-guide.md` = "AMR Documentation Standard". Focus thêm tiêu chí: safety warnings đầy đủ, emergency stop procedure có trong mọi SOP.
+
+> [!TIP] **Model:** Sonnet 4.6 cho batch review — xử lý nhiều files mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -169,7 +186,13 @@ Lưu output là `weekly-report-{{YYYY-WXX}}.md`.
 - Để báo cáo phù hợp audience: với technical audience, giữ error codes và stack traces; với management/khách hàng, thêm "Translate technical issues sang business impact khi report."
 - Để chạy đều đặn mỗi tuần: pin folder `weekly-logs/` trong Cowork sidebar và lưu prompt vào file `_weekly-prompt.md` — mỗi thứ Sáu chỉ cần mở Cowork, paste prompt, xong trong <1 phút.
 
-[Ứng dụng Kỹ thuật] Weekly AMR deployment report: Folder chứa deployment logs (3 AMR units), 2 maintenance tickets, và daily standup notes. Claude tổng hợp: AMR-001 deploy thành công, AMR-002 có navigation error lúc 14:23 thứ Tư (resolved), AMR-003 delayed 2 ngày do firmware issue (open). Executive summary nêu đúng 3 highlights. Report gửi được luôn cho Project Manager mà không cần edit thêm.
+**Ví dụ:** Tạo báo cáo tuần cho documentation team. Folder `weekly-logs/` chứa: task tracker export (ai viết gì, status), review notes từ 3 reviewers, và daily standup notes. `{{vi_du_manager_ky_thuat_hoac_khach_hang}}` = "Documentation Manager". Claude tổng hợp: 5 SOP hoàn thành draft, 2 đang review (1 có 8 comments chưa resolve), 1 blocked vì thiếu input từ engineering. Executive summary nêu đúng 3 highlights. Metrics: 8/12 docs on track, 2 at risk, 2 delayed. Report gửi được ngay cho Manager mà không cần edit thêm.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho weekly AMR deployment report.
+> Thay: `{{vi_du_manager_ky_thuat_hoac_khach_hang}}` = "Project Manager", folder chứa deployment logs (3 AMR units) + maintenance tickets + daily standup notes. Thêm KPIs: uptime %, navigation errors, charging cycles.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp log — task thường ngày, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -218,7 +241,13 @@ Lưu tất cả output vào sub-folder `converted/`.
 - Với batch lớn (>20 files), thêm "Convert lần lượt từng file và report sau mỗi file" để track progress và dừng nếu có error.
 - Sau khi convert xong, spot-check bằng cách mở `conversion-report.md` — focus vào files được flag "có vấn đề" trước.
 
-[Ứng dụng Kỹ thuật] Migrate 15 SOP từ Word sang Obsidian vault: 15 file `.docx` từ 3 engineers với format khác nhau. Claude convert thành công 13/15. 2 file bị flag: SOP-008 có bảng merged cells cần redraw, SOP-011 chứa embedded Excel chart (lưu placeholder). 15 files → 15 Markdown files trong `converted/`, sẵn sàng import vào Obsidian.
+**Ví dụ:** Migrate documentation wiki của team từ SharePoint Word docs sang Git-based MkDocs. Folder `docs-word/` chứa 18 file `.docx` từ nhiều contributors. Claude convert 16/18 thành công, 2 bị flag: `api-guide.docx` có merged-cell tables cần redraw thủ công, `architecture-overview.docx` chứa embedded Visio diagram (lưu placeholder `[IMAGE: architecture-diagram]`). Conversion report mapping rõ: 16 files sẵn sàng vào `docs/` của MkDocs repo, 2 files cần manual pass.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho migrate tài liệu AMR sang Obsidian vault.
+> Thay: 15 SOP `.docx` từ 3 engineers. 13/15 convert thành công, 2 bị flag: SOP có merged-cell table cần redraw, SOP chứa embedded Excel chart (lưu placeholder). 15 Markdown files sẵn sàng import vào Obsidian.
+
+> [!TIP] **Model:** Sonnet 4.6 cho batch convert — format mapping, không cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -273,7 +302,13 @@ Lưu report là `glossary-check-{{YYYY-MM-DD}}.md`.
 - Sau khi nhận report, yêu cầu tiếp: "Dựa trên report này, tạo file `find-replace-commands.md` liệt kê các lệnh Find & Replace để fix tự động trong VS Code hoặc Word."
 - Chạy glossary check định kỳ (monthly) trước khi có documentation release mới.
 
-[Ứng dụng Kỹ thuật] Scan toàn bộ documentation folder theo AMR glossary: Glossary có 45 thuật ngữ. Scan 23 files, tìm 67 inconsistencies: "autonomous mobile robot" được viết 5 cách khác nhau (AMR, A.M.R., Autonomous Mobile Robot, tự hành robot, robot AMR). Top issue: "charging station" vs "docking station" vs "trạm sạc" xuất hiện trong 12/23 files. Report nhóm theo file, kỹ sư phụ trách mỗi file biết ngay cần sửa gì.
+**Ví dụ:** Scan bộ tài liệu kỹ thuật 20 files theo style guide glossary — 30 thuật ngữ. Tìm 52 inconsistencies: "API endpoint" vs "API route" vs "endpoint" (3 cách gọi cho cùng concept) xuất hiện trong 11/20 files; "user guide" vs "user manual" vs "hướng dẫn người dùng" là top issue (8 variations). Report nhóm theo file: Writer A cần fix 18 chỗ, Writer B cần fix 24 chỗ. Dùng tiếp tip "tạo find-replace-commands.md" → fix hàng loạt trong VS Code.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho scan documentation AMR theo AMR glossary.
+> Thay: glossary 45 thuật ngữ AMR chuẩn, scan 23 files, tìm 67 inconsistencies: "autonomous mobile robot" viết 5 cách; "charging station" vs "docking station" vs "trạm sạc" xuất hiện trong 12/23 files. Report nhóm theo file.
+
+> [!TIP] **Model:** Sonnet 4.6 cho glossary scan — text comparison task, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -325,7 +360,13 @@ Lưu là `training-guide-{{ten_chu_de}}-v1.0.md`.
 - Sau khi có `slide-outline.md`, import vào PowerPoint bằng cách dùng Outline View (View → Outline) hoặc dùng add-in như Copilot/Beautiful.ai để auto-generate slides từ text.
 - Thêm "Quiz cuối khóa" vào prompt để Claude tự tạo assessment questions từ nội dung training.
 
-[Ứng dụng Kỹ thuật] Tạo onboarding deck cho kỹ thuật viên mới về AMR navigation: Input là architecture doc 40 trang về SLAM và path planning. Audience là kỹ thuật viên cơ khí, không có background software. Output: slide outline 25 slides, chia 3 phần (AMR là gì → Cách navigation hoạt động ở mức cao → Vận hành thực tế). Thuật ngữ "SLAM" được giải thích bằng analogy "giống như người đi trong phòng tối, vừa đi vừa vẽ bản đồ". Speaker notes gợi ý demo thực tế sau slide 15.
+**Ví dụ:** Tạo onboarding guide cho technical writer mới từ Style Guide + SOP publishing workflow nội bộ. Input: Style Guide 15 trang (dành cho senior writers) + 3 SOP quy trình. Audience: biết viết nhưng chưa quen quy trình nội bộ. Output: Training Guide 4 chương (Toolchain → Style Rules → Publishing Workflow → Review Process), mỗi chương có "Check your understanding" 3 câu hỏi. Style Guide gốc dùng jargon "canonical source" → Training Guide giải thích bằng ngôn ngữ thực tế.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho tạo onboarding deck về AMR navigation.
+> Thay: input là architecture doc 40 trang về SLAM và path planning. Audience là kỹ thuật viên cơ khí, không có background software. Output: slide outline 25 slides (AMR là gì → Navigation ở mức cao → Vận hành thực tế). "SLAM" giải thích bằng analogy "người đi trong phòng tối, vừa đi vừa vẽ bản đồ". Speaker notes gợi ý demo thực tế sau slide 15.
+
+> [!TIP] **Model:** Sonnet 4.6 cho tạo training materials — restructure và simplify nội dung. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -380,7 +421,13 @@ Cuối prompt: report summary — bao nhiêu documents processed, bao nhiêu có
 - Với forms có layout chuẩn (tất cả cùng template), thêm "Đây là standardized form — layout giống nhau trong tất cả files" để tăng accuracy.
 - Sau khi nhận Excel, chạy quick sanity check: "Xem sheet Error log và phân loại errors: OCR issues, blank fields, hay form khác template?"
 
-[Ứng dụng Kỹ thuật] Extract thông tin từ 20 bản test report PDF của AMR: Mỗi report PDF gồm: test date, AMR serial number, test scenarios (7 scenarios), pass/fail per scenario, tester name. Claude extract 20 reports vào 2 CSV files, 18 thành công, 2 vào error log (1 file corrupt, 1 scan quá mờ). Import CSV vào Excel để filter theo AMR serial hoặc test scenario và phân tích trend.
+**Ví dụ:** Extract thông tin từ 30 vendor quote forms PDF để tổng hợp procurement comparison. Mỗi form gồm: vendor name, quote date, line items (product, unit price, quantity, delivery time), payment terms. Claude extract 28/30 thành công, 2 vào error log (1 corrupt, 1 scan quá mờ để đọc số). Import CSV vào Excel → pivot table so sánh giá theo vendor, filter theo delivery time ≤ 30 ngày — tiết kiệm 4 giờ nhập tay thủ công.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho extract thông tin từ AMR test reports.
+> Thay: 20 test report PDF, mỗi report gồm test date, AMR serial number, 7 test scenarios (pass/fail), tester name. 18/20 thành công, 2 vào error log (1 corrupt, 1 scan mờ). Import CSV để filter theo AMR serial hoặc scenario và phân tích pass rate trend.
+
+> [!TIP] **Model:** Sonnet 4.6 cho data extraction — structured task từ scan documents. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -435,7 +482,13 @@ Tạo `reorganization-report.md` gồm:
 - Move vào `_archive/` thay vì xóa — xóa chỉ sau khi đã verify không cần.
 - Thêm "Đừng rename files đang open hoặc locked" nếu folder đang được dùng bởi người khác.
 
-[Ứng dụng Kỹ thuật] Dọn folder dự án AMR-500 (200+ files, 3 engineers contributed): Bước 1 — Claude scan và phát hiện 23 duplicate files, 40+ files tên `final`, `final_v2`, `final_FINAL`, đề xuất structure `docs/`, `specs/`, `test-results/`, `archive/`. Sau khi team confirm, Bước 2 — 200 files được phân loại, 45 files vào archive, naming convention chuẩn hóa. Reorganization report mapping 155 files đã rename → ai cũng biết file cũ nằm ở đâu.
+**Ví dụ:** Dọn folder documentation project (150+ files, 3 writers, 2 năm). Bước 1 — Claude scan phát hiện 18 duplicates, 30+ files tên `draft-final`/`v2-final`/`FINAL_USE_THIS`, không có naming convention. Đề xuất structure: `published/`, `drafts/`, `templates/`, `archive/`. Sau khi team confirm, Bước 2 — 150 files phân loại, 35 files vào archive, naming convention `YYYY-MM-DD_[doc-type]_[name].md` áp dụng thống nhất. Reorganization report mapping 115 files đã rename → mọi người biết ngay file cũ nằm ở đâu.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho dọn folder dự án AMR.
+> Thay: folder AMR-500 (200+ files, 3 engineers). Bước 1 phát hiện 23 duplicates, 40+ files tên `final`/`final_v2`/`final_FINAL`, đề xuất structure `docs/`, `specs/`, `test-results/`, `archive/`. Bước 2: 200 files phân loại, 45 files vào archive, naming convention chuẩn hóa.
+
+> [!TIP] **Model:** Sonnet 4.6 cho folder organization — scan và categorize files, không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -489,7 +542,13 @@ Lưu output là `RELEASE-NOTES-{{version}}.md`.
 - Sau khi nhận output, yêu cầu: "Phần stakeholder notes có dùng technical terms nào không? Nếu có, replace bằng ngôn ngữ business."
 - Với releases lớn, yêu cầu Claude tạo thêm "one-liner summary" (1 câu) phù hợp cho email announcement.
 
-[Ứng dụng Kỹ thuật] Release notes cho AMR firmware v3.2: git log có 47 commits từ 4 developers trong 3 tuần. Claude phân loại: 8 new features, 12 improvements, 19 bug fixes, 8 internal refactoring (không mention trong stakeholder notes). Stakeholder section focus vào "AMR tự động tránh obstacle nhanh hơn 30%" và "Giảm thời gian charge scheduling". Technical changelog đầy đủ 47 entries theo Keep a Changelog format.
+**Ví dụ:** Release notes cho documentation toolchain update v2.1 — Vale linter + MkDocs upgrade + 5 custom validation rules mới. Git log 31 commits từ 2 contributors. Claude phân loại: 5 new rules (features), 8 config improvements, 11 bug fixes, 7 refactoring (không mention cho stakeholders). Stakeholder section: "Validation chạy nhanh hơn 40%", "Thêm check tự động cho broken links". Technical changelog 31 entries theo Keep a Changelog. One-liner email announcement: "Vale v2.1 ra mắt — validation nhanh hơn 40%, thêm 5 rules mới."
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho release notes AMR firmware.
+> Thay: git log 47 commits từ 4 developers. 8 new features, 12 improvements, 19 bug fixes, 8 refactoring (không mention cho stakeholders). Stakeholder section focus vào "tránh obstacle nhanh hơn 30%" và "giảm thời gian charge scheduling". Technical changelog 47 entries theo Keep a Changelog.
+
+> [!TIP] **Model:** Sonnet 4.6 cho release notes — categorize và rephrase commits. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -550,7 +609,13 @@ Lưu briefing là `briefing-{{YYYY-MM-DD}}-{{ten_meeting_viet_tat}}.md`.
 - Sau khi nhận briefing, forward cho participants: "Đây là briefing cho meeting ngày X, vui lòng đọc trước." Giảm thời gian catch-up trong meeting.
 - Với recurring meetings (weekly sync), tạo template folder và reuse cấu trúc — chỉ cần thêm materials mới mỗi tuần.
 
-[Ứng dụng Kỹ thuật] Prep cho weekly sync với khách hàng về dự án AMR deployment: Folder chứa 3 meeting notes từ 3 tuần trước, 2 email threads (issues escalation), project timeline Gantt (export PDF), và action items tracker. Briefing: Background nêu 2 milestones đã pass, 1 delay (AMR-003 firmware), Open Items gồm 3 items cần decision của khách hàng. Suggested Agenda 60 phút: 10 phút status update → 30 phút 3 open items → 15 phút Q&A → 5 phút next steps. Meeting diễn ra focus, không phải dành 20 phút đầu recap.
+**Ví dụ:** Prep cho quarterly documentation review meeting với product team. Folder chứa: 3 meeting notes từ Q1–Q3, action items tracker, documentation coverage report, 2 email threads về scope changes. Briefing: Background nêu 8/12 modules đã updated, 4 modules cần rework vì product thay đổi spec. Open Items: 3 decisions cần product team confirm (scope Module 09, timeline API docs, reviewer assignment). Suggested Agenda 45 phút: 10 phút status → 25 phút open items → 10 phút next steps. Team vào meeting với full context, không cần 15 phút catch-up.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho prep weekly sync với khách hàng về AMR deployment.
+> Thay: folder chứa 3 meeting notes, 2 email threads (issues escalation), Gantt PDF, action items tracker. Briefing: 2 milestones đã pass, 1 delay (AMR-003 firmware), 3 open items cần decision. Suggested Agenda 60 phút: 10 phút status → 30 phút open items → 15 phút Q&A → 5 phút next steps.
+
+> [!TIP] **Model:** Sonnet 4.6 cho meeting prep — tổng hợp và cấu trúc thông tin. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -620,7 +685,13 @@ Lưu là `incident-report-{{INC-ID}}.md`.
 - Root cause analysis: thêm "Dùng 5-Whys technique để phân tích root cause" vào prompt nếu muốn analysis sâu hơn.
 - Sau khi tạo report, review kỹ phần Prevention Measures — đây là phần quan trọng nhất nhưng Claude có thể đề xuất chung chung. Hỏi thêm: "Với mỗi prevention measure, ai là owner và deadline cụ thể?"
 
-[Ứng dụng Kỹ thuật] AMR collision incident report: Folder chứa navigation error log (500 dòng), camera footage timestamps, maintenance log của ngày hôm đó, và voice memo ghi âm lời mô tả của operator. Claude reconstruct timeline 23 events từ 14:15 đến 14:47, xác định root cause: obstacle detection threshold được thay đổi trong maintenance ca sáng nhưng không được logged vào change management system. Prevention: thêm mandatory change log step vào maintenance SOP + alert khi safety parameters thay đổi.
+**Ví dụ:** Incident report cho documentation portal outage — MkDocs build failure khiến knowledge base phục vụ nội dung stale trong 6 giờ. Folder chứa: build logs, deployment pipeline output, notes của on-call engineer. Claude reconstruct timeline 15 events từ 09:12 đến 15:47. Root cause: dependency conflict giữa Vale plugin mới và MkDocs version hiện tại, không được test trên staging trước khi deploy. Impact: 120 users truy cập tài liệu cũ, 3 support tickets sai hướng. Prevention: thêm staging validation step + pin dependency versions trong pipeline.
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho AMR collision incident report.
+> Thay: folder chứa navigation error log (500 dòng), camera footage timestamps, maintenance log, voice memo của operator. Claude reconstruct timeline 23 events từ 14:15 đến 14:47. Root cause: obstacle detection threshold thay đổi trong maintenance ca sáng nhưng không logged vào change management. Prevention: mandatory change log step trong maintenance SOP + alert khi safety parameters thay đổi.
+
+> [!TIP] **Model:** Sonnet 4.6 cho incident report thông thường. Chuyển Opus 4.6 khi logs phức tạp, nhiều hệ thống tương tác cần phân tích root cause sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -685,7 +756,13 @@ Lưu report là `diff-report-{{ten_file}}-v1-vs-v2.md`.
 - Với SOP diff trước approval: "Đặc biệt chú ý changes trong Safety warnings và critical procedures — flag bất kỳ thay đổi nào trong những sections này dù nhỏ."
 - Nếu muốn side-by-side view: "Với mỗi modification, tạo table 2 cột: Cũ | Mới" — dễ đọc hơn cho reviewers không quen format diff.
 
-[Ứng dụng Kỹ thuật] So sánh SOP v1 vs v2 trước approval: SOP-charging-v1.md (12 bước) vs SOP-charging-v2.md (14 bước). Diff report phát hiện: v2 thêm 2 bước mới (safety check trước khi connect), sửa thứ tự bước 7 và 8, xóa một warning note ở bước 10 (flag là risk — cần verify tại sao xóa). Recommendation: "Request revision — cần giải thích lý do xóa warning note bước 10 trước khi approve."
+**Ví dụ:** So sánh User Guide v1 vs v2 trước khi publish — v2 được viết lại sau product update. Diff phát hiện: v2 thêm 3 sections mới (onboarding flow mới, API v2 endpoints, FAQ), sửa 8 screenshots không còn match UI, xóa "Legacy Import" section (flag risk — cần verify nếu users vẫn cần tính năng này). Overall: major revision. Recommendation: "Approve với condition — confirm Legacy Import section có thể xóa trước khi publish."
+
+> [!NOTE] **AMR Context**
+> Áp dụng workflow này cho so sánh SOP AMR trước khi approval.
+> Thay: SOP-charging-v1.md (12 bước) vs SOP-charging-v2.md (14 bước). Diff phát hiện: v2 thêm 2 bước safety check, sửa thứ tự bước 7 và 8, xóa warning note ở bước 10 (flag risk — cần verify lý do xóa trước khi approve).
+
+> [!TIP] **Model:** Sonnet 4.6 cho diff report — text comparison, không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -712,5 +789,6 @@ Bảng dưới giúp chọn workflow nhanh theo loại task:
 
 **Modules liên quan:**
 - [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) — General recipes cho mọi interface
+- [Module 07: Template Library](../guide/07-template-library.md) — 22 templates (T-06, T-11, T-12 overlap với 11.1, 11.1, 11.11)
 - [Module 09: Evaluation Framework](../guide/09-evaluation-framework.md) — Rubric dùng trong 11.2
 - [Module 10: Claude Desktop & Cowork](../guide/10-claude-desktop-cowork.md) — Setup và cấu hình Cowork

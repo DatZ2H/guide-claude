@@ -1,7 +1,7 @@
 # CLAUDE.md — Guide Claude Project
 
 ## Project context
-Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
+Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
 - **Phase:** Internal Review — v5.0 cho team Phenikaa-X dùng thử
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
@@ -9,7 +9,7 @@ Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules 
 
 ## Folder structure
 ```
-guide/                  12 module files (00→11) + reference/
+guide/                  13 module files (00→12) + reference/
 guide/reference/        config-architecture.md, skills-list.md
 machine-readable/       llms.txt (machine-readable index theo convention Florian Bruniaux)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
@@ -36,6 +36,17 @@ VERSION                 SSOT cho version number
 - **Cross-links:** dùng relative paths (`../guide/04-context-management.md#section`)
 - **File naming:** lowercase, dấu gạch ngang, prefix số thứ tự (01-, 02-...)
 - **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
+
+## Icon & Emoji Rules
+- **ALLOWED** (chỉ trong bảng và status markers): ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+- **BANNED:** Mọi emoji/icon khác — bao gồm 💡 🚀 😊 🎯 ✨ 📌 🔥 👉 📝 💪 🤔 ⭐ 🏗️ 📊 🛠️
+- **Prose warnings/tips/notes:** dùng Obsidian callout syntax
+  - `> [!WARNING]` thay cho ⚠️ trong đoạn văn
+  - `> [!TIP]` thay cho 💡
+  - `> [!NOTE]` thay cho 📌
+  - `> [!IMPORTANT]` thay cho 🎯
+- Rule áp dụng cho **cả** content trong `guide/` **và** output Claude tạo ra
+- Nếu output chứa emoji ngoài allowlist → remove trước khi trả lời
 
 ## Rules — PHẢI tuân thủ
 1. **Git-first backup:** Chạy `/checkpoint` trước khi bắt đầu edit module lớn. File `.bak` không nên tạo (đã thêm vào `.gitignore`) — trừ khi làm việc offline không có Git access.
@@ -67,6 +78,7 @@ VERSION                 SSOT cho version number
 | `/doc-standard-enforcer` | Edit module, thêm content trong `guide/` |
 | `/cross-ref-checker` | Kiểm tra cross-references trong module |
 | `/module-review` | Deep review một module (underlying skill cho `/review-module`) |
+| `/upgrade-guide` | Scan stale data, broken refs, dependency issues — "health check", "scan project" |
 
 *Global built-in (không phải project skill):*
 
@@ -91,6 +103,7 @@ VERSION                 SSOT cho version number
 | 00–09 | v4.2 base + v5.0 currency sweep — 🟢 |
 | 10 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting 🟢 |
 | 11 | New v5.0 — 12 workflow templates 🔵 |
+| 12 | New v6.5 — Claude Code Documentation 🔵 |
 | reference/ | config-architecture 🟢, skills-list Updated v5.0 🟢 |
 
 ## Khi nào update file này
