@@ -8,7 +8,7 @@ Nguồn chính thức:
 - Pricing: https://www.anthropic.com/pricing
 - Feature updates: https://www.anthropic.com/news
 
-## Chọn Model — Decision Flowchart
+## Chọn Model
 
 ```mermaid
 flowchart TD

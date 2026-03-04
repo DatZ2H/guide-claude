@@ -66,7 +66,7 @@ Lưu file output là `SOP-{{ten_viet_tat}}-v1.0.md` trong cùng folder.
 > Áp dụng workflow này cho viết SOP vận hành AMR.
 > Thay: `{{ten_quy_trinh}}` = "Vận hành AMR tại trạm sạc", input folder chứa meeting notes buổi training + draft checklist operator + spec sheet pin AMR-500.
 
-> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp tài liệu từ nhiều nguồn — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chon-model)
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp tài liệu từ nhiều nguồn — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 > [!TIP] **Skill:** `doc-coauthoring` — workflow co-authoring tài liệu có cấu trúc, phù hợp cho SOP multi-section.
 
@@ -125,7 +125,7 @@ Lưu báo cáo là `review-report-{{YYYY-MM-DD}}.md` trong folder.
 > Áp dụng workflow này cho batch review SOP vận hành AMR.
 > Thay: folder chứa 8 SOP files + `_style-guide.md` = "AMR Documentation Standard". Focus thêm tiêu chí: safety warnings đầy đủ, emergency stop procedure có trong mọi SOP.
 
-> [!TIP] **Model:** Sonnet 4.6 cho batch review — xử lý nhiều files mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chon-model)
+> [!TIP] **Model:** Sonnet 4.6 cho batch review — xử lý nhiều files mà không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -189,7 +189,7 @@ Lưu output là `weekly-report-{{YYYY-WXX}}.md`.
 > Áp dụng workflow này cho weekly AMR deployment report.
 > Thay: `{{vi_du_manager_ky_thuat_hoac_khach_hang}}` = "Project Manager", folder chứa deployment logs (3 AMR units) + maintenance tickets + daily standup notes. Thêm KPIs: uptime %, navigation errors, charging cycles.
 
-> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp log — task thường ngày, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chon-model)
+> [!TIP] **Model:** Sonnet 4.6 cho tổng hợp log — task thường ngày, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
