@@ -78,6 +78,7 @@ VERSION                 SSOT cho version number
 | `/doc-standard-enforcer` | Edit module, thêm content trong `guide/` |
 | `/cross-ref-checker` | Kiểm tra cross-references trong module |
 | `/module-review` | Deep review một module (underlying skill cho `/review-module`) |
+| `/upgrade-guide` | Scan stale data, broken refs, dependency issues — "health check", "scan project" |
 
 *Global built-in (không phải project skill):*
 
