@@ -205,6 +205,19 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 ## Thông tin cập nhật
 
+### Version 7.0 (03/2026)
+
+- **Thêm Module 12:** Claude Code cho Documentation & Technical Writing — 15 sections hướng dẫn CC workflow cho non-coding documentation (Plan Mode, Skills, Subagents, Git Integration, Batch & Automation, Plugins & MCP)
+- **Thêm reference/claude-code-setup.md:** Cheat sheet workflow-first cho Claude Code — Quick Setup, Essential Commands, Permission Templates
+- **Thêm skill upgrade-guide:** Scan stale data, broken refs, dependency issues trước update cycle
+- **Thêm metadata depends-on/impacts:** Block dependency cho 13 modules — hỗ trợ cross-ref checking tự động
+- **Thêm Mermaid dependency graph:** Module 00 — visualization 13 modules + 4 reference files
+- **Terminology standardization:** Claude Code → CC (viết tắt sau first mention), Skills capitalization, model name prefix nhất quán
+- **Module count fix:** Cập nhật "11/12 module files" → "13" across modules 00, 04, 10
+- Bump version từ 6.0
+
+> **Migration notes:** Đây là major version — thêm Module 12 (mới hoàn toàn) và reference/claude-code-setup.md. Thuật ngữ "Claude Code" giờ viết tắt "CC" sau first mention per section trong modules 10, 12, và reference files. "Skills" viết hoa khi nhắc đến feature name. Không có breaking changes về cấu trúc modules 00–11.
+
 ### Version 6.0 (03/2026)
 
 - **Phase 4 Full Rewrite:** Rewrite toàn bộ ví dụ trong Modules 03, 05, 07, 08, 11 sang doc context thực tế (AMR, ROS, SLAM, Lidar)

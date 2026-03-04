@@ -1,6 +1,6 @@
 # Project Overview — Claude Guide cho Kỹ sư Phenikaa-X
 
-Version: xem `VERSION` (hiện tại: 6.0) | Updated: 2026-03-04
+Version: xem `VERSION` (hiện tại: 7.0) | Updated: 2026-03-04
 
 ## Phase
 
