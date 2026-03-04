@@ -70,6 +70,25 @@ Tóm tắt tài liệu kỹ thuật đính kèm.
 </input_data>
 ```
 
+**Ví dụ — tóm tắt Release Notes v3.2:**
+
+```xml
+<task>Tóm tắt Release Notes v3.2 đính kèm.</task>
+<requirements>
+- Độ dài: Tối đa 200 từ
+- Cấu trúc:
+  1. Tổng quan release (2 câu)
+  2. Breaking changes (nếu có)
+  3. Tính năng mới chính (tối đa 5 items)
+  4. Action items cho team
+</requirements>
+<input_data>{{paste_release_notes_pdf}}</input_data>
+```
+
+> [!NOTE] **AMR Context** — Tóm tắt AMR Fleet Management User Manual v4.0 thành Quick Reference Card cho kỹ thuật viên triển khai.
+
+> [!TIP] **Model:** Sonnet 4.6 — Đủ mạnh cho summarization. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### T-02: Giải thích Error
 
 ```xml
@@ -94,6 +113,23 @@ Trả lời theo cấu trúc:
 4. **Phòng ngừa:** (nếu có)
 </requirements>
 ```
+
+**Ví dụ — lỗi trong docs build pipeline:**
+
+```xml
+<context>
+- Hệ thống: MkDocs documentation site
+- Môi trường: GitHub Actions CI/CD
+</context>
+<error_log>
+ERROR - Config value 'nav': The following pages exist in the docs directory,
+but are not included in the "nav" configuration: 'guide/07-template-library.md'
+</error_log>
+```
+
+> [!NOTE] **AMR Context** — Phân tích ROS Navigation Stack error khi AMR mất định vị: `[ERROR] [amcl]: Failed to transform initial pose in time`.
+
+> [!TIP] **Model:** Sonnet 4.6 — Pattern matching và log analysis không cần Opus. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### T-03: Viết Email báo cáo
 
@@ -122,6 +158,14 @@ Viết email báo cáo tiến độ project.
 </requirements>
 ```
 
+**Ví dụ — email báo cáo milestone documentation:**
+
+Placeholder values: Người nhận: Lead Engineer | Project: AMR Fleet Documentation v5.0 | Giai đoạn: Internal Review | Tiến độ: 85% | Tuần tới: hoàn thiện Module 07–11.
+
+> [!NOTE] **AMR Context** — Email báo cáo tiến độ hoàn thiện bộ tài liệu AMR trước đợt commissioning, gửi cho Project Manager và Safety Officer.
+
+> [!TIP] **Model:** Sonnet 4.6 — Standard writing task. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### T-04: Tạo Checklist
 
 ```xml
@@ -142,6 +186,25 @@ Tạo checklist kiểm tra trước khi vận hành {{ten_thiet_bi}}.
 - Tổng thời gian kiểm tra: không quá {{so_phut}} phút
 </requirements>
 ```
+
+**Ví dụ — checklist review tài liệu trước publish:**
+
+```xml
+<task>Tạo checklist kiểm tra tài liệu kỹ thuật trước khi publish.</task>
+<context>
+- Thiết bị: AMR Technical Documentation Package
+- Mục đích: Pre-publish quality check
+- Người thực hiện: Technical Writer / Reviewer
+</context>
+<requirements>
+- Nhóm theo categories (Content, Format, Cross-references, Safety Warnings)
+- Tổng thời gian kiểm tra: không quá 20 phút
+</requirements>
+```
+
+> [!NOTE] **AMR Context** — Checklist kiểm tra AMR trước khi deploy vào warehouse: battery level, sensor calibration, emergency stop, network connectivity.
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured list generation. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### T-05: So sánh Giải pháp
 
@@ -168,6 +231,14 @@ So sánh 2 giải pháp sau và đề xuất lựa chọn.
 - Đề cập trade-offs của mỗi option
 </requirements>
 ```
+
+**Ví dụ — so sánh documentation tools:**
+
+Placeholder values: Option A: MkDocs + Material theme | Option B: Confluence | Criteria: Git integration, offline access, search quality, cost.
+
+> [!NOTE] **AMR Context** — So sánh 2 thuật toán localization: AMCL vs. Cartographer cho AMR hoạt động trong warehouse bán động — để quyết định approach cho dự án.
+
+> [!TIP] **Model:** Sonnet 4.6 — Comparison với criteria rõ ràng. Dùng Opus nếu quyết định có tác động kiến trúc lớn. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -201,6 +272,16 @@ Viết section "{{section_name}}" cho User Manual của {{product_name}}.
 - Include: CẢNH BÁO cho safety, LƯU Ý cho tips
 </style_guide>
 ```
+
+**Ví dụ — AMR PNX-100 User Manual, section "Emergency Stop":**
+
+Placeholder values: section_name: Emergency Stop Procedures | product_name: AMR PNX-100 | audience: Warehouse operators | technical level: Non-technical | subsections: Types of E-Stop, Trigger conditions, Recovery procedure.
+
+> [!NOTE] **AMR Context** — Viết section "Emergency Stop Procedures" cho AMR PNX-100 User Manual. Audience: warehouse operator không có background ROS — dùng ngôn ngữ đơn giản, nhiều hình minh họa.
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured technical writing. Dùng Opus nếu section phức tạp liên quan nhiều subsystem tương tác. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `/doc-standard-enforcer` — Enforce writing standards trước khi finalize section.
 
 ### T-07: Technical Specification
 
@@ -236,6 +317,14 @@ Sections bắt buộc:
 - Bullet points cho requirements
 </output_format>
 ```
+
+**Ví dụ — Technical Spec cho AMR Navigation Module:**
+
+Placeholder values: system_component: Navigation & Localization Module | system_name: PNX AMR Fleet v3 | component_purpose: Autonomous navigation trong môi trường semi-structured | interfaces_with: Sensor fusion module, Fleet Management System, Safety controller.
+
+> [!NOTE] **AMR Context** — Spec cho SLAM module: localization accuracy ≤ 5 cm, max replan latency ≤ 200 ms, environmental constraints (dynamic obstacles, narrow aisles), interfaces với sensor array và safety controller.
+
+> [!TIP] **Model:** Opus 4.6 — Complex system specs với nhiều cross-functional requirements cần reasoning sâu về constraints và acceptance criteria. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -284,6 +373,14 @@ Phân tích step-by-step:
 </output_format>
 ```
 
+**Ví dụ — AMR mất định vị sau firmware update:**
+
+Placeholder values: System: PNX AMR Fleet v3.2.0 | Error: `NavigationException: Failed to find a valid plan. Tolerance: 0.5` | Last known good state: AMR hoạt động bình thường trên firmware v3.1.2, map đã load thành công.
+
+> [!NOTE] **AMR Context** — Phân tích `LIDAR_TIMEOUT` error trên AMR sau firmware update — output của template này trở thành input cho Incident Report (T-12).
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured error analysis với log patterns. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### T-09: Diagnostic Guide
 
 ```xml
@@ -311,6 +408,16 @@ Structure:
 5. Escalation criteria
 </guide_requirements>
 ```
+
+**Ví dụ — guide cho kỹ thuật viên mới xử lý localization failure:**
+
+Placeholder values: issue_type: AMR mất định vị giữa hành trình | system_name: PNX AMR v3 | common_symptoms: AMR dừng đột ngột, đèn báo lỗi đỏ, Fleet Manager hiển thị "Localization Lost" | target_user: Field technician không có ROS background.
+
+> [!NOTE] **AMR Context** — Diagnostic Guide "AMR dừng giữa hành trình không rõ nguyên nhân": tích hợp vào AMR Maintenance Manual, section Troubleshooting — dùng được bởi kỹ thuật viên warehouse không cần training ROS.
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured guide writing với decision tree. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `/doc-standard-enforcer` — Kiểm tra writing standards trước khi tích hợp vào maintenance manual.
 
 ---
 
@@ -355,6 +462,14 @@ Review code sau và provide feedback.
 ## Recommendations
 </output_format>
 ```
+
+**Ví dụ — review Python ROS2 navigation node:**
+
+Placeholder values: language: Python | domain: ROS2 Navigation | code_purpose: Custom cost function cho global planner — ưu tiên tránh zone nguy hiểm trong warehouse.
+
+> [!NOTE] **AMR Context** — Review Python node xử lý sensor fusion data trước khi merge vào main branch. Kết quả review được document hóa thành code review record cho audit trail.
+
+> [!TIP] **Model:** Sonnet 4.6 — Standard code review. Dùng Opus cho review kiến trúc phức tạp hoặc safety-critical code. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -402,6 +517,16 @@ Tạo SOP cho: {{procedure_name}}
 </sop_template>
 ```
 
+**Ví dụ — SOP thay pin AMR:**
+
+Placeholder values: procedure_name: AMR Battery Replacement | equipment: PNX AMR-100, Docking Station DS-200, Battery Pack BP-48V | department: Maintenance Team | frequency: Mỗi 8 giờ vận hành hoặc khi SoC < 15% | estimated_time: 10 phút.
+
+> [!NOTE] **AMR Context** — SOP cho AMR firmware update procedure: bao gồm backup config, update sequence, validation test, và rollback plan nếu update thất bại.
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured procedural writing với format cố định. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `/doc-standard-enforcer` — Validate SOP format và safety warning conventions trước khi submit cho approval.
+
 ---
 
 ## 7.6 Reports & Analysis Template (T-12)
@@ -447,6 +572,14 @@ Immediate actions taken: {{actions_taken}}
 </report_template>
 ```
 
+**Ví dụ — báo cáo sự cố AMR va chạm:**
+
+Placeholder values: incident_summary: AMR va chạm với pallet di động tại Zone B | datetime: 2026-02-15 14:32 | location: Warehouse Zone B, Row 7 | system: PNX AMR Fleet #3 | severity: Medium | impact: Hàng hóa bị đổ, dừng hoạt động 45 phút.
+
+> [!NOTE] **AMR Context** — Incident report sau khi AMR dừng khẩn cấp do obstacle detection failure — đầu vào cho monthly safety review và corrective action tracking (CAPA process).
+
+> [!TIP] **Model:** Sonnet 4.6 — Structured report với format cố định, không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 7.7 Workflow Templates (T-13, T-14, T-15)
@@ -483,6 +616,14 @@ Chỉ output summary, không giải thích.
 </output_format>
 ```
 
+**Ví dụ — handover sau session viết documentation:**
+
+Placeholder values: project: AMR Fleet Documentation v5.0 — Module 07 Template Library | Đã thảo luận: cấu trúc 22 templates, pattern documentation context, AMR use cases | Next steps: validate-doc 07, cross-module review.
+
+> [!NOTE] **AMR Context** — Handover sau session thiết kế AMR navigation parameters: carry đủ context (map version, tuning values, test results, open issues) sang conversation mới tiếp tục tuning.
+
+> [!TIP] **Model:** Sonnet 4.6 — Summarization task không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### T-14: Context Extraction
 
 **Dùng khi:** Conversation có nhiều topics, chỉ cần context về 1 topic cụ thể.
@@ -504,6 +645,14 @@ Trích xuất context liên quan đến "{{specific_topic}}" từ conversation n
 4. Không dư thừa thông tin không liên quan
 </output_requirements>
 ```
+
+**Ví dụ — extract context về documentation decisions:**
+
+Placeholder values: specific_topic: Navigation parameter tuning cho Warehouse Zone A | Bỏ qua: thảo luận về Zone B, hardware issues không liên quan.
+
+> [!NOTE] **AMR Context** — Extract toàn bộ context liên quan đến SLAM config từ conversation dài về AMR deployment — để dùng riêng trong conversation viết technical spec.
+
+> [!TIP] **Model:** Sonnet 4.6 — Extraction và filtering task. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### T-15: Chain Prompt
 
@@ -544,6 +693,14 @@ Step: {{n}} of {{total_steps}}
 
 **Workflow:** Chạy Step 1 > Copy output > Paste vào input Step 2 > Lặp lại.
 Tip: Với chain ≥ 3 bước phức tạp, dùng T-19 (Task Decomposition Planner) để map scope và dependencies trước khi bắt đầu — xem mục 7.8.
+
+**Ví dụ — chain 3 bước viết AMR Emergency Response Guide:**
+
+Step 1: Extract incidents từ incident reports có sẵn → danh sách scenarios | Step 2: Draft procedures cho từng scenario theo SOP format (T-11) | Step 3: Format consistency check và cross-reference với User Manual.
+
+> [!NOTE] **AMR Context** — Chain viết AMR Emergency Response Guide: (1) extract từ incident reports, (2) draft procedures theo T-11, (3) format và cross-reference với User Manual.
+
+> [!TIP] **Model:** Sonnet 4.6 — Dùng nhất quán cho cả chain để tránh inconsistency giữa các steps. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -594,6 +751,14 @@ Sau bảng: 1 đoạn nhận xét ngắn về approach.
 </output_format>
 ```
 
+**Ví dụ — lên kế hoạch viết documentation package:**
+
+Placeholder values: task_description: Viết complete documentation package cho AMR PNX-100 deployment | output_desired: User Manual (8 sections), 5 SOPs, Emergency Response Guide, 3 Quick Reference Cards | Môi trường: Cowork | Thời gian: 3 sessions | Files: existing technical spec, incident reports, maintenance logs.
+
+> [!NOTE] **AMR Context** — Decompose task viết AMR Maintenance Manual (8 chapters) thành chain có dependencies rõ ràng và review checkpoints sau mỗi chapter nhóm — tránh viết sai thứ tự gây cascade edits.
+
+> [!TIP] **Model:** Sonnet 4.6 — Planning và decomposition task. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ### T-20: In-Progress Review Checklist
@@ -628,6 +793,14 @@ Sau đó đưa ra một trong 3 quyết định:
 - RESTART THIS STEP: Có FAIL → giải thích tại sao cần làm lại bước này
 </review_instructions>
 ```
+
+**Ví dụ — review draft SOP sau khi viết xong:**
+
+Placeholder values: output_type: Document/Report | Đây là bước 2/4 | Mục tiêu: Draft SOP AMR Battery Replacement hoàn chỉnh | Output vừa tạo: 12 steps, chưa có safety warnings section.
+
+> [!NOTE] **AMR Context** — Review bước draft Emergency Procedures trước khi sang bước validate với Safety Officer — đảm bảo tất cả CẢNH BÁO safety đã include và không có bước nào thiếu Expected Result.
+
+> [!TIP] **Model:** Sonnet 4.6 — Checklist-based review với criteria rõ ràng. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -697,6 +870,16 @@ Report: file nào cần fix, cụ thể là gì.
 </check_instructions>
 ```
 
+**Ví dụ — sau khi update firmware version trong docs:**
+
+Phần 1 scenario: File sẽ sửa: `technical-spec.md` | Thay đổi: Firmware version "v3.1.2" → "v3.2.0" | Cần check: User Manual, SOP Firmware Update, SOP Battery, Quick Reference Cards, Incident Report template.
+
+> [!NOTE] **AMR Context** — Sau khi update navigation parameter defaults trong Technical Spec, scan toàn bộ SOPs và diagnostic guides có reference đến parameters này để update cascade.
+
+> [!TIP] **Model:** Sonnet 4.6 — Scan và update tasks. Dùng Opus nếu scope lớn (>10 files) và cần reasoning về semantic consistency. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
+> [!TIP] **Skill:** `/cross-ref-checker` — Kiểm tra cross-references tự động trong module guide.
+
 ---
 
 ### T-22: Cowork Task Plan (Prompt Package)
@@ -748,13 +931,21 @@ Report: file nào cần fix, cụ thể là gì.
 - [ ] {{dieu_kien_2}}
 ```
 
+**Ví dụ — plan cho AMR Documentation Sprint:**
+
+Placeholder values: Ten_Project: AMR PNX-100 Documentation Sprint | Tổng số tasks: 4 | File Inventory: technical-spec.md (sửa), user-manual.md (tạo mới), sop-battery.md (tạo mới), emergency-guide.md (tạo mới) | Backup: Git commit `abc1234` trước khi bắt đầu.
+
+> [!NOTE] **AMR Context** — Lên plan cho session viết complete AMR documentation set trước commissioning: 4 tasks có dependencies, 2 sessions Cowork, checkpoint sau mỗi task.
+
+> [!TIP] **Model:** Sonnet 4.6 — Planning task. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ## 7.9 File Creation Templates (T-16, T-17, T-18)
 
 ### T-16: Tạo file Word (.docx)
 
-```
+```text
 Tạo file Word (.docx) cho {{loai_tai_lieu}}:
 
 Thông tin:
@@ -771,11 +962,19 @@ Format:
 Lưu với tên: {{ten_file}}.docx
 ```
 
+**Ví dụ — export Technical Spec sang Word:**
+
+Placeholder values: loai_tai_lieu: Technical Specification | noi_dung_chinh: AMR PNX-100 Navigation Module Spec (output từ T-07) | ten_file: AMR-PNX100-NavSpec-v1.0.
+
+> [!NOTE] **AMR Context** — Export Technical Spec (T-07) hoặc SOP (T-11) sang Word để gửi cho stakeholders không dùng Markdown — đặc biệt hữu ích khi submit tài liệu cho khách hàng.
+
+> [!TIP] **Model:** Sonnet 4.6 — File generation task. Cần bật "Code execution and file creation" trong Settings > Capabilities. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 **Lưu ý:** Cần bật "Code execution and file creation" trong Settings > Capabilities.
 
 ### T-17: Tạo file Excel (.xlsx)
 
-```
+```text
 Tạo file Excel (.xlsx) cho {{muc_dich}}:
 
 Columns:
@@ -792,9 +991,17 @@ Thêm:
 Lưu với tên: {{ten_file}}.xlsx
 ```
 
+**Ví dụ — AMR Fleet Maintenance Tracker:**
+
+Placeholder values: muc_dich: AMR Fleet Maintenance Schedule 2026 | Columns: AMR ID (text), Last Service Date (date), Next Service Date (date), Battery Cycles (number), Status (dropdown: OK/Due/Overdue), Technician (text) | Conditional formatting: đỏ nếu Next Service Date < today.
+
+> [!NOTE] **AMR Context** — Tracking sheet cho battery cycle count và maintenance schedule của toàn bộ AMR fleet — export hàng tuần để dispatch team lên kế hoạch bảo trì.
+
+> [!TIP] **Model:** Sonnet 4.6 — File generation task. Cần bật "Code execution and file creation" trong Settings > Capabilities. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ### T-18: Tạo file PowerPoint (.pptx)
 
-```
+```text
 Tạo file PowerPoint (.pptx) cho {{muc_dich_presentation}}.
 
 Nội dung {{so_slides}} slides:
@@ -807,6 +1014,14 @@ Màu chủ đạo: {{mau_sac}}
 
 Lưu với tên: {{ten_file}}.pptx
 ```
+
+**Ví dụ — AMR Deployment Progress Report:**
+
+Placeholder values: muc_dich: Stakeholder briefing sau commissioning phase 1 | so_slides: 8 | Slides: (1) Executive Summary, (2) System Architecture, (3) Commissioning Status, (4) KPIs vs. Targets, (5) Issues & Mitigations, (6) Timeline Phase 2, (7) Budget Snapshot, (8) Q&A | Màu: xanh navy + trắng.
+
+> [!NOTE] **AMR Context** — Presentation cho management review sau AMR fleet commissioning phase 1: show uptime, incident count, throughput improvement vs. manual.
+
+> [!TIP] **Model:** Sonnet 4.6 — File generation task. Cần bật "Code execution and file creation" trong Settings > Capabilities. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
