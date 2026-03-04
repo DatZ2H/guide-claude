@@ -52,22 +52,22 @@ Toàn bộ community skills còn lại — xem [Section 5](#5-community-standalo
 
 Tích hợp sẵn trên mọi surface (claude.ai, Cowork, Claude Code, API). Claude tự động activate khi task phù hợp, người dùng không cần cài đặt. Trên claude.ai, chỉ cần bật Settings > Capabilities > Code Execution.
 
-| Tên | Chức năng | Surface hỗ trợ | Cài đặt | Trust |
-|-----|-----------|-----------------|---------|-------|
-| `docx` | Tạo, đọc, sửa file Word (.docx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official |
-| `xlsx` | Tạo, đọc, sửa file Excel (.xlsx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official |
-| `pptx` | Tạo, đọc, sửa file PowerPoint (.pptx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official |
-| `pdf` | Tạo, đọc, merge, split, fill form PDF | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official |
+| Tên | Chức năng | Surface hỗ trợ | Cài đặt | Trust | Audience |
+|-----|-----------|-----------------|---------|-------|----------|
+| `docx` [Approved PX] | Tạo, đọc, sửa file Word (.docx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official | end-user |
+| `xlsx` [Approved PX] | Tạo, đọc, sửa file Excel (.xlsx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official | end-user |
+| `pptx` [Approved PX] | Tạo, đọc, sửa file PowerPoint (.pptx) | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official | end-user |
+| `pdf` [Approved PX] | Tạo, đọc, merge, split, fill form PDF | claude.ai, Cowork, Claude Code, API | Tích hợp sẵn | ✅ Official | end-user |
 
 ---
 
 ## 3. Official Standalone Skills
 
-| Tên | Mô tả ngắn | Repository URL | Cài đặt | Trust |
-|-----|-------------|----------------|---------|-------|
-| `doc-coauthoring` | Workflow co-authoring tài liệu có cấu trúc | github.com/anthropics/skills/tree/main/skills/doc-coauthoring [Cần xác minh] | Xem hướng dẫn bên dưới | ✅ Official |
-| `internal-comms` | Template viết internal communications | github.com/anthropics/skills/tree/main/skills/internal-comms | Xem hướng dẫn bên dưới | ✅ Official |
-| `skill-creator` | Tạo mới, sửa, đo lường hiệu quả skill | github.com/anthropics/skills/tree/main/skills/skill-creator | Xem hướng dẫn bên dưới | ✅ Official |
+| Tên | Mô tả ngắn | Repository URL | Cài đặt | Trust | Audience |
+|-----|-------------|----------------|---------|-------|----------|
+| `doc-coauthoring` [Approved PX] | Workflow co-authoring tài liệu có cấu trúc | github.com/anthropics/skills/tree/main/skills/doc-coauthoring [Cần xác minh] | Xem hướng dẫn bên dưới | ✅ Official | both |
+| `internal-comms` | Template viết internal communications | github.com/anthropics/skills/tree/main/skills/internal-comms | Xem hướng dẫn bên dưới | ✅ Official | end-user |
+| `skill-creator` | Tạo mới, sửa, đo lường hiệu quả skill | github.com/anthropics/skills/tree/main/skills/skill-creator | Xem hướng dẫn bên dưới | ✅ Official | maintainer |
 
 Cách cài đặt theo từng surface:
 
@@ -79,11 +79,11 @@ Cách cài đặt theo từng surface:
 
 ## 4. Official Plugins
 
-| Tên plugin | Mô tả ngắn | Repository URL | Cài đặt | Trust |
-|------------|-------------|----------------|---------|-------|
-| `productivity` | Quản lý task, notes, workflow | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/productivity | Xem hướng dẫn bên dưới | ✅ Official |
-| `product-management` | Hỗ trợ PM workflows (PRD, roadmap, specs) | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/product-management | Xem hướng dẫn bên dưới | ✅ Official |
-| `data` | Phân tích dữ liệu, visualization | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/data | Xem hướng dẫn bên dưới | ✅ Official |
+| Tên plugin | Mô tả ngắn | Repository URL | Cài đặt | Trust | Audience |
+|------------|-------------|----------------|---------|-------|----------|
+| `productivity` | Quản lý task, notes, workflow | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/productivity | Xem hướng dẫn bên dưới | ✅ Official | end-user |
+| `product-management` | Hỗ trợ PM workflows (PRD, roadmap, specs) | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/product-management | Xem hướng dẫn bên dưới | ✅ Official | end-user |
+| `data` | Phân tích dữ liệu, visualization | github.com/anthropics/knowledge-work-plugins/tree/main/plugins/data | Xem hướng dẫn bên dưới | ✅ Official | end-user |
 
 Anthropic cung cấp 11+ plugins chính thức tại repo `anthropics/knowledge-work-plugins`. Ngoài 3 plugin liệt kê ở đây, còn có: sales, marketing, finance, legal, customer-support, enterprise-search, bio-research, cowork-plugin-management. [Cập nhật 03/2026 — kiểm tra repo để xem danh sách mới nhất]
 
@@ -123,41 +123,45 @@ Scheduled Tasks không phải Skills hay Plugins — đây là tính năng riên
 
 ---
 
+> [!WARNING]
+> Skills chưa có badge `[Approved PX]` có thể tạo output không phù hợp với Phenikaa-X conventions.
+> Luôn đọc SKILL.md và test trên dữ liệu không nhạy cảm trước khi áp dụng vào công việc chính thức.
+
 ## 5. Community Standalone Skills
 
 > **CẢNH BÁO:** Community skills không được Anthropic review. Bắt buộc đọc file SKILL.md và kiểm tra thư mục `scripts/` trước khi cài đặt. Test trên thư mục không chứa sensitive data.
 
 ### 5a. Từ skillhub.club
 
-| ID   | Tên                        | Author          | skillhub URL                                                                                  | CLI install                                           | Trust |
-| ---- | -------------------------- | --------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ----- |
-| SH1  | `docs-review`              | @metabase       | skillhub.club/skills/metabase-metabase-docs-review                                            | `npx @skill-hub/cli install docs-review`              | ⚠️ Community |
-| SH2  | `obsidian-markdown`        | @kepano         | skillhub.club/skills/kepano-obsidian-markdown                                                 | `npx @skill-hub/cli install obsidian-markdown`        | ⚠️ Community |
-| SH3  | `voice-and-tone`           | @lerianstudio   | skillhub.club/skills/lerianstudio-voice-and-tone                                              | `npx @skill-hub/cli install voice-and-tone`           | ⚠️ Community |
-| SH4  | `mermaidjs-v11`            | @mrgoonie       | skillhub.club/skills/mrgoonie-mermaidjs-v11                                                   | `npx @skill-hub/cli install mermaidjs-v11`            | ⚠️ Community |
-| SH5  | `knowledge-capture`        | @rsmdt          | skillhub.club/skills/rsmdt-knowledge-capture                                                  | `npx @skill-hub/cli install knowledge-capture`        | ⚠️ Community |
-| SH6  | `technical-clarity`        | @panaversity    | skillhub.club/skills/panaversity-technical-clarity                                            | `npx @skill-hub/cli install technical-clarity`        | ⚠️ Community |
-| SH7  | `troubleshooting-docs`     | @glittercowboy  | skillhub.club/skills/glittercowboy-troubleshooting-docs                                       | `npx @skill-hub/cli install troubleshooting-docs`     | ⚠️ Community |
-| SH8  | `organizing-documentation` | @cipherstash    | skillhub.club/skills/cipherstash-organizing-documentation                                     | `npx @skill-hub/cli install organizing-documentation` | ⚠️ Community |
-| SH9  | `architecture-design`      | @rsmdt          | skillhub.club/skills/rsmdt-architecture-design                                                | `npx @skill-hub/cli install architecture-design`      | ⚠️ Community |
-| SH10 | `specification-management` | @rsmdt          | skillhub.club/skills/rsmdt-specification-management                                           | `npx @skill-hub/cli install specification-management` | ⚠️ Community |
-| SH11 | `document-converter`       | @benbrastmckie  | skillhub.club/skills/benbrastmckie-document-converter                                         | `npx @skill-hub/cli install document-converter`       | ⚠️ Community |
-| SH12 | `technical-writing`        | @rsmdt          | skillhub.club/skills/rsmdt-technical-writing                                                  | `npx @skill-hub/cli install technical-writing`        | ⚠️ Community |
-| SH13 | `format-markdown-table`    | @maslennikov-ig | skillhub.club/skills/maslennikov-ig-format-markdown-table                                     | `npx @skill-hub/cli install format-markdown-table`    | ⚠️ Community |
-| SH14 | `context-optimization`     | @muratcankoylan | skillhub.club/skills/muratcankoylan-agent-skills-for-context-engineering-context-optimization | `npx @skill-hub/cli install context-optimization`     | ⚠️ Community |
-| SH15 | `documentation-review`     | @lerianstudio   | skillhub.club/skills/lerianstudio-documentation-review                                        | `npx @skill-hub/cli install documentation-review`     | ⚠️ Community |
-| SH16 | `md-docs`                  | @paulrberg      | skillhub.club/skills/paulrberg-md-docs                                                        | `npx @skill-hub/cli install md-docs`                  | ⚠️ Community |
+| ID   | Tên                        | Author          | skillhub URL                                                                                  | CLI install                                           | Trust | Audience |
+| ---- | -------------------------- | --------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ----- | -------- |
+| SH1  | `docs-review`              | @metabase       | skillhub.club/skills/metabase-metabase-docs-review                                            | `npx @skill-hub/cli install docs-review`              | ⚠️ Community | end-user |
+| SH2  | `obsidian-markdown` [Approved PX] | @kepano  | skillhub.club/skills/kepano-obsidian-markdown                                                 | `npx @skill-hub/cli install obsidian-markdown`        | ⚠️ Community | end-user |
+| SH3  | `voice-and-tone`           | @lerianstudio   | skillhub.club/skills/lerianstudio-voice-and-tone                                              | `npx @skill-hub/cli install voice-and-tone`           | ⚠️ Community | end-user |
+| SH4  | `mermaidjs-v11` [Approved PX] | @mrgoonie    | skillhub.club/skills/mrgoonie-mermaidjs-v11                                                   | `npx @skill-hub/cli install mermaidjs-v11`            | ⚠️ Community | end-user |
+| SH5  | `knowledge-capture`        | @rsmdt          | skillhub.club/skills/rsmdt-knowledge-capture                                                  | `npx @skill-hub/cli install knowledge-capture`        | ⚠️ Community | end-user |
+| SH6  | `technical-clarity`        | @panaversity    | skillhub.club/skills/panaversity-technical-clarity                                            | `npx @skill-hub/cli install technical-clarity`        | ⚠️ Community | end-user |
+| SH7  | `troubleshooting-docs`     | @glittercowboy  | skillhub.club/skills/glittercowboy-troubleshooting-docs                                       | `npx @skill-hub/cli install troubleshooting-docs`     | ⚠️ Community | end-user |
+| SH8  | `organizing-documentation` | @cipherstash    | skillhub.club/skills/cipherstash-organizing-documentation                                     | `npx @skill-hub/cli install organizing-documentation` | ⚠️ Community | end-user |
+| SH9  | `architecture-design`      | @rsmdt          | skillhub.club/skills/rsmdt-architecture-design                                                | `npx @skill-hub/cli install architecture-design`      | ⚠️ Community | end-user |
+| SH10 | `specification-management` | @rsmdt          | skillhub.club/skills/rsmdt-specification-management                                           | `npx @skill-hub/cli install specification-management` | ⚠️ Community | end-user |
+| SH11 | `document-converter`       | @benbrastmckie  | skillhub.club/skills/benbrastmckie-document-converter                                         | `npx @skill-hub/cli install document-converter`       | ⚠️ Community | end-user |
+| SH12 | `technical-writing`        | @rsmdt          | skillhub.club/skills/rsmdt-technical-writing                                                  | `npx @skill-hub/cli install technical-writing`        | ⚠️ Community | end-user |
+| SH13 | `format-markdown-table`    | @maslennikov-ig | skillhub.club/skills/maslennikov-ig-format-markdown-table                                     | `npx @skill-hub/cli install format-markdown-table`    | ⚠️ Community | end-user |
+| SH14 | `context-optimization`     | @muratcankoylan | skillhub.club/skills/muratcankoylan-agent-skills-for-context-engineering-context-optimization | `npx @skill-hub/cli install context-optimization`     | ⚠️ Community | end-user |
+| SH15 | `documentation-review`     | @lerianstudio   | skillhub.club/skills/lerianstudio-documentation-review                                        | `npx @skill-hub/cli install documentation-review`     | ⚠️ Community | end-user |
+| SH16 | `md-docs`                  | @paulrberg      | skillhub.club/skills/paulrberg-md-docs                                                        | `npx @skill-hub/cli install md-docs`                  | ⚠️ Community | end-user |
 
 ### 5b. Từ GitHub
 
-| ID | Tên | Repository URL | Cách tải | Trust |
-|----|-----|----------------|----------|-------|
-| D1a | `meeting-synthesizer` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `meeting-synthesizer.skill` | ⚠️ Community |
-| D1b | `stakeholder-updates` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `stakeholder-updates.skill` | ⚠️ Community |
-| D1c | `prd-generator` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `prd-generator.skill` | ⚠️ Community |
-| D1d | `market-research` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `market-research.skill` | ⚠️ Community |
-| D2 | `meeting-minutes-taker` | github.com/daymade/claude-code-skills | Download ZIP > extract folder | ⚠️ Community |
-| D3 | `systematic-debugging` | github.com/obra/superpowers | Download ZIP > extract `systematic-debugging` folder | ⚠️ Community |
+| ID | Tên | Repository URL | Cách tải | Trust | Audience |
+|----|-----|----------------|----------|-------|----------|
+| D1a | `meeting-synthesizer` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `meeting-synthesizer.skill` | ⚠️ Community | end-user |
+| D1b | `stakeholder-updates` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `stakeholder-updates.skill` | ⚠️ Community | end-user |
+| D1c | `prd-generator` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `prd-generator.skill` | ⚠️ Community | end-user |
+| D1d | `market-research` | github.com/luckybajaj22031996/pm-ba-claude-skills | Download ZIP > extract `market-research.skill` | ⚠️ Community | end-user |
+| D2 | `meeting-minutes-taker` | github.com/daymade/claude-code-skills | Download ZIP > extract folder | ⚠️ Community | end-user |
+| D3 | `systematic-debugging` | github.com/obra/superpowers | Download ZIP > extract `systematic-debugging` folder | ⚠️ Community | end-user |
 
 ---
 
@@ -189,13 +193,13 @@ npx @skill-hub/cli install md-docs
 
 Skills nội bộ dùng trong Guide Claude project, nằm tại `.claude/skills/`. Chỉ hoạt động trong Cowork (Claude Code) khi mở đúng thư mục project.
 
-| Tên | Trigger | Chức năng | Trust |
-|-----|---------|-----------|-------|
-| `session-start` | `/start` hoặc "bắt đầu session" | Orientation đầu session: đọc git log, trả về tóm tắt trạng thái project | ✅ Internal (Phenikaa-X) |
-| `version-bump` | `/version-bump`, "lên version vX.X" | Bump VERSION file, thêm changelog entry, update project-state.md | ✅ Internal (Phenikaa-X) |
-| `doc-standard-enforcer` | Khi edit file trong `guide/` | Enforce writing standards: heading hierarchy, code block tags, cross-links | ✅ Internal (Phenikaa-X) |
-| `cross-ref-checker` | Kiểm tra module | Scan cross-references, báo cáo broken links và inconsistencies | ✅ Internal (Phenikaa-X) |
-| `module-review` | `/review-module <số>` | Deep review 1 module theo scoring rubric | ✅ Internal (Phenikaa-X) |
+| Tên | Trigger | Chức năng | Trust | Audience |
+|-----|---------|-----------|-------|----------|
+| `session-start` [Approved PX] | `/start` hoặc "bắt đầu session" | Orientation đầu session: đọc git log, trả về tóm tắt trạng thái project | ✅ Internal (Phenikaa-X) | maintainer |
+| `version-bump` [Approved PX] | `/version-bump`, "lên version vX.X" | Bump VERSION file, thêm changelog entry, update project-state.md | ✅ Internal (Phenikaa-X) | maintainer |
+| `doc-standard-enforcer` [Approved PX] | Khi edit file trong `guide/` | Enforce writing standards: heading hierarchy, code block tags, cross-links | ✅ Internal (Phenikaa-X) | maintainer |
+| `cross-ref-checker` [Approved PX] | Kiểm tra module | Scan cross-references, báo cáo broken links và inconsistencies | ✅ Internal (Phenikaa-X) | maintainer |
+| `module-review` [Approved PX] | `/review-module <số>` | Deep review 1 module theo scoring rubric | ✅ Internal (Phenikaa-X) | maintainer |
 
 ---
 
