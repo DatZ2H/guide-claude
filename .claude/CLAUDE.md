@@ -1,7 +1,7 @@
 # CLAUDE.md — Guide Claude Project
 
 ## Project context
-Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
+Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
 - **Phase:** Internal Review — v5.0 cho team Phenikaa-X dùng thử
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
@@ -9,7 +9,7 @@ Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules 
 
 ## Folder structure
 ```
-guide/                  12 module files (00→11) + reference/
+guide/                  13 module files (00→12) + reference/
 guide/reference/        config-architecture.md, skills-list.md
 machine-readable/       llms.txt (machine-readable index theo convention Florian Bruniaux)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
@@ -102,6 +102,7 @@ VERSION                 SSOT cho version number
 | 00–09 | v4.2 base + v5.0 currency sweep — 🟢 |
 | 10 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting 🟢 |
 | 11 | New v5.0 — 12 workflow templates 🔵 |
+| 12 | New v6.5 — Claude Code Documentation 🔵 |
 | reference/ | config-architecture 🟢, skills-list Updated v5.0 🟢 |
 
 ## Khi nào update file này

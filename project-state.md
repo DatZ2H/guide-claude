@@ -4,7 +4,7 @@ Version: xem `VERSION` (hiện tại: 6.0) | Updated: 2026-03-04
 
 ## Phase
 
-Internal Review — v5.0 cho team Phenikaa-X dùng thử. Mục tiêu: 12 modules hoàn chỉnh cho kỹ sư Phenikaa-X (tự động hóa, R&D, Robotics).
+Internal Review — v5.0 cho team Phenikaa-X dùng thử. Mục tiêu: 13 modules hoàn chỉnh cho kỹ sư Phenikaa-X (tự động hóa, R&D, Robotics).
 
 ## Trạng thái modules
 
@@ -22,6 +22,7 @@ Internal Review — v5.0 cho team Phenikaa-X dùng thử. Mục tiêu: 12 module
 | 09 | guide/09-evaluation-framework.md | 8.8 🟢 | Sprint-patched v4.2 |
 | 10 | guide/10-claude-desktop-cowork.md | TBD 🟡 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting |
 | 11 | guide/11-cowork-workflows.md | TBD 🔵 | New v5.0 — 12 workflow templates |
+| 12 | guide/12-claude-code-documentation.md | TBD 🔵 | New v6.5 — Claude Code Documentation |
 | ref | guide/reference/config-architecture.md | 8.0 🟢 | Sprint-patched v4.2 |
 | ref | guide/reference/skills-list.md | 7.5 🟡 | Updated v5.0 — enterprise plugins |
 
@@ -35,8 +36,8 @@ Guide Claude/
 ├── VERSION                         SSOT cho version number
 ├── project-state.md                File này — project overview
 │
-├── guide/                          Content (12 modules + reference/)
-│   ├── 00-overview.md → 11-cowork-workflows.md
+├── guide/                          Content (13 modules + reference/)
+│   ├── 00-overview.md → 12-claude-code-documentation.md
 │   └── reference/
 │       ├── config-architecture.md  SSOT: 6 lớp cấu hình Claude
 │       └── skills-list.md

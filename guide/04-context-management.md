@@ -382,7 +382,7 @@ project-folder/
 └── ...
 ```
 
-**Thay thế hiện tại:** Dùng `.claude/CLAUDE.md` (Folder Instructions) + `git log` + SessionStart hook. Xem Module 10, mục 10.13.
+**Thay thế hiện tại:** Dùng `.claude/CLAUDE.md` (Folder Instructions) + `git log` + SessionStart hook. Xem [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md).
 
 | Cũ (`_memory/`) | Mới (Git-based) |
 |-----------------|-----------------|
@@ -391,7 +391,7 @@ project-folder/
 | 2 files cần maintain mỗi session | Không cần maintain — Git tự ghi |
 
 **Xem thêm:**
-- Module 10 (mục 10.13) — Claude Code cho Documentation Workflow
+- [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md)
 - Module 04 (mục 4.9) — Two-Layer Knowledge Model khi dùng Hybrid Workflow
 
 ---

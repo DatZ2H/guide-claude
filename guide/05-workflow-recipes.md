@@ -545,7 +545,7 @@ flowchart TD
 **Setup cần thiết:**
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
-- Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 10, mục 10.13](../guide/10-claude-desktop-cowork.md))
+- Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md))
 - Project Knowledge chỉ chứa `project-state.md` (xem [Module 04, mục 4.9](../guide/04-context-management.md) — Two-Layer Knowledge)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
