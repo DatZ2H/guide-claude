@@ -789,7 +789,7 @@ Liệt kê mọi inconsistency tìm được.
 
 > [!TIP] **Model:** Sonnet 4.6 cho multi-file editing — tác vụ chủ yếu là search-and-update, không cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-**Cross-reference:** Template T-21 (Multi-file Consistency Check, Module 07) là phiên bản template của recipe này.
+**Cross-reference:** [Template T-21](../guide/07-template-library.md#t-21-multi-file-consistency-check) (Multi-file Consistency Check, Module 07) là phiên bản template của recipe này.
 
 ---
 
@@ -846,7 +846,7 @@ KHÔNG làm: {{boundaries — files không được sửa, scope không được
 
 > [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-**Cross-reference:** Template T-22 (Cowork Task Plan, Module 07). Module 10, mục 10.9 (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
+**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). Module 10, mục 10.9 (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
 
 ---
 
@@ -1026,7 +1026,7 @@ Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
 
 > [!TIP] **Model:** Sonnet 4.6 cho scheduled tasks — đọc log, tổng hợp, và format báo cáo không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-**Chi tiết Scheduled Tasks:** Xem Module 10, mục 10.5.
+**Chi tiết Scheduled Tasks:** Xem [Module 10, mục 10.5](../guide/10-claude-desktop-cowork.md#105-scheduled-tasks--tự-động-hóa-định-kỳ).
 
 ---
 
