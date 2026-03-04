@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 04-context-management, 07-template-library, 10-claude-desktop-cowork]
+impacts: [03-prompt-engineering, 10-claude-desktop-cowork, 11-cowork-workflows]
+---
 
 Module này không dạy lý thuyết -- nó cung cấp quy trình copy-paste cho từng loại công việc cụ thể. Mỗi recipe bao gồm: khi nào dùng, setup cần thiết, prompts cụ thể, và tips thực tế.
 

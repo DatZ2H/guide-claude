@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-03 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 05-workflow-recipes, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+impacts: [10-claude-desktop-cowork]
+---
 
 Module này cung cấp workflows copy-paste sẵn sàng dùng cho Cowork — chế độ làm việc trực tiếp trên file system của Claude Desktop. Mỗi workflow bao gồm: mục tiêu, setup, prompt template, và tips thực tế.
 

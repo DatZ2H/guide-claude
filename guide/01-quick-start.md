@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-02-28 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs]
+impacts: []
+---
 
 Module này giúp bạn bắt đầu sử dụng Claude ngay lập tức. Không cần XML tags, không cần kỹ thuật nâng cao. Chỉ cần đăng nhập và làm theo 4 bước.
 

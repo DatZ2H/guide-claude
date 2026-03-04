@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 04-context-management, 05-workflow-recipes, 07-template-library]
+impacts: [07-template-library, 08-mistakes-fixes]
+---
 
 Module này là xương sống của toàn bộ bộ tài liệu. Bạn sẽ học cách viết prompt từ cơ bản đến nâng cao, theo đúng best practices chính thức từ Anthropic.
 

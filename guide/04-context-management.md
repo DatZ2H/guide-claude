@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 12-claude-code-documentation]
+impacts: [03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes]
+---
 
 Đây là module mà hầu hết hướng dẫn Claude bỏ qua, nhưng lại ảnh hưởng trực tiếp đến chất lượng công việc hàng ngày. Nếu bạn từng gặp tình huống "chat dài thì Claude bắt đầu quên", module này giải thích tại sao và cách xử lý.
 

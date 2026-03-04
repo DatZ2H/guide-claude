@@ -4,6 +4,9 @@
 **Claude models:** Opus 4.6 / Sonnet 4.6 / Haiku 4.5
 
 ---
+depends-on: [12-claude-code-documentation]
+impacts: []
+---
 
 ## Giới thiệu
 

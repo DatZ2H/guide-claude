@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 03-prompt-engineering, 05-workflow-recipes]
+impacts: [03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes, 11-cowork-workflows]
+---
 
 Module này tập trung **tất cả 22 templates** vào một nơi duy nhất. Các module khác tham chiếu đến đây bằng mã **T-XX**.
 

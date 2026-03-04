@@ -4,6 +4,9 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
+depends-on: [reference/model-specs, 02-setup-personalization, 03-prompt-engineering, 04-context-management, 06-tools-features, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+impacts: []
+---
 
 Module này tổng hợp những lỗi phổ biến nhất khi sử dụng Claude và cách khắc phục cụ thể. Chia thành 6 nhóm theo nguyên nhân gốc.
 
