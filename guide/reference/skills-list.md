@@ -48,6 +48,66 @@ Toàn bộ community skills còn lại — xem [Section 5](#5-community-standalo
 
 ---
 
+## Skill-Recipe Mapping
+
+Bảng tra cứu nhanh: recipe/workflow nào dùng skill nào. Chỉ liệt kê skills có badge `[Approved PX]` hoặc `Official`.
+
+### Module 05 — Workflow Recipes
+
+| Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
+|----------------|--------|-------------------|----------------|
+| 5.1 Viết tài liệu từ đầu | 05 | `doc-coauthoring` [Approved PX] | Notes/brief → Document hoàn chỉnh |
+| 5.2 Document Review | 05 | `doc-coauthoring` [Approved PX] | File tài liệu → Review report có issues list |
+| 5.3 Structured Troubleshooting | 05 | Không cần skill đặc biệt | Log/error data → Root cause analysis |
+| 5.4 Terminology Management | 05 | Không cần skill đặc biệt | Tài liệu → Glossary + inconsistency report |
+| 5.5 Document Generation | 05 | `docx` / `xlsx` / `pptx` [Approved PX] | Prompt → File Word/Excel/PowerPoint |
+| 5.6 Research & Synthesis | 05 | Không cần skill đặc biệt | Topic → Research report có citations |
+| 5.7 Structured Output | 05 | Không cần skill đặc biệt | Data input → JSON/CSV sẵn sàng parse |
+| 5.8 Convert & Migrate | 05 | `docx` [Approved PX] (nếu output Word) | File cũ → File đã convert sang format mới |
+| 5.9 MCP Connectors | 05 | Không cần skill đặc biệt | Prompt → Action trực tiếp trên connected service |
+| 5.10 Document Lifecycle | 05 | `doc-coauthoring` [Approved PX] | Brief → Published document (end-to-end) |
+| 5.11 Hybrid Workflow | 05 | Không cần skill đặc biệt | Research/notes → Final document qua Chat+Project+Cowork |
+| 5.12 Task Planning trước Chain Prompt | 05 | Không cần skill đặc biệt | Task description → Task map + dependency table |
+| 5.13 Multi-file Editing | 05 | `cross-ref-checker` [Approved PX] (Internal) | File changes → Impact report + verified consistency |
+| 5.14 Cowork Session Planning | 05 | Không cần skill đặc biệt | Task brief → Scope analysis + task plan |
+| 5.15 Cowork Batch Processing | 05 | `docx` [Approved PX] (nếu output Word) | Folder files → Batch processed output |
+| 5.16 Scheduled Tasks | 05 | Không cần skill đặc biệt | Prompt template → Automated periodic output |
+
+### Module 07 — Templates
+
+| Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
+|----------------|--------|-------------------|----------------|
+| T-03 Viết Email báo cáo | 07 | `internal-comms` Official | Context tiến độ → Email professional ≤200 từ |
+| T-06 User Manual Section | 07 | `doc-coauthoring` [Approved PX] | Spec/context → Section user manual có cấu trúc |
+| T-07 Technical Specification | 07 | `doc-coauthoring` [Approved PX] | System context → Tech spec có requirements + criteria |
+| T-11 Standard Operating Procedure | 07 | `doc-coauthoring` [Approved PX] | Procedure notes → SOP hoàn chỉnh 10 sections |
+| T-12 Incident Report | 07 | `doc-coauthoring` [Approved PX] | Incident data → Report có RCA + corrective actions |
+| T-16 Tạo file Word | 07 | `docx` [Approved PX] | Prompt → .docx professional có TOC |
+| T-17 Tạo file Excel | 07 | `xlsx` [Approved PX] | Prompt → .xlsx có conditional formatting + dashboard |
+| T-18 Tạo file PowerPoint | 07 | `pptx` [Approved PX] | Prompt → .pptx presentation |
+| T-21 Multi-file Consistency Check | 07 | `cross-ref-checker` [Approved PX] (Internal) | File list → Inconsistency report + cascade fixes |
+
+Templates còn lại (T-01, T-02, T-04, T-05, T-08, T-09, T-10, T-13, T-14, T-15, T-19, T-20, T-22) — Không cần skill đặc biệt: dùng trực tiếp làm prompt template.
+
+### Module 11 — Cowork Workflows
+
+| Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
+|----------------|--------|-------------------|----------------|
+| 11.1 Viết SOP từ notes | 11 | `doc-coauthoring` [Approved PX] + `docx` (nếu output Word) | Folder notes → SOP file hoàn chỉnh |
+| 11.2 Batch review tài liệu | 11 | Không cần skill đặc biệt | Folder tài liệu → Review report có priority ranking |
+| 11.3 Báo cáo tuần từ log | 11 | Không cần skill đặc biệt | Folder logs → Weekly report có executive summary |
+| 11.4 Convert Word ↔ Markdown | 11 | `docx` [Approved PX] (nếu output Word) | Folder .docx/.md → Files converted + conversion report |
+| 11.5 Glossary Enforcement | 11 | `cross-ref-checker` [Approved PX] (Internal) | Folder docs + glossary → Inconsistency report theo file |
+| 11.6 Training materials | 11 | `doc-coauthoring` [Approved PX] + `pptx` (nếu slides) | Tech docs → Training guide/slide outline |
+| 11.7 Extract data từ PDF | 11 | `pdf` [Approved PX] | Folder PDF/images → CSV data table |
+| 11.8 Tổ chức folder | 11 | Không cần skill đặc biệt | Folder lộn xộn → Folder organized + reorganization report |
+| 11.9 Release notes từ git | 11 | Không cần skill đặc biệt | git log → Release notes 2 tầng (stakeholder + technical) |
+| 11.10 Meeting prep | 11 | Không cần skill đặc biệt | Folder meeting docs → Briefing 1–2 trang + agenda |
+| 11.11 Incident report | 11 | `doc-coauthoring` [Approved PX] | Raw logs/notes → Incident report có RCA + prevention |
+| 11.12 Diff report | 11 | Không cần skill đặc biệt | 2 file versions → Diff report có impact + recommendation |
+
+---
+
 ## 2. Pre-built Skills (Official)
 
 Tích hợp sẵn trên mọi surface (claude.ai, Cowork, Claude Code, API). Claude tự động activate khi task phù hợp, người dùng không cần cài đặt. Trên claude.ai, chỉ cần bật Settings > Capabilities > Code Execution.
