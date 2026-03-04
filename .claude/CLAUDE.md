@@ -1,9 +1,9 @@
 # CLAUDE.md — Guide Claude Project
 
 ## Project context
-Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 11 modules hướng dẫn sử dụng Claude AI.
+Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
-- **Phase:** Development — đang iterate, chưa publish
+- **Phase:** Internal Review — v5.0 cho team Phenikaa-X dùng thử
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
 - **Architecture:** 2-tier — guide/ (content) + .claude/ (infra)
 
@@ -88,9 +88,10 @@ VERSION                 SSOT cho version number
 ## Module status (quick ref)
 | Range | Status |
 |-------|--------|
-| 00–10 | Sprint-patched v4.2 — 10/11 modules 🟢, modules 05+10 cần polish |
-| 11 | New v5.0 🔵 — 12 workflow templates, chưa audit |
-| reference/ | config-architecture 🟢 8.0, skills-list 🟡 7.5 (cần currency check) |
+| 00–09 | v4.2 base + v5.0 currency sweep — 🟢 |
+| 10 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting 🟢 |
+| 11 | New v5.0 — 12 workflow templates 🔵 |
+| reference/ | config-architecture 🟢, skills-list Updated v5.0 🟢 |
 
 ## Khi nào update file này
 - Thêm skill mới → update bảng Available skills
