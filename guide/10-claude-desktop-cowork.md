@@ -244,10 +244,10 @@ cho vận hành hệ thống AMR tại nhà máy Phenikaa-X.
 # Folder Instructions — Claude Guide Project
 
 ## Project overview
-Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 12 modules hướng dẫn sử dụng Claude AI.
+Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
 
 ## Folder structure
-- guide/ — 12 module files (00-overview đến 11-cowork-workflows) + reference/
+- guide/ — 13 module files (00-overview đến 12-claude-code-documentation) + reference/
 - project-state.md — project overview
 - VERSION — single source of truth cho version number
 
@@ -443,11 +443,11 @@ Danh sách chi tiết từng skill với URL, mô tả, và hướng dẫn cài 
 | Quản lý task & workflow | productivity (plugin) | Plugin | Official | Cowork |
 | Product management | product-management (plugin) | Plugin | Official | Cowork |
 
-**Starter Pack — bộ cài đặt tối thiểu cho kỹ sư mới:** Pre-built skills (docx, xlsx, pptx, pdf) đã có sẵn, không cần thao tác. Cài thêm 1 official plugin là productivity để quản lý task. Bổ sung 3-4 community skills ưu tiên cho documentation: doc-coauthoring (nếu chưa có sẵn), obsidian-markdown, docs-review, và voice-and-tone. Cài thêm khi workflow yêu cầu — không cần cài tất cả cùng lúc.
+**Starter Pack — bộ cài đặt tối thiểu cho kỹ sư mới:** Pre-built Skills (docx, xlsx, pptx, pdf) đã có sẵn, không cần thao tác. Cài thêm 1 official plugin là productivity để quản lý task. Bổ sung 3-4 community skills ưu tiên cho documentation: doc-coauthoring (nếu chưa có sẵn), obsidian-markdown, docs-review, và voice-and-tone. Cài thêm khi workflow yêu cầu — không cần cài tất cả cùng lúc.
 
 ### 10.6.4 Cài đặt theo từng surface
 
-**claude.ai (Web/App).** Pre-built Skills đã tích hợp sẵn — chỉ cần bật Settings > Capabilities > Code execution and file creation. Custom Skills: vào Settings > Features > upload file .skill (ZIP chứa SKILL.md + resources) [Cần xác minh path — UI có thể thay đổi]. Custom skills trên claude.ai chỉ available cho user đó, không share được cho team members.
+**claude.ai (Web/App).** Pre-built Skills đã tích hợp sẵn — chỉ cần bật Settings > Capabilities > Code execution and file creation. Custom Skills: vào Settings > Features > upload file .skill (ZIP chứa SKILL.md + resources) [Cần xác minh path — UI có thể thay đổi]. Custom Skills trên claude.ai chỉ available cho user đó, không share được cho team members.
 
 [Nguồn: Anthropic API Docs — Agent Skills overview]
 URL: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
@@ -491,7 +491,7 @@ Skills được lưu tại `.claude/skills/` trong thư mục project — đây 
 | `module-review` | "review module X", "đánh giá chất lượng" | Checklist: accuracy, consistency, completeness, clarity, actionability |
 | `version-bump` | "bump version", "release vX.X" | Cập nhật VERSION → changelog → project-state theo đúng thứ tự |
 
-**Khi nào tạo project-level skill thay vì dùng Global Skill:**
+**Khi nào tạo project-level Skill thay vì dùng Global Skill:**
 - Workflow chỉ relevant cho project này (không cần share sang project khác)
 - Skill cần biết folder structure cụ thể (paths, conventions của project)
 - Team project cần share cùng workflow — đặt trong `.claude/skills/` thay vì cài riêng lẻ
@@ -661,7 +661,7 @@ Không bắt buộc nhưng giúp Claude nhận biết skill ngay từ đầu ses
 
 **Starter Pack thực tế cho kỹ sư Phenikaa-X:**
 
-Pre-built skills (docx, xlsx, pptx, pdf) đã có sẵn, không cần cài. Bắt đầu với 3 thứ này:
+Pre-built Skills (docx, xlsx, pptx, pdf) đã có sẵn, không cần cài. Bắt đầu với 3 thứ này:
 1. Plugin `productivity` (Official) — quản lý task, to-do, daily workflow
 2. Skill `doc-coauthoring` (Official) — viết tài liệu có cấu trúc
 3. Skill `internal-comms` (Official) — viết email, report nội bộ

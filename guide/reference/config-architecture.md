@@ -31,6 +31,8 @@ SCOPE: ON-DEMAND (chạy khi gọi)
     [Cowork]     Scheduled Tasks          → Cài đặt trong Cowork UI
 ```
 
+**Viết tắt:** CC = Claude Code (CLI terminal)
+
 ---
 
 ## Bảng chi tiết: Tất cả 6 lớp

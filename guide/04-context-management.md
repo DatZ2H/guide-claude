@@ -41,7 +41,7 @@ URL: https://docs.anthropic.com/en/docs/about-claude/context-windows
 
 ### Context Awareness [Cập nhật 02/2026]
 
-Claude Opus 4.6, Sonnet 4.6, Sonnet 4.5 và Haiku 4.5 có khả năng **Context Awareness** -- Claude biết mình đang ở đâu trong context window và còn bao nhiêu "dung lượng". Điều này giúp Claude quản lý conversation dài tốt hơn, tự chủ động tóm tắt hoặc nhắc bạn khi sắp hết space.
+Claude Opus 4.6, Claude Sonnet 4.6, Claude Sonnet 4.5 và Claude Haiku 4.5 có khả năng **Context Awareness** -- Claude biết mình đang ở đâu trong context window và còn bao nhiêu "dung lượng". Điều này giúp Claude quản lý conversation dài tốt hơn, tự chủ động tóm tắt hoặc nhắc bạn khi sắp hết space.
 
 [Nguồn: Anthropic Docs - Prompting Best Practices, section "Context awareness"]
 
@@ -486,7 +486,7 @@ Mục 4.7 giải quyết **external memory trong Cowork** (file system làm bộ
 | **Cowork folder** | Claude ghi file trực tiếp | Luôn mới nhất, nhưng Project Chat không thấy |
 | **Chat history** | Tự động, trong conversation | Mất khi conversation kết thúc |
 
-**Vấn đề cốt lõi:** Project Knowledge không tự cập nhật khi Cowork sửa file. Nếu bạn upload 11 module files vào Project Knowledge, sau đó Cowork update Module 04, Project Chat vẫn đọc phiên bản cũ — và không có cảnh báo. Đây là **silent error** nguy hiểm hơn lỗi rõ ràng vì bạn không biết mình đang dùng thông tin sai.
+**Vấn đề cốt lõi:** Project Knowledge không tự cập nhật khi Cowork sửa file. Nếu bạn upload 13 module files vào Project Knowledge, sau đó Cowork update Module 04, Project Chat vẫn đọc phiên bản cũ — và không có cảnh báo. Đây là **silent error** nguy hiểm hơn lỗi rõ ràng vì bạn không biết mình đang dùng thông tin sai.
 
 [Ứng dụng Kỹ thuật]
 
@@ -500,7 +500,7 @@ flowchart LR
     end
     subgraph CW["Layer 2: Cowork folder (living)"]
         MEM[".claude/\nCLAUDE.md\nskills/"]
-        MODS["11 module files\n(nội dung thật)"]
+        MODS["13 module files\n(nội dung thật)"]
         SETUP[".claude/\n(skills + config)"]
     end
     CW -->|"update khi cần\nproject-state.md"| PS
@@ -514,8 +514,8 @@ flowchart LR
 
 **Layer 2 — Working Directory (Cowork folder):**
 
-- 11 module files — nội dung thật, được Cowork đọc và sửa trực tiếp
-- `.claude/` — Folder Instructions (CLAUDE.md) và skills
+- 13 module files — nội dung thật, được Cowork đọc và sửa trực tiếp
+- `.claude/` — Folder Instructions (CLAUDE.md) và Skills
 
 **Nguyên tắc:** Layer 1 là **bản đồ**, Layer 2 là **lãnh thổ**. Bản đồ cần phản ánh đúng lãnh thổ — nhưng chỉ update khi bạn thực sự cần dùng Project Chat, không phải theo lịch cố định.
 

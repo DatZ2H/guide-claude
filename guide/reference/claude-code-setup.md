@@ -2,7 +2,7 @@
 
 [Cập nhật 03/2026]
 
-Cheat sheet cho Claude Code trong documentation workflow. Tổ chức theo workflow — tra cứu theo tình huống đang làm.
+Cheat sheet cho Claude Code (CC) trong documentation workflow. Tổ chức theo workflow — tra cứu theo tình huống đang làm.
 
 ## Quick Setup Checklist
 
@@ -46,7 +46,7 @@ Quy trình làm việc mỗi ngày với documentation project.
 /start
 ```
 
-Đọc version hiện tại, git status, 5 commits gần nhất. Chạy mỗi khi mở Claude Code.
+Đọc version hiện tại, git status, 5 commits gần nhất. Chạy mỗi khi mở CC.
 
 ### Edit module
 
