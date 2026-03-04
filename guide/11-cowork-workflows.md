@@ -68,7 +68,7 @@ Lưu file output là `SOP-{{ten_viet_tat}}-v1.0.md` trong cùng folder.
 
 > [!TIP] **Model:** Sonnet 4.6 cho tổng hợp tài liệu từ nhiều nguồn — cân bằng chất lượng và tốc độ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-> [!TIP] **Skill:** `doc-coauthoring` — workflow co-authoring tài liệu có cấu trúc, phù hợp cho SOP multi-section.
+> [!TIP] **Skill:** `/doc-standard-enforcer` — enforce writing standards cho SOP output trước khi finalize.
 
 ---
 
@@ -786,5 +786,6 @@ Bảng dưới giúp chọn workflow nhanh theo loại task:
 
 **Modules liên quan:**
 - [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) — General recipes cho mọi interface
+- [Module 07: Template Library](../guide/07-template-library.md) — 22 templates (T-06, T-11, T-12 overlap với 11.1, 11.1, 11.11)
 - [Module 09: Evaluation Framework](../guide/09-evaluation-framework.md) — Rubric dùng trong 11.2
 - [Module 10: Claude Desktop & Cowork](../guide/10-claude-desktop-cowork.md) — Setup và cấu hình Cowork

@@ -545,8 +545,8 @@ flowchart TD
 **Setup cần thiết:**
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
-- Thư mục project đã có `.claude/CLAUDE.md` (xem Module 10, mục 10.13)
-- Project Knowledge chỉ chứa `project-state.md` (xem Module 04, mục 4.9 — Two-Layer Knowledge)
+- Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 10, mục 10.13](../guide/10-claude-desktop-cowork.md))
+- Project Knowledge chỉ chứa `project-state.md` (xem [Module 04, mục 4.9](../guide/04-context-management.md) — Two-Layer Knowledge)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
 
@@ -650,9 +650,9 @@ Output: text sẵn sàng copy vào file .md
 
 2. **Sync context bằng files, không bằng memory.** Copy-paste kết quả quan trọng vào file trong thư mục project. Cowork đọc file, không đọc Chat/Project history.
 
-3. **Dùng Two-Layer Knowledge khi files thay đổi thường xuyên qua Cowork** (xem Module 04, mục 4.9). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
+3. **Dùng Two-Layer Knowledge khi files thay đổi thường xuyên qua Cowork** (xem [Module 04, mục 4.9](../guide/04-context-management.md)). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
 
-4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: Module 10, mục 10.8.2.
+4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: [Module 10, mục 10.8.2](../guide/10-claude-desktop-cowork.md).
 
 **Ví dụ:** Xây dựng Documentation Package cho tính năng phần mềm mới — gồm User Guide + API Reference + Release Notes. Giai đoạn 1: Chat research doc versioning best practices. Giai đoạn 2: Plan outline trong Project Chat, Project Knowledge chứa style guide + glossary. Giai đoạn 3: Cowork setup thư mục (`docs/user-guide/`, `docs/api-ref/`, `docs/release-notes/`). Giai đoạn 4: Draft từng section ở Project Chat, copy nội dung về Cowork ghi file. Giai đoạn 5: Project Review — so sánh với style guide, check terminology. Giai đoạn 6: Cowork finalize — chuyển sang `.docx`, thêm headers chuẩn. Giai đoạn 7: Export `project-state.md` → upload vào Project Knowledge để brief session tiếp theo.
 
@@ -846,7 +846,7 @@ KHÔNG làm: {{boundaries — files không được sửa, scope không được
 
 > [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). Module 10, mục 10.9 (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
+**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). [Module 10, mục 10.9](../guide/10-claude-desktop-cowork.md) (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
 
 ---
 

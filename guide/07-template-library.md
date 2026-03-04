@@ -1027,7 +1027,7 @@ Placeholder values: muc_dich: Stakeholder briefing sau commissioning phase 1 | s
 
 ## Cách tùy chỉnh Templates
 
-Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem Module 03, mục 3.4):
+Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem [Module 03, mục 3.4](../guide/03-prompt-engineering.md#module-system-nâng-cao-advanced)):
 
 | Cần thêm | Module XML | Ví dụ |
 |----------|-----------|-------|
@@ -1052,5 +1052,5 @@ Mọi template đều có thể mở rộng bằng cách thêm các module tùy 
 
 **Tiếp theo:**
 
-- Module 03: Prompt Engineering -- hiểu sâu 6 nguyên tắc và 7 kỹ thuật đằng sau các templates
-- Module 05: Workflow Recipes -- quy trình hoàn chỉnh sử dụng các templates
+- [Module 03: Prompt Engineering](../guide/03-prompt-engineering.md) -- hiểu sâu 6 nguyên tắc và 7 kỹ thuật đằng sau các templates
+- [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) -- quy trình hoàn chỉnh sử dụng các templates

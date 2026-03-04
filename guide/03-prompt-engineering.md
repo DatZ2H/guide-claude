@@ -34,7 +34,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/cla
 
 Mọi prompt hiệu quả đều chứa 3 yếu tố cơ bản:
 
-```
+```text
 C -- Context:    Bối cảnh, tình huống, đối tượng
 T -- Task:       Nhiệm vụ cụ thể cần làm
 R -- Requirements: Yêu cầu về format, độ dài, tone, giới hạn
@@ -43,12 +43,12 @@ R -- Requirements: Yêu cầu về format, độ dài, tone, giới hạn
 **Ví dụ áp dụng:**
 
 Prompt kém:
-```
+```text
 Viết SOP cho quy trình bảo trì.
 ```
 
 Prompt tốt:
-```
+```text
 [Context]
 SOP Pre-operation Check cho AMR-Fleet tại nhà máy Phenikaa-X.
 Audience: Kỹ thuật viên bảo trì Level 2 (biết cơ bản về robot, không biết ROS).
@@ -192,7 +192,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-
 **So sánh:**
 
 Prompt kém:
-```
+```text
 Viết Style Guide cho tài liệu kỹ thuật.
 ```
 Vấn đề: Style Guide cho ai? Loại tài liệu nào? Bao gồm những rules gì? Format như thế nào?
@@ -249,7 +249,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/mul
 **So sánh:**
 
 Prompt kém:
-```
+```text
 Viết Change Log entry cho bản cập nhật SOP này.
 ```
 Vấn đề: Claude không biết format entry mong muốn — table, prose, hay theo template riêng?
@@ -312,7 +312,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/cha
 **So sánh:**
 
 Prompt kém:
-```
+```text
 Review Technical Spec này có ổn không?
 ```
 Vấn đề: Review theo tiêu chí nào? Focus vào khía cạnh nào? Output format là gì?
@@ -361,13 +361,13 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/ove
 **So sánh:**
 
 Feedback kém:
-```
+```text
 Làm tốt hơn.
 ```
 Vấn đề: Claude không biết "tốt hơn" nghĩa là gì — về nội dung, format, hay độ chi tiết?
 
 Feedback tốt:
-```
+```text
 Cảm ơn, nhưng cần điều chỉnh phần Technical Specifications:
 
 1. Section 2.1: Thêm unit cho mỗi measurement (hiện tại thiếu unit)
@@ -401,7 +401,7 @@ Claude đã biết sẵn rất nhiều: ngôn ngữ lập trình, frameworks, en
 **So sánh:**
 
 Prompt kém:
-```
+```text
 IEC 82079 là gì? Task-based writing là gì? Sau đó giúp tôi viết SOP.
 ```
 Vấn đề: Lãng phí context window vào kiến thức Claude đã biết.
@@ -446,7 +446,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/sys
 **So sánh:**
 
 Prompt kém:
-```
+```text
 Review tài liệu này:
 [tài liệu]
 ```
@@ -499,7 +499,7 @@ Review SOP sau. Focus vào:
 
 ## 3.3 Bảy Kỹ thuật Ứng dụng
 
-Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham khảo template hoàn chỉnh ở Module 07 (Template Library).
+Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham khảo template hoàn chỉnh ở [Module 07 (Template Library)](../guide/07-template-library.md).
 
 ### Kỹ thuật 1: Tạo Nội dung (Content Creation)
 
@@ -790,7 +790,7 @@ Khi task quá lớn cho 1 prompt, chia thành chuỗi prompts nối tiếp. Outp
 
 **Pattern phổ biến:**
 
-```
+```text
 Prompt 1: Đề xuất outline chi tiết
      |
      v  (Review, điều chỉnh)
@@ -866,7 +866,7 @@ Khi các bước cần "vai trò" khác nhau, hãy tách và gán role riêng ch
 
 **BAD:**
 
-```
+```text
 Viết SOP đầy đủ cho AMR-001 đến AMR-005, mỗi SOP gồm: Mục đích, Phạm vi,
 Quy trình vận hành, Xử lý sự cố, Bảo trì. Format thống nhất, tiếng Việt,
 thuật ngữ kỹ thuật giữ tiếng Anh.
@@ -876,7 +876,7 @@ Hậu quả: AMR-001, AMR-002 nhận SOP chi tiết và đúng format. Từ AMR-
 
 **GOOD:**
 
-```
+```text
 Step 1: Tạo SOP template chuẩn (sections, format, conventions)
      → Review template, phê duyệt
 Step 2: Viết SOP cho AMR-001 theo template
@@ -898,7 +898,7 @@ Tại sao tốt hơn: Template đã duyệt ở Step 1 đóng vai trò "anchor" 
 | **Tách không theo dependency** — bước sau không nhận kết quả bước trước | Bước 2 tự tạo lại thông tin bước 1 đã có, dẫn đến mâu thuẫn giữa các phần | Include summary/output bước trước khi bắt đầu bước sau (dùng `<chain_info>`) |
 | **Không review giữa bước** — chạy liên tục từ Step 1 đến Step N không kiểm tra | Lỗi ở Step 1 lan sang tất cả steps sau, phát hiện muộn phải làm lại toàn bộ (xem Module 08 Nhóm 6) | Đặt review checkpoint sau mỗi step quan trọng, đặc biệt sau step tạo template/outline |
 
-**Xem thêm:** Template T-19 (Task Decomposition Planner, Module 07), Recipe 5.12 (Module 05)
+**Xem thêm:** [Template T-19](../guide/07-template-library.md#t-19-task-decomposition-planner) (Task Decomposition Planner, Module 07), [Recipe 5.12](../guide/05-workflow-recipes.md) (Module 05)
 
 ---
 
@@ -918,6 +918,6 @@ Bạn có thể tự verify bất kỳ thông tin nào bằng cách truy cập U
 ---
 
 **Tiếp theo:**
-- Module 04: Context Management -- quản lý conversation dài hiệu quả
-- Module 05: Workflow Recipes -- quy trình theo task cụ thể
-- Module 07: Template Library -- 22 templates copy-paste
+- [Module 04: Context Management](../guide/04-context-management.md) -- quản lý conversation dài hiệu quả
+- [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) -- quy trình theo task cụ thể
+- [Module 07: Template Library](../guide/07-template-library.md) -- 22 templates copy-paste
