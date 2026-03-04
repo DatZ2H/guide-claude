@@ -107,6 +107,12 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 - CẢNH BÁO -- thông tin safety quan trọng
 - LƯU Ý -- tips và best practices
 
+### Icon và Emoji
+
+- Tài liệu này chỉ sử dụng icons trong allowlist: ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+- Icons chỉ xuất hiện trong bảng status và warning markers
+- Prose dùng Obsidian callouts: `> [!WARNING]`, `> [!TIP]`, `> [!NOTE]`, `> [!IMPORTANT]`
+
 ---
 
 ## Thông tin cập nhật

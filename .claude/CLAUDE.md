@@ -37,6 +37,17 @@ VERSION                 SSOT cho version number
 - **File naming:** lowercase, dấu gạch ngang, prefix số thứ tự (01-, 02-...)
 - **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
 
+## Icon & Emoji Rules
+- **ALLOWED** (chỉ trong bảng và status markers): ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+- **BANNED:** Mọi emoji/icon khác — bao gồm 💡 🚀 😊 🎯 ✨ 📌 🔥 👉 📝 💪 🤔 ⭐ 🏗️ 📊 🛠️
+- **Prose warnings/tips/notes:** dùng Obsidian callout syntax
+  - `> [!WARNING]` thay cho ⚠️ trong đoạn văn
+  - `> [!TIP]` thay cho 💡
+  - `> [!NOTE]` thay cho 📌
+  - `> [!IMPORTANT]` thay cho 🎯
+- Rule áp dụng cho **cả** content trong `guide/` **và** output Claude tạo ra
+- Nếu output chứa emoji ngoài allowlist → remove trước khi trả lời
+
 ## Rules — PHẢI tuân thủ
 1. **Git-first backup:** Chạy `/checkpoint` trước khi bắt đầu edit module lớn. File `.bak` không nên tạo (đã thêm vào `.gitignore`) — trừ khi làm việc offline không có Git access.
 2. **Check version:** khi edit module → đọc `VERSION` trước
