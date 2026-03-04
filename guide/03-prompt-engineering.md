@@ -44,25 +44,29 @@ R -- Requirements: Yêu cầu về format, độ dài, tone, giới hạn
 
 Prompt kém:
 ```
-Viết email mời họp.
+Viết SOP cho quy trình bảo trì.
 ```
 
 Prompt tốt:
 ```
 [Context]
-Đối tác Nhật Bản, 6 tháng làm việc cùng, tone lịch sự nhưng friendly.
-Nội dung: review dự án WMS tích hợp robot AMR.
-Thứ 4 tuần sau, 3:00 PM (VN time) = 5:00 PM (Nhật), qua Teams.
+SOP Pre-operation Check cho AMR-Fleet tại nhà máy Phenikaa-X.
+Audience: Kỹ thuật viên bảo trì Level 2 (biết cơ bản về robot, không biết ROS).
+Timeline: Cần hoàn thiện trước Q2/2026 để đưa vào chương trình training.
 
 [Task]
-Viết email mời họp review dự án.
+Viết SOP Pre-operation Check theo format chuẩn công ty.
 
 [Requirements]
-- Giọng professional nhưng friendly
-- Tối đa 150 từ
-- Tiếng Anh
-- Nêu agenda ngắn gọn
+- Format: Numbered steps + Pass/Fail criteria cho mỗi checkpoint
+- Tối đa 2 trang
+- Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
+- Include: Safety warnings đặt trước bước nguy hiểm (không đặt sau)
 ```
+
+> [!NOTE] **AMR Context** — C-T-R áp dụng trực tiếp cho debug: [Context] = specs robot + triệu chứng lỗi, [Task] = loại phân tích cần làm, [Requirements] = format output mong muốn (log analysis, step-by-step diagnosis...).
+
+> [!TIP] **Model:** Sonnet 4.6 — Tác vụ viết tài liệu có cấu trúc rõ ràng, không cần reasoning phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 Công thức C-T-R đủ dùng cho hầu hết task thường ngày. Khi cần kiểm soát chặt hơn, chuyển sang XML tags (phần tiếp theo).
 
@@ -189,29 +193,33 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/be-
 
 Prompt kém:
 ```
-Giúp tôi viết tài liệu robot.
+Viết Style Guide cho tài liệu kỹ thuật.
 ```
-Vấn đề: Loại tài liệu gì? Robot nào? Viết cho ai? Bao dài?
+Vấn đề: Style Guide cho ai? Loại tài liệu nào? Bao gồm những rules gì? Format như thế nào?
 
 Prompt tốt:
 ```xml
 <task>
-Viết hướng dẫn vận hành cơ bản cho robot AMR-001.
+Viết Style Guide cho tài liệu kỹ thuật Phenikaa-X.
 </task>
 
 <context>
-- Robot: AMR-001 (robot logistics trong nhà máy)
-- Audience: Kỹ sư vận hành mới, ít kinh nghiệm với AMR
-- Môi trường: Nhà máy sản xuất, có người đi lại
+- Audience (người đọc Style Guide): Technical Writers và kỹ sư viết SOP/Technical Specs
+- Loại tài liệu áp dụng: SOP vận hành, Technical Specifications, User Manuals
+- Tiêu chuẩn tham chiếu: Microsoft Writing Style Guide, IEC 82079-1
 </context>
 
 <requirements>
-- Độ dài: 2-3 trang
-- Format: Numbered steps với warnings
-- Sections: Khởi động, Vận hành, Tắt máy, Xử lý sự cố cơ bản
-- Ngôn ngữ: Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
+- Sections bắt buộc: Terminology, Heading hierarchy, Code formatting, Source markers
+- Độ dài: 3-4 trang
+- Format: Bảng rule + ví dụ minh họa cho mỗi rule
+- Ngôn ngữ: Tiếng Việt, giữ thuật ngữ kỹ thuật tiếng Anh
 </requirements>
 ```
+
+> [!NOTE] **AMR Context** — Áp dụng tương tự khi viết SOP vận hành: thay "Style Guide cho tài liệu kỹ thuật" bằng "Hướng dẫn vận hành AMR-001 cho kỹ thuật viên bảo trì mới — chưa có kinh nghiệm AMR, format checklist với pass/fail criteria."
+
+> [!TIP] **Model:** Sonnet 4.6 — Tác vụ viết tài liệu có cấu trúc — Sonnet đủ mạnh, nhanh hơn và tiết kiệm token hơn Opus. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
@@ -242,41 +250,45 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/mul
 
 Prompt kém:
 ```
-Phân tích error log này:
-[error log]
+Viết Change Log entry cho bản cập nhật SOP này.
 ```
-Vấn đề: Claude không biết format output mong muốn.
+Vấn đề: Claude không biết format entry mong muốn — table, prose, hay theo template riêng?
 
 Prompt tốt:
 ```xml
 <task>
-Phân tích error log theo format ví dụ.
+Viết Change Log entry cho bản cập nhật SOP vừa thực hiện.
 </task>
 
 <examples>
 <example>
 <input>
-[ERROR] [1706688000.123] [slam_node]: Lidar scan timeout after 5000ms
+Cập nhật SOP-001: Thêm bước kiểm tra pin trước khi khởi động.
+Người yêu cầu: Trưởng bộ phận An toàn. Ngày: 2026-01-15.
 </input>
 <output>
-**Error:** Lidar scan timeout
-**Severity:** High
-**Nguyên nhân có thể:**
-1. Lidar bị disconnect (70%)
-2. Bandwidth không đủ (20%)
-3. Driver crash (10%)
-**Bước kiểm tra:**
-1. Check Lidar connection: ros2 topic echo /scan
-2. Check bandwidth: iftop
-3. Check driver logs: journalctl -u lidar_driver
+| 2026-01-15 | v1.2 | Thêm bước 2.1: Kiểm tra pin (>20%) trước khởi động | Yêu cầu ATLD-2026-01 |
+</output>
+</example>
+<example>
+<input>
+Sửa Mục 3.2: Đổi thời gian warm-up từ 30s thành 60s. Theo kết quả test thực tế.
+Ngày: 2026-02-01.
+</input>
+<output>
+| 2026-02-01 | v1.3 | Cập nhật Mục 3.2: Thời gian warm-up 30s → 60s | Kết quả test TM-2026-003 |
 </output>
 </example>
 </examples>
 
-<error_log>
-{{paste_error_log_thực_tế}}
-</error_log>
+<update_info>
+{{mô_tả_thay_đổi_cụ_thể}}
+</update_info>
 ```
+
+> [!NOTE] **AMR Context** — Dùng cùng pattern để format error log analysis nhất quán: cung cấp 2-3 ví dụ log đã phân tích (input + output mẫu), rồi paste log mới cần phân tích vào `<error_log>`. Claude sẽ phân tích theo đúng format.
+
+> [!TIP] **Model:** Sonnet 4.6 — Few-shot prompting với format đơn giản, không cần reasoning sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
@@ -301,30 +313,33 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/cha
 
 Prompt kém:
 ```
-Robot bị lạc trong map, làm sao fix?
+Review Technical Spec này có ổn không?
 ```
-Vấn đề: Không đủ thông tin, không có hướng dẫn phân tích.
+Vấn đề: Review theo tiêu chí nào? Focus vào khía cạnh nào? Output format là gì?
 
 Prompt tốt:
 ```xml
 <task>
-Robot AMR-001 bị localization fail. Phân tích và đề xuất giải pháp.
+Review Technical Specification cho hệ thống Navigation của AMR-Fleet v2.1.
 </task>
 
-<symptoms>
-- Robot ở vị trí (2.5, 3.0) nhưng map hiển thị (5.0, 1.0)
-- Lidar scan cho thấy environment đúng
-- Odometry có vẻ drift
-</symptoms>
+<document>
+{{paste_technical_spec}}
+</document>
 
 <thinking_instructions>
 Suy nghĩ theo các bước:
-1. Phân tích: Sensor/module nào có thể gây ra vấn đề?
-2. Kiểm tra: Với mỗi nguyên nhân, cách verify?
-3. Ưu tiên: Nguyên nhân nào xác suất cao nhất? Tại sao?
-4. Giải pháp: Cách khắc phục cụ thể?
+1. Completeness: Spec có đủ sections theo chuẩn IEC 82079-1 không? Thiếu gì?
+2. Consistency: Terminology có nhất quán trong toàn document không?
+3. Clarity: Phần nào ambiguous, dễ hiểu sai bởi audience mục tiêu?
+4. Technical accuracy: Performance specs có realistic và measurable không?
+5. Summary: Liệt kê issues theo priority Critical / Warning / Minor.
 </thinking_instructions>
 ```
+
+> [!NOTE] **AMR Context** — Chain of Thought đặc biệt hiệu quả khi debug localization failure: "Phân tích theo thứ tự: 1. Sensor data có hợp lệ? 2. SLAM algorithm converge chưa? 3. Map quality có đủ điểm đặc trưng? 4. Odometry drift có vượt threshold? 5. Nguyên nhân xác suất cao nhất?"
+
+> [!TIP] **Model:** Opus 4.6 — Review tài liệu kỹ thuật phức tạp với reasoning đa chiều — Opus cho kết quả phân tích sâu hơn Sonnet. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
@@ -349,19 +364,23 @@ Feedback kém:
 ```
 Làm tốt hơn.
 ```
-Vấn đề: Claude không biết "tốt hơn" nghĩa là gì.
+Vấn đề: Claude không biết "tốt hơn" nghĩa là gì — về nội dung, format, hay độ chi tiết?
 
 Feedback tốt:
 ```
-Cảm ơn, nhưng cần điều chỉnh:
+Cảm ơn, nhưng cần điều chỉnh phần Technical Specifications:
 
-1. Bước 3: Thêm warning về safety khi mở cover robot
-2. Format: Đổi từ paragraphs sang numbered steps
-3. Ngôn ngữ: Đơn giản hơn, tránh jargon kỹ thuật
-4. Thêm: Checklist verify ở cuối mỗi section
+1. Section 2.1: Thêm unit cho mỗi measurement (hiện tại thiếu unit)
+2. Bảng 3: Đổi từ prose description sang bảng parameter / value / range
+3. Section 4: Giảm jargon — audience là kỹ thuật viên, không phải R&D engineer
+4. Thêm: Mục "Failure modes" với ít nhất 3 scenarios phổ biến
 
-Giữ nguyên phần giới thiệu -- đã tốt rồi.
+Giữ nguyên Introduction và Scope — đã đúng format rồi.
 ```
+
+> [!NOTE] **AMR Context** — Áp dụng khi sửa SOP sau lần đầu: "Bước 3: Thêm warning 'Dừng robot hoàn toàn trước khi mở cover'. Bước 7: Đổi sang numbered steps (đang là prose). Phần Safety checklist cuối — giữ nguyên, đã OK."
+
+> [!TIP] **Model:** Sonnet 4.6 — Iteration nhanh cho tác vụ viết và chỉnh sửa văn bản. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
@@ -383,28 +402,29 @@ Claude đã biết sẵn rất nhiều: ngôn ngữ lập trình, frameworks, en
 
 Prompt kém:
 ```
-ROS là gì? SLAM là gì? Sau đó giúp tôi debug code.
+IEC 82079 là gì? Task-based writing là gì? Sau đó giúp tôi viết SOP.
 ```
 Vấn đề: Lãng phí context window vào kiến thức Claude đã biết.
 
 Prompt tốt:
 ```xml
 <context>
-ROS2 Humble node cho AMCL localization.
+SOP cho quy trình Pre-flight Check của AMR-Fleet tại Phenikaa-X.
+Target audience: Kỹ thuật viên Level 2 (biết cơ bản về robot, không biết ROS).
 </context>
 
-<issue>
-Particle filter diverges sau khi robot rotate nhanh.
-Nghi ngờ: odometry noise model hoặc sensor update rate.
-</issue>
-
 <request>
-Dựa trên kiến thức về AMCL và particle filters, đề xuất:
-1. Cách diagnose root cause
-2. Parameters cần tune
-3. Best practices cho tuning
+Dựa trên best practices của IEC 82079-1 và task-based writing, viết SOP với:
+1. Structure theo giai đoạn: Pre-check → Operation → Post-operation
+2. Safety warning placement theo chuẩn ANSI Z535 (trước bước nguy hiểm)
+3. Actionable steps: verb đầu câu, object rõ ràng, không ambiguous
+4. Pass/Fail criteria đo lường được cho mỗi checkpoint
 </request>
 ```
+
+> [!NOTE] **AMR Context** — Tương tự với ROS/SLAM: thay vì giải thích "AMCL là gì", nói thẳng "AMCL node cho localization đang có particle filter diverge sau khi robot rotate nhanh. Nghi ngờ odometry noise model. Đề xuất cách diagnose và parameters cần tune."
+
+> [!TIP] **Model:** Sonnet 4.6 — Tác vụ áp dụng kiến thức có sẵn vào context cụ thể — không cần Opus trừ khi vấn đề cực kỳ phức tạp. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
@@ -427,38 +447,42 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/sys
 
 Prompt kém:
 ```
-Review code này:
-[code]
+Review tài liệu này:
+[tài liệu]
 ```
-Vấn đề: Review theo tiêu chuẩn nào? Cho ai? Focus gì?
+Vấn đề: Review theo tiêu chuẩn nào? Cho audience nào? Focus vào khía cạnh gì?
 
 Prompt tốt:
 ```xml
 <role>
-Bạn là Senior ROS Engineer với 10 năm kinh nghiệm.
-Review code theo standards: readability, performance, ROS best practices.
-Đặc biệt chú ý: thread safety, memory management, error handling.
+Bạn là Technical Writer senior với 10 năm kinh nghiệm viết tài liệu công nghiệp.
+Review theo standards: IEC 82079-1, clarity, completeness, và usability.
+Đặc biệt chú ý: task-based structure, safety warning placement, terminology consistency.
 </role>
 
 <task>
-Review ROS node code sau. Focus vào:
-1. Bugs/Issues
-2. Performance concerns
-3. ROS conventions
-4. Suggestions for improvement
+Review SOP sau. Focus vào:
+1. Structure và completeness (thiếu sections nào theo chuẩn?)
+2. Clarity (steps nào ambiguous, dễ hiểu nhầm?)
+3. Safety compliance (warnings đúng vị trí và format?)
+4. Actionable suggestions cụ thể để cải thiện
 </task>
 
-<code>
-{{paste_code}}
-</code>
+<document>
+{{paste_sop}}
+</document>
 ```
+
+> [!NOTE] **AMR Context** — Đổi role thành "Senior ROS Engineer với 10 năm kinh nghiệm": "Review code theo standards: readability, performance, ROS best practices. Đặc biệt chú ý: thread safety, memory management, error handling."
+
+> [!TIP] **Model:** Sonnet 4.6 — Review tài liệu văn bản thông thường. Dùng Opus 4.6 khi review Technical Spec phức tạp hoặc code architecture cần phân tích sâu. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 **Checklist nhanh:**
 
 - Chọn role phù hợp với task
-- Specific role > generic role ("Senior ROS Engineer" > "kỹ sư")
-- Bao gồm expertise area và experience level
-- Có thể kết hợp roles nếu cần
+- Specific role > generic role ("Technical Writer senior" > "người review")
+- Bao gồm expertise area và tiêu chuẩn review cụ thể
+- Có thể kết hợp roles nếu cần (writer + QA reviewer)
 - Đặt role ở đầu prompt
 
 ---
@@ -496,6 +520,8 @@ Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham kh
 
 **Tip:** Khi viết tài liệu dài, viết từng section riêng (mỗi message 1 section). Chất lượng giảm dần ở cuối document dài.
 
+> [!TIP] **Model:** Sonnet 4.6 — Đủ mạnh cho mọi tác vụ tạo nội dung (SOP, spec, report). Dùng Opus 4.6 chỉ khi nội dung đòi hỏi reasoning phức tạp hoặc nhiều trade-off kỹ thuật. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ### Kỹ thuật 2: Phân tích Tài liệu (Document Analysis)
@@ -519,6 +545,8 @@ Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham kh
 | Summary quá chung | Chỉ rõ aspects cần focus |
 | Bỏ sót chi tiết quan trọng | Chia thành nhiều câu hỏi riêng |
 
+> [!TIP] **Model:** Sonnet 4.6 — Xử lý văn bản dài, Q&A từ documents hiệu quả. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ### Kỹ thuật 3: Phân tích Dữ liệu (Data Analysis)
@@ -537,6 +565,8 @@ Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham kh
 | Thiếu context về data | Mô tả data source và ý nghĩa |
 | Output quá nhiều | Giới hạn vào key insights |
 
+> [!TIP] **Model:** Sonnet 4.6 — Phân tích patterns và trends từ logs/data đầy đủ. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ### Kỹ thuật 4: Brainstorming và Giải quyết Vấn đề
@@ -554,6 +584,8 @@ Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham kh
 | Ý tưởng quá giống nhau | Yêu cầu "diverse approaches" |
 | Giải pháp không thực tế | Chỉ rõ constraints thực tế |
 | Thiếu đánh giá | Yêu cầu pros/cons cho mỗi option |
+
+> [!TIP] **Model:** Sonnet 4.6 — Generate ideas và alternatives nhanh, đủ cho brainstorming. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -582,6 +614,8 @@ URL: https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/
 | Câu trả lời quá tự tin | Yêu cầu confidence level |
 | Số liệu bịa | Yêu cầu "cite source or say N/A" |
 
+> [!TIP] **Model:** Opus 4.6 — Nội dung safety-critical hoặc technical specs quan trọng cần accuracy cao. Dùng Sonnet cho tài liệu thông thường. Xem [decision flowchart](reference/model-specs.md#chọn-model)
+
 ---
 
 ### Kỹ thuật 6: Review Code/Script
@@ -607,6 +641,8 @@ URL: https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/
 | Review quá chung chung | Chỉ rõ review criteria |
 | Không có actionable feedback | Yêu cầu "suggested fix" cho mỗi issue |
 | Output quá nhiều | Ưu tiên: Critical > Warning > OK |
+
+> [!TIP] **Model:** Opus 4.6 — Code review đòi hỏi phân tích logic sâu, detect subtle bugs. Dùng Sonnet cho review nhanh script đơn giản (<100 dòng). Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -638,6 +674,8 @@ URL: https://docs.anthropic.com/en/docs/test-and-evaluate/strengthen-guardrails/
 | Steps không đủ chi tiết | Yêu cầu "actionable steps" |
 | Thiếu safety warnings | Thêm safety section requirement |
 | Quá kỹ thuật cho audience | Chỉ rõ audience level |
+
+> [!TIP] **Model:** Sonnet 4.6 — SOP là tác vụ viết có cấu trúc rõ ràng, Sonnet đủ mạnh và nhanh hơn. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ---
 
@@ -736,6 +774,8 @@ Output JSON với cấu trúc sau:
 ```
 
 **Tip:** Claude 4.x tuân thủ JSON schema rất tốt. Cung cấp example JSON output nếu cấu trúc phức tạp.
+
+> [!TIP] **Model:** Sonnet 4.6 — JSON structured output với schema rõ ràng — Sonnet tuân thủ schema chính xác. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
 ### Prompt Chaining -- Chia nhỏ task lớn
 
