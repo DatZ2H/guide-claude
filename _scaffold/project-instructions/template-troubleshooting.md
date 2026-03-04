@@ -28,7 +28,7 @@ Với mỗi vấn đề, làm theo thứ tự:
 - Nguyên nhân: Liệt kê theo xác suất (không đoán ngay root cause)
 - Steps: Numbered, actionable, có expected result rõ ràng
 - Commands: Đầy đủ, copy-paste ready, có giải thích flags quan trọng
-- Warnings: Đánh dấu rõ bằng **⚠️ CẢNH BÁO:** trước actions có rủi ro
+- Warnings: Đánh dấu rõ bằng **CẢNH BÁO:** trước actions có rủi ro
 - Ngôn ngữ: Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
 </output_rules>
 

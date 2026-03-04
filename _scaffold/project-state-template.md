@@ -27,6 +27,9 @@ Version: {{version}} | Last updated: {{date}}
 │
 └── .claude/                     Tầng B — Infrastructure
     ├── CLAUDE.md
+    ├── SETUP.md
+    ├── settings.json
+    ├── commands/
     └── skills/
 ```
 
@@ -38,6 +41,8 @@ Version: {{version}} | Last updated: {{date}}
 | {{date}} | {{decision_2}} | {{rationale_2}} |
 | {{date}} | {{decision_3}} | {{rationale_3}} |
 
+> Decisions cũ hơn 30 ngày: xem `git log`.
+
 ## Conventions
 - {{language_convention}}
 - `{{variable}}` = placeholder
@@ -45,20 +50,12 @@ Version: {{version}} | Last updated: {{date}}
 
 ## Khi nào update project-state.md
 
-File này là **context transfer document** — update trên Cowork, paste vào Project Chat khi cần brainstorm/planning.
+File này là **project overview** — tổng quan cho người đọc và Claude.
 
 Update khi:
 - Sau milestone lớn (version bump, hoàn thành deliverable)
-- Trước khi brainstorm trên Project Chat (để có context mới nhất)
 - Khi cấu trúc thư mục hoặc decisions thay đổi đáng kể
-
-## Hướng dẫn cho Claude khi đọc file này
-
-1. File này là **briefing document** — tổng quan dự án, paste vào Project Chat khi cần context cho brainstorm/planning.
-2. Nội dung chi tiết nằm trong **Cowork folder**. Phần lớn công việc diễn ra trên Cowork (Cowork-primary workflow).
-3. Nếu cần tham chiếu nội dung cụ thể, yêu cầu người dùng paste excerpt hoặc ghi chú "sẽ kiểm tra trên Cowork".
-4. Ưu tiên **quyết định gần nhất** trong bảng trên hơn nội dung file nào nếu có mâu thuẫn.
-5. Khi đề xuất thay đổi, output dưới dạng **prompt có thể chạy trên Cowork** — không giả định Claude đang đọc file thật.
+- Trước khi onboard thành viên mới vào project
 
 ---
 <!-- HƯỚNG DẪN CUSTOMIZE (xóa section này sau khi điền xong)

@@ -28,7 +28,7 @@ Mỗi procedure/hướng dẫn phải có đủ 4 phần:
 - Ngôn ngữ: Tiếng Việt — thuật ngữ kỹ thuật giữ tiếng Anh, giải thích lần đầu xuất hiện
 - Headers: Hierarchy rõ ràng (H1 → H2 → H3), không skip level
 - Procedures: Numbered steps, không bullet points
-- Safety: **⚠️ CẢNH BÁO:** cho nguy hiểm vật lý — **💡 LƯU Ý:** cho tips quan trọng
+- Safety: **⚠️ CẢNH BÁO:** cho nguy hiểm vật lý — **LƯU Ý:** cho tips quan trọng
 - Commands/paths: Luôn trong code block, copy-paste ready
 - Độ dài: Concise — đủ để làm được, không thêm filler text
 - Assume reader không có context — giải thích đủ để tự làm được

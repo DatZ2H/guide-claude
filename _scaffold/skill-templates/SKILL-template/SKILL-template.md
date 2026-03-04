@@ -99,10 +99,14 @@ Thay các {{placeholder}} sau:
   → Constraints quan trọng, ví dụ: "KHÔNG sửa file — chỉ report"
   → "Luôn confirm với user trước khi overwrite file"
 
+LƯU Ý:
+  Template này dùng được cho cả Cowork (skills/) và Claude Code (skills/).
+  Với Claude Code, skill cũng có thể đăng ký thành command trong .claude/commands/.
+
 SAU KHI ĐIỀN XONG:
 - Xóa toàn bộ section comment này
 - Thêm skill vào .claude/CLAUDE.md:
   ## Available skills
-  - `{{skill_name}}` — {{one_line_description}}
-- Test: mở Cowork session mới → gõ trigger phrase → verify Claude activate đúng
+  | {{skill_name}} | {{trigger phrases}} |
+- Test: mở Claude Code hoặc Cowork session mới → gõ trigger phrase → verify Claude activate đúng
 -->

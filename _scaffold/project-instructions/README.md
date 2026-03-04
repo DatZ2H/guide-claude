@@ -3,16 +3,16 @@
 Thư mục này chứa templates cho **claude.ai Project Instructions** — system prompt áp dụng cho tất cả conversations trong một Project.
 
 > **Lưu ý về lớp cấu hình:** Project Instructions là lớp cấu hình cho claude.ai (web/app).
-> Nếu bạn dùng Cowork, xem `.claude/CLAUDE-template.md` thay thế.
-> Xem `guide/reference/config-architecture.md` để hiểu sự khác biệt.
+> Nếu bạn dùng **Claude Code** hoặc **Cowork**, xem `CLAUDE-template.md` thay thế (→ `.claude/CLAUDE.md`).
+> Xem `guide/reference/config-architecture.md` để hiểu sự khác biệt giữa các lớp.
 
 ---
 
 ## Cách dùng
 
-1. Mở claude.ai → Project cần cấu hình → Settings (⚙️) → Instructions
+1. Mở claude.ai → Project cần cấu hình → Settings → Instructions
 2. Chọn template phù hợp từ folder này
-3. Copy toàn bộ nội dung → paste vào Instructions field
+3. Copy phần giữa `---COPY START---` và `---COPY END---` → paste vào Instructions field
 4. Thay tất cả `{{placeholder}}` bằng thông tin thật
 5. Save
 

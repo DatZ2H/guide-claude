@@ -1,34 +1,49 @@
-# Scaffold — Tạo project Cowork mới
+# Scaffold — Tạo project mới với Claude Code / Cowork
 
-Bộ template này giúp khởi tạo nhanh một Cowork project theo 2-tier architecture chuẩn:
+Bộ template này giúp khởi tạo nhanh một project theo 2-tier architecture chuẩn:
 - **Tầng A** — Content (thư mục chính chứa nội dung)
-- **Tầng B** — Infrastructure (`.claude/` — Folder Instructions + skills)
+- **Tầng B** — Infrastructure (`.claude/` — Folder Instructions + skills + commands)
+
+Hoạt động với cả **Claude Code** (CLI) và **Cowork** (Desktop).
 
 ## Cách dùng
 
 ### Bước 1: Copy scaffold vào project mới
-```
+```bash
 cp -r _scaffold/ /path/to/new-project/
 ```
 
 ### Bước 2: Rename và restructure
-```
+```bash
 mv README-scaffold.md README.md
-mkdir -p .claude/skills
+mkdir -p .claude/skills .claude/commands
 mv CLAUDE-template.md .claude/CLAUDE.md
 mv project-state-template.md project-state.md
 ```
 
 > **Lưu ý về skills:** KHÔNG copy `skill-templates/` vào project. Thư mục này là nguồn tham khảo —
 > khi cần tạo skill mới, copy `skill-templates/SKILL-template/` vào `.claude/skills/your-skill-name/`
-> rồi rename và customize. Xem hướng dẫn tạo skill tại Module 10, mục 10.6.7.
+> rồi rename thành `SKILL.md` và customize. Xem hướng dẫn tại Module 10, mục 10.6.7.
 
 ### Bước 3: Customize từng file
 1. `.claude/CLAUDE.md` — thay toàn bộ `{{placeholder}}` bằng thông tin project thật
 2. `project-state.md` — điền phase, structure, decisions ban đầu
 3. `VERSION` — giữ `1.0` hoặc chỉnh theo quy ước project
 
-### Bước 4: Tạo content folder
+### Bước 4: Tạo infrastructure bổ sung (khuyến nghị)
+```bash
+# SETUP.md — onboarding cho maintainer mới
+touch .claude/SETUP.md
+
+# settings.json — hooks và permissions
+echo '{}' > .claude/settings.json
+
+# Commands cơ bản
+touch .claude/commands/start.md
+touch .claude/commands/checkpoint.md
+```
+
+### Bước 5: Tạo content folder
 Tạo thư mục chứa nội dung chính (ví dụ: `docs/`, `guide/`, `content/`) và bắt đầu làm việc.
 
 ## Checklist sau khi setup
@@ -36,7 +51,8 @@ Tạo thư mục chứa nội dung chính (ví dụ: `docs/`, `guide/`, `content
 - [ ] `.claude/CLAUDE.md` đã customize — không còn `{{placeholder}}` nào
 - [ ] `VERSION` đúng (thường bắt đầu từ `1.0`)
 - [ ] `project-state.md` có phase + folder structure thật của project
-- [ ] Test: mở Cowork, Claude đọc Folder Instructions đúng (không báo lỗi file không tìm thấy)
+- [ ] `.claude/commands/` có ít nhất `start.md` và `checkpoint.md`
+- [ ] Test: mở Claude Code hoặc Cowork → Claude đọc Folder Instructions đúng
 - [ ] (Tùy chọn) Thêm skill files vào `.claude/skills/` nếu project cần on-demand workflows
 
 ## Cấu trúc scaffold này tạo ra
@@ -44,16 +60,21 @@ Tạo thư mục chứa nội dung chính (ví dụ: `docs/`, `guide/`, `content
 ```
 your-project/
 ├── README.md                    ← (file này, sau khi rename)
-├── VERSION                      Single source of truth cho version
-├── project-state.md             Context transfer document
+├── VERSION                      SSOT cho version number
+├── project-state.md             Project overview
 │
 ├── your-content/                Tầng A — tạo thủ công
 │
-├── .claude/                     Tầng B — Infrastructure
-│   ├── CLAUDE.md                Folder Instructions (từ CLAUDE-template.md)
-│   └── skills/                  On-demand skill files
-│       └── my-skill/            ← mỗi skill là một folder
-│           └── SKILL.md         ← từ skill-templates/SKILL-template/SKILL-template.md
+└── .claude/                     Tầng B — Infrastructure
+    ├── CLAUDE.md                Folder Instructions (từ CLAUDE-template.md)
+    ├── SETUP.md                 Onboarding guide
+    ├── settings.json            Hooks, permissions
+    ├── commands/                Slash commands
+    │   ├── start.md             Session orientation
+    │   └── checkpoint.md        Quick commit
+    └── skills/                  On-demand skill files
+        └── my-skill/            ← mỗi skill là một folder
+            └── SKILL.md         ← từ skill-templates/SKILL-template/
 ```
 
 ## Thư mục tham khảo trong scaffold (KHÔNG copy vào project)
@@ -70,16 +91,20 @@ _scaffold/
 │   ├── template-tech-doc.md
 │   └── template-code-review.md
 │
-└── global-instructions/         Template cho Global CLAUDE.md (Cowork, user-level)
-    └── global-CLAUDE-phenikaa-x.md
+├── global-instructions/         Template cho Global CLAUDE.md (user-level)
+│   └── global-CLAUDE-phenikaa-x.md
+│
+└── skill-templates/             Template tạo skill mới
+    └── SKILL-template/
+        └── SKILL-template.md
 ```
 
 **Cách dùng project-instructions:** Khi tạo claude.ai Project mới → mở file template phù hợp → copy phần giữa `---COPY START---` và `---COPY END---` → paste vào Project Settings > Instructions.
 
-**Cách dùng global-instructions:** Copy `global-CLAUDE-phenikaa-x.md` → customize `{{placeholder}}` → lưu tại `~/.claude/CLAUDE.md` trên máy của bạn.
+**Cách dùng global-instructions:** Copy `global-CLAUDE-phenikaa-x.md` → customize `{{placeholder}}` → lưu tại `~/.claude/CLAUDE.md` trên máy.
 
 ## Lưu ý
 
-- **Backup rule:** Không sửa file quan trọng mà không tạo `.bak` trước.
+- **Git-first backup:** Dùng `/checkpoint` hoặc `git commit` trước khi edit lớn. Không tạo file `.bak`.
 - **VERSION:** Mỗi milestone lớn → bump version trong file `VERSION`. Module headers tham chiếu về đây thay vì hardcode.
-- **project-state.md:** Đây là briefing document — update trên Cowork, paste vào Project Chat khi cần brainstorm/planning với context đầy đủ.
+- **project-state.md:** Đây là project overview — update sau milestone lớn (version bump, structural changes).
