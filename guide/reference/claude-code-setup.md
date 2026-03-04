@@ -4,7 +4,7 @@
 
 Cheat sheet cho Claude Code trong documentation workflow. Tổ chức theo workflow — tra cứu theo tình huống đang làm.
 
-## 1. Quick Setup
+## Quick Setup Checklist
 
 Cài đặt và chạy session đầu tiên.
 
@@ -28,15 +28,15 @@ claude                    # lần đầu → mở browser để xác thực
 ### Checklist sau cài đặt
 
 ```text
-□ Tùy chỉnh CLAUDE.md cho project (xem template ở Section 5)
+□ Tùy chỉnh CLAUDE.md cho project (xem template ở Cấu hình project)
 □ Tạo .claude/settings.json — cấu hình permissions
-□ Tạo slash commands nếu cần (xem Section 5)
+□ Tạo slash commands nếu cần (xem Cấu hình project)
 □ Test: chạy session, verify Claude đọc đúng CLAUDE.md
 ```
 
 [Nguồn: Claude Code Docs — Installation]
 
-## 2. Workflow hàng ngày
+## Workflow hàng ngày
 
 Quy trình làm việc mỗi ngày với documentation project.
 
@@ -69,7 +69,7 @@ Commit nhanh các thay đổi hiện tại. Dùng trước và sau mỗi block c
 > [!TIP]
 > Mặc định dùng Sonnet. Chuyển `/model opus` khi cần architectural decisions hoặc multi-file analysis, rồi `/model sonnet` khi xong.
 
-## 3. Workflow review
+## Workflow review
 
 Kiểm tra chất lượng module và tổng thể project.
 
@@ -97,7 +97,7 @@ Kiểm tra nhẹ hơn `/review-module` — chỉ check writing standards, không
 
 Review tổng thể project: tiến độ, issues tích lũy, next actions. Chạy cuối tuần hoặc cuối sprint.
 
-## 4. Workflow release
+## Workflow release
 
 Quy trình bump version và release.
 
@@ -119,11 +119,11 @@ Thực hiện tuần tự: cập nhật file `VERSION` (SSOT) → thêm changelo
 5. Tạo PR → master             # merge khi ready
 ```
 
-## 5. Cấu hình project
+## Cấu hình project
 
 Reference cho các thành phần cấu hình. Đọc khi setup hoặc cần tra cứu.
 
-### CLAUDE.md — Project Instructions
+### CLAUDE.md Reference
 
 File tự động load vào context mỗi session. Khai báo conventions, rules, và project context.
 
@@ -213,7 +213,42 @@ Danh sách đầy đủ skills (official, community, internal): xem [skills-list
 
 Chi tiết kiến trúc 6 lớp cấu hình: xem [config-architecture.md](config-architecture.md).
 
-## 6. Quick Reference
+## Essential Commands
+
+| Command | Khi nào dùng | Ví dụ |
+|---------|-------------|-------|
+| `/start` | Đầu mỗi session — đọc version, git status | `claude` → `/start` |
+| `/checkpoint` | Trước/sau mỗi block edit — quick commit | `/checkpoint` |
+| `/validate-doc` | Sau khi edit module — kiểm tra writing standards | `/validate-doc 03` |
+| `/review-module` | Review sâu — scoring rubric + danh sách issues | `/review-module 06` |
+| `/version-bump` | Release — cập nhật VERSION, changelog, project-state | `/version-bump` |
+| `/compact` | Session dài, context lớn — tóm tắt để giảm token | `/compact` |
+| `/clear` | Reset context nhưng giữ file — bắt đầu task mới | `/clear` |
+
+## Permission Templates
+
+Copy-paste ready patterns cho documentation project:
+
+```text
+# Cho phép đọc tất cả file trong guide/
+allow Read guide/**
+
+# Cho phép git operations
+allow Bash git *
+
+# Chặn ghi file nhạy cảm
+deny Write .env
+deny Write **/*.key
+
+# Cho phép edit markdown trong guide/
+allow Edit guide/**/*.md
+
+# Chặn bash ngoài git
+deny Bash rm *
+deny Bash curl *
+```
+
+## Quick Reference
 
 ### Tình huống → Lệnh
 
