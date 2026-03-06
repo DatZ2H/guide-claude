@@ -444,7 +444,7 @@ Instructions:
 ### Cách hoạt động
 
 [Nguồn: Anthropic Help Center - Using Claude's chat search and memory]
-URL: https://support.anthropic.com/en/articles/11817273
+URL: https://support.claude.com/en/articles/11817273
 
 Memory Synthesis là feature cho phép Claude tổng hợp và lưu thông tin từ các conversations trước để áp dụng vào conversations mới.
 

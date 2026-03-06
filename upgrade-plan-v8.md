@@ -607,7 +607,8 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 
 | # | Task | Phát sinh ở | Thuộc Phase | Status |
 |---|------|------------|-------------|--------|
-| — | (trống — ghi khi phát sinh) | — | — | — |
+| B1 | Code blocks thiếu language tag: M00(4), M01(8), M02(7), M04(4), M08(1) | S1 | P1.S3-S4 | pending |
+| B2 | Heading hierarchy skip: M12(12), ref/claude-code-setup(1) | S1 | P1.S3-S4 | pending |
 
 ---
 

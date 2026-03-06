@@ -4,7 +4,7 @@
 Cập nhật khi Anthropic release model mới hoặc thay đổi pricing/features.
 
 Nguồn chính thức:
-- Model specs: https://docs.anthropic.com/en/docs/about-claude/models/overview
+- Model specs: https://platform.claude.com/docs/en/about-claude/models/overview
 - Pricing: https://www.anthropic.com/pricing
 - Feature updates: https://www.anthropic.com/news
 

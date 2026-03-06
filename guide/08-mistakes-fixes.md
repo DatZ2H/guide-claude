@@ -409,7 +409,7 @@ Chat luong giam?
 ## 8.10 Tài nguyên bổ sung
 
 - [Claude Help Center](https://support.claude.com/) -- FAQ chính thức
-- [Anthropic Docs](https://docs.anthropic.com/) -- Tài liệu kỹ thuật
+- [Anthropic Docs](https://platform.claude.com/docs/en) -- Tài liệu kỹ thuật
 - [Prompt Engineering Course](https://anthropic.skilljar.com) -- Khóa học miễn phí từ Anthropic
 - [Claude Blog](https://claude.com/blog/) -- Tips và updates
 

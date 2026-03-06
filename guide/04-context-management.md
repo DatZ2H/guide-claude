@@ -17,7 +17,7 @@ impacts: [03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes]
 Context Window là giới hạn tokens mà Claude có thể "nhìn thấy" cùng lúc trong một conversation -- bao gồm toàn bộ tin nhắn của bạn, responses của Claude, file uploads, và tool outputs.
 
 [Nguồn: Anthropic Docs - Context Windows]
-URL: https://docs.anthropic.com/en/docs/about-claude/context-windows
+URL: https://platform.claude.com/docs/en/about-claude/context-windows
 
 **So sánh cho kỹ sư:** Context Window giống RAM của máy tính. Mọi thứ trong conversation phải "nạp" vào RAM này. Khi đầy, thông tin cũ nhất bị đẩy ra hoặc được nén lại.
 
@@ -345,7 +345,7 @@ Mỗi công cụ Claude có cơ chế "nhớ" khác nhau. Hiểu rõ cơ chế g
 Khi Project Knowledge đủ lớn, Claude tự động bật **RAG (Retrieval-Augmented Generation)** — thay vì đọc toàn bộ files, Claude search và lấy phần liên quan.
 
 [Nguồn: Anthropic Help Center — RAG for Projects]
-URL: https://support.anthropic.com/en/articles/11473015-retrieval-augmented-generation-rag-for-projects
+URL: https://support.claude.com/en/articles/11473015-retrieval-augmented-generation-rag-for-projects
 
 **Điều quan trọng:** RAG có thể kích hoạt sớm hơn mong đợi. Cộng đồng báo cáo RAG bật khi chỉ upload ~13 files (~73K tokens, ~35% capacity), thay vì "gần giới hạn" như tài liệu mô tả.
 
