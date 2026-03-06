@@ -37,7 +37,7 @@ Chi tiết và so sánh: xem [Model Specs](reference/model-specs.md)
 [Cập nhật 03/2026]
 
 [Nguồn: Anthropic Docs - Extended Thinking]
-URL: https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking
+URL: https://platform.claude.com/docs/en/build-with-claude/extended-thinking
 
 > **Lưu ý thuật ngữ:**
 > - **Extended thinking** = UI toggle trên Claude.ai ("Search and tools" > "Extended thinking") — đây là tính năng bạn dùng hàng ngày
@@ -64,7 +64,7 @@ Extended thinking cho phép Claude "suy nghĩ sâu hơn" trước khi trả lờ
 ### Tips quan trọng
 
 [Nguồn: Anthropic Docs - Extended Thinking Tips]
-URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips
+URL: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips
 
 **Bỏ "think step-by-step".** Khi bật Extended thinking, Claude TỰ ĐỘNG suy luận từng bước. Không cần thêm chain-of-thought instructions -- thực tế, thêm vào có thể làm giảm hiệu quả.
 
@@ -89,7 +89,7 @@ URL: https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/ext
 ### Research
 
 [Nguồn: Anthropic Help Center - Research]
-URL: https://support.anthropic.com/en/articles/11088861
+URL: https://support.claude.com/en/articles/11088861
 
 **Khi nào dùng:** Cần research sâu với multiple sources, tổng hợp đa nguồn, cần citations.
 
@@ -195,8 +195,8 @@ Claude có thể tìm kiếm hình ảnh trên web.
 ## 6.9 Prompt Generator và Prompt Improver
 
 [Nguồn: Anthropic Docs - Prompt Generator & Prompt Improver]
-URL (Generator): https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-generator
-URL (Improver): https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/prompt-improver
+URL (Generator): https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-generator
+URL (Improver): https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-improver
 
 Hai công cụ trên **Anthropic Console** (console.anthropic.com) -- KHÔNG phải trên Claude.ai chat. Cần Anthropic API account.
 
@@ -220,7 +220,7 @@ Paste prompt hiện tại > Claude phân tích điểm yếu và rewrite thành 
 ## 6.10 Structured Outputs
 
 [Nguồn: Anthropic Docs - Structured Outputs]
-URL: https://docs.anthropic.com/en/docs/build-with-claude/structured-outputs
+URL: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
 
 Yêu cầu Claude trả về JSON theo schema cụ thể. Chi tiết và ví dụ: xem Module 05, mục 5.7.
 

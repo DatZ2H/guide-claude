@@ -271,10 +271,10 @@ Thông tin về Claude thay đổi nhanh. Luôn kiểm tra nguồn chính thức
 
 | Nguồn | URL | Nội dung |
 |-------|-----|---------|
-| Anthropic Docs | https://docs.anthropic.com | API docs, model specs, prompting guides |
-| Anthropic Help Center | https://support.anthropic.com | Claude.ai features, troubleshooting |
+| Anthropic Docs | https://platform.claude.com/docs/en | API docs, model specs, prompting guides |
+| Anthropic Help Center | https://support.claude.com | Claude.ai features, troubleshooting |
 | Anthropic News | https://www.anthropic.com/news | Announcements, new features |
-| Models Overview | https://docs.anthropic.com/en/docs/about-claude/models/overview | Model specs mới nhất |
+| Models Overview | https://platform.claude.com/docs/en/about-claude/models/overview | Model specs mới nhất |
 
 ---
 

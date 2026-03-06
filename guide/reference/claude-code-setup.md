@@ -268,5 +268,5 @@ deny Bash curl *
 |-----------|-----------|
 | Kiến trúc cấu hình (6 lớp) | [config-architecture.md](config-architecture.md) |
 | Danh sách skills & plugins | [skills-list.md](skills-list.md) |
-| Claude Code Docs (official) | https://docs.anthropic.com/en/docs/claude-code/ |
-| Claude Code Best Practices | https://docs.anthropic.com/en/docs/claude-code/best-practices |
+| Claude Code Docs (official) | https://code.claude.com/docs/en/ |
+| Claude Code Best Practices | https://code.claude.com/docs/en/best-practices |

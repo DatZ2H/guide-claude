@@ -318,7 +318,7 @@ Cuối cùng: đề xuất approach tốt nhất cho trường hợp cụ thể 
 ### Research
 
 [Nguồn: Anthropic Help Center - Research]
-URL: https://support.anthropic.com/en/articles/11088861
+URL: https://support.claude.com/en/articles/11088861
 
 Khi cần research kỹ hơn -- competitive analysis, technology landscape, industry standards -- dùng Research. Claude tự động tìm kiếm nhiều nguồn, tổng hợp, và tạo báo cáo chi tiết.
 
@@ -356,7 +356,7 @@ Tạo báo cáo tổng hợp với citations.
 ## 5.7 Recipe: Structured Output cho automation
 
 [Nguồn: Anthropic Docs - Structured Outputs]
-URL: https://docs.anthropic.com/en/docs/build-with-claude/structured-outputs
+URL: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
 
 **Khi nào dùng:** Output cần parse tự động bởi script, dashboard, hoặc pipeline -- không phải người đọc.
 

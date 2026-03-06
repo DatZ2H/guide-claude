@@ -1161,10 +1161,10 @@ Tổng hợp tài liệu tham khảo cho Claude Code documentation workflow. B�
 
 | Resource | Mô tả | Khi nào đọc |
 |----------|-------|-------------|
-| [Claude Code Docs](https://docs.anthropic.com/en/docs/claude-code/) | Tài liệu chính thức đầy đủ | Đọc đầu tiên — reference cho mọi feature |
-| [Best Practices](https://docs.anthropic.com/en/docs/claude-code/best-practices) | CLAUDE.md design, verification, cost | Sau khi setup xong, trước khi bắt đầu project |
-| [Extend Claude Code](https://docs.anthropic.com/en/docs/claude-code/extending) | Skills vs hooks vs MCP comparison | Khi cần chọn mechanism mở rộng |
-| [Claude Code Changelog](https://docs.anthropic.com/en/docs/claude-code/changelog) | Feature mới, breaking changes | Mỗi tuần — features thay đổi nhanh |
+| [Claude Code Docs](https://code.claude.com/docs/en/) | Tài liệu chính thức đầy đủ | Đọc đầu tiên — reference cho mọi feature |
+| [Best Practices](https://code.claude.com/docs/en/best-practices) | CLAUDE.md design, verification, cost | Sau khi setup xong, trước khi bắt đầu project |
+| [Extend Claude Code](https://code.claude.com/docs/en/extending) | Skills vs hooks vs MCP comparison | Khi cần chọn mechanism mở rộng |
+| [Claude Code Changelog](https://code.claude.com/docs/en/changelog) | Feature mới, breaking changes | Mỗi tuần — features thay đổi nhanh |
 
 ### Project References
 
