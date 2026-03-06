@@ -14,6 +14,8 @@ Module này không dạy lý thuyết -- nó cung cấp quy trình copy-paste ch
 
 ## 5.1 Recipe: Viết tài liệu từ đầu (Document Drafting)
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Cần viết tài liệu mới -- user guide, SOP, technical spec, training material.
 
 **Setup:** Nên dùng trong Project đã có style guide và template uploaded. Style: Custom "Technical" hoặc Formal preset.
@@ -87,6 +89,8 @@ Liệt kê mọi issue tìm được.
 
 ## 5.2 Recipe: Review và cải thiện tài liệu (Document Review)
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Cần review tài liệu do đồng nghiệp viết, hoặc cải thiện tài liệu cũ.
 
 **Setup:** Upload file tài liệu cần review (PDF, Word, hoặc paste text). Nếu có style guide: upload vào Project Knowledge.
@@ -141,6 +145,8 @@ Liệt kê mọi vấn đề tìm được, sắp xếp theo thứ tự xuất h
 ---
 
 ## 5.3 Recipe: Troubleshooting có cấu trúc
+
+[Ứng dụng Kỹ thuật]
 
 **Khi nào dùng:** Debug lỗi hệ thống, phân tích log, xác định root cause.
 
@@ -197,6 +203,8 @@ Phân tích {{loai_data}} dưới đây và xác định root cause.
 
 ## 5.4 Recipe: Chuẩn hóa thuật ngữ (Terminology Management)
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Tạo hoặc cập nhật glossary, đảm bảo team dùng thuật ngữ nhất quán.
 
 ### Tạo glossary từ tài liệu hiện có
@@ -242,6 +250,8 @@ Báo cáo dạng bảng với vị trí cụ thể (section + paragraph).
 ---
 
 ## 5.5 Recipe: Tạo file chuyên nghiệp (Document Generation)
+
+[Ứng dụng Kỹ thuật]
 
 **Khi nào dùng:** Cần output là file thật (Word, Excel, PowerPoint) chứ không chỉ text.
 
@@ -417,6 +427,8 @@ flowchart TD
 
 ## 5.8 Recipe: Convert và migrate tài liệu
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Chuyển đổi format hoặc cấu trúc lại tài liệu cũ.
 
 ### Convert Word sang Markdown
@@ -465,6 +477,8 @@ Chưa cần viết lại -- chỉ cần assessment và migration plan.
 
 ## 5.9 Recipe: Sử dụng MCP Connectors trong workflow
 
+[Nguồn: Anthropic Help Center - Setting up and using Integrations]
+
 **Khi nào dùng:** Muốn Claude tương tác trực tiếp với tools bạn đang dùng -- không cần copy-paste qua lại.
 
 ### Connectors hữu ích
@@ -502,6 +516,8 @@ Tôi cần tạo một trang Notion mới với nội dung:
 ---
 
 ## 5.10 Document Lifecycle -- Workflow tổng hợp
+
+[Ứng dụng Kỹ thuật]
 
 Kết hợp các recipes thành quy trình hoàn chỉnh cho một tài liệu từ ý tưởng đến published.
 
@@ -669,6 +685,8 @@ Output: text sẵn sàng copy vào file .md
 
 ## 5.12 Recipe: Task Planning trước khi chạy Chain Prompt
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Task cần chain ≥ 3 prompts, có dependency giữa các bước. Planning trước giúp xác định rõ thứ tự, input/output mỗi bước, và review checkpoint — thay vì chạy prompt rồi mới phát hiện thiếu context hoặc sai hướng.
 
 ### Bước 1 — Scope + Dependencies
@@ -728,6 +746,8 @@ Checklist 5 items trước khi bắt đầu chain:
 ---
 
 ## 5.13 Recipe: Multi-file Editing Workflow
+
+[Ứng dụng Kỹ thuật]
 
 **Khi nào dùng:** Cần sửa nhiều files liên quan nhau — trong Cowork hoặc chain prompt dài. Rủi ro lớn nhất: sửa file A nhưng file B, C vẫn reference nội dung cũ của A.
 
@@ -797,6 +817,8 @@ Liệt kê mọi inconsistency tìm được.
 ---
 
 ## 5.14 Recipe: Cowork Session Planning Checklist
+
+[Ứng dụng Kỹ thuật]
 
 **Khi nào dùng:** Trước khi mở Cowork cho task phức tạp (≥ 3 files hoặc ≥ 2 sessions). Planning 5–10 phút trước khi bắt đầu tiết kiệm 30+ phút sửa lỗi sau.
 

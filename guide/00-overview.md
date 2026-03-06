@@ -10,6 +10,8 @@ impacts: []
 
 ## Giới thiệu
 
+[Ứng dụng Kỹ thuật]
+
 Tài liệu này hướng dẫn sử dụng Claude AI hiệu quả cho công việc kỹ thuật hàng ngày -- từ viết prompt cơ bản đến quản lý context trong conversation dài, từ tạo tài liệu chuyên nghiệp đến phân tích lỗi hệ thống.
 
 **Đối tượng chính:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X (AMR, ROS, SLAM, Lidar).
@@ -122,6 +124,8 @@ flowchart LR
 
 ## 3 Learning Paths
 
+[Ứng dụng Kỹ thuật]
+
 ### Path A: Người mới bắt đầu (1-2 giờ)
 
 Chưa từng dùng Claude hoặc mới dùng vài lần.
@@ -204,6 +208,8 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 ---
 
 ## Thông tin cập nhật
+
+[Cập nhật 03/2026]
 
 ### Version 7.0 (03/2026)
 

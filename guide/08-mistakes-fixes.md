@@ -14,6 +14,8 @@ Module này tổng hợp những lỗi phổ biến nhất khi sử dụng Claud
 
 ## 8.1 Nhóm 1: Prompt không rõ ràng
 
+[Nguồn: Anthropic Docs - Be clear and direct]
+
 Đây là nguyên nhân #1 cho kết quả không như ý. Claude làm chính xác những gì bạn yêu cầu -- vấn đề là yêu cầu chưa đủ rõ.
 
 ### Lỗi: Prompt quá chung chung
@@ -82,6 +84,8 @@ và tạo template mới cho Technical Specification.
 
 ## 8.2 Nhóm 2: Kỳ vọng sai về khả năng Claude
 
+[Ứng dụng Kỹ thuật]
+
 ### Lỗi: Nghĩ Claude "biết" dự án của bạn
 
 Claude không biết gì về dự án của bạn trừ khi bạn cung cấp. Mỗi conversation mới bắt đầu từ zero (trừ khi dùng Projects hoặc Memory).
@@ -113,6 +117,8 @@ Mỗi conversation là độc lập. Claude không tự động nhớ conversati
 
 ## 8.3 Nhóm 3: Quản lý conversation kém
 
+[Ứng dụng Kỹ thuật]
+
 ### Lỗi: Conversation quá dài, Claude bắt đầu "quên"
 
 **Dấu hiệu:** Claude hỏi lại thông tin đã cung cấp, response không nhất quán, format thay đổi bất thường.
@@ -138,6 +144,8 @@ File ở xa trong context dễ bị "quên".
 ---
 
 ## 8.4 Nhóm 4: Sử dụng tools không hiệu quả
+
+[Ứng dụng Kỹ thuật]
 
 ### Lỗi: Bật Extended thinking cho mọi câu hỏi
 
@@ -168,6 +176,8 @@ Khi Extended thinking đã bật, Claude TỰ ĐỘNG suy luận từng bước.
 ---
 
 ## 8.5 Nhóm 5: Lỗi liên quan đến model
+
+[Nguồn: Anthropic Docs - Reduce hallucinations]
 
 ### Hallucination -- Claude tạo thông tin sai
 
@@ -351,6 +361,8 @@ flowchart TD
 
 ## 8.7 Bảng tra cứu nhanh: Vấn đề > Giải pháp
 
+[Ứng dụng Kỹ thuật]
+
 | Vấn đề | Giải pháp nhanh | Module tham khảo |
 |--------|----------------|-----------------|
 | Kết quả không liên quan | Thêm context và constraints | [03](../guide/03-prompt-engineering.md) (Prompt Engineering) |
@@ -392,6 +404,8 @@ Chat luong giam?
 
 ## 8.9 Mindset quan trọng nhất
 
+[Ứng dụng Kỹ thuật]
+
 **Claude là công cụ, không phải phép thuật.**
 
 **Những gì Claude làm tốt:** Viết nhanh draft đầu tiên. Review và tìm lỗi trong tài liệu. Reformat và restructure nội dung. Tổng hợp thông tin từ nhiều nguồn. Tạo templates và frameworks. Brainstorm ý tưởng.
@@ -407,6 +421,8 @@ Chat luong giam?
 ---
 
 ## 8.10 Tài nguyên bổ sung
+
+[Nguồn: Anthropic Help Center]
 
 - [Claude Help Center](https://support.claude.com/) -- FAQ chính thức
 - [Anthropic Docs](https://platform.claude.com/docs/en) -- Tài liệu kỹ thuật

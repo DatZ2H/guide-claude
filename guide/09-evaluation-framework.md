@@ -14,6 +14,8 @@ Module này cung cấp framework đánh giá chất lượng output từ Claude.
 
 ## 9.1 Bộ 4 tiêu chí đánh giá
 
+[Ứng dụng Kỹ thuật]
+
 Mỗi output từ Claude có thể đánh giá theo 4 tiêu chí. Dùng thang điểm 1-3 cho đơn giản.
 
 | Tiêu chí | 1 -- Chưa đạt | 2 -- Chấp nhận được | 3 -- Tốt |
@@ -42,6 +44,8 @@ Output này:
 ---
 
 ## 9.2 Quy trình cải thiện Prompt
+
+[Nguồn: Anthropic Docs - Prompt Engineering Overview]
 
 Khi output chưa đạt, thay vì viết lại prompt hoàn toàn, dùng quy trình iterate:
 
@@ -107,6 +111,8 @@ Mỗi recommendation phải có:
 
 ## 9.3 Self-Check -- Yêu cầu Claude tự đánh giá
 
+[Nguồn: Anthropic Docs - Reduce hallucinations]
+
 Bạn có thể yêu cầu Claude tự review output của mình. Đây là kỹ thuật hiệu quả để bắt hallucinations và gaps.
 
 ### Prompt Self-Check
@@ -137,6 +143,8 @@ Review lại response trước và đánh giá:
 ---
 
 ## 9.4 So sánh BAD vs GOOD Prompt -- 3 ví dụ
+
+[Ứng dụng Kỹ thuật]
 
 ### Ví dụ 1: Phân tích lỗi
 
@@ -205,6 +213,8 @@ ease of configuration, community support.
 
 ## 9.5 Checklist đánh giá nhanh
 
+[Ứng dụng Kỹ thuật]
+
 Dùng checklist này khi review output quan trọng:
 
 - [ ] **Accuracy:** Không có hallucination hoặc thông tin sai?
@@ -221,6 +231,8 @@ Dùng checklist này khi review output quan trọng:
 ---
 
 ## 9.6 Review giữa các bước — In-Progress Review
+
+[Ứng dụng Kỹ thuật]
 
 Mục 9.1–9.5 tập trung đánh giá output cuối cùng — khi Claude đã trả kết quả hoàn chỉnh. Mục này bổ sung chiều quan trọng hơn: review TRONG QUÁ TRÌNH — giữa các bước trong chain prompt hoặc giữa các Cowork tasks. Review giữa bước bắt lỗi sớm trước khi chúng lan truyền sang các bước tiếp theo, tiết kiệm đáng kể thời gian so với phát hiện lỗi ở output cuối (xem Module 08, Nhóm 6: Lỗi lan truyền trong Workflow nhiều bước).
 
