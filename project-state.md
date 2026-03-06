@@ -1,10 +1,10 @@
 # Project Overview — Claude Guide cho Kỹ sư Phenikaa-X
 
-Version: xem `VERSION` (hiện tại: 7.0) | Updated: 2026-03-04
+Version: xem `VERSION` (hiện tại: 7.0) | Updated: 2026-03-06
 
 ## Phase
 
-v7.0 — Upgrade hoàn tất (2026-03-04). 9 quyết định D1-D9 đã triển khai qua 22 sessions. Sẵn sàng cho Internal Review tại Phenikaa-X.
+v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-v8.md`. S0 automation infrastructure hoàn tất. Tiếp theo: P1 Foundation (S1-S7).
 
 ## Trạng thái modules
 
@@ -28,7 +28,7 @@ v7.0 — Upgrade hoàn tất (2026-03-04). 9 quyết định D1-D9 đã triển 
 | ref | guide/reference/skills-list.md | 🟢 | v7.0 — Trust labels, Audience tags, [Approved PX], Skill-Recipe Mapping |
 | ref | guide/reference/claude-code-setup.md | 🔵 | New v6.5 — CC cheat sheet, Workflow-first, 272 lines |
 
-> v7.0 released 2026-03-04. Toàn bộ 22 sessions hoàn tất. 0 banned emoji, 0 stale anchors, 6 project skills operational.
+> v7.0 released 2026-03-04. Upgrade v7→v9 bắt đầu 2026-03-06. S0 automation done. 7 project skills, 3 rules, 2 hooks operational.
 
 ## Cấu trúc thư mục
 
@@ -55,15 +55,19 @@ Guide Claude/
 └── .claude/                        Infrastructure (Claude config)
     ├── CLAUDE.md                   Folder Instructions
     ├── SETUP.md                    Onboarding cho maintainer mới
-    ├── settings.json               Hooks (SessionStart)
+    ├── settings.json               Hooks (SessionStart, PostToolUse)
+    ├── rules/                       Path-scoped rules (writing-standards, reference, scaffold)
+    ├── hooks/                       format-check.py, link-check.py
     ├── commands/                    Slash commands (/start, /checkpoint, /weekly-review...)
-    └── skills/                     Auto-activate + on-demand skills
+    └── skills/                     7 skills (+ source-audit mới)
 ```
 
 ## Quyết định gần nhất
 
 | Ngày | Quyết định | Rationale |
 |------|-----------|-----------|
+| 2026-03-06 | S0: Automation infrastructure — rules, hooks, source-audit skill | QA framework 4 lớp cho upgrade v7→v9 |
+| 2026-03-06 | Upgrade plan v7.0→v9.0 approved — 5 phases, 32 sessions | Tài liệu nền tảng, ưu tiên chất lượng |
 | 2026-03-04 | D9: Claude Code cho Documentation — Option D Hybrid (Module 12 + reference/claude-code-setup.md) | Narrative guide + lookup cheat sheet cho kỹ sư dùng CC trong doc workflow |
 | 2026-03-04 | D8 Emoji policy: Allowlist ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵, Obsidian callouts cho prose | Nhất quán, không noise, dễ maintain |
 | 2026-03-04 | D4 Hybrid examples: Doc context (primary) + AMR callout + model hint | Tăng relevance cho kỹ sư kỹ thuật mà không mất tính tổng quát |

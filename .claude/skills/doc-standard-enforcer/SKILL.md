@@ -1,70 +1,97 @@
 ---
 name: doc-standard-enforcer
 description: >
-  Auto-activate khi user tạo hoặc edit nội dung trong guide/. Trigger khi user nói
-  "edit module", "viết section", "thêm content", "update guide", "sửa module",
-  "thêm ví dụ", "viết thêm", hoặc bất kỳ yêu cầu nào tạo/chỉnh sửa file markdown
-  trong thư mục guide/. Enforces writing standards cho Guide Claude project.
+  Manual deep review mode cho guide/ content. Trigger khi user nói "review format",
+  "kiểm tra standards", "deep review", hoặc muốn kiểm tra thủ công chất lượng content.
+  Enforcement rules tự động đã chuyển sang .claude/rules/writing-standards.md (auto-load)
+  và .claude/hooks/format-check.py (PostToolUse hook). Skill này chỉ dùng cho on-demand review.
 ---
 
-# Doc Standard Enforcer — Guide Claude Project
+# Doc Standard Enforcer — Guide Claude Project (Manual Review Mode)
 
-Skill này tự động áp dụng writing standards khi tạo hoặc edit nội dung trong `guide/`.
+Skill này thực hiện deep review thủ công cho content trong `guide/`. Enforcement tự động đã được chuyển sang:
+- `.claude/rules/writing-standards.md` — auto-load khi edit guide/ files
+- `.claude/hooks/format-check.py` — PostToolUse hook kiểm tra format sau mỗi Edit/Write
 
 ## Khi nào kích hoạt
 
-Bất kỳ lúc nào user yêu cầu tạo mới hoặc chỉnh sửa nội dung trong `guide/**/*.md`.
+- User nói "review format", "kiểm tra standards", "deep review content"
+- Sau khi edit xong 1 module (manual QA pass)
+- Trước phase review gate
 
-## Rules — PHẢI tuân thủ khi viết/edit content
+## Deep Review Checklist
 
-### Ngôn ngữ
+Khi được trigger, kiểm tra file theo thứ tự:
 
-- Viết tiếng Việt
-- Giữ nguyên thuật ngữ kỹ thuật tiếng Anh — KHÔNG dịch (prompt, hook, skill, context window, token, API, AMR, ROS, SLAM, Lidar...)
-- Dùng `{{variable}}` cho placeholders
+### 1. Structure Check
 
-### Heading hierarchy
+- [ ] `#` title chỉ 1 lần, dòng đầu tiên
+- [ ] Heading hierarchy `#` > `##` > `###` — không skip level
+- [ ] Mỗi `##`/`###` có 1-2 câu context mở đầu
+- [ ] Không có đoạn văn > 5 câu liên tục
 
-- `#` — module title (chỉ 1 lần, dòng đầu tiên)
-- `##` — section
-- `###` — subsection
-- KHÔNG skip level (VD: `##` → `####` là SAI)
+### 2. Code Block Check
 
-### Cấu trúc section
+- [ ] Mọi code block có language tag
+- [ ] Syntax trong code block chính xác
+- [ ] Code examples chạy được (nếu applicable)
 
-- Mỗi `##` hoặc `###` bắt đầu bằng 1-2 câu context giải thích section này nói về gì trước khi đi vào chi tiết
-- Tránh đoạn văn >5 câu liên tục — break bằng list, code block, hoặc sub-heading
+### 3. Cross-link Check
 
-### Code blocks
+- [ ] Links dùng relative path
+- [ ] Không có hardcoded version numbers
+- [ ] Tất cả links trỏ đến file/section tồn tại
 
-- Luôn có language tag: ```python, ```yaml, ```bash, ```markdown...
-- KHÔNG dùng ``` không tag
+### 4. Source Marker Check
 
-### Cross-links
+- [ ] Feature sections có source marker (Tier 1/2/3)
+- [ ] Time-sensitive content có `[Cập nhật MM/YYYY]`
+- [ ] Tier 3 content có disclaimer
 
-- Dùng relative path: `[tên](../guide/04-context-management.md#section-name)`
-- KHÔNG dùng absolute path hoặc URL đến repo
+### 5. Language Check
 
-### Source markers
+- [ ] Tiếng Việt là ngôn ngữ chính
+- [ ] Thuật ngữ kỹ thuật giữ tiếng Anh
+- [ ] Emoji chỉ dùng allowlist (trong bảng/status markers)
+- [ ] Prose dùng Obsidian callout syntax
 
-- `[Nguồn: official docs URL hoặc tên tài liệu]` — cho thông tin từ documentation
-- `[Ứng dụng Kỹ thuật]` — cho ví dụ applied từ Phenikaa-X context
-- `[Cập nhật MM/YYYY]` — cho thông tin time-sensitive có thể thay đổi
+### 6. Content Quality Check
 
-### Version
+- [ ] Thông tin chính xác (cross-check với source nếu cần)
+- [ ] Không có nội dung duplicate với module khác
+- [ ] Audience-appropriate (base vs doc vs dev)
 
-- Module header dùng `[VERSION](../VERSION)` — KHÔNG hardcode số version
+## Output Format
 
-## Trước khi edit
+```
+## Doc Standard Review — [file name]
 
-1. Đọc `VERSION` để biết version hiện tại
-2. Tạo backup `.bak` của file trước khi sửa
-3. Đọc file cần edit đầy đủ trước khi bắt đầu
+### Results
+- Structure: ✅ / ❌ [details]
+- Code Blocks: ✅ / ❌ [details]
+- Cross-links: ✅ / ❌ [details]
+- Source Markers: ✅ / ❌ [details]
+- Language: ✅ / ❌ [details]
+- Content Quality: ✅ / ❌ [details]
 
-## Sau khi edit
+### Issues Found: [count]
+[List chi tiết]
 
-Tự kiểm tra nhanh:
-- Heading hierarchy có đúng không?
-- Code blocks có language tag không?
-- Relative links có trỏ đúng file tồn tại không?
-- Có section nào thiếu câu context mở đầu không?
+### Score: [X/6 passed]
+```
+
+## Rules
+
+- KHÔNG tự ý sửa file — chỉ report
+- Report cụ thể: file, line number, issue, suggested fix
+- Nếu không tìm thấy issues → output "All 6 checks PASS"
+- Hỏi user trước khi sửa: "Fix ngay hay ghi vào checklist?"
+
+## So sánh với automation
+
+| Aspect | Automation (rules + hook) | Skill (manual review) |
+|--------|--------------------------|----------------------|
+| Khi nào | Mỗi lần edit | User trigger |
+| Check gì | Format (heading, code tags, emoji) | Format + content + quality |
+| Action | Warning → Claude self-correct | Report → user decide |
+| Depth | Surface (syntax) | Deep (semantics + accuracy) |

@@ -3,7 +3,7 @@
 ## Project context
 Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
-- **Phase:** Internal Review — v5.0 cho team Phenikaa-X dùng thử
+- **Phase:** Upgrade v7.0 → v9.0 (xem `upgrade-plan-v8.md`)
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
 - **Architecture:** 2-tier — guide/ (content) + .claude/ (infra)
 
@@ -13,9 +13,12 @@ guide/                  13 module files (00→12) + reference/
 guide/reference/        config-architecture.md, skills-list.md
 machine-readable/       llms.txt (machine-readable index theo convention Florian Bruniaux)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
-.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/
+.claude/rules/          writing-standards.md, reference-standards.md, scaffold-standards.md
+.claude/hooks/          format-check.py (PostToolUse), link-check.py (standalone)
+.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
 _scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/)
+upgrade-plan-v8.md      Master plan v7.0 → v9.0
 project-state.md        Project overview (cho người đọc)
 VERSION                 SSOT cho version number
 ```
@@ -75,9 +78,10 @@ VERSION                 SSOT cho version number
 |-------|---------|
 | `/session-start` | Bắt đầu session mới, "tiếp tục", "còn lại gì" |
 | `/version-bump` | "bump version", "lên version", "release vX.X" |
-| `/doc-standard-enforcer` | Edit module, thêm content trong `guide/` |
+| `/doc-standard-enforcer` | Manual deep review content — "review format", "kiểm tra standards" |
 | `/cross-ref-checker` | Kiểm tra cross-references trong module |
 | `/module-review` | Deep review một module (underlying skill cho `/review-module`) |
+| `/source-audit` | Scan source markers theo 3-tier standard — "source audit", "kiểm tra sources" |
 | `/upgrade-guide` | Scan stale data, broken refs, dependency issues — "health check", "scan project" |
 
 *Global built-in (không phải project skill):*
@@ -96,6 +100,12 @@ VERSION                 SSOT cho version number
 | `/validate-doc` | Kiểm tra module — argument: số module (vd `03`) |
 | `/review-module` | Deep review module — argument: số module (vd `06`) |
 | `/weekly-review` | Review hàng tuần |
+
+## Automation infrastructure
+- **Rules (auto-load):** `.claude/rules/writing-standards.md` loads khi edit `guide/**/*.md`
+- **PostToolUse hook:** `format-check.py` kiểm tra heading hierarchy + code block tags sau mỗi Edit/Write
+- **Standalone check:** `python3 .claude/hooks/link-check.py` scan cross-links (chạy trước checkpoint)
+- **Source verification:** 3-tier standard — Tier 1 (Anthropic official), Tier 2 (verified repos), Tier 3 (community + disclaimer)
 
 ## Module status (quick ref)
 | Range | Status |
