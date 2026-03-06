@@ -18,6 +18,14 @@ Cấu trúc đi từ nền tảng lên chuyên sâu:
 - **3.4 Module System Nâng cao** -- hệ thống 13 modules lắp ghép prompt phức tạp [Advanced]
 - **3.5 Task Decomposition** -- khi nào và cách tách task thành nhiều prompts/sessions [Advanced]
 
+> [!IMPORTANT] **Quy ước format prompt trong bộ tài liệu**
+> Module này sử dụng 3 loại format khi viết prompt — không trộn XML và brackets trong cùng một prompt:
+> - **XML tags** (`<tag>...</tag>`) — cho structured prompts, khi cần Claude phân biệt rõ các sections
+> - **Bracket markers** (`[Label]`) — cho prompt đơn giản (C-T-R), metadata labels, quality markers (`[FACT]`, `[CẦN VERIFY]`)
+> - **Placeholders** (`{{variable_name}}`) — cho giá trị cần thay thế mỗi lần sử dụng (lowercase + underscore)
+>
+> Dùng `[brackets]` cho prompt nhanh. Chuyển sang XML khi cần kiểm soát chi tiết. Placeholders `{{}}` dùng được trong cả hai format.
+
 ---
 
 ## 3.1 Nền tảng
@@ -416,13 +424,13 @@ SOP cho quy trình Pre-flight Check của AMR-Fleet tại Phenikaa-X.
 Target audience: Kỹ thuật viên Level 2 (biết cơ bản về robot, không biết ROS).
 </context>
 
-<request>
+<task>
 Dựa trên best practices của IEC 82079-1 và task-based writing, viết SOP với:
 1. Structure theo giai đoạn: Pre-check → Operation → Post-operation
 2. Safety warning placement theo chuẩn ANSI Z535 (trước bước nguy hiểm)
 3. Actionable steps: verb đầu câu, object rõ ràng, không ambiguous
 4. Pass/Fail criteria đo lường được cho mỗi checkpoint
-</request>
+</task>
 ```
 
 > [!NOTE] **AMR Context** — Tương tự với ROS/SLAM: thay vì giải thích "AMCL là gì", nói thẳng "AMCL node cho localization đang có particle filter diverge sau khi robot rotate nhanh. Nghi ngờ odometry noise model. Đề xuất cách diagnose và parameters cần tune."
