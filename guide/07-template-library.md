@@ -10,6 +10,8 @@ impacts: [03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes, 11-cowo
 
 Module này tập trung **tất cả 22 templates** vào một nơi duy nhất. Các module khác tham chiếu đến đây bằng mã **T-XX**.
 
+[Ứng dụng Kỹ thuật]
+
 **Cách sử dụng:**
 
 1. Tìm template phù hợp qua **Bảng Index** bên dưới
@@ -49,6 +51,8 @@ Module này tập trung **tất cả 22 templates** vào một nơi duy nhất. 
 ---
 
 ## 7.1 Quick Start Templates (T-01 đến T-05)
+
+[Nguồn: Anthropic Docs - Prompting Best Practices]
 
 Năm templates cơ bản dùng ngay không cần tùy chỉnh nhiều. Phù hợp cho người mới bắt đầu.
 
@@ -247,6 +251,8 @@ Placeholder values: Option A: MkDocs + Material theme | Option B: Confluence | C
 
 ## 7.2 Technical Documentation Templates (T-06, T-07)
 
+[Ứng dụng Kỹ thuật]
+
 ### T-06: User Manual Section
 
 ```xml
@@ -332,6 +338,8 @@ Placeholder values: system_component: Navigation & Localization Module | system_
 ---
 
 ## 7.3 Troubleshooting Templates (T-08, T-09)
+
+[Ứng dụng Kỹ thuật]
 
 ### T-08: Error Analysis
 
@@ -426,6 +434,8 @@ Placeholder values: issue_type: AMR mất định vị giữa hành trình | sys
 
 ## 7.4 Code Review Template (T-10)
 
+[Ứng dụng Kỹ thuật]
+
 ### T-10: Code Review Request
 
 ```xml
@@ -477,6 +487,8 @@ Placeholder values: language: Python | domain: ROS2 Navigation | code_purpose: C
 ---
 
 ## 7.5 SOP Template (T-11)
+
+[Ứng dụng Kỹ thuật]
 
 ### T-11: Standard Operating Procedure
 
@@ -534,6 +546,8 @@ Placeholder values: procedure_name: AMR Battery Replacement | equipment: PNX AMR
 
 ## 7.6 Reports & Analysis Template (T-12)
 
+[Ứng dụng Kỹ thuật]
+
 ### T-12: Incident Report
 
 ```xml
@@ -586,6 +600,8 @@ Placeholder values: incident_summary: AMR va chạm với pallet di động tạ
 ---
 
 ## 7.7 Workflow Templates (T-13, T-14, T-15)
+
+[Ứng dụng Kỹ thuật]
 
 ### T-13: Handover Summary
 
@@ -708,6 +724,8 @@ Step 1: Extract incidents từ incident reports có sẵn → danh sách scenari
 ---
 
 ## 7.8 Advanced Workflow Templates (T-19, T-20, T-21, T-22)
+
+[Ứng dụng Kỹ thuật]
 
 Bốn templates này dành cho workflow phức tạp nhiều bước và nhiều files — mở rộng từ T-13/T-14/T-15 cho các use cases nâng cao hơn khi scope lớn, dependencies nhiều, hoặc cần kiểm soát chất lượng chặt chẽ giữa các bước.
 
@@ -945,6 +963,8 @@ Placeholder values: Ten_Project: AMR PNX-100 Documentation Sprint | Tổng số 
 ---
 
 ## 7.9 File Creation Templates (T-16, T-17, T-18)
+
+[Nguồn: Anthropic Help Center - Code execution and file creation]
 
 ### T-16: Tạo file Word (.docx)
 
