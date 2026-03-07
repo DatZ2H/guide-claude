@@ -1,7 +1,7 @@
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-06 | **Status:** Approved — ready for S0
+**Last updated:** 2026-03-07 | **Status:** P1 complete (v7.3) — ready for P2
 
 ---
 
@@ -38,6 +38,13 @@
 | Q5 | Dev content | ✅ Viết mới hoàn toàn |
 | Q6 | _scaffold examples | ✅ Guide Claude + dev example |
 | — | IDE coverage | ✅ VS Code only (bỏ JetBrains) |
+| D1' | M10 extraction strategy | ✅ Session riêng (S10b) — split 4 targets |
+| D2' | M05 5.11-5.14 placement | ✅ base/05 (Planning patterns) |
+| D3' | P2 session count | ✅ 8+2 sub-sessions (tăng từ 7) |
+| D4' | M08 8.7 CC anti-patterns | ✅ Giữ tạm base/06, extract sang dev/ tại P3 |
+| D5' | llms.txt update timing | ✅ Cuối P2 (S15) |
+| D6' | M10 10.8 vs M04 Decision Matrix | ✅ Merge thông minh vào base/04 + deduplicate |
+| D7' | M10 10.13 redirect stub | ✅ Xóa — thay bằng cross-link trong doc/03 |
 
 ---
 
@@ -193,8 +200,8 @@ guide/
 │   ├── 01-quick-start.md          Bắt đầu 15 phút (all surfaces)
 │   ├── 02-setup.md                Setup cơ bản (không Custom Style)
 │   ├── 03-prompt-engineering.md   Core techniques, XML format
-│   ├── 04-context-management.md   Context Window, Drift, Session Lifecycle
-│   ├── 05-tools-features.md       Cheat sheet tính năng (mở rộng từ M06)
+│   ├── 04-context-management.md   Context Window, Drift, Session Lifecycle, Decision Framework 3-way, Task Lifecycle
+│   ├── 05-tools-features.md       Tools & Features (M06) + Desktop (M10) + Planning patterns (M05)
 │   ├── 06-mistakes-fixes.md       Core mistakes (universal)
 │   └── 07-evaluation.md           Core eval framework
 │
@@ -247,7 +254,7 @@ _scaffold/
 
 ```
 S0 Automation ──> P1 Foundation ──> P2 Structure ──┬──> P3 Dev Content
-                  (v7.1–v7.3)       (v8.0)         │    (v8.1–v8.3)
+  ✅ Done          ✅ Done (v7.3)    (v8.0)         │    (v8.1–v8.3)
                                                     │
                                                     ├──> P4 Enhancement
                                                     │    (v8.4–v8.5)
@@ -257,6 +264,7 @@ S0 Automation ──> P1 Foundation ──> P2 Structure ──┬──> P3 Dev
 ```
 
 S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cuối.
+P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 extraction complexity (D1'-D7' decisions 2026-03-07).
 
 ---
 
@@ -266,28 +274,27 @@ S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cu�
 |--------|---------|:--------:|-------|
 | M00 | Toàn bộ | base/00 | Rewrite cho 3-tier |
 | M01 | Toàn bộ | base/01 | Thêm Claude Code quick start |
-| M02 | 2.1-2.5 Setup cơ bản | base/02 | Giữ |
-| M02 | 2.6 Custom Style | doc/06 | Tách |
-| M02 | 2.7 Two-Layer Knowledge | base/04 | Rebuild → Context Sync (P1) |
-| M03 | 3.1-3.4 Core techniques | base/03 | Giữ |
-| M03 | 3.5+ AMR examples | doc/ (inline) | Tách hoặc callout |
-| M04 | 4.1-4.8 Core context | base/04 | Giữ |
-| M04 | 4.9 Two-Layer | base/04 | Rebuild → Context Sync (P1) |
-| M04 | Decision Matrix | base/04 | Expand 3-way (P1) |
-| M05 | 5.11-5.14 Universal | base/ (merge) | Planning, decomposition |
-| M05 | 5.1-5.10, 5.15-5.16 | doc/01 | Doc recipes |
-| M06 | Toàn bộ | base/05 | Mở rộng significantly |
+| M02 | 2.1-2.5 Setup cơ bản | base/02 | Giữ (2.6-2.7 summary giữ base) |
+| M02 | 2.3 Styles (chi tiết) | doc/06 | Extract phần Custom Style chi tiết |
+| M03 | Toàn bộ (3.1-3.5) | base/03 | Giữ nguyên — 3.5 Task Decomposition là universal |
+| M04 | 4.1-4.9 + Decision Matrix | base/04 | Giữ (Context Sync + 3-way matrix đã rebuild P1) |
+| M05 | 5.11-5.14 Universal | base/05 | Planning patterns → merge vào Tools & Planning |
+| M05 | 5.1-5.10, 5.15-5.16 | doc/01 | Doc recipes + Cowork recipes |
+| M06 | Toàn bộ | base/05 | Merge với M10 Desktop + M05 planning |
 | M07 | T-01~T-05 Universal | base/ (ref) | Giữ compact |
-| M07 | T-06~T-22 Doc | doc/02 | Tách |
-| M08 | Nhóm 1-4 Universal | base/06 | Giữ |
-| M08 | Nhóm 5-6 Doc | doc/ (inline) | Tách |
-| M09 | Framework core | base/07 | Giữ |
-| M09 | Doc criteria | doc/ (inline) | Tách |
+| M07 | T-06~T-22 Doc | doc/02 | Tách (T-19~T-22 advanced giữ doc/02) |
+| M08 | 8.1-8.6, 8.8-8.11 | base/06 | Universal + reference tables |
+| M08 | 8.7 CC anti-patterns | base/06 (tạm) | Giữ tạm với note — extract sang dev/ tại P3 |
+| M09 | Toàn bộ | base/07 | Framework universal (doc examples → callout) |
 | M10 | 10.1-10.3 Desktop | base/05 | Merge vào Tools |
-| M10 | 10.4-10.12 Cowork | doc/03 | Tách |
+| M10 | 10.8 Decision Matrix | base/04 | Extract → merge vào Context Management |
+| M10 | 10.8.1, 10.8.3 Memory+Scaffold | reference/ | Extract → reference patterns |
+| M10 | 10.9 Pre-task Planning | base/05 | Extract → merge vào Planning section |
+| M10 | 10.10 Task Lifecycle | base/04 | Extract → merge vào Context Management |
+| M10 | 10.4-10.7, 10.11-10.18 Cowork | doc/03 | Tách (bulk Cowork content) |
 | M11 | Toàn bộ | doc/04 | Move nguyên |
 | M12 | Toàn bộ | doc/05 | Move (giữ doc scope) |
-| Ref | Tất cả | reference/ | Giữ + thêm files mới |
+| Ref | Tất cả | reference/ | Giữ + thêm files mới + M10 extractions |
 
 ---
 
@@ -421,68 +428,137 @@ S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cu�
 **Verify:** M08 ≥ 11 patterns, toàn bộ cross-links pass. **Version bump: v7.3.**
 **Checkpoint:** "P1.S7: M08 patterns + P1 final"
 
-#### Phase 1 Review Gate
+#### Phase 1 Review Gate — ✅ PASSED (2026-03-07)
 
-- [ ] 0 broken internal cross-links
-- [ ] 0 stale external URLs
-- [ ] Source markers trên mọi section
-- [ ] Prompt format nhất quán
-- [ ] "Two-Layer" → "Context Sync" hoàn tất
-- [ ] Decision Matrix 3-way
-- [ ] Session Lifecycle documented
-- [ ] M08 ≥ 11 failure patterns
-- [ ] Automation (hooks + rules) operational
-- [ ] Version = 7.3
+- [x] 0 broken internal cross-links
+- [x] 0 stale external URLs
+- [x] Source markers trên mọi section
+- [x] Prompt format nhất quán
+- [x] "Two-Layer" → "Context Sync" hoàn tất
+- [x] Decision Matrix 3-way
+- [x] Session Lifecycle documented
+- [x] M08 ≥ 11 failure patterns
+- [x] Automation (hooks + rules) operational
+- [x] Version = 7.3
 
-**Pass → P2. Fail → fix items → re-review.**
+**Result: PASSED → P2 approved.**
 
 ---
 
 ### Phase 2: Structure (v8.0)
 
 **Mục tiêu:** Tách guide/ thành base/doc/dev.
-**Rủi ro:** 🔴 Cao — mitigated bằng sub-phases + git rollback.
+**Rủi ro:** 🔴 Cao — mitigated bằng 8 sessions (10 work units) + git tag rollback.
 
-#### S8: Folder structure + mapping verify
+> [!IMPORTANT]
+> Mỗi session move xong → chạy `cross-ref-checker` → fix links ngay.
+> KHÔNG để broken links tích lũy đến session cuối.
 
-1. Tạo guide/base/, guide/doc/, guide/dev/
-2. Tạo `.claude/rules/` GĐ2 (tier-base.md, tier-doc.md, tier-dev.md)
-3. Review Content Mapping → user confirm
-4. Tạo placeholder files
+#### S8: Folder structure + safety setup
 
-**Checkpoint:** "P2.S8: folder structure + tier rules"
+1. `git tag v7.3-pre-restructure` — safety rollback point
+2. Tạo guide/base/, guide/doc/, guide/dev/
+3. Tạo `.claude/rules/` GĐ2 (tier-base.md, tier-doc.md, tier-dev.md)
+4. Review Content Mapping (bảng trên) → user confirm
+5. Tạo placeholder files
 
-#### S9-S10: Move Base content (2 sessions)
+**Checkpoint:** "P2.S8: folder structure + tier rules + safety tag"
 
-**S9:** M01, M02(base), M03(base), M04(base) → base/01-04
-**S10:** M06→base/05, M08(base)→base/06, M09(core)→base/07
+#### S9a: Move Base content — M01, M02
 
-#### S11-S12: Move Doc content (2 sessions)
+1. M01 → base/01 (move nguyên)
+2. M02 → base/02 (giữ 2.1-2.7, extract 2.3 Styles chi tiết → draft cho doc/06)
+3. Fix cross-links trong files đã move + files trỏ đến M01, M02
 
-**S11:** M05(doc)→doc/01, M07(doc)→doc/02
-**S12:** M10(Cowork)→doc/03, M11→doc/04, M12→doc/05, M02(Style)→doc/06
+**Checkpoint:** "P2.S9a: base/01-02"
 
-#### S13: M00 Overview + Navigation
+#### S9b: Move Base content — M03, M04
 
-1. Rewrite M00 cho 3-tier
-2. Learning paths per audience
+1. M03 → base/03 (move nguyên, bao gồm 3.5 Task Decomposition)
+2. M04 → base/04 (move nguyên, đã có Context Sync + 3-way Matrix từ P1)
+3. Fix cross-links (M03 có 9 inbound links — ưu tiên fix)
+
+**Checkpoint:** "P2.S9b: base/03-04"
+
+#### S10a: Move Base content — M06 + M10 Desktop → base/05
+
+1. M06 → base/05 (toàn bộ tools & features)
+2. Merge M10 sections 10.1-10.3 (Desktop) vào base/05
+3. Merge M05 sections 5.11-5.14 (Planning patterns) vào base/05
+4. Fix cross-links
+
+**Checkpoint:** "P2.S10a: base/05 (tools + desktop + planning)"
+
+#### S10b: M10 universal extraction → base/04, reference/
+
+**Scope:** Extract universal content từ M10 (1650 dòng) trước khi move Cowork phần.
+
+1. Extract 10.8 (Decision Framework: flowchart + bảng tra cứu) → merge vào base/04, deduplicate bảng so sánh trùng với 4.10
+2. Extract 10.8.2 (project-state.md pattern) → append base/04
+3. Extract 10.10 (Task Lifecycle) → append base/04
+4. Extract 10.8.1 (External Memory _memory/) → reference/
+5. Extract 10.8.3 (_scaffold/) → reference/
+6. Extract 10.9 (Pre-task Planning) → append base/05
+7. Xóa 10.13 (redirect stub 8 dòng) — thay bằng cross-link trong doc/03
+8. Verify M10 còn lại chỉ chứa Cowork content (10.4-10.7, 10.11-10.18 trừ 10.13)
+
+**Checkpoint:** "P2.S10b: M10 universal extraction"
+
+#### S11: Move Base content — M08, M09 → base/06, base/07
+
+1. M08 → base/06 (8.1-8.11, giữ 8.7 CC anti-patterns tạm với note P3)
+2. M09 → base/07 (toàn bộ framework, doc examples → callout)
+3. Fix cross-links (M08 có 18 outbound links — cần update nhiều nhất)
+
+**Checkpoint:** "P2.S11: base/06-07"
+
+#### S12: Move Doc content — M05, M07
+
+1. M05 (5.1-5.10, 5.15-5.16) → doc/01 (doc workflows + Cowork recipes). Note: 5.11-5.14 đã extract ở S10a
+2. M07 (T-06~T-22) → doc/02 (doc templates)
+3. M07 (T-01~T-05) → reference/ hoặc base/ (universal templates)
+4. Fix cross-links
+
+**Checkpoint:** "P2.S12: doc/01-02"
+
+#### S13: Move Doc content — M10 Cowork, M11, M12, M02 Styles
+
+1. M10 remaining (10.4-10.7, 10.11-10.18) → doc/03 (Cowork setup & workflows)
+2. M11 → doc/04 (move nguyên)
+3. M12 → doc/05 (move nguyên)
+4. M02 section 2.3 Styles (extracted draft) → doc/06
+5. Fix cross-links
+
+**Checkpoint:** "P2.S13: doc/03-06"
+
+#### S14: M00 Overview + Navigation
+
+1. Rewrite M00 → base/00 cho 3-tier structure
+2. Learning paths per audience (base → doc, base → dev)
 3. Prev/next nav links toàn bộ files
 4. Dependency graph update
 
-#### S14: Cleanup + validation
+**Checkpoint:** "P2.S14: overview + navigation"
 
-1. Remove old guide/*.md
-2. Update CLAUDE.md, project-state.md
-3. Full `/cross-ref-checker`
-4. **Version bump v8.0**
+#### S15: Cleanup + validation
+
+1. Remove old guide/*.md (chỉ sau khi validation pass)
+2. Update CLAUDE.md (folder structure, module status)
+3. Update project-state.md
+4. Update machine-readable/llms.txt
+5. Full `/cross-ref-checker` — final sweep
+6. **Version bump v8.0**
+
+**Checkpoint:** "P2.S15: cleanup + v8.0"
 
 #### Phase 2 Review Gate
 
-- [ ] 3-tier structure hoạt động
+- [ ] 3-tier structure hoạt động (base/doc/dev/reference)
 - [ ] Tier-specific rules load đúng
 - [ ] Navigation links trên mọi file
 - [ ] 0 broken cross-links
-- [ ] CLAUDE.md + project-state.md updated
+- [ ] CLAUDE.md + project-state.md + llms.txt updated
+- [ ] Old guide/*.md files removed
 - [ ] Version = 8.0
 
 ---
@@ -492,11 +568,15 @@ S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cu�
 **Mục tiêu:** Viết mới nội dung developer — hoàn toàn mới.
 **Rủi ro:** 🟡 TB — content mới, ít ảnh hưởng existing.
 
-#### S15: CLI setup + reference → dev/01, dev/02 (v8.1)
-#### S16: VS Code extension → dev/03
-#### S17-S18: Agents & Automation → dev/04 (v8.2)
-#### S19: Plugins → dev/05
-#### S20: Dev workflows → dev/06 (v8.3)
+> [!IMPORTANT]
+> Mỗi session P3 bắt đầu bằng: verify features tại code.claude.com/docs trước khi viết.
+> Claude Code features thay đổi nhanh — không dựa vào thông tin cũ.
+
+#### S16: CLI setup + reference → dev/01, dev/02 (v8.1)
+#### S17: VS Code extension → dev/03
+#### S18-S19: Agents & Automation → dev/04 (v8.2)
+#### S20: Plugins → dev/05
+#### S21: Dev workflows → dev/06 (v8.3)
 
 #### Phase 3 Review Gate
 
@@ -513,11 +593,11 @@ S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cu�
 **Mục tiêu:** Cheatsheets, _scaffold, skills guide, tooling.
 **Rủi ro:** 🟢 Thấp — additive.
 
-#### S21: Skills guide → reference/skills-guide.md
-#### S22-S23: Cheatsheets (3 files) (v8.4)
-#### S24: _scaffold restructure (templates + examples + workflows)
-#### S25: /nav-update skill + validation hooks (v8.5)
-#### S26: prompt-format-guide + custom-style reference
+#### S22: Skills guide → reference/skills-guide.md
+#### S23-S24: Cheatsheets (3 files) (v8.4)
+#### S25: _scaffold restructure (templates + examples + workflows)
+#### S26: /nav-update skill + validation hooks (v8.5)
+#### S27: prompt-format-guide + custom-style reference
 
 #### Phase 4 Review Gate
 
@@ -533,10 +613,10 @@ S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cu�
 
 **Mục tiêu:** Final quality pass.
 
-#### S27: Full cross-ref audit
-#### S28-S29: Content review per tier (module-review × 5 dimensions)
-#### S30: Index, navigation, llms.txt finalize
-#### S31: Version bump v9.0 + release notes
+#### S28: Full cross-ref audit
+#### S29-S30: Content review per tier (module-review × 5 dimensions)
+#### S31: Index, navigation finalize
+#### S32: Version bump v9.0 + release notes
 
 #### Phase 5 Review Gate
 
@@ -567,17 +647,17 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 
 ## Tổng kết
 
-| Phase | Sessions | Versions | Risk |
-|-------|:--------:|----------|:----:|
-| S0 Automation | 1-2 | — | 🟢 |
-| P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 |
-| P2 Structure | S8–S14 (7) | v8.0 | 🔴 |
-| P3 Dev Content | S15–S20 (6) | v8.1–v8.3 | 🟡 |
-| P4 Enhancement | S21–S26 (6) | v8.4–v8.5 | 🟢 |
-| P5 Polish | S27–S31 (5) | v9.0 | 🟢 |
-| **Total** | **~32 sessions** | **v7.0 → v9.0** | |
+| Phase | Sessions | Versions | Risk | Status |
+|-------|:--------:|----------|:----:|:------:|
+| S0 Automation | 1-2 | — | 🟢 | ✅ Done |
+| P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 | ✅ Done |
+| P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | — |
+| P3 Dev Content | S16–S21 (6) | v8.1–v8.3 | 🟡 | — |
+| P4 Enhancement | S22–S27 (6) | v8.4–v8.5 | 🟢 | — |
+| P5 Polish | S28–S32 (5) | v9.0 | 🟢 | — |
+| **Total** | **~34 work units** | **v7.0 → v9.0** | | |
 
-Ước tính giảm 30-60% effort nhờ automation (S0).
+Ước tính giảm 30-60% effort nhờ automation (S0). P2 tăng từ 7→8 sessions (10 work units) do M10 complexity.
 
 ---
 
@@ -616,7 +696,7 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 
 1. **Checkpoint trước mỗi edit lớn** — `/checkpoint` = git commit
 2. **Không force push, không reset --hard** — CLAUDE.md rule
-3. **Phase 2 rollback** — `git checkout [pre-restructure-commit]`
+3. **Phase 2 rollback** — `git checkout v7.3-pre-restructure` (tag tạo ở S8)
 4. **Review checkpoint bắt buộc** — không skip
 5. **1 session = 1 deliverable** — không để dở dang
 6. **File > 500 dòng** — split trong cùng session
