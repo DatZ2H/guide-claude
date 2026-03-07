@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, base/03-prompt-engineering, doc/01-doc-workflows]
-impacts: [base/03-prompt-engineering, doc/01-doc-workflows, base/06-mistakes-fixes, 11-cowork-workflows]
+impacts: [base/03-prompt-engineering, doc/01-doc-workflows, base/06-mistakes-fixes, doc/04-cowork-workflows]
 ---
 
 Templates chuyên sâu cho documentation tasks — Technical Docs, Troubleshooting, SOP, Reports, và Workflows. Copy template, thay `{{placeholder}}`, paste vào Claude.

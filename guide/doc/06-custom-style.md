@@ -64,4 +64,37 @@ Instructions:
 
 ---
 
-<!-- TODO (S13): Bổ sung advanced Custom Style patterns, multi-style workflows -->
+## Khi nào dùng Style nào
+
+| Tình huống | Style khuyến nghị |
+|-----------|-------------------|
+| Debug session hàng ngày | Normal hoặc Concise |
+| Viết tài liệu cho khách hàng | Formal hoặc Custom "Technical" |
+| Hỏi đáp nhanh về ROS commands | Concise |
+| Brainstorming giải pháp | Explanatory |
+| Email nội bộ | Custom "Internal Communication" |
+| Training materials | Explanatory |
+
+4 preset styles (Normal, Concise, Explanatory, Formal) và cách chọn: xem [Setup & Personalization, mục 2.3](../base/02-setup.md#23-styles----tùy-chỉnh-cách-claude-trả-lời).
+
+---
+
+## Multi-Style Workflow
+
+[Ứng dụng Kỹ thuật]
+
+Trong thực tế, một dự án documentation thường cần nhiều styles khác nhau cho từng loại output. Cách quản lý:
+
+**1. Tạo 2-3 Custom Styles cho team:**
+- "Technical" — cho SOP, specs, procedures
+- "Internal" — cho email, báo cáo nội bộ, meeting notes
+- "Client-facing" — cho tài liệu gửi khách hàng
+
+**2. Chuyển style theo task, không theo ngày:**
+- Bắt đầu task → chọn style phù hợp với output type
+- Không cần maintain 1 style xuyên suốt session
+
+**3. Kết hợp Style + Project Instructions:**
+- Style kiểm soát **tone và format** (cách Claude viết)
+- Project Instructions kiểm soát **content và scope** (Claude viết gì)
+- Hai thứ bổ sung nhau, không thay thế

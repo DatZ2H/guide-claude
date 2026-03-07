@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, 10-claude-desktop-cowork]
+depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, doc/03-cowork-setup]
 impacts: []
 ---
 
@@ -355,7 +355,7 @@ flowchart TD
 | **Tạo file mới thay vì sửa file cũ** | Yêu cầu "cập nhật SOP", Claude tạo file mới bên cạnh file cũ thay vì edit | Viết rõ: "Sửa file [tên chính xác], không tạo file mới" |
 | **Cascade edit** (sửa A, Claude tự ý sửa B) | Yêu cầu sửa glossary, Claude tự ý sửa luôn SOP reference glossary đó | Giới hạn scope trong prompt: "Chỉ sửa file [tên]. Không sửa file khác." |
 
-**Xem thêm:** [Module 10 mục 10.7](../10-claude-desktop-cowork.md) (An toàn Cowork), [Module 09 mục 9.6](07-evaluation.md#96-review-giữa-các-bước--in-progress-review) (Review giữa các bước), [Module 03 mục 3.5](03-prompt-engineering.md#task-decomposition--khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
+**Xem thêm:** [Module 10 mục 10.7](../doc/03-cowork-setup.md) (An toàn Cowork), [Module 09 mục 9.6](07-evaluation.md#96-review-giữa-các-bước--in-progress-review) (Review giữa các bước), [Module 03 mục 3.5](03-prompt-engineering.md#task-decomposition--khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
 
 ---
 
@@ -422,7 +422,7 @@ Chấp nhận và apply output của Claude mà không verify — đặc biệt 
 - Review mọi file change trước khi approve, đặc biệt `Edit`, `Write`, và `Bash` với destructive commands
 - Chạy tests sau mỗi thay đổi đáng kể
 - Git checkpoint trước mỗi task lớn: `git commit -m "checkpoint: trước [task]"`
-- Xem thêm: [Module 10 mục 10.7](../10-claude-desktop-cowork.md) (An toàn Cowork)
+- Xem thêm: [Module 10 mục 10.7](../doc/03-cowork-setup.md) (An toàn Cowork)
 
 ### Infinite Exploration — Khám phá không kết thúc
 
