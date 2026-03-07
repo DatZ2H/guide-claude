@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, 02-setup-personalization, 03-prompt-engineering, 04-context-management, 06-tools-features, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+depends-on: [reference/model-specs, base/02-setup, 03-prompt-engineering, 04-context-management, 06-tools-features, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
 impacts: []
 ---
 
@@ -90,7 +90,7 @@ và tạo template mới cho Technical Specification.
 
 Claude không biết gì về dự án của bạn trừ khi bạn cung cấp. Mỗi conversation mới bắt đầu từ zero (trừ khi dùng Projects hoặc Memory).
 
-**Fix:** Dùng Projects. Upload tài liệu dự án vào Project Knowledge. Viết Project Instructions mô tả context. Xem [Module 02](../guide/02-setup-personalization.md).
+**Fix:** Dùng Projects. Upload tài liệu dự án vào Project Knowledge. Viết Project Instructions mô tả context. Xem [Module 02](../guide/base/02-setup.md).
 
 ### Lỗi: Tin tuyệt đối kết quả Claude
 
@@ -111,7 +111,7 @@ Nếu không chắc chắn, nói rõ mức độ tin cậy.
 
 Mỗi conversation là độc lập. Claude không tự động nhớ conversation trước (trừ khi Memory được bật và có đủ thời gian cập nhật).
 
-**Fix:** Dùng Handover ([Module 04, mục 4.5](../guide/04-context-management.md)) hoặc Projects ([Module 02](../guide/02-setup-personalization.md)).
+**Fix:** Dùng Handover ([Module 04, mục 4.5](../guide/04-context-management.md)) hoặc Projects ([Module 02](../guide/base/02-setup.md)).
 
 ---
 
@@ -163,7 +163,7 @@ Connector chỉ tốn tokens khi được gọi trong conversation. Tuy nhiên, 
 
 Mỗi conversation lại phải giải thích context, standards, format từ đầu.
 
-**Fix:** Tạo Project với Instructions và Knowledge. Chi tiết: [Module 02](../guide/02-setup-personalization.md).
+**Fix:** Tạo Project với Instructions và Knowledge. Chi tiết: [Module 02](../guide/base/02-setup.md).
 
 ### Lỗi: Thêm "think step-by-step" khi đã bật Extended thinking
 
@@ -451,7 +451,7 @@ Claude dành phần lớn thời gian đọc và phân tích codebase hoặc fil
 | Output sai format | Cung cấp template hoặc ví dụ trong prompt | [03](../guide/03-prompt-engineering.md) (Nguyên tắc 2: Use Examples) |
 | Output dài bị sơ sài ở cuối | Tách thành nhiều prompts, dùng Outline-First | [04](../guide/04-context-management.md) (mục 4.8), [03](../guide/03-prompt-engineering.md) (mục 3.5) |
 | Lỗi lan truyền qua nhiều bước | Validation checkpoint, backup trước mỗi step | 08 (Nhóm 6) |
-| Mỗi chat phải giải thích lại context | Tạo Project với Instructions | [02](../guide/02-setup-personalization.md) (Setup) |
+| Mỗi chat phải giải thích lại context | Tạo Project với Instructions | [02](../guide/base/02-setup.md) (Setup) |
 | Không biết dùng tool nào | Tra cứu bảng tools | [06](../guide/06-tools-features.md) (Tools & Features) |
 | Cần template có sẵn | Tra cứu Template Library | [07](../guide/07-template-library.md) (Templates) |
 | Output quá chung | Thêm role, audience, ví dụ mong muốn | [03](../guide/03-prompt-engineering.md) (Nguyên tắc 1, 6) |
