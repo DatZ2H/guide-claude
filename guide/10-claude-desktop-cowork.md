@@ -794,18 +794,20 @@ Cố sửa output sai bằng prompt tiếp theo thường tốn thời gian hơn
 
 ---
 
-## 10.8 Chat vs Cowork — Khi nào dùng gì?
+## 10.8 Chat / Cowork / Claude Code — Khi nào dùng gì?
 
 ```mermaid
 flowchart TD
     A["Ban can lam gi?"] --> B{"Can thao tac\ntren file system?"}
-    B -->|"Khong — chi hoi dap,\nphan tich, brainstorm"| C["Dung Chat\n(claude.ai hoac\nClaude Desktop Chat)"]
-    B -->|"Co — tao/sua/doc\nnhieu files"| D{"Task don gian\nhay phuc tap?"}
-    D -->|"Don gian\n(1 file, vai buoc)"| E["Chat + upload/download\ncung duoc"]
-    D -->|"Phuc tap\n(nhieu file, nhieu buoc)"| F["Dung Cowork"]
-    F --> G{"Task lap lai?"}
-    G -->|"Co — dinh ky"| H["Scheduled Task"]
-    G -->|"Khong — 1 lan"| I["Cowork session thuong"]
+    B -->|"Khong — hoi dap,\nphan tich, brainstorm"| C["Dung Chat\n(claude.ai hoac\nClaude Desktop Chat)"]
+    B -->|"Co"| D{"Can chay lenh\nhoac git?"}
+    D -->|"Co — code, test,\ngit, terminal"| E["Claude Code\n(CLI)"]
+    D -->|"Khong — documents,\nbatch operations"| F{"Task don gian?"}
+    F -->|"Don gian\n(1 file, vai buoc)"| G["Chat + upload/download\ncung duoc"]
+    F -->|"Phuc tap\n(nhieu file, nhieu buoc)"| H["Dung Cowork"]
+    H --> I{"Task lap lai?"}
+    I -->|"Co — dinh ky"| J["Scheduled Task"]
+    I -->|"Khong — 1 lan"| K["Cowork session thuong"]
 ```
 
 ### Bảng quyết định nhanh
@@ -814,26 +816,29 @@ flowchart TD
 |-----------|------|-------|
 | Hỏi cách fix lỗi SLAM | Chat | Chỉ cần hỏi đáp, không thao tác file |
 | Brainstorm giải pháp kỹ thuật | Chat | Tương tác qua lại, không cần file access |
+| Research style guide trước khi viết standard | Chat (Project) | Cần Project Knowledge + memory |
+| Upload log để phân tích lỗi | Chat | 1 file, phân tích trong conversation |
 | Tạo 1 SOP mới từ outline | Cowork | Claude tạo file .md trực tiếp |
 | Review 5 SOP kiểm tra tính nhất quán | Cowork | Claude đọc nhiều file, so sánh, tạo report |
 | Chuyển 10 file Word sang Markdown | Cowork | Batch operation trên nhiều file |
 | Kiểm tra glossary hàng tuần | Scheduled Task | Lặp lại, tự động |
-| Research style guide trước khi viết standard | Chat (Project) | Cần Project Knowledge + memory |
-| Upload log để phân tích lỗi | Chat | 1 file, phân tích trong conversation |
+| Fix bug, refactor code, chạy tests | Claude Code | Terminal access, chạy lệnh trực tiếp |
+| Multi-file code changes với git workflow | Claude Code | Đọc/ghi code files + git operations trong 1 session |
+| Viết README, docstrings, technical docs cho code | Claude Code | Đọc code context trực tiếp, output vào file cùng thư mục |
 
-### Phân chia công việc giữa Chat, Project, và Cowork
+### Phân chia công việc giữa Chat, Project, Cowork, và Claude Code
 
 [Cập nhật 03/2026]
 
-| Phase | Chat (claude.ai) | Project | Cowork |
-|-------|-------------------|---------|--------|
-| **Research** | Brainstorm, web search, tổng hợp | Tra cứu reference files đã upload | — |
-| **Plan** | Thảo luận approach, ra quyết định | Review plan dựa trên context ổn định | Tạo folder structure |
-| **Draft** | Iterate nội dung nhanh | Viết với Custom Instructions giữ tone nhất quán | Ghi file trực tiếp |
-| **Review** | — | So sánh draft với glossary, style guide | Batch review nhiều files |
-| **Finalize** | — | — | Chuyển format, tổ chức thư mục, rename |
-| **Maintain** | — | — | Scheduled checks, consistency reports |
-| **Context Transfer** *(optional)* | — | Paste `project-state.md` khi brainstorm | Update `project-state.md` khi cần |
+| Phase | Chat (claude.ai) | Project | Cowork | Claude Code |
+|-------|-------------------|---------|--------|------------|
+| **Research** | Brainstorm, web search, tổng hợp | Tra cứu reference files đã upload | — | — |
+| **Plan** | Thảo luận approach, ra quyết định | Review plan dựa trên context ổn định | Tạo folder structure | — |
+| **Draft** | Iterate nội dung nhanh | Viết với Custom Instructions giữ tone nhất quán | Ghi file trực tiếp | Code generation, viết docs |
+| **Review** | — | So sánh draft với glossary, style guide | Batch review nhiều files | Code review, chạy tests |
+| **Finalize** | — | — | Chuyển format, tổ chức thư mục, rename | Refactor, cleanup, git merge |
+| **Maintain** | — | — | Scheduled checks, consistency reports | CI/CD, automated tests |
+| **Context Transfer** *(optional)* | — | Paste `project-state.md` khi brainstorm | Update `project-state.md` khi cần | `/checkpoint` + git log |
 
 **Xem Recipe 5.11 (Module 05) để biết quy trình chi tiết kết hợp 3 công cụ.**
 
