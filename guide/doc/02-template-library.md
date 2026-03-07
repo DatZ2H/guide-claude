@@ -755,7 +755,7 @@ Placeholder values: Ten_Project: AMR PNX-100 Documentation Sprint | Tổng số 
 
 ## 2.8 File Creation Templates (T-16, T-17, T-18)
 
-[Nguồn: Anthropic Help Center - Code execution and file creation]
+[Nguồn: Anthropic Help Center - Code execution and file creation] [Cập nhật 03/2026]
 
 ### T-16: Tạo file Word (.docx)
 
@@ -783,8 +783,6 @@ Placeholder values: loai_tai_lieu: Technical Specification | noi_dung_chinh: AMR
 > [!NOTE] **AMR Context** — Export Technical Spec (T-07) hoặc SOP (T-11) sang Word để gửi cho stakeholders không dùng Markdown — đặc biệt hữu ích khi submit tài liệu cho khách hàng.
 
 > [!TIP] **Model:** Sonnet 4.6 — File generation task. Cần bật "Code execution and file creation" trong Settings > Capabilities. Xem [decision flowchart](../reference/model-specs.md#chọn-model)
-
-**Lưu ý:** Cần bật "Code execution and file creation" trong Settings > Capabilities.
 
 ### T-17: Tạo file Excel (.xlsx)
 

@@ -1,11 +1,11 @@
 # Custom Style Reference
 
-**Mức độ:** Intermediate | **Audience:** Technical Writing, Documentation
-**Cập nhật:** 2026-03-07
+**Thời gian đọc:** 8 phút | **Mức độ:** Intermediate | **Audience:** Technical Writing, Documentation
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [base/02-setup]
-impacts: []
+impacts: [doc/01-doc-workflows, base/02-setup]
 ---
 
 Hướng dẫn chi tiết cách tạo và quản lý Custom Styles trong Claude.ai. Kiến thức nền tảng về 4 preset styles: xem [Setup & Personalization, mục 2.3](../base/02-setup.md#23-styles----tùy-chỉnh-cách-claude-trả-lời).
@@ -23,6 +23,24 @@ Bạn có thể tạo Custom Style bằng 2 cách:
 **Cách 2: Viết instructions trực tiếp.** Mô tả cách bạn muốn Claude respond.
 
 > [!NOTE] Custom Style là tính năng của Claude.ai (Settings > Styles). Verify tính khả dụng tại support.anthropic.com nếu UI thay đổi.
+
+### Quản lý Custom Styles
+
+[Nguồn: Anthropic Help Center - Custom Style] [Cập nhật 03/2026]
+
+- **Chỉnh sửa:** Settings > Styles > chọn style > Edit — sửa instructions hoặc upload sample mới
+- **Xóa:** Settings > Styles > chọn style > Delete — không ảnh hưởng conversations đã dùng style đó
+- **Giới hạn:** Style instructions nên giữ ngắn gọn (tương đương 1-2 đoạn văn). Instructions quá dài khiến Claude khó tuân thủ nhất quán
+- **Tương tác với system prompt:** Custom Style được áp dụng cùng system prompt mặc định — style bổ sung, không ghi đè system behavior
+
+### Troubleshooting
+
+| Vấn đề | Nguyên nhân | Giải pháp |
+|--------|------------|-----------|
+| Style không áp dụng | Chưa chọn style cho conversation | Settings > Styles > chọn style active |
+| Output không đúng tone | Instructions mâu thuẫn hoặc quá chung | Viết cụ thể hơn: "dùng numbered steps" thay vì "structured" |
+| Style bị "quên" giữa conversation | Context dài làm loãng style instructions | Nhắc lại style expectations sau mỗi 10-15 turns |
+| Kết quả khác nhau giữa các lần | Style instructions quá ngắn, thiếu constraints | Thêm examples cụ thể vào instructions |
 
 ---
 
@@ -80,6 +98,9 @@ Instructions:
 | Training materials | Explanatory |
 
 4 preset styles (Normal, Concise, Explanatory, Formal) và cách chọn: xem [Setup & Personalization, mục 2.3](../base/02-setup.md#23-styles----tùy-chỉnh-cách-claude-trả-lời).
+
+> [!NOTE] **AMR Context**
+> Bảng trên áp dụng cho team Phenikaa-X: dùng "Technical" cho SOP/specs AMR, "Concise" khi debug ROS qua Claude, "Internal Communication" cho báo cáo nội bộ sprint review.
 
 ---
 
@@ -142,6 +163,9 @@ Style "Phenikaa-X Technical":
 
 Khi viết SOP trong Project này với Style "Technical", Claude tự động áp dụng cả hai lớp — bạn chỉ cần nói "Viết SOP bảo trì cho AMR-003" mà không cần lặp lại conventions.
 
+> [!NOTE] **AMR Context**
+> Setup combo này cho AMR documentation: Project Instructions chứa glossary AMR/PLC/SLAM + safety standards ANSI Z535. Style "Technical" kiểm soát tone Tiếng Việt professional. Kết quả: mọi SOP tự động tuân thủ cả terminology lẫn format conventions.
+
 ### Per-task Style Switching
 
 [Ứng dụng Kỹ thuật]
@@ -188,9 +212,9 @@ Khi team có nhiều người cùng viết tài liệu, chuẩn hóa styles giú
 
 > [!NOTE] Custom Styles là tính năng per-account trên Claude.ai. Kiểm tra tính khả dụng của team sharing tại support.anthropic.com nếu feature set thay đổi. [Cập nhật 03/2026]
 
-### Style cho Claude Code (Cowork)
+### Style cho Cowork (Claude Desktop Projects)
 
-Khi dùng Claude trong Cowork (Projects), Style hoạt động song song với Project Instructions:
+Khi dùng Claude trong Cowork (Projects trên Claude Desktop), Style hoạt động song song với Project Instructions:
 
 - **Project Instructions** = CLAUDE.md trong Claude Code — scope, rules, conventions
 - **Style** = cách Claude trả lời — tone, format, độ dài
