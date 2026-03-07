@@ -246,6 +246,13 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 
 [Cập nhật 03/2026]
 
+### Version 8.0 (03/2026)
+
+- **P2 Structure complete:** 3-tier structure operational — base/ (8), doc/ (6), dev/ (6 placeholders), reference/ (6)
+- **Cleanup:** Xóa 13 old guide/*.md files — content đã migrate sang base/doc/dev
+- **Navigation:** Prev/next nav links trên toàn bộ files
+- **Updated:** CLAUDE.md, project-state.md, llms.txt reflect 3-tier structure
+
 ### Version 7.3 (03/2026)
 
 - **P2 Restructure:** Tách guide/ thành 3 tier — base/ (nền tảng), doc/ (technical writing), dev/ (developer)
