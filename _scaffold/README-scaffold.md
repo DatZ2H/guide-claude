@@ -6,6 +6,10 @@ Bộ template này giúp khởi tạo nhanh một project theo 2-tier architectu
 
 Hoạt động với cả **Claude Code** (CLI) và **Cowork** (Desktop).
 
+> [!TIP]
+> Mới bắt đầu? Xem [checklists/new-project-checklist.md](checklists/new-project-checklist.md) để setup từng bước.
+> Cần ví dụ thực tế? Xem [examples/](examples/) — có config từ dự án Guide Claude và một dev project mẫu.
+
 ## Cách dùng
 
 ### Bước 1: Copy scaffold vào project mới
@@ -79,7 +83,7 @@ your-project/
 
 ## Thư mục tham khảo trong scaffold (KHÔNG copy vào project)
 
-Các thư mục dưới đây là **nguồn templates** — xem và copy nội dung khi cần, không copy nguyên folder:
+Các thư mục dưới đây là **nguồn templates và tham khảo** — xem và copy nội dung khi cần, không copy nguyên folder:
 
 ```
 _scaffold/
@@ -94,14 +98,34 @@ _scaffold/
 ├── global-instructions/         Template cho Global CLAUDE.md (user-level)
 │   └── global-CLAUDE-phenikaa-x.md
 │
-└── skill-templates/             Template tạo skill mới
-    └── SKILL-template/
-        └── SKILL-template.md
+├── skill-templates/             Template tạo skill mới
+│   └── SKILL-template/
+│       └── SKILL-template.md
+│
+├── examples/                    Config thực tế đã hoạt động
+│   ├── guide-claude/            Dự án Guide Claude (doc project, 3-tier)
+│   │   ├── README.md            Overview + patterns đáng chú ý
+│   │   ├── CLAUDE.md            Project instructions thực tế
+│   │   ├── settings.json        Hooks config (SessionStart + PostToolUse)
+│   │   └── commands/            start.md, checkpoint.md
+│   └── dev-example/             Dev project mẫu (Python FastAPI)
+│       ├── README.md            Overview + cách mở rộng
+│       ├── CLAUDE.md            Minimal project instructions
+│       ├── settings.json        SessionStart hook
+│       └── commands/            start.md, checkpoint.md
+│
+└── checklists/                  Quy trình làm việc
+    ├── new-project-checklist.md Step-by-step setup từ zero
+    └── daily-workflow.md        Session start → work → checkpoint → handover
 ```
 
 **Cách dùng project-instructions:** Khi tạo claude.ai Project mới → mở file template phù hợp → copy phần giữa `---COPY START---` và `---COPY END---` → paste vào Project Settings > Instructions.
 
 **Cách dùng global-instructions:** Copy `global-CLAUDE-phenikaa-x.md` → customize `{{placeholder}}` → lưu tại `~/.claude/CLAUDE.md` trên máy.
+
+**Cách dùng examples:** Đọc README trong mỗi example → xem patterns → copy files cần thiết vào project mới → customize.
+
+**Cách dùng checklists:** Mở checklist phù hợp → follow từng bước → tick off khi xong.
 
 ## Lưu ý
 

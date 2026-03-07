@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "v=$(cat VERSION 2>/dev/null || echo '?'); n=$(git status --porcelain 2>/dev/null | wc -l | tr -d ' '); echo \"Project v${v}. ${n} files modified since last commit.\""
+          }
+        ]
+      }
+    ]
+  }
+}
