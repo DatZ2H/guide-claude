@@ -2,6 +2,9 @@
 
 Cập nhật: 2026-03-03 | Phân loại: Type × Trust
 
+> [!TIP]
+> Hướng dẫn chi tiết cách dùng từng skill/command → xem [skills-guide.md](skills-guide.md)
+
 ---
 
 ## 1. Tổng quan — Ma trận phân loại
@@ -172,7 +175,7 @@ Scheduled Tasks không phải Skills hay Plugins — đây là tính năng riên
 
 **Ví dụ cron syntax:**
 
-```
+```text
 0 8 * * 1      # Mỗi thứ Hai 8:00 AM
 0 17 * * 5     # Mỗi thứ Sáu 5:00 PM
 0 9 1 * *      # Ngày 1 hàng tháng 9:00 AM
