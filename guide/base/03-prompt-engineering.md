@@ -25,6 +25,7 @@ Cấu trúc đi từ nền tảng lên chuyên sâu:
 > - **Placeholders** (`{{variable_name}}`) — cho giá trị cần thay thế mỗi lần sử dụng (lowercase + underscore)
 >
 > Dùng `[brackets]` cho prompt nhanh. Chuyển sang XML khi cần kiểm soát chi tiết. Placeholders `{{}}` dùng được trong cả hai format.
+> **Tra cứu chi tiết:** [Prompt Format Guide](../reference/prompt-format-guide.md)
 
 ---
 
