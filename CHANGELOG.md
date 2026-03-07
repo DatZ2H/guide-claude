@@ -6,6 +6,40 @@ Lịch sử thay đổi đầy đủ. Version hiện tại: xem `VERSION`.
 
 ## Thông tin cập nhật
 
+### Version 9.0 (03/2026)
+
+- **P5 Polish complete:** Full cross-ref audit, source audit, content review (base + doc + dev + reference), navigation finalize
+- **Release v9.0:** Upgrade v7.0 → v9.0 hoàn tất — 5 phases, ~36 sessions
+- 3-tier guide fully operational: base/ (8), doc/ (6), dev/ (6), reference/ (12)
+
+### Version 8.5 (03/2026)
+
+- **P4 Enhancement complete:** Skills guide, 3 cheatsheets, _scaffold examples + checklists, /nav-update skill, prompt format guide, custom style advanced patterns
+- Version bump: v8.3 → v8.5
+
+### Version 8.3 (03/2026)
+
+- **P3 Dev Content complete:** 6 dev modules viết mới + reference/ecosystem-overview.md + reference/skills-guide.md
+- CLI setup, CLI reference, IDE integration, agents & automation (subagents + Agent Teams), plugins & MCP, dev workflows
+
+### Version 8.0 (03/2026)
+
+- **P2 Structure complete:** Tách guide/ thành 3 tier — base/ (8), doc/ (6), dev/ (6 placeholders), reference/ (6)
+- Xóa 13 old guide/*.md files — content migrate sang base/doc/dev
+- Navigation prev/next links trên toàn bộ files
+- Updated: CLAUDE.md, project-state.md, llms.txt
+
+### Version 7.3 (03/2026)
+
+- **P1 Foundation complete:** Cross-link audit, source markers, prompt format convention, Context Sync rebuild, Decision Matrix 3-way, Session Lifecycle, M08 thêm 5 anti-patterns Claude Code
+
+### Version 7.0 (03/2026)
+
+- Thêm Module 12: Claude Code cho Documentation & Technical Writing
+- Thêm reference/claude-code-setup.md: Cheat sheet Claude Code
+- Thêm Mermaid dependency graph và metadata depends-on/impacts
+- Automation infrastructure: .claude/rules/, hooks (format-check, link-check), source-audit skill
+
 ### Version 5.0 (03/2026)
 
 - Thêm Module 11: Cowork Workflows Library — 12 workflows copy-paste cho AMR engineering (SOP từ notes, batch review, báo cáo tuần, Word↔Markdown, glossary enforcement, training materials, extract data PDF, tổ chức folder, release notes, meeting prep, incident report, diff report)
@@ -142,7 +176,7 @@ Thông tin về Claude thay đổi nhanh. Luôn kiểm tra nguồn chính thức
 
 | Nguồn | URL | Nội dung |
 |-------|-----|---------|
-| Anthropic Docs | https://docs.anthropic.com | API docs, model specs, prompting guides |
-| Anthropic Help Center | https://support.anthropic.com | Claude.ai features, troubleshooting |
+| Anthropic Docs | https://platform.claude.com/docs/en | API docs, model specs, prompting guides |
+| Anthropic Help Center | https://support.claude.com | Claude.ai features, troubleshooting |
 | Anthropic News | https://www.anthropic.com/news | Announcements, new features |
-| Models Overview | https://docs.anthropic.com/en/docs/about-claude/models/overview | Model specs mới nhất |
+| Models Overview | https://platform.claude.com/docs/en/about-claude/models/overview | Model specs mới nhất |
