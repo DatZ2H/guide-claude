@@ -1,6 +1,6 @@
 # Example: Guide Claude Project
 
-**Nguồn:** Trích từ dự án Guide Claude v8.4 — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
+**Nguồn:** Trích từ dự án Guide Claude v8.5 — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
 
 **Đặc điểm dự án:**
 - Documentation project (Obsidian Vault)

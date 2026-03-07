@@ -332,7 +332,7 @@ guide/
 │   ├── 05-claude-code-doc.md     Claude Code cho Documentation
 │   └── 06-custom-style.md        Custom Style Reference
 │
-├── dev/                     Developer audience (P3)
+├── dev/                     Developer audience
 │   ├── 01-claude-code-setup.md   CLI Setup
 │   ├── 02-cli-reference.md       CLI Reference
 │   ├── 03-ide-integration.md     VS Code Integration
@@ -351,7 +351,8 @@ guide/
     ├── cheatsheet-base.md    Cheatsheet Base tier
     ├── cheatsheet-doc.md     Cheatsheet Doc tier
     ├── cheatsheet-dev.md     Cheatsheet Dev tier
-    └── ecosystem-overview.md Community tools & plugins
+    ├── ecosystem-overview.md Community tools & plugins
+    └── prompt-format-guide.md XML tags, brackets, placeholders
 ```
 
 ---

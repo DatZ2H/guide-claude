@@ -1,6 +1,6 @@
 # CLAUDE.md — Guide Claude Project
 
-<!-- Snapshot v8.4 — xem .claude/CLAUDE.md trong repo gốc cho version mới nhất -->
+<!-- Snapshot v8.5 — xem .claude/CLAUDE.md trong repo gốc cho version mới nhất -->
 
 ## Project context
 Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
