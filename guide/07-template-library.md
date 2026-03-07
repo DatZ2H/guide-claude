@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, base/03-prompt-engineering, 05-workflow-recipes]
-impacts: [base/03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes, 11-cowork-workflows]
+impacts: [base/03-prompt-engineering, 05-workflow-recipes, base/06-mistakes-fixes, 11-cowork-workflows]
 ---
 
 Module này tập trung **tất cả 22 templates** vào một nơi duy nhất. Các module khác tham chiếu đến đây bằng mã **T-XX**.

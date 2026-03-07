@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, 10-claude-desktop-cowork]
-impacts: [08-mistakes-fixes, 11-cowork-workflows]
+impacts: [base/06-mistakes-fixes, 11-cowork-workflows]
 ---
 
 Module này cung cấp framework đánh giá chất lượng output từ Claude. Thay vì cảm tính "tốt" hay "chưa tốt", bạn sẽ có tiêu chí cụ thể để đánh giá và cải thiện prompts.

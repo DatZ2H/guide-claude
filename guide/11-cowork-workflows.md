@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-03 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, 05-workflow-recipes, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+depends-on: [reference/model-specs, 05-workflow-recipes, 07-template-library, base/07-evaluation, 10-claude-desktop-cowork]
 impacts: [10-claude-desktop-cowork]
 ---
 
@@ -92,7 +92,7 @@ Thay vì mở từng file và review riêng lẻ, workflow này cho Claude đọ
 **Output:** Report tổng hợp: đánh giá từng tài liệu theo rubric, action items cụ thể, priority ranking.
 
 **Setup:**
-- Chuẩn bị rubric review hoặc dùng framework từ [Module 09](../guide/09-evaluation-framework.md)
+- Chuẩn bị rubric review hoặc dùng framework từ [Module 09](../guide/base/07-evaluation.md)
 - Nếu có style guide, đặt vào folder với tên `_style-guide.*`
 - Tạo file `_review-criteria.md` trong folder nếu có tiêu chí đặc thù
 
@@ -816,5 +816,5 @@ Bảng dưới giúp chọn workflow nhanh theo loại task:
 **Modules liên quan:**
 - [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) — General recipes cho mọi interface
 - [Module 07: Template Library](../guide/07-template-library.md) — 22 templates (T-06, T-11, T-12 overlap với 11.1, 11.1, 11.11)
-- [Module 09: Evaluation Framework](../guide/09-evaluation-framework.md) — Rubric dùng trong 11.2
+- [Module 09: Evaluation Framework](../guide/base/07-evaluation.md) — Rubric dùng trong 11.2
 - [Module 10: Claude Desktop & Cowork](../guide/10-claude-desktop-cowork.md) — Setup và cấu hình Cowork

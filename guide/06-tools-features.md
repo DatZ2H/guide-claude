@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, 10-claude-desktop-cowork]
-impacts: [08-mistakes-fixes, 10-claude-desktop-cowork]
+impacts: [base/06-mistakes-fixes, 10-claude-desktop-cowork]
 ---
 
 Module này là cheat sheet tra cứu nhanh tất cả tính năng của Claude.ai -- từ chọn model đến tools, từ file handling đến integrations.
