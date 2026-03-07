@@ -557,8 +557,4 @@ flowchart TD
 
 ---
 
-**Tiếp theo:**
-
-- [Prompt Engineering](03-prompt-engineering.md) -- cách viết prompt hiệu quả với 6 nguyên tắc và 7 kỹ thuật
-- [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai--khác-gì) -- giới thiệu Claude Desktop và cấu hình Cowork
-- [Context Management](04-context-management.md) -- quản lý context window, handover giữa các conversation
+← [Quick Start](01-quick-start.md) | [Tổng quan](00-overview.md) | [Prompt Engineering →](03-prompt-engineering.md)

@@ -733,7 +733,4 @@ Nguyên tắc này áp dụng cho mọi công cụ Claude — dù là conversati
 
 ---
 
-**Tiếp theo:**
-- [Tools & Features](05-tools-features.md) -- tools, Desktop, và planning patterns bao gồm Hybrid Workflow (Recipe 5.17)
-- [Cowork Setup](../doc/03-cowork-setup.md) -- cấu hình Cowork chi tiết (Folder Instructions, Scheduled Tasks, Plugins)
-- [Setup & Personalization](02-setup.md) -- cấu hình Projects, Styles, Memory
+← [Prompt Engineering](03-prompt-engineering.md) | [Tổng quan](00-overview.md) | [Tools & Features →](05-tools-features.md)

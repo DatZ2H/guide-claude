@@ -818,3 +818,7 @@ Bảng dưới giúp chọn workflow nhanh theo loại task:
 - [Template Library](02-template-library.md) — Doc-specific templates
 - [Evaluation Framework](../base/07-evaluation.md) — Rubric dùng trong 4.2
 - [Cowork Setup](03-cowork-setup.md) — Setup và cấu hình Cowork
+
+---
+
+← [Cowork Setup](03-cowork-setup.md) | [Tổng quan](../base/00-overview.md) | [Claude Code Doc →](05-claude-code-doc.md)

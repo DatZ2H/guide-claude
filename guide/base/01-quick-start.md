@@ -188,3 +188,7 @@ Hoàn thành checklist sau để xác nhận bạn đã nắm cơ bản:
 ---
 
 **Lưu ý:** Module này chỉ bao gồm tính năng cơ bản nhất. Claude còn nhiều khả năng khác: tạo file Word/Excel/PowerPoint, research sâu, tạo diagrams, phân tích hình ảnh, và hơn thế nữa. Nếu bạn dùng **Claude Desktop**, xem thêm [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai--khác-gì) về Cowork mode — cho phép Claude thao tác trực tiếp với file trên máy tính. Các module tiếp theo sẽ hướng dẫn chi tiết.
+
+---
+
+← [Tổng quan](00-overview.md) | [Setup →](02-setup.md)

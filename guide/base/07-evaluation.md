@@ -328,7 +328,4 @@ Không phải mọi output đều cần review cùng mức độ. Chọn approac
 
 ---
 
-**Tiếp theo:**
-
-- [Prompt Engineering](03-prompt-engineering.md) -- nắm vững nguyên tắc để output đạt chất lượng cao từ đầu
-- [Mistakes & Fixes](06-mistakes-fixes.md) -- khắc phục lỗi cụ thể
+← [Mistakes & Fixes](06-mistakes-fixes.md) | [Tổng quan](00-overview.md)
