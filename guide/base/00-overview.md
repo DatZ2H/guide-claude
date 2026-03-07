@@ -67,6 +67,10 @@ Tài liệu được tổ chức thành 3 nhóm theo đối tượng sử dụng
 | [Workflow Patterns](../reference/workflow-patterns.md) | Patterns tham chiếu |
 | [Claude Code Setup](../reference/claude-code-setup.md) | Cheat sheet Claude Code |
 | [Ecosystem Overview](../reference/ecosystem-overview.md) | Community tools, MCP servers, plugins |
+| [Skills Guide](../reference/skills-guide.md) | Detailed skills & commands descriptions |
+| [Cheatsheet Base](../reference/cheatsheet-base.md) | Quick-reference Base tier |
+| [Cheatsheet Doc](../reference/cheatsheet-doc.md) | Quick-reference Doc tier |
+| [Cheatsheet Dev](../reference/cheatsheet-dev.md) | Quick-reference Dev tier |
 
 ---
 
@@ -206,9 +210,6 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 
 **Kết quả:** Setup Claude Code, thao tác CLI, tích hợp IDE, xây dựng automation pipelines.
 
-> [!NOTE]
-> Dev tier đang trong quá trình viết (P3). Hiện tại chỉ có placeholder files.
-
 ---
 
 ## Conventions trong tài liệu
@@ -246,6 +247,16 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 ## Thông tin cập nhật
 
 [Cập nhật 03/2026]
+
+### Version 8.4 (03/2026)
+
+- **P4.S25 Cheatsheet Dev:** Thêm reference/cheatsheet-dev.md — quick-reference card cho dev/ tier
+- **Version bump:** v8.3 → v8.4
+
+### Version 8.3 (03/2026)
+
+- **P3 Dev Content complete:** 6 dev modules + reference/ecosystem-overview.md + reference/skills-guide.md
+- **P4.S23-S24:** Skills guide + cheatsheets base/doc
 
 ### Version 8.0 (03/2026)
 
@@ -326,9 +337,14 @@ guide/
     ├── model-specs.md        Model comparison
     ├── config-architecture.md Config structure
     ├── skills-list.md        Skills lookup
+    ├── skills-guide.md       Skills detailed guide
     ├── quick-templates.md    Quick templates
     ├── workflow-patterns.md  Workflow patterns
-    └── claude-code-setup.md  CC cheat sheet
+    ├── claude-code-setup.md  CC cheat sheet
+    ├── cheatsheet-base.md    Cheatsheet Base tier
+    ├── cheatsheet-doc.md     Cheatsheet Doc tier
+    ├── cheatsheet-dev.md     Cheatsheet Dev tier
+    └── ecosystem-overview.md Community tools & plugins
 ```
 
 ---
