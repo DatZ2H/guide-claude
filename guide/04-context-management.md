@@ -575,17 +575,20 @@ Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledg
 
 **Chi tiết quy trình upload:** Module 10, mục 10.8.2.
 
-### Decision Matrix: Dùng Project Chat hay Cowork?
+### Decision Matrix: Chat / Cowork / Claude Code
 
 | Tình huống | Dùng | Lý do |
 |-----------|------|-------|
 | Brainstorm, tư vấn kiến trúc, review tổng thể | **Project Chat** | Custom Instructions + Project Knowledge giữ context nhất quán |
-| Tạo/sửa file, tổ chức thư mục, batch operations | **Cowork** | Đọc ghi file system trực tiếp |
 | Research + web search | **Claude.ai Chat** | Web search tool, không cần file access |
-| Review draft với glossary/style guide | **Project Chat** | So sánh với references trong Project Knowledge |
-| Update nội dung module cụ thể | **Cowork** | Output thẳng vào file, không cần copy-paste |
-| Hỏi về quyết định cũ, tại sao làm vậy | **Project Chat** (sau khi upload project-state.md mới) | decisions-log được embed vào project-state.md |
 | Task ngắn, 1 session, không cần file output | **Chat thông thường** | Overhead thấp nhất |
+| Tạo/sửa file, tổ chức thư mục, batch operations | **Cowork** | Đọc ghi file system trực tiếp |
+| Update nội dung module cụ thể | **Cowork** | Output thẳng vào file, không cần copy-paste |
+| Review draft với glossary/style guide | **Project Chat** | So sánh với references trong Project Knowledge |
+| Hỏi về quyết định cũ, tại sao làm vậy | **Project Chat** (sau khi upload project-state.md mới) | decisions-log được embed vào project-state.md |
+| Fix bug, refactor code, chạy tests | **Claude Code** | Terminal access, chạy lệnh trực tiếp, không cần copy-paste |
+| Multi-file code changes với git workflow | **Claude Code** | Đọc/ghi code files + git operations trong 1 session |
+| Viết README, docstrings, technical docs | **Claude Code** | Đọc code context trực tiếp, output vào file cùng thư mục |
 
 ### Khi nào áp dụng Context Sync
 
@@ -608,6 +611,66 @@ Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledg
 
 > [!NOTE]
 > Context Sync Practices được xây dựng trên nền tảng Anthropic's official external storage model. Các hướng dẫn cụ thể (dùng `project-state.md`, khi nào upload, Cowork-primary) là best practice từ thực tế — không phải official prescription của Anthropic. [Nguồn: Anthropic API Docs — Memory types] [Ghi chú: workflow pattern từ thực tế, không phải official recommendation]
+
+---
+
+## 4.10 Session Lifecycle — Vòng đời của một phiên làm việc
+
+[Cập nhật 03/2026]
+
+Mỗi công cụ Claude có "session model" khác nhau — hiểu rõ giúp bạn bắt đầu đúng context, làm việc liên tục, và kết thúc sạch.
+
+### So sánh Session Model
+
+| | Claude.ai Chat | Cowork | Claude Code |
+|--|----------------|--------|------------|
+| **Session là gì** | 1 conversation window | 1 task execution | 1 CLI session |
+| **Context khởi đầu** | Memory (tự động, chọn lọc) + Project Instructions | Folder Instructions (CLAUDE.md) | CLAUDE.md + SessionStart hook + git log |
+| **Persistence giữa sessions** | Memory tự động — không đầy đủ | Không có — file system là bộ nhớ | Git history + CLAUDE.md |
+| **Khi session quá dài** | Context Refresh hoặc Handover | Tạo task mới, đọc notes từ file | `/compact` hoặc context compaction |
+| **Kết thúc session** | Đóng tab — context mất tự nhiên | Task complete | `/checkpoint` → commit → push |
+
+[Ứng dụng Kỹ thuật]
+
+### Vòng đời từng công cụ
+
+#### Claude.ai Chat — Conversation-based
+
+```text
+Bắt đầu:  Claude đọc Memory + Project Instructions (nếu dùng Project)
+Làm việc: Context tích lũy — theo dõi drift từ 30+ messages (mục 4.3)
+Chuyển phase: Gửi Context Refresh (mục 4.4)
+Kết thúc:  Handover nếu tiếp tục ở session sau (mục 4.5)
+```
+
+#### Cowork — Task-based
+
+```text
+Bắt đầu:  Claude đọc Folder Instructions — không nhớ task trước
+Làm việc: File system là bộ nhớ — Claude ghi ra file để dùng lại
+Kết thúc:  Task complete — không cleanup tự động
+Giữa tasks: Pre-task Planning (Module 10, mục 10.9) để cung cấp context
+```
+
+#### Claude Code — Command-based
+
+```text
+Bắt đầu:  SessionStart hook tự động chạy — cung cấp git log, trạng thái project
+Làm việc: /checkpoint định kỳ — mỗi checkpoint = 1 git commit (anchor context)
+Kết thúc:  /checkpoint cuối session — push + handover notes nếu cần
+Giữa sessions: CLAUDE.md + git history thay thế memory
+```
+
+### Nguyên tắc
+
+1. **Bắt đầu đúng context** — đọc notes, git log, hoặc Project Instructions trước khi bắt tay vào task.
+2. **Kết thúc sạch** — checkpoint, handover note, hoặc summary để session sau có thể tiếp tục.
+3. **1 session = 1 deliverable** — không để dở dang; nếu partial thì ghi rõ next steps.
+
+**Xem thêm:**
+- Mục 4.4–4.5 — Context Refresh và Handover Workflows
+- Module 10, mục 10.9–10.10 — Pre-task Planning và Task Lifecycle (Cowork)
+- Module 12 — Claude Code workflow và SessionStart hook
 
 ---
 
