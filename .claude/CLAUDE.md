@@ -86,6 +86,7 @@ VERSION                 SSOT cho version number
 | `/module-review` | Deep review một module (underlying skill cho `/review-module`) |
 | `/source-audit` | Scan source markers theo 3-tier standard — "source audit", "kiểm tra sources" |
 | `/upgrade-guide` | Scan stale data, broken refs, dependency issues — "health check", "scan project" |
+| `/nav-update` | Auto-update prev/next nav links — "update nav", "fix navigation" |
 
 *Global built-in (không phải project skill):*
 
@@ -106,8 +107,8 @@ VERSION                 SSOT cho version number
 
 ## Automation infrastructure
 - **Rules (auto-load):** `.claude/rules/writing-standards.md` loads khi edit `guide/**/*.md`
-- **PostToolUse hook:** `format-check.py` kiểm tra heading hierarchy + code block tags sau mỗi Edit/Write
-- **Standalone check:** `python3 .claude/hooks/link-check.py` scan cross-links (chạy trước checkpoint)
+- **PostToolUse hook:** `format-check.py` kiểm tra heading hierarchy + code block tags + source markers sau mỗi Edit/Write
+- **Standalone check:** `python3 .claude/hooks/link-check.py` scan cross-links + anchor targets (chạy trước checkpoint)
 - **Source verification:** 3-tier standard — Tier 1 (Anthropic official), Tier 2 (verified repos), Tier 3 (community + disclaimer)
 
 ## Module status (quick ref)

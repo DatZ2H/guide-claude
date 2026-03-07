@@ -16,6 +16,12 @@ import sys
 import glob
 import urllib.parse
 
+# Ensure UTF-8 output on Windows
+if sys.stdout.encoding != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+if sys.stderr.encoding != "utf-8":
+    sys.stderr.reconfigure(encoding="utf-8")
+
 
 def find_project_root():
     """Find project root by looking for VERSION file."""
@@ -67,12 +73,63 @@ def extract_links(file_path):
     return links
 
 
+def heading_to_anchor(heading_text):
+    """Convert a markdown heading to its anchor ID (GitHub-style)."""
+    # Remove markdown formatting
+    text = re.sub(r"[*_`~]", "", heading_text)
+    # Remove inline links — keep link text
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", text)
+    # Remove HTML tags
+    text = re.sub(r"<[^>]+>", "", text)
+    # Lowercase
+    text = text.lower().strip()
+    # Replace spaces and consecutive hyphens
+    text = re.sub(r"[^\w\s-]", "", text)
+    text = re.sub(r"[\s]+", "-", text)
+    text = re.sub(r"-+", "-", text)
+    return text.strip("-")
+
+
+def extract_headings(file_path):
+    """Extract all heading anchors from a markdown file."""
+    anchors = set()
+    if not os.path.exists(file_path):
+        return anchors
+    with open(file_path, "r", encoding="utf-8") as f:
+        in_code = False
+        for line in f:
+            stripped = line.strip()
+            if stripped.startswith("```"):
+                in_code = not in_code
+                continue
+            if in_code:
+                continue
+            match = re.match(r"^#{1,6}\s+(.+)", line)
+            if match:
+                anchors.add(heading_to_anchor(match.group(1)))
+    return anchors
+
+
+# Cache for heading extraction (avoid re-reading same file)
+_heading_cache = {}
+
+
+def get_headings_cached(file_path):
+    """Get headings with caching."""
+    if file_path not in _heading_cache:
+        _heading_cache[file_path] = extract_headings(file_path)
+    return _heading_cache[file_path]
+
+
 def check_link(file_path, link_target, project_root):
-    """Check if a relative link target exists."""
+    """Check if a relative link target exists. Returns (file_ok, anchor_ok)."""
     # Split off anchor
-    path_part = link_target.split("#")[0]
+    parts = link_target.split("#", 1)
+    path_part = parts[0]
+    anchor = parts[1] if len(parts) > 1 else None
+
     if not path_part:
-        return True  # anchor-only, skip
+        return True, True  # anchor-only within same file, skip for now
 
     # URL decode
     path_part = urllib.parse.unquote(path_part)
@@ -81,7 +138,21 @@ def check_link(file_path, link_target, project_root):
     file_dir = os.path.dirname(file_path)
     resolved = os.path.normpath(os.path.join(file_dir, path_part))
 
-    return os.path.exists(resolved)
+    file_exists = os.path.exists(resolved)
+
+    if not file_exists:
+        return False, False
+
+    # Check anchor if present
+    if anchor:
+        headings = get_headings_cached(resolved)
+        anchor_decoded = urllib.parse.unquote(anchor).lower()
+        # Normalize anchor for comparison
+        anchor_normalized = re.sub(r"-+", "-", re.sub(r"[^\w\s-]", "", anchor_decoded).replace(" ", "-")).strip("-")
+        if anchor_normalized not in headings and anchor_decoded not in headings:
+            return True, False
+
+    return True, True
 
 
 def main():
@@ -100,25 +171,45 @@ def main():
                 md_files.append(os.path.join(root, f))
 
     broken_links = []
+    broken_anchors = []
 
     for md_file in sorted(md_files):
         links = extract_links(md_file)
         for line_num, link_text, link_target in links:
-            if not check_link(md_file, link_target, project_root):
-                rel_file = os.path.relpath(md_file, project_root)
+            file_ok, anchor_ok = check_link(md_file, link_target, project_root)
+            rel_file = os.path.relpath(md_file, project_root)
+            if not file_ok:
                 broken_links.append({
                     "file": rel_file,
                     "line": line_num,
                     "text": link_text,
                     "target": link_target,
                 })
+            elif not anchor_ok:
+                broken_anchors.append({
+                    "file": rel_file,
+                    "line": line_num,
+                    "text": link_text,
+                    "target": link_target,
+                })
+
+    has_issues = broken_links or broken_anchors
 
     if broken_links:
-        print(f"LINK CHECK — {len(broken_links)} broken link(s) found:\n")
+        print(f"LINK CHECK — {len(broken_links)} broken file link(s):\n")
         for bl in broken_links:
             print(f"  {bl['file']}:{bl['line']}")
             print(f"    [{bl['text']}]({bl['target']})")
-            print(f"    -> Target not found\n")
+            print(f"    -> File not found\n")
+
+    if broken_anchors:
+        print(f"LINK CHECK — {len(broken_anchors)} broken anchor(s):\n")
+        for ba in broken_anchors:
+            print(f"  {ba['file']}:{ba['line']}")
+            print(f"    [{ba['text']}]({ba['target']})")
+            print(f"    -> Heading anchor not found in target file\n")
+
+    if has_issues:
         sys.exit(1)
     else:
         print(f"LINK CHECK — All internal links valid ({len(md_files)} files scanned)")
