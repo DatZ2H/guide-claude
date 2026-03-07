@@ -1,7 +1,7 @@
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-07 | **Status:** P1 complete (v7.3) — ready for P2
+**Last updated:** 2026-03-07 | **Status:** P2 complete (v8.0) — ready for P3
 
 ---
 
@@ -37,7 +37,13 @@
 | Q4 | Session duration | ✅ Tùy task |
 | Q5 | Dev content | ✅ Viết mới hoàn toàn |
 | Q6 | _scaffold examples | ✅ Guide Claude + dev example |
-| — | IDE coverage | ✅ VS Code only (bỏ JetBrains) |
+| — | IDE coverage | ✅ VS Code focus + JetBrains brief mention (updated 2026-03-07) |
+| D8' | P3 session count | ✅ 7 sessions (tăng từ 6) — Agent Teams split |
+| D9' | Agent Teams scope | ✅ Experimental disclaimer — tách stable (subagents) vs experimental (teams) |
+| D10' | Voice/loop features | ✅ Exclude — chưa confirm official docs |
+| D11' | Community patterns | ✅ Brief mention + Tier 3 disclaimer (RIPER, Ralph Wiggum) |
+| D12' | Ecosystem reference | ✅ Thêm reference/ecosystem-overview.md tại P3.S22 |
+| D13' | _scaffold timing | ✅ P4 — bổ sung missing pieces, giữ structure hiện tại |
 | D1' | M10 extraction strategy | ✅ Session riêng (S10b) — split 4 targets |
 | D2' | M05 5.11-5.14 placement | ✅ base/05 (Planning patterns) |
 | D3' | P2 session count | ✅ 8+2 sub-sessions (tăng từ 7) |
@@ -264,7 +270,8 @@ S0 Automation ──> P1 Foundation ──> P2 Structure ──┬──> P3 Dev
 ```
 
 S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cuối.
-P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 extraction complexity (D1'-D7' decisions 2026-03-07).
+P2 tăng từ 7→8 sessions (10 work units) do M10 complexity (D1'-D7').
+P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13', decisions 2026-03-07).
 
 ---
 
@@ -569,22 +576,158 @@ P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 e
 
 **Mục tiêu:** Viết mới nội dung developer — hoàn toàn mới.
 **Rủi ro:** 🟡 TB — content mới, ít ảnh hưởng existing.
+**Sessions:** 7 (tăng từ 6 — Agent Teams scope lớn hơn dự kiến, D8')
 
 > [!IMPORTANT]
 > Mỗi session P3 bắt đầu bằng: verify features tại code.claude.com/docs trước khi viết.
 > Claude Code features thay đổi nhanh — không dựa vào thông tin cũ.
 
-#### S16: CLI setup + reference → dev/01, dev/02 (v8.1)
-#### S17: VS Code extension → dev/03
-#### S18-S19: Agents & Automation → dev/04 (v8.2)
-#### S20: Plugins → dev/05
-#### S21: Dev workflows → dev/06 (v8.3)
+#### Source Priority (P3)
+
+| Priority | Source | URL | Dùng khi |
+|----------|--------|-----|----------|
+| 1 (Bắt buộc) | Claude Code Docs | code.claude.com/docs/en/* | Mọi feature claim |
+| 2 (Bắt buộc) | Anthropic API Docs | platform.claude.com/docs/en/* | API/thinking features |
+| 3 (Bắt buộc) | Anthropic Help | support.anthropic.com | UI/plans/limits |
+| 4 (Tham khảo) | claude-code-best-practice | github.com/shanraisshan/... | Topic discovery + URL index |
+| 5 (Tham khảo) | awesome-claude-code | github.com/hesreallyhim/... | Coverage checklist + ecosystem |
+| 6 (Cross-check) | claude-cowork-guide | github.com/FlorianBruniaux/... | Validate doc/ content |
+
+> [!NOTE]
+> Sources 4-6 dùng để biết CẦN VIẾT GÌ, không dùng để biết VIẾT NHƯ THẾ NÀO.
+> Mọi feature claim PHẢI verify tại sources 1-3.
+
+#### S16: CLI Setup & Configuration → dev/01 (v8.1)
+
+**Scope:** Install, auth, memory system, permissions, sandbox, diagnostics.
+
+1. Install methods (native, homebrew, winget) + first login
+2. CLAUDE.md system: scopes (managed > project > user > local), < 200 lines rule, @imports
+3. `.claude/rules/` — path-specific rules, symlinks, user-level rules
+4. Auto Memory: enabled by default, MEMORY.md (200 lines loaded), topic files
+5. Permission system: 5 modes (default, acceptEdits, plan, dontAsk, bypassPermissions)
+6. Permission wildcards: `Bash(npm run *)`, `Edit(/docs/**)`, `WebFetch(domain:...)`
+7. Sandbox mode (`/sandbox`) — filesystem & network isolation
+8. Settings hierarchy: managed > CLI > local > project > user
+9. `/doctor` diagnostics, checkpointing & `/rewind` (Esc+Esc)
+10. Status line configuration
+11. Kèm: update base/02 cross-link, update reference/config-architecture
+
+**Source:** code.claude.com/docs/en/{overview, memory, permissions, settings, sandboxing, checkpointing}
+**Checkpoint:** "P3.S16: dev/01 CLI setup + config"
+
+#### S17: CLI Commands Reference → dev/02
+
+**Scope:** Complete CLI reference — commands, flags, slash commands, shortcuts.
+
+1. CLI commands table (claude, -p, -c, -r, agents, mcp, remote-control, auth)
+2. CLI flags table (40+ flags from official docs — comprehensive)
+3. Slash commands reference (40+ commands — /compact, /model, /permissions, /rewind, etc.)
+4. Keyboard shortcuts (general controls, text editing, multiline, vim mode)
+5. Input modes: bash mode (!), @file mentions, multiline
+6. Environment variables
+7. Output formats (text, json, stream-json) + --json-schema
+
+**Source:** code.claude.com/docs/en/{cli-reference, interactive-mode}
+**Checkpoint:** "P3.S17: dev/02 CLI reference"
+
+#### S18: IDE Integration → dev/03
+
+**Scope:** VS Code (primary) + JetBrains (brief) + Desktop + cross-surface.
+
+1. VS Code extension: install, inline diffs, @-mentions, plan review, conversation history
+2. VS Code tips & workflows (keybindings, terminal integration)
+3. JetBrains plugin: brief — install + basic features + link official docs (D8': VS Code focus)
+4. Desktop app overview: visual diffs, multi-session, scheduled tasks
+5. Remote Control: continue local session from phone/browser — setup, security, limits
+6. Web interface (claude.ai/code): no local setup, long-running tasks
+7. Cross-surface workflow patterns (terminal → desktop → mobile → web)
+
+**Source:** code.claude.com/docs/en/{vs-code, jetbrains, desktop, remote-control, claude-code-on-the-web}
+**Checkpoint:** "P3.S18: dev/03 IDE integration"
+
+#### S19: Subagents Deep Dive → dev/04 (part 1) (v8.2)
+
+**Scope:** Stable subagent system — built-in, custom, configuration.
+
+1. Subagents overview: what, why, when to use vs main conversation
+2. Built-in subagents: Explore (Haiku, read-only), Plan, general-purpose, Bash, Claude Code Guide
+3. Custom subagents: `.claude/agents/` file format, YAML frontmatter
+4. Frontmatter fields: name, description, tools, model, permissionMode, hooks, memory, skills, isolation, background, maxTurns
+5. Agent scopes: session (--agents JSON), project (.claude/agents/), user (~/.claude/agents/), plugin
+6. Agent memory (persistent across sessions): user/project/local scopes
+7. Subagent patterns: isolation, chaining, parallel research, background tasks
+8. Subagent hooks: PreToolUse, PostToolUse, SubagentStart, SubagentStop
+9. /agents command, `claude agents` CLI
+10. Extract base/06 section 8.7 CC anti-patterns → integrate vào dev/04
+
+**Source:** code.claude.com/docs/en/sub-agents
+**Checkpoint:** "P3.S19: dev/04 subagents"
+
+#### S20: Agent Teams + Orchestration → dev/04 (part 2)
+
+**Scope:** Experimental teams + orchestration patterns + CI/CD.
+
+1. Agent Teams (EXPERIMENTAL — require `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`)
+   - When to use: comparison table subagents vs teams
+   - Architecture: lead, teammates, task list, mailbox
+   - Setup: enable, display modes (in-process, tmux/iTerm2)
+   - Task management: assign, self-claim, dependencies, file locking
+   - Best practices: 3-5 teammates, 5-6 tasks each, avoid file conflicts
+   - Hooks: TeammateIdle, TaskCompleted
+   - Limitations: no resume, no nested teams, one team per session, experimental
+2. Command → Agent → Skill orchestration pattern (from best-practice repo, verified)
+3. Git Worktrees: `claude -w feature-auth`, parallel sessions, isolation
+4. CI/CD: GitHub Actions, GitLab CI/CD integration
+5. Headless mode: `claude -p` for automation
+6. Community patterns: RIPER, Ralph Wiggum (brief mention, Tier 3 disclaimer — D11')
+
+**Source:** code.claude.com/docs/en/{agent-teams, common-workflows, github-actions, gitlab-ci-cd}
+**Checkpoint:** "P3.S20: dev/04 agent teams + orchestration"
+
+#### S21: Plugins & MCP Ecosystem → dev/05
+
+**Scope:** Plugin system + MCP protocol + ecosystem overview.
+
+1. Plugins overview: /plugin command, discover, install, manage
+2. Create custom plugins: components (agents, skills, hooks, commands, rules)
+3. Plugin marketplaces
+4. MCP (Model Context Protocol): what, configure servers, .mcp.json
+5. MCP in subagents: mcpServers frontmatter field
+6. Official MCP integrations: Slack, GitHub, Google Drive, Jira, etc.
+7. Community ecosystem overview (curated from awesome-claude-code — Tier 3)
+
+**Source:** code.claude.com/docs/en/{plugins, plugins-reference, plugin-marketplaces, mcp}
+**Checkpoint:** "P3.S21: dev/05 plugins + MCP"
+
+#### S22: Dev Workflows + Ecosystem Reference → dev/06 + reference/ecosystem-overview.md (v8.3)
+
+**Scope:** Practical workflows + ecosystem reference file.
+
+1. Git workflows: commits, PRs, branches, worktrees, merge conflicts
+2. Testing: run tests, fix failures, coverage, background test runners
+3. Code review: /review, /security-review, custom review agents
+4. Debugging: screenshots, /doctor, MCP tools (Chrome, Playwright)
+5. Session management: /resume, /rename, /compact, /clear, /fork
+6. Batch operations: piping (cat | claude -p), CLI composition, --max-turns
+7. Remote workflows: Remote Control (local → mobile), /teleport (web → local)
+8. Cross-surface patterns: terminal ↔ VS Code ↔ Desktop ↔ Web
+9. Tạo reference/ecosystem-overview.md: curated community tools list (Tier 3 + disclaimers)
+10. Update base/02 + reference/config-architecture với CLAUDE.md < 200 lines, memory scopes
+
+**Source:** code.claude.com/docs/en/{common-workflows, best-practices, checkpointing, sessions}
+**Checkpoint:** "P3.S22: dev/06 workflows + ecosystem ref + base updates"
+**Version bump: v8.3**
 
 #### Phase 3 Review Gate
 
-- [ ] 6 dev files complete
+- [ ] 6 dev files complete + 1 reference file (ecosystem-overview.md)
 - [ ] Cross-links dev ↔ base valid
-- [ ] Source verification (Tier 1 cho features)
+- [ ] Source verification: mọi feature claim có Tier 1 source
+- [ ] Agent Teams marked EXPERIMENTAL with disclaimer
+- [ ] Community patterns marked Tier 3 with disclaimer
+- [ ] base/02 + reference/config-architecture updated
+- [ ] base/06 section 8.7 extracted sang dev/04
 - [ ] Content score ≥ 4 trên 5 chiều
 - [ ] Version = 8.3
 
@@ -592,20 +735,20 @@ P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 e
 
 ### Phase 4: Enhancement (v8.4 → v8.5)
 
-**Mục tiêu:** Cheatsheets, _scaffold, skills guide, tooling.
+**Mục tiêu:** Cheatsheets, _scaffold bổ sung, skills guide, tooling.
 **Rủi ro:** 🟢 Thấp — additive.
 
-#### S22: Skills guide → reference/skills-guide.md
-#### S23-S24: Cheatsheets (3 files) (v8.4)
-#### S25: _scaffold restructure (templates + examples + workflows)
-#### S26: /nav-update skill + validation hooks (v8.5)
-#### S27: prompt-format-guide + custom-style reference
+#### S23: Skills guide → reference/skills-guide.md
+#### S24-S25: Cheatsheets (3 files) (v8.4)
+#### S26: _scaffold bổ sung (examples/, checklists/) — giữ structure hiện tại + add missing (D13')
+#### S27: /nav-update skill + validation hooks (v8.5)
+#### S28: prompt-format-guide + custom-style reference mở rộng
 
 #### Phase 4 Review Gate
 
 - [ ] Skills guide complete
 - [ ] 3 cheatsheets complete
-- [ ] _scaffold restructured + examples
+- [ ] _scaffold bổ sung hoàn tất
 - [ ] Tooling operational
 - [ ] Version = 8.5
 
@@ -615,10 +758,10 @@ P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 e
 
 **Mục tiêu:** Final quality pass.
 
-#### S28: Full cross-ref audit
-#### S29-S30: Content review per tier (module-review × 5 dimensions)
-#### S31: Index, navigation finalize
-#### S32: Version bump v9.0 + release notes
+#### S29: Full cross-ref audit
+#### S30-S31: Content review per tier (module-review × 5 dimensions)
+#### S32: Index, navigation finalize
+#### S33: Version bump v9.0 + release notes
 
 #### Phase 5 Review Gate
 
@@ -654,12 +797,12 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 | S0 Automation | 1-2 | — | 🟢 | ✅ Done |
 | P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 | ✅ Done |
 | P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | ✅ Done |
-| P3 Dev Content | S16–S21 (6) | v8.1–v8.3 | 🟡 | — |
-| P4 Enhancement | S22–S27 (6) | v8.4–v8.5 | 🟢 | — |
-| P5 Polish | S28–S32 (5) | v9.0 | 🟢 | — |
-| **Total** | **~34 work units** | **v7.0 → v9.0** | | |
+| P3 Dev Content | S16–S22 (7) | v8.1–v8.3 | 🟡 | — |
+| P4 Enhancement | S23–S28 (6) | v8.4–v8.5 | 🟢 | — |
+| P5 Polish | S29–S33 (5) | v9.0 | 🟢 | — |
+| **Total** | **~36 work units** | **v7.0 → v9.0** | | |
 
-Ước tính giảm 30-60% effort nhờ automation (S0). P2 tăng từ 7→8 sessions (10 work units) do M10 complexity.
+P2 tăng từ 7→8 sessions do M10 complexity. P3 tăng từ 6→7 sessions do Agent Teams + ecosystem scope.
 
 ---
 
