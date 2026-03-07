@@ -871,7 +871,7 @@ KHÔNG làm: {{scope_gioi_han}}
 
 > [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](reference/model-specs.md#chọn-model)
 
-**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). [Module 10, mục 10.9](../guide/10-claude-desktop-cowork.md) (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
+**Cross-reference:** [Template T-22](../guide/07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). [Tools & Features, mục 5.20](base/05-tools-features.md#520-recipe-cowork-session-planning-checklist) — Pre-task Planning framework.
 
 ---
 

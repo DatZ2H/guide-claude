@@ -798,92 +798,17 @@ Cố sửa output sai bằng prompt tiếp theo thường tốn thời gian hơn
 
 ## 10.8 Chat / Cowork / Claude Code — Khi nào dùng gì?
 
-```mermaid
-flowchart TD
-    A["Ban can lam gi?"] --> B{"Can thao tac\ntren file system?"}
-    B -->|"Khong — hoi dap,\nphan tich, brainstorm"| C["Dung Chat\n(claude.ai hoac\nClaude Desktop Chat)"]
-    B -->|"Co"| D{"Can chay lenh\nhoac git?"}
-    D -->|"Co — code, test,\ngit, terminal"| E["Claude Code\n(CLI)"]
-    D -->|"Khong — documents,\nbatch operations"| F{"Task don gian?"}
-    F -->|"Don gian\n(1 file, vai buoc)"| G["Chat + upload/download\ncung duoc"]
-    F -->|"Phuc tap\n(nhieu file, nhieu buoc)"| H["Dung Cowork"]
-    H --> I{"Task lap lai?"}
-    I -->|"Co — dinh ky"| J["Scheduled Task"]
-    I -->|"Khong — 1 lan"| K["Cowork session thuong"]
-```
-
-### Bảng quyết định nhanh
-
-| Tình huống | Dùng | Lý do |
-|-----------|------|-------|
-| Hỏi cách fix lỗi SLAM | Chat | Chỉ cần hỏi đáp, không thao tác file |
-| Brainstorm giải pháp kỹ thuật | Chat | Tương tác qua lại, không cần file access |
-| Research style guide trước khi viết standard | Chat (Project) | Cần Project Knowledge + memory |
-| Upload log để phân tích lỗi | Chat | 1 file, phân tích trong conversation |
-| Tạo 1 SOP mới từ outline | Cowork | Claude tạo file .md trực tiếp |
-| Review 5 SOP kiểm tra tính nhất quán | Cowork | Claude đọc nhiều file, so sánh, tạo report |
-| Chuyển 10 file Word sang Markdown | Cowork | Batch operation trên nhiều file |
-| Kiểm tra glossary hàng tuần | Scheduled Task | Lặp lại, tự động |
-| Fix bug, refactor code, chạy tests | Claude Code | Terminal access, chạy lệnh trực tiếp |
-| Multi-file code changes với git workflow | Claude Code | Đọc/ghi code files + git operations trong 1 session |
-| Viết README, docstrings, technical docs cho code | Claude Code | Đọc code context trực tiếp, output vào file cùng thư mục |
-
-### Phân chia công việc giữa Chat, Project, Cowork, và Claude Code
-
-[Cập nhật 03/2026]
-
-| Phase | Chat (claude.ai) | Project | Cowork | Claude Code |
-|-------|-------------------|---------|--------|------------|
-| **Research** | Brainstorm, web search, tổng hợp | Tra cứu reference files đã upload | — | — |
-| **Plan** | Thảo luận approach, ra quyết định | Review plan dựa trên context ổn định | Tạo folder structure | — |
-| **Draft** | Iterate nội dung nhanh | Viết với Custom Instructions giữ tone nhất quán | Ghi file trực tiếp | Code generation, viết docs |
-| **Review** | — | So sánh draft với glossary, style guide | Batch review nhiều files | Code review, chạy tests |
-| **Finalize** | — | — | Chuyển format, tổ chức thư mục, rename | Refactor, cleanup, git merge |
-| **Maintain** | — | — | Scheduled checks, consistency reports | CI/CD, automated tests |
-| **Context Transfer** *(optional)* | — | Paste `project-state.md` khi brainstorm | Update `project-state.md` khi cần | `/checkpoint` + git log |
-
-**Xem Recipe 5.11 (Module 05) để biết quy trình chi tiết kết hợp 3 công cụ.**
+Nội dung Decision Framework (flowchart, bảng quyết định, phân chia công việc theo phase) đã chuyển sang [Context Management, mục 4.9](base/04-context-management.md#decision-matrix-chat--cowork--claude-code).
 
 ### 10.8.1 External Memory cho Cowork — Pattern `_memory/` folder
 
-[Cập nhật 03/2026]
+Nội dung đã chuyển sang [Workflow Patterns](reference/workflow-patterns.md#external-memory--pattern-_memory-folder).
 
-> **DEPRECATED (03/2026):** Pattern `_memory/` folder đã deprecated. Git history thay thế hoàn toàn — ít overhead, không cần maintain thêm files. Dùng `.claude/CLAUDE.md` + `git log` + SessionStart hook thay thế. Xem [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md).
-
-Nội dung bên dưới giữ lại làm tham khảo cho ai đã dùng pattern này.
-
-<details>
-<summary>Chi tiết _memory/ pattern (deprecated)</summary>
-
-Cowork không có memory giữa tasks (xem 10.10). Pattern `_memory/` folder biến file system thành bộ nhớ có cấu trúc.
-
-**Cấu trúc:**
-
-```text
-project-folder/
-├── _memory/
-│   ├── session-state.md     ← Trạng thái session hiện tại
-│   └── decisions-log.md     ← Quyết định + lý do (tích lũy)
-├── (project files)
-└── ...
-```
-
-**Thay thế hiện tại:**
-
-| Cũ (`_memory/`) | Mới (Git-based) |
-|-----------------|-----------------|
-| `session-state.md` | `git log --oneline -10` + SessionStart hook |
-| `decisions-log.md` | Commit messages có rationale + CLAUDE.md |
-
-</details>
-
-### 10.8.2 project-state.md — Context Transfer Document
+### 10.8.2 project-state.md — Upload vào Project Knowledge từ Cowork
 
 [Cập nhật 03/2026]
 
-Khi dùng Hybrid Workflow, Project Knowledge có nguy cơ **desync** với Cowork folder — vì Cowork sửa files nhưng Project Knowledge không tự cập nhật. **Context Sync Practices** ([Module 04, mục 4.9](base/04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)) giải quyết bằng cách chỉ giữ `project-state.md` trong Project Knowledge — file summary thay đổi ít hơn nhiều so với working documents.
-
-`project-state.md` là **context transfer document**: bạn update nó khi cần briefing Project Chat về trạng thái hiện tại của dự án, không phải theo lịch cố định.
+Khái niệm `project-state.md` và khi nào cần update xem [Context Management, mục 4.9](base/04-context-management.md#context-transfer-document-project-statemd). Mục này mô tả **quy trình upload thủ công** từ Cowork sang Project Knowledge.
 
 **Quy trình update (3 bước thủ công):**
 
@@ -893,121 +818,24 @@ Khi dùng Hybrid Workflow, Project Knowledge có nguy cơ **desync** với Cowor
 
 > **Lưu ý:** Bước 2-3 phải làm thủ công — Cowork không có access vào Project Knowledge trên claude.ai.
 
-**Prompt export (chạy trên Cowork khi cần update):**
-
-```text
-Kiểm tra trạng thái từng module file trong thư mục và đọc git log gần nhất.
-
-Cập nhật project-state.md với:
-1. Bảng trạng thái modules — version hiện tại và ghi chú thay đổi gần nhất
-2. Cây thư mục — đọc file system thực tế
-3. Quyết định gần nhất — lấy từ git log
-
-Giữ nguyên: Phase, Conventions.
-
-Output: cập nhật file project-state.md trong thư mục.
-```
-
-**Khi nào cần update:**
-
-| Trigger | Mô tả |
-|---------|-------|
-| Sau milestone | Hoàn thành module, chốt section lớn, version bump |
-| Thay đổi cấu trúc | Rename files, thêm/xóa folders, thay đổi conventions |
-
 ### 10.8.3 `_scaffold/` — Starter Template cho Project Mới
 
-Thay vì thiết lập `project-state.md`, `.claude/CLAUDE.md`, và `VERSION` từ đầu cho mỗi dự án mới, **Guide Claude project cung cấp `_scaffold/`** — bộ template đã được chuẩn hóa theo 2-tier architecture.
-
-**Cấu trúc `_scaffold/`:**
-
-```text
-_scaffold/
-├── README-scaffold.md           Hướng dẫn setup từng bước
-├── CLAUDE-template.md           Template cho .claude/CLAUDE.md
-├── project-state-template.md    Template cho project-state.md
-├── VERSION                      Giá trị khởi đầu "1.0"
-│
-├── skill-templates/             Template tạo skill mới (tham khảo — KHÔNG copy)
-│   └── SKILL-template/          ← mỗi skill là folder
-│       └── SKILL-template.md    Mẫu SKILL.md đầy đủ
-│
-├── project-instructions/        Templates cho claude.ai Project Instructions (tham khảo)
-│   ├── README.md
-│   ├── template-basic.md
-│   ├── template-troubleshooting.md
-│   ├── template-tech-doc.md
-│   └── template-code-review.md
-│
-└── global-instructions/         Template cho Global CLAUDE.md (tham khảo)
-    └── global-CLAUDE-phenikaa-x.md
-```
-
-**Cách dùng:** Copy `_scaffold/` vào thư mục dự án mới, rename và customize theo README-scaffold.md. Toàn bộ setup hoàn tất trong 5-10 phút.
-
-> Xem `_scaffold/README-scaffold.md` để biết checklist đầy đủ và phân biệt folder nào copy vào project, folder nào chỉ để tham khảo.
+Nội dung đã chuyển sang [Workflow Patterns](reference/workflow-patterns.md#_scaffold--starter-template-cho-project-mới).
 
 ---
 
 ## 10.9 Pre-task Planning — Lên kế hoạch trước khi bắt đầu
 
-Mục 10.10 (Task Lifecycle) mô tả vòng đời khi đang chạy task. Mục này bổ sung bước trước đó: lên kế hoạch TRƯỚC khi mở Cowork. Người dùng hay bỏ qua bước này — hậu quả là context drift, quên files, phải làm lại. Thời gian plan 10 phút tiết kiệm nhiều hơn thế.
-
-### 10.9.1 Khi nào cần plan — Decision Framework
-
-```mermaid
-flowchart TD
-    A["Task cua ban"] --> B{"So files\nlien quan?"}
-    B -->|"≤ 2 files,\nmuc tieu ro"| C["Lightweight\nMo Cowork, go thang"]
-    B -->|"3+ files,\n1 session,\ndependency ro"| E["Medium\n5-10 phut scope analysis"]
-    B -->|"3+ files,\nnhieu sessions"| F["Heavyweight\nPrompt Package day du"]
-    A --> G{"Nhieu nguoi\ncung lam?"}
-    G -->|"Co"| F
-```
-
-| Level | Làm gì | Thời gian plan | Khi nào dùng |
-|-------|--------|----------------|--------------|
-| **Lightweight** | Mở Cowork, gõ thẳng mô tả task | < 2 phút | ≤ 2 files, mục tiêu rõ, 1 session |
-| **Medium** | Scope analysis: liệt kê files, xác định thứ tự, viết prompt chính | 5-10 phút | 3+ files, 1 session, dependency rõ |
-| **Heavyweight** | Viết Prompt Package đầy đủ trước khi chạy bất kỳ task nào | 15-30 phút | 3+ files nhiều sessions; hoặc nhiều người cùng làm |
-
-### 10.9.2 Scope Analysis — 4 câu hỏi
-
-Trả lời 4 câu hỏi này trong 5 phút trước khi mở Cowork. Câu trả lời không cần dài — một vài dòng cho mỗi câu là đủ. Mục đích là buộc bạn nghĩ rõ trước khi Claude bắt đầu làm, tránh phải dừng lại giữa chừng để clarify.
-
-1. **Output mong muốn là gì?** (files cụ thể, không phải kết quả chung chung — ví dụ: "3 files .md trong thư mục docs/", không phải "viết tài liệu")
-2. **State hiện tại là gì?** (files nào đang tồn tại, chất lượng thế nào — ví dụ: "có draft v1 nhưng chưa review", "folder trống")
-3. **Files nào sẽ bị tạo mới / sửa / chỉ đọc?** (phân loại rõ để viết Folder Instructions và prompt chính xác)
-4. **Dependency: file nào phải xong trước file nào?** (nếu file B cần nội dung từ file A → A phải xong trước; điều này quyết định thứ tự tasks)
-
-### 10.9.3 Prompt Package Pattern
-
-Prompt Package là cách viết tất cả prompts cho tất cả tasks vào 1 file trước khi chạy bất kỳ task nào. Thay vì mở Cowork rồi nghĩ prompt, bạn nghĩ trước khi bắt đầu — giống như chuẩn bị mise en place trong nấu ăn: mọi nguyên liệu sẵn sàng trước khi lên bếp. Kết quả là mỗi task chạy nhanh hơn, ít ambiguity hơn, và dễ resume nếu bị gián đoạn.
-
-| Dùng Prompt Package | Overkill — không cần |
-|---------------------|----------------------|
-| 3+ tasks, nhiều files, span nhiều ngày | Task 1 lần, xong trong 1 session |
-| Nhiều người luân phiên dùng Cowork trên cùng project | Mục tiêu chưa rõ, cần exploration trước |
-| Task phải theo thứ tự chặt (output task trước là input task sau) | Task đơn giản, < 3 files |
-| Cần review/approve từng bước trước khi chạy tiếp | Task thử nghiệm, không quan trọng |
-
-**Xem Template T-22 (Module 07) để biết cấu trúc Prompt Package đầy đủ.**
-
-### 10.9.4 Case Study — Guide v3.3 → v3.4
-
-[Ứng dụng Kỹ thuật]
-
-Update Guide v3.3 → v3.4 được chia thành 5 tasks thay vì 1 task lớn hay 10 tasks nhỏ — đây là quyết định có chủ ý. Task 1 xử lý Module 03, 04, và 08 vì đây là nội dung foundation không phụ thuộc vào module nào khác: có thể viết ngay mà không cần biết nội dung module khác thay đổi thế nào. Task 2 xử lý Module 09 và 05 (recipes và evaluation) sau Task 1 vì recipes reference nội dung mới từ các modules foundation — viết trước sẽ phải sửa lại. Task 3 xử lý Module 07 (templates) sau cùng trong nhóm content vì templates phải phản ánh đúng workflow đã được cập nhật ở Task 1 và 2: template sai thì không ai dùng được.
-
-Task 4 dành riêng cho Module 10 với lý do rủi ro cao: re-numbering sections (10.9 → 10.10, thêm 10.9 mới) là thao tác dễ gây lỗi cascade nếu làm chung với content updates — tách riêng để dễ verify và rollback nếu cần. Task 5 (README + cascade check) luôn là task cuối cùng vì README phải phản ánh toàn bộ thay đổi đã confirmed — không thể viết trước khi biết kết quả cuối.
-
-Tại sao không làm 1 task: context window đầy ở module thứ 3-4, quality giảm rõ rệt — kinh nghiệm từ các lần update trước. Tại sao không làm 10 tasks: các sections liên quan (ví dụ Module 08 Nhóm 6 và các recovery patterns) cần được viết trong cùng 1 context để đảm bảo coherence; tách quá nhỏ làm mất coherence đó.
+Nội dung planning framework (decision flowchart, scope analysis, Prompt Package Pattern, case study) đã chuyển sang [Tools & Features, mục 5.20](base/05-tools-features.md#520-recipe-cowork-session-planning-checklist).
 
 ---
 
 ## 10.10 Task Lifecycle — Bắt đầu, kết thúc, và chuyển tiếp
 
 Mỗi task trong Cowork là một **session độc lập** — không có memory tự động giữa các tasks. Hiểu rõ lifecycle giúp tránh mất context và lãng phí tokens.
+
+> [!NOTE]
+> Nguyên tắc chung về session lifecycle (so sánh 3 công cụ, khi nào tạo session mới) xem [Context Management, mục 4.10](base/04-context-management.md#410-session-lifecycle--vòng-đời-của-một-phiên-làm-việc). Mục này tập trung vào **Cowork task lifecycle** cụ thể.
 
 [Nguồn: Anthropic Help Center — Get started with Cowork]
 URL: https://support.claude.com/en/articles/13345190-get-started-with-cowork
@@ -1203,13 +1031,13 @@ Sau đó tiếp tục với: [mô tả việc cần làm tiếp]
 
 ### So sánh context management: Claude.ai vs Cowork
 
+Bảng so sánh tổng hợp 3 công cụ xem [Context Management, mục 4.10](base/04-context-management.md#bảng-so-sánh-tổng-hợp-claudeai-vs-cowork-vs-claude-code). Bảng dưới đây so sánh chi tiết **Chat vs Cowork** cho context management:
+
 | Aspect | Claude.ai (Chat) | Cowork |
 |--------|-------------------|--------|
-| **Context window** | 200K tokens (standard); 1M beta (Opus 4.6, Sonnet 4.6) | **1M tokens (beta, Sonnet 4.6 mặc định)** |
 | **Memory giữa conversations** | Có (Memory feature, Pro+ plans) | **Không** |
-| **Handover** | Prompt-based (Module 04) | File-based (handover-note.md) |
-| **Context persistence** | Projects + Memory + Past Chats | Global + Folder Instructions + Files |
-| **Khi context đầy** | Tạo conversation mới + handover prompt | Context editing tự động → nếu vẫn drift → task mới + handover file |
+| **Handover** | Prompt-based ([mục 4.5](base/04-context-management.md#45-handover-workflows--chuyển-conversation-an-toàn)) | File-based (handover-note.md) |
+| **Khi context đầy** | Tạo conversation mới + handover prompt | Context compaction tự động → nếu vẫn drift → task mới + handover file |
 | **Resume sau khi đóng** | Conversation vẫn còn, tiếp tục được | **Không** — task kết thúc khi đóng app |
 
 ---
@@ -1259,29 +1087,17 @@ Tóm tắt Global Instructions và Folder Instructions (nếu có) bạn đang n
 
 ## 10.12 Bảng so sánh tổng hợp: Claude.ai vs Cowork vs Claude Code
 
-| Aspect | Claude.ai (Chat) | Cowork | Claude Code |
-|--------|-------------------|--------|-------------|
-| **Nền tảng** | Web browser | Claude Desktop | Claude Desktop / Terminal |
-| **File access** | Upload thủ công | Truy cập thư mục đã chọn | Full filesystem + terminal |
-| **Thế mạnh** | Hỏi đáp, phân tích, viết nội dung | File operations, automation, batch tasks | Viết code, test, deploy, Git |
-| **Persistence** | Projects + Memory | Global + Folder Instructions | CLAUDE.md + Git |
-| **Scheduled Tasks** | Không | Có | Không (dùng cron) |
-| **Plugins** | MCP Connectors | Plugins (MCP + Skills + Tools) | MCP servers |
-| **Plan yêu cầu** | Free trở lên | Pro trở lên | Pro trở lên |
-| **Đối tượng** | Mọi người | Knowledge workers | Developers |
-| **Audit logs** | Có (Team/Enterprise) | **Chưa hỗ trợ** | Có |
+Bảng so sánh đầy đủ 3 công cụ (session model, platform, persistence) xem [Context Management, mục 4.10](base/04-context-management.md#410-session-lifecycle--vòng-đời-của-một-phiên-làm-việc).
+
+Bảng dưới đây tập trung vào khía cạnh **Cowork-specific**:
+
+| Aspect | Cowork | So với Chat | So với Claude Code |
+|--------|--------|-------------|-------------------|
+| **Scheduled Tasks** | Có | Chat: không | CC: dùng cron |
+| **Plugins** | MCP + Skills + Tools | Chat: MCP Connectors | CC: MCP servers |
+| **Audit logs** | Chưa hỗ trợ | Chat: có (Team/Enterprise) | CC: có |
 
 *Xem chi tiết Claude Code → [Module 12: Claude Code cho Documentation & Technical Writing](12-claude-code-documentation.md)*
-
----
-
-## 10.13 Claude Code cho Documentation Workflow
-
-Claude Code (CC) là CLI agent chạy trong terminal, dùng chung kiến trúc agent với Cowork nhưng tối ưu cho workflow có Git. Với sự phát triển của CC, nội dung hướng dẫn chi tiết đã được chuyển sang module riêng.
-
-> [!NOTE]
-> **Hướng dẫn đầy đủ:** [Module 12: Claude Code cho Documentation & Technical Writing](12-claude-code-documentation.md)
-> **Config & Commands reference:** [Claude Code Setup](reference/claude-code-setup.md)
 
 ---
 

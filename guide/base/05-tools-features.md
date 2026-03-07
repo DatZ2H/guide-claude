@@ -730,13 +730,36 @@ KHÔNG làm: {{scope_gioi_han}}
 
 **Ví dụ:** Planning update bộ tài liệu kỹ thuật cho software release v4.0 — 12 files, nhiều cross-references. Áp dụng 4 câu hỏi scope: output = 12 files updated + release notes mới; files sửa theo nhóm = nội dung (modules 03, 04, 08, 09, 05) → cross-refs (modules 02, 07) → metadata (README, CHANGELOG); thứ tự rõ ràng: nội dung trước, cross-refs sau, metadata cuối; backup = git commit trước mỗi batch. Planning 8 phút phát hiện step "update cross-refs" bị bỏ thiếu nếu không plan — nếu sửa nội dung xong rồi mới nghĩ đến cross-refs sẽ mất thêm 1 pass scan.
 
+### Prompt Package Pattern
+
+Prompt Package là cách viết tất cả prompts cho tất cả tasks vào 1 file trước khi chạy bất kỳ task nào. Thay vì mở tool rồi nghĩ prompt, bạn nghĩ trước khi bắt đầu — giống như chuẩn bị mise en place trong nấu ăn: mọi nguyên liệu sẵn sàng trước khi lên bếp. Kết quả là mỗi task chạy nhanh hơn, ít ambiguity hơn, và dễ resume nếu bị gián đoạn.
+
+| Dùng Prompt Package | Overkill — không cần |
+|---------------------|----------------------|
+| 3+ tasks, nhiều files, span nhiều ngày | Task 1 lần, xong trong 1 session |
+| Nhiều người luân phiên làm trên cùng project | Mục tiêu chưa rõ, cần exploration trước |
+| Task phải theo thứ tự chặt (output task trước là input task sau) | Task đơn giản, < 3 files |
+| Cần review/approve từng bước trước khi chạy tiếp | Task thử nghiệm, không quan trọng |
+
+**Xem Template T-22 (Module 07) để biết cấu trúc Prompt Package đầy đủ.**
+
+### Case Study — Guide v3.3 → v3.4
+
+[Ứng dụng Kỹ thuật]
+
+Update Guide v3.3 → v3.4 được chia thành 5 tasks thay vì 1 task lớn hay 10 tasks nhỏ — đây là quyết định có chủ ý. Task 1 xử lý Module 03, 04, và 08 vì đây là nội dung foundation không phụ thuộc vào module nào khác: có thể viết ngay mà không cần biết nội dung module khác thay đổi thế nào. Task 2 xử lý Module 09 và 05 (recipes và evaluation) sau Task 1 vì recipes reference nội dung mới từ các modules foundation — viết trước sẽ phải sửa lại. Task 3 xử lý Module 07 (templates) sau cùng trong nhóm content vì templates phải phản ánh đúng workflow đã được cập nhật ở Task 1 và 2: template sai thì không ai dùng được.
+
+Task 4 dành riêng cho Module 10 với lý do rủi ro cao: re-numbering sections (10.9 → 10.10, thêm 10.9 mới) là thao tác dễ gây lỗi cascade nếu làm chung với content updates — tách riêng để dễ verify và rollback nếu cần. Task 5 (README + cascade check) luôn là task cuối cùng vì README phải phản ánh toàn bộ thay đổi đã confirmed — không thể viết trước khi biết kết quả cuối.
+
+Tại sao không làm 1 task: context window đầy ở module thứ 3-4, quality giảm rõ rệt — kinh nghiệm từ các lần update trước. Tại sao không làm 10 tasks: các sections liên quan (ví dụ Module 08 Nhóm 6 và các recovery patterns) cần được viết trong cùng 1 context để đảm bảo coherence; tách quá nhỏ làm mất coherence đó.
+
 > [!NOTE] **AMR Context**
 > Áp dụng recipe này cho planning update tài liệu AMR khi nâng cấp firmware.
 > Scope: User Guide + SOP + Maintenance Manual + Quick Reference (4 files có dependency). Thứ tự: update specs kỹ thuật trước → cập nhật SOP procedure → update Quick Reference cuối. Backup: git commit trước mỗi file group.
 
 > [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](../reference/model-specs.md#chọn-model)
 
-**Cross-reference:** [Template T-22](../07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07). [Claude Desktop & Cowork, mục 10.9](../10-claude-desktop-cowork.md#109-pre-task-planning--lên-kế-hoạch-trước-khi-bắt-đầu) (Pre-task Planning) giải thích chi tiết hơn về planning cho Cowork sessions.
+**Cross-reference:** [Template T-22](../07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07).
 
 ---
 

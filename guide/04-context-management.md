@@ -653,7 +653,7 @@ Kết thúc:  Handover nếu tiếp tục ở session sau (mục 4.5)
 Bắt đầu:  Claude đọc Folder Instructions — không nhớ task trước
 Làm việc: File system là bộ nhớ — Claude ghi ra file để dùng lại
 Kết thúc:  Task complete — không cleanup tự động
-Giữa tasks: Pre-task Planning (Module 10, mục 10.9) để cung cấp context
+Giữa tasks: Pre-task Planning (base/05, mục 5.20) để cung cấp context
 ```
 
 #### Claude Code — Command-based
@@ -673,7 +673,8 @@ Giữa sessions: CLAUDE.md + git history thay thế memory
 
 **Xem thêm:**
 - Mục 4.4–4.5 — Context Refresh và Handover Workflows
-- Module 10, mục 10.9–10.10 — Pre-task Planning và Task Lifecycle (Cowork)
+- [Tools & Features, mục 5.20](base/05-tools-features.md#520-recipe-cowork-session-planning-checklist) — Pre-task Planning
+- [Module 10, mục 10.10](10-claude-desktop-cowork.md#1010-task-lifecycle--bắt-đầu-kết-thúc-và-chuyển-tiếp) — Task Lifecycle (Cowork)
 - Module 12 — Claude Code workflow và SessionStart hook
 
 ---
