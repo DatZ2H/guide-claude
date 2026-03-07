@@ -556,7 +556,7 @@ flowchart TD
 **Quy tắc ưu tiên:** Khi có conflict, Project Instructions > Profile Preferences. Memory chỉ áp dụng trong standalone conversations — không hoạt động trong Projects.
 
 > [!TIP]
-> **Developer dùng Claude Code CLI?** Xem [dev/01 — Claude Code Setup](../dev/01-claude-code-setup.md) để setup CLAUDE.md, permissions, sandbox, và settings cho terminal workflow.
+> **Developer dùng Claude Code CLI?** Claude Code dùng file CLAUDE.md (giữ dưới 200 dòng) thay cho Profile Preferences/Project Instructions. Auto Memory lưu vào `MEMORY.md` với 3 scopes: user (`~/.claude/`), project (`.claude/`), local (`.claude.local/`). Xem [dev/01 — Claude Code Setup](../dev/01-claude-code-setup.md) để setup đầy đủ. Workflow patterns: xem [dev/06 — Dev Workflows](../dev/06-dev-workflows.md).
 
 ---
 

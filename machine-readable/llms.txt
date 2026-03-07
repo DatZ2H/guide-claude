@@ -23,14 +23,14 @@
 - guide/doc/05-claude-code-doc.md: Claude Code cho documentation workflows
 - guide/doc/06-custom-style.md: Custom Style reference chi tiết
 
-## Dev — Developer audience (placeholders — content P3)
+## Dev — Developer audience
 
-- guide/dev/01-claude-code-setup.md: CLI install, auth, config
-- guide/dev/02-cli-reference.md: Commands, flags, shortcuts
-- guide/dev/03-ide-integration.md: VS Code extension setup
-- guide/dev/04-agents-automation.md: Subagents, Agent Teams, CI/CD
-- guide/dev/05-plugins.md: Discover, install, create plugins
-- guide/dev/06-dev-workflows.md: Git, testing, code review with Claude Code
+- guide/dev/01-claude-code-setup.md: CLI install, auth, CLAUDE.md, permissions, sandbox, settings
+- guide/dev/02-cli-reference.md: Commands, flags, slash commands, keyboard shortcuts
+- guide/dev/03-ide-integration.md: VS Code, JetBrains, Desktop, Remote Control, Web
+- guide/dev/04-agents-automation.md: Subagents, Agent Teams, CI/CD, headless mode
+- guide/dev/05-plugins.md: Discover, install, create plugins, MCP ecosystem
+- guide/dev/06-dev-workflows.md: Git, testing, code review, debugging, session management, batch ops
 
 ## Reference
 
@@ -40,6 +40,7 @@
 - guide/reference/claude-code-setup.md: Claude Code cheat sheet
 - guide/reference/workflow-patterns.md: External Memory, _scaffold patterns
 - guide/reference/quick-templates.md: Universal templates (T-01~T-05)
+- guide/reference/ecosystem-overview.md: Community tools, MCP servers, plugins, CI/CD integrations
 
 ## Key Concepts
 

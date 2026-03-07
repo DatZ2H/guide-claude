@@ -90,6 +90,10 @@ SCOPE: ON-DEMAND (chạy khi gọi)
 - Markdown format → có thể structured hơn
 - Không versioned tự động (không trong Git)
 
+**Giới hạn:** Giữ dưới 200 dòng — nội dung dài hơn có thể bị Claude bỏ qua. Dùng `@path/to/import` để import files bổ sung.
+
+[Nguồn: Claude Code Docs — Memory] [Cập nhật 03/2026]
+
 **Template:** → Xem `_scaffold/global-instructions/global-CLAUDE-phenikaa-x.md`
 
 ---
@@ -299,11 +303,29 @@ Khi template cần update (vì Claude features thay đổi) → chỉ cần sử
 
 ---
 
+## Auto Memory Scopes (Claude Code)
+
+Claude Code có hệ thống Auto Memory lưu persistent context vào `MEMORY.md` files (200 dòng đầu được load tự động).
+
+| Scope | Vị trí | Áp dụng cho |
+|-------|--------|-------------|
+| User | `~/.claude/MEMORY.md` | Tất cả projects |
+| Project | `.claude/MEMORY.md` | Project hiện tại (shared via git) |
+| Local | `.claude.local/MEMORY.md` | Project hiện tại (không shared) |
+
+Chi tiết: xem [dev/01 — Auto Memory](../dev/01-claude-code-setup.md).
+
+[Nguồn: Claude Code Docs — Memory] [Cập nhật 03/2026]
+
+---
+
 ## Cross-references
 
 - **Profile Preferences + Projects (claude.ai):** [Setup & Personalization](../base/02-setup.md)
 - **Claude Code CLI setup (CLAUDE.md, permissions, sandbox, settings):** [dev/01 — Claude Code Setup](../dev/01-claude-code-setup.md)
 - **Claude Code CLI reference (commands, flags, shortcuts):** [dev/02 — CLI Reference](../dev/02-cli-reference.md)
+- **Claude Code dev workflows:** [dev/06 — Dev Workflows](../dev/06-dev-workflows.md)
+- **Ecosystem overview:** [reference/ecosystem-overview](ecosystem-overview.md)
 - **Cowork setup:** [doc/03 — Cowork Setup](../doc/03-cowork-setup.md)
 - **Skills creation workflow:** [doc/03 — Cowork Setup](../doc/03-cowork-setup.md)
 - **Templates cho từng lớp:** `_scaffold/` folder
