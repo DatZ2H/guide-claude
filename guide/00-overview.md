@@ -130,7 +130,7 @@ flowchart LR
 
 Chưa từng dùng Claude hoặc mới dùng vài lần.
 
-```
+```text
 01 Quick Start (15 phút)
     |
 02 Setup & Personalization (20 phút)
@@ -148,7 +148,7 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 Đã dùng Claude, muốn hiệu quả hơn.
 
-```
+```text
 03 Prompt Engineering (25 phút)
    → đặc biệt mục 3.5 (Task Decomposition) cho workflow nhiều bước
     |
@@ -165,7 +165,7 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 Đã nắm cơ bản, cần tìm thông tin cụ thể.
 
-```
+```text
 06 Tools & Features -- tra cứu tính năng
 07 Template Library -- tìm template phù hợp
 08 Mistakes & Fixes -- khi gặp vấn đề
@@ -288,7 +288,7 @@ Thông tin về Claude thay đổi nhanh. Luôn kiểm tra nguồn chính thức
 
 > **Cấu trúc dự án đầy đủ:** xem tại root `README.md`.
 
-```
+```text
 Guide Claude/
 ├── guide/                        ← 13 module files
 │   ├── 00-overview.md            (file này) Mục lục, learning paths, conventions

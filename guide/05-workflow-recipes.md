@@ -587,11 +587,11 @@ flowchart TD
 
 | Giai đoạn | Công cụ | Tại sao công cụ này | Prompt mẫu |
 |-----------|---------|---------------------|------------|
-| **1. Research** | Claude.ai Chat (web search) | Memory cross-session giúp continuity; web search cho thông tin mới | "Tìm kiếm và tổng hợp best practices về {{chủ đề}}. Focus vào {{khía cạnh 1}}, {{khía cạnh 2}}." |
-| **2. Plan** | Claude.ai Chat hoặc Project | Tương tác qua lại nhanh; Project giữ reference files | "Dựa trên research, đề xuất outline cho {{tài liệu}}. Mỗi section ghi mục đích + nội dung chính." |
+| **1. Research** | Claude.ai Chat (web search) | Memory cross-session giúp continuity; web search cho thông tin mới | "Tìm kiếm và tổng hợp best practices về {{chu_de}}. Focus vào {{khia_canh_1}}, {{khia_canh_2}}." |
+| **2. Plan** | Claude.ai Chat hoặc Project | Tương tác qua lại nhanh; Project giữ reference files | "Dựa trên research, đề xuất outline cho {{tai_lieu}}. Mỗi section ghi mục đích + nội dung chính." |
 | **3. Setup** | Cowork | Tạo folder structure + files trực tiếp | "Tạo cấu trúc thư mục theo outline đã thống nhất. Tạo file placeholder cho mỗi section." *(xem prompt chi tiết bên dưới)* |
-| **4. Draft** | Project (iterate nội dung) hoặc Cowork (ghi file) | Project: Custom Instructions giữ tone nhất quán. Cowork: output thẳng vào file | "Viết section {{tên}} theo outline. Tuân thủ style guide trong Project Knowledge." |
-| **5. Review** | Project | So sánh draft với glossary, style guide đã upload | "Review file {{tên}} theo 6 tiêu chí (Recipe 5.2). So sánh với glossary.md." |
+| **4. Draft** | Project (iterate nội dung) hoặc Cowork (ghi file) | Project: Custom Instructions giữ tone nhất quán. Cowork: output thẳng vào file | "Viết section {{ten}} theo outline. Tuân thủ style guide trong Project Knowledge." |
+| **5. Review** | Project | So sánh draft với glossary, style guide đã upload | "Review file {{ten}} theo 6 tiêu chí (Recipe 5.2). So sánh với glossary.md." |
 | **6. Finalize** | Cowork | Batch operations: chuyển format, tổ chức, rename | "Chuyển tất cả file .md trong drafts/ sang .docx trong output/. Thêm header chuẩn." |
 | **7. Update** *(optional)* | Cowork → Project Knowledge | Export trạng thái → upload khi cần briefing Project Chat | "Cập nhật project-state.md từ git log và file system hiện tại. Output sẵn sàng upload vào Project Knowledge." |
 
@@ -602,9 +602,9 @@ flowchart TD
 ```text
 Đọc CLAUDE.md và git log --oneline -10 nếu có.
 
-Tạo cấu trúc thư mục cho dự án "{{tên dự án}}":
+Tạo cấu trúc thư mục cho dự án "{{ten_du_an}}":
 
-{{mô tả cấu trúc — ví dụ:}}
+{{mo_ta_cau_truc}}
 - drafts/          — bản nháp đang viết
 - output/          — file hoàn chỉnh
 - references/      — tài liệu tham khảo
@@ -612,7 +612,7 @@ Tạo cấu trúc thư mục cho dự án "{{tên dự án}}":
 - .claude/         — Folder Instructions + skills
 
 Tạo file placeholder (.md) cho mỗi section trong outline:
-{{danh sách sections}}
+{{danh_sach_sections}}
 
 Mỗi file placeholder chứa: heading, mục đích section (1 dòng), "[TBD]".
 
@@ -622,12 +622,12 @@ Sau khi tạo xong, commit với message mô tả cấu trúc đã tạo.
 **Giai đoạn 4 — Draft nội dung qua Project Chat:**
 
 ```text
-Viết section "{{tên section}}" cho {{tên tài liệu}}.
+Viết section "{{ten_section}}" cho {{ten_tai_lieu}}.
 
 Tuân thủ:
 - Style guide trong Project Knowledge
 - Glossary trong Project Knowledge
-- Outline đã thống nhất: {{paste outline hoặc reference file}}
+- Outline đã thống nhất: {{outline_hoac_link_file}}
 
 Nếu cần thông tin chưa cung cấp, đánh dấu [TBD: mô tả] và tiếp tục.
 
@@ -694,7 +694,7 @@ Output: text sẵn sàng copy vào file .md
 Trả lời 3 câu hỏi trong 1 prompt trước khi bắt đầu chain:
 
 ```text
-Tôi cần {{mô_tả_task_tổng_thể}}.
+Tôi cần {{mo_ta_task_tong_the}}.
 
 Trước khi bắt đầu, trả lời 3 câu hỏi:
 
@@ -756,9 +756,9 @@ Checklist 5 items trước khi bắt đầu chain:
 Trước khi sửa bất kỳ file nào, scan impact trước:
 
 ```text
-Trước khi sửa {{tên file/section}}, scan toàn bộ thư mục và liệt kê:
+Trước khi sửa {{ten_file_section}}, scan toàn bộ thư mục và liệt kê:
 
-1. Files nào có reference đến {{nội dung sẽ thay đổi}}
+1. Files nào có reference đến {{noi_dung_se_thay_doi}}
 2. Với mỗi file: reference cụ thể ở đâu (section, dòng, nội dung)
 
 Chưa sửa gì — chỉ report impact.
@@ -770,8 +770,8 @@ Nguyên tắc: luôn list đầy đủ tên files sẽ sửa và khóa scope rõ
 
 ```text
 Thực hiện thay đổi sau:
-- File: {{tên file}}
-- Thay đổi: {{mô tả cụ thể}}
+- File: {{ten_file}}
+- Thay đổi: {{mo_ta_cu_the}}
 
 Files sẽ sửa trong bước này:
 1. {{file_1}}
@@ -785,9 +785,9 @@ KHÔNG chạm files khác ngoài danh sách này.
 Sau khi sửa xong, update tất cả references:
 
 ```text
-Vừa sửa {{file A}}: {{mô tả thay đổi}}.
+Vừa sửa {{file_A}}: {{mo_ta_thay_doi}}.
 
-Scan toàn bộ thư mục, tìm tất cả chỗ reference đến {{nội dung cũ}}.
+Scan toàn bộ thư mục, tìm tất cả chỗ reference đến {{noi_dung_cu}}.
 Liệt kê: [tên file] → [nội dung cần update].
 Sau đó sửa từng chỗ.
 ```
@@ -849,18 +849,18 @@ Trả lời trước khi mở Cowork:
 Dùng template này cho mỗi task trong chuỗi nhiều sessions:
 
 ```text
-## Task {{số}} / {{tổng số tasks}}
+## Task {{so}} / {{tong_so_tasks}}
 
-Mục tiêu: {{1 câu mô tả kết quả mong đợi}}
+Mục tiêu: {{ket_qua_mong_doi}}
 
-Files sẽ sửa: {{danh sách đầy đủ}}
-Files tham khảo (chỉ đọc): {{danh sách}}
-Input từ task trước: {{handover file hoặc "none — task đầu tiên"}}
+Files sẽ sửa: {{danh_sach_day_du}}
+Files tham khảo (chỉ đọc): {{danh_sach}}
+Input từ task trước: {{handover_file}}
 
-Output expected: {{mô tả cụ thể — file gì, nội dung gì, format gì}}
-Stopping criteria: Task này xong khi {{điều kiện rõ ràng, verify được}}
+Output expected: {{mo_ta_output}}
+Stopping criteria: Task này xong khi {{dieu_kien_done}}
 
-KHÔNG làm: {{boundaries — files không được sửa, scope không được mở rộng}}
+KHÔNG làm: {{scope_gioi_han}}
 ```
 
 **Ví dụ:** Planning update bộ tài liệu kỹ thuật cho software release v4.0 — 12 files, nhiều cross-references. Áp dụng 4 câu hỏi scope: output = 12 files updated + release notes mới; files sửa theo nhóm = nội dung (modules 03, 04, 08, 09, 05) → cross-refs (modules 02, 07) → metadata (README, CHANGELOG); thứ tự rõ ràng: nội dung trước, cross-refs sau, metadata cuối; backup = git commit trước mỗi batch. Planning 8 phút phát hiện step "update cross-refs" bị bỏ thiếu nếu không plan — nếu sửa nội dung xong rồi mới nghĩ đến cross-refs sẽ mất thêm 1 pass scan.
@@ -886,7 +886,7 @@ KHÔNG làm: {{boundaries — files không được sửa, scope không được
 **Bước 1 — Chọn folder và scope:**
 
 ```text
-Đọc danh sách files trong {{thư_mục}}:
+Đọc danh sách files trong {{thu_muc}}:
 - Liệt kê tất cả files có extension {{ext}}
 - Tổng số: bao nhiêu files?
 - Preview 3 files đầu để confirm format đúng trước khi chạy full batch.
@@ -895,10 +895,10 @@ KHÔNG làm: {{boundaries — files không được sửa, scope không được
 **Bước 2 — Mô tả input/output:**
 
 ```text
-Input: {{mô tả format hiện tại — ví dụ: file .docx, có heading Word styles}}
-Output mong muốn: {{mô tả format đích — ví dụ: file .md, heading #/##/###}}
-Quy tắc convert: {{quy tắc đặc thù — ví dụ: bảng Word → Markdown table, hình ảnh → [Image: tên file]}}
-Đặt file output vào: {{thư mục đích}}
+Input: {{mo_ta_format_hien_tai}}
+Output mong muốn: {{mo_ta_format_dich}}
+Quy tắc convert: {{quy_tac_convert}}
+Đặt file output vào: {{thu_muc_dich}}
 ```
 
 **Bước 3 — Review plan trước khi chạy:**
@@ -929,7 +929,7 @@ Quy tắc:
 - Heading styles (H1→H3) → # / ## / ###
 - Bold/Italic → **bold** / *italic*
 - Tables → Markdown table
-- Hình ảnh → [Image: {{tên file gốc}}]
+- Hình ảnh → [Image: {{ten_file_goc}}]
 - Footnotes → ghi chú ở cuối section
 
 Output: lưu file .md vào {{output_folder}}, giữ tên file gốc.
@@ -968,19 +968,19 @@ Báo cáo khi hoàn thành: số thành công, số lỗi, danh sách file lỗi
 Viết prompt hoàn chỉnh với tất cả instructions. Scheduled task chạy prompt này tự động — không có người ở đó để clarify, nên prompt phải self-contained.
 
 ```text
-[Scheduled task — chạy mỗi {{ngày}} lúc {{giờ}}]
+[Scheduled task — chạy mỗi {{ngay}} lúc {{gio}}]
 
-Đọc files trong {{thư_mục_data}}:
-- {{file_pattern_1}} — chứa {{loại_data_1}}
-- {{file_pattern_2}} — chứa {{loại_data_2}}
+Đọc files trong {{thu_muc_data}}:
+- {{file_pattern_1}} — chứa {{loai_data_1}}
+- {{file_pattern_2}} — chứa {{loai_data_2}}
 
 Tổng hợp thành báo cáo tuần:
 1. Tóm tắt executive: 3-5 điểm chính
-2. Metrics so với tuần trước: {{danh_sách_KPI}}
+2. Metrics so với tuần trước: {{danh_sach_KPI}}
 3. Issues phát sinh: list với severity
 4. Actions needed: ai cần làm gì trước {{deadline}}
 
-Lưu báo cáo tại: {{output_folder}}/report-{{ngày}}.md
+Lưu báo cáo tại: {{output_folder}}/report-{{ngay}}.md
 Format ngày: YYYY-MM-DD
 ```
 
