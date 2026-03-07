@@ -482,6 +482,8 @@ MCP (Model Context Protocol) Connectors cho phép Claude truy cập dữ liệu 
 
 ## 2.6 Setup Checklist
 
+[Ứng dụng Kỹ thuật]
+
 Danh sách thiết lập cho kỹ sư Phenikaa-X, theo thứ tự ưu tiên.
 
 ### Bước 1: Profile Preferences (5 phút)
@@ -532,6 +534,8 @@ Nếu Claude trả lời đúng vai trò và context bạn đã thiết lập, s
 ---
 
 ## 2.7 Tổng hợp: 4 lớp cá nhân hóa
+
+[Nguồn: Anthropic Help Center — Personalizing Claude]
 
 ```mermaid
 flowchart TD

@@ -12,7 +12,7 @@ Tài liệu này là **single source of truth** cho toàn bộ hệ thống cấ
 
 Claude có 6 lớp cấu hình, chia theo hai surface chính. Mỗi lớp có scope, vị trí, và loại nội dung khác nhau.
 
-```
+```text
 SCOPE: GLOBAL (tất cả conversations/tasks)
 │
 ├── [claude.ai]  Profile Preferences      → Settings > Profile
@@ -136,7 +136,7 @@ SCOPE: ON-DEMAND (chạy khi gọi)
 - Context dài không fit vào Project Instructions
 
 **Chiến lược tổ chức:**
-```
+```text
 Project Knowledge/
   References/     # Tài liệu tra cứu (specs, datasheets)
   Standards/      # Coding/naming conventions
@@ -175,7 +175,7 @@ Project Knowledge/
 | Scope | Một folder | Một Project |
 
 **2-Tier Architecture:** Folder Instructions là trung tâm của pattern:
-```
+```text
 project/
 ├── .claude/
 │   ├── CLAUDE.md    ← Folder Instructions (bạn đang ở đây)
@@ -195,7 +195,7 @@ project/
 **Đặt ở đâu:** `your-project/.claude/skills/skill-name/SKILL.md`
 
 **Khi nào tạo Skill:**
-```
+```text
 Tôi cần automation X → câu hỏi đầu tiên:
 │
 ├── Cần chạy tự động theo lịch? → Scheduled Task
@@ -230,7 +230,7 @@ description: Mô tả ngắn — QUAN TRỌNG cho trigger detection
 
 ### Bước 1: Bạn đang làm việc trên surface nào?
 
-```
+```text
 Surface?
 ├── Claude.ai (web/mobile) → Dùng: Profile Preferences, Project Instructions, Project Knowledge
 └── Cowork (Claude Desktop) → Dùng: Global CLAUDE.md, Folder Instructions, Skills
@@ -238,7 +238,7 @@ Surface?
 
 ### Bước 2: Rule này dùng cho bao nhiêu projects?
 
-```
+```text
 Scope?
 ├── Tất cả projects/tasks → Profile Preferences (claude.ai) / Global CLAUDE.md (Cowork)
 └── Chỉ project này → Project Instructions / Folder Instructions
@@ -246,7 +246,7 @@ Scope?
 
 ### Bước 3: Loại nội dung?
 
-```
+```text
 Nội dung là gì?
 ├── Rule/instruction → Project Instructions (claude.ai) / Folder Instructions (Cowork)
 ├── Tài liệu dài → Project Knowledge (claude.ai)
@@ -274,7 +274,7 @@ Một nguyên tắc quan trọng trong quản lý cấu hình:
 - **Stable content** (khái niệm, decision framework, best practices) → đặt trong modules
 - **Dynamic content** (templates, fill-in examples) → đặt trong `_scaffold/`
 
-```
+```text
 _scaffold/
 ├── CLAUDE-template.md              ← Folder Instructions template
 ├── project-state-template.md

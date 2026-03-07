@@ -363,6 +363,8 @@ flowchart TD
 
 ## 8.7 Nhóm 7: Anti-patterns khi dùng Claude Code
 
+[Nguồn: Claude Code Docs — Best Practices]
+
 Nhóm lỗi này đặc thù cho Claude Code (CLI). Nội dung chi tiết đã chuyển sang Dev tier:
 
 **Xem:** [dev/04 — Anti-patterns khi dùng Claude Code](../dev/04-agents-automation.md#411-anti-patterns-khi-dùng-claude-code)
@@ -392,6 +394,8 @@ Nhóm lỗi này đặc thù cho Claude Code (CLI). Nội dung chi tiết đã c
 ---
 
 ## 8.9 Quick Troubleshooting Flowchart
+
+[Ứng dụng Kỹ thuật]
 
 ```text
 Output khong dung y?

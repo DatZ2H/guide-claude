@@ -4,6 +4,8 @@
 
 Tài liệu tham khảo cho các workflow patterns dùng với Claude: external memory, project scaffolding, và context transfer.
 
+[Nguồn: Claude Code Docs — Memory] [Cập nhật 03/2026]
+
 ---
 
 ## External Memory — Pattern `_memory/` folder

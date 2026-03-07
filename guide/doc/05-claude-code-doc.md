@@ -1089,7 +1089,7 @@ jobs:
 ```
 
 > [!WARNING]
-> `--dangerously-skip-permissions` chấp nhận được trong CI container — môi trường ephemeral, không có dữ liệu nhạy cảm. KHÔNG dùng trên máy cá nhân (xem [12.11](#1211-permissions--safety)).
+> `--dangerously-skip-permissions` chấp nhận được trong CI container — môi trường ephemeral, không có dữ liệu nhạy cảm. KHÔNG dùng trên máy cá nhân (xem [5.11](#511-permissions--safety)).
 
 [Ứng dụng Kỹ thuật]
 

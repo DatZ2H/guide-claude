@@ -2,6 +2,8 @@
 
 Cập nhật: 2026-03-03 | Phân loại: Type × Trust
 
+[Nguồn: Claude Code Docs — Plugins] [Cập nhật 03/2026]
+
 > [!TIP]
 > Hướng dẫn chi tiết cách dùng từng skill/command → xem [skills-guide.md](skills-guide.md)
 
@@ -192,7 +194,8 @@ Scheduled Tasks không phải Skills hay Plugins — đây là tính năng riên
 
 ## 5. Community Standalone Skills
 
-> **CẢNH BÁO:** Community skills không được Anthropic review. Bắt buộc đọc file SKILL.md và kiểm tra thư mục `scripts/` trước khi cài đặt. Test trên thư mục không chứa sensitive data.
+> [!WARNING]
+> Community skills không được Anthropic review. Bắt buộc đọc file SKILL.md và kiểm tra thư mục `scripts/` trước khi cài đặt. Test trên thư mục không chứa sensitive data.
 
 ### 5a. Từ skillhub.club
 

@@ -49,6 +49,8 @@ Claude Opus 4.6, Claude Sonnet 4.6, Claude Sonnet 4.5 và Claude Haiku 4.5 có k
 
 ## 4.2 Khi Conversation gần Limit
 
+[Nguồn: Anthropic Docs — Context Window]
+
 Khi conversation dài tiêu gần hết context window, Claude sẽ bắt đầu mất dần context cũ — oldest tokens bị drop. Trên paid plans, Claude có cơ chế tự động tóm tắt các messages cũ để duy trì conversation dài hơn.
 
 **Tip:** Bật **"Code execution and file creation"** trong Settings > Capabilities để Claude có thể tự quản lý context tốt hơn khi conversation dài. Dù vậy, auto summarization không hoàn hảo — chi tiết nhỏ có thể bị mất. Với task cần chính xác cao (technical specs, configs cụ thể), nên dùng kỹ thuật Context Refresh (phần 4.4).
@@ -58,6 +60,8 @@ Khi conversation dài tiêu gần hết context window, Claude sẽ bắt đầu
 ---
 
 ## 4.3 Context Drift -- Khi Claude bắt đầu "quên"
+
+[Nguồn: Anthropic Docs — Prompting Best Practices]
 
 Context Drift là hiện tượng Claude dần mất đi hoặc lẫn lộn thông tin khi conversation dài. Đây không phải lỗi -- đó là hệ quả tự nhiên của cách context window hoạt động.
 
