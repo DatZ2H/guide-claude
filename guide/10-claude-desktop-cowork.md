@@ -58,6 +58,8 @@ Cowork dùng cùng kiến trúc agent với Claude Code, nhưng hướng đến 
 
 ## 10.2 Cấu hình Cowork — 3 lớp instructions
 
+[Nguồn: Anthropic Help Center — Get started with Cowork]
+
 Cowork có 3 lớp cấu hình, xếp theo scope từ rộng đến hẹp:
 
 ```mermaid

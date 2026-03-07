@@ -164,6 +164,8 @@ Tiếp tục giúp tôi viết ACL rules cho QoS policy.
 
 ## 4.5 Handover Workflows -- Chuyển conversation an toàn
 
+[Ứng dụng Kỹ thuật]
+
 Khi conversation quá dài hoặc cần tách topic, bạn cần chuyển sang conversation mới mà không mất context quan trọng. Có 3 kiểu handover tùy tình huống.
 
 ### Quy trình quyết định
@@ -277,6 +279,8 @@ Trích xuất context liên quan đến "{{specific_topic}}" từ conversation n
 ---
 
 ## 4.6 Best Practices tổng hợp
+
+[Ứng dụng Kỹ thuật]
 
 ### Quy tắc vàng cho conversation dài
 
