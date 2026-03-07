@@ -634,6 +634,8 @@ Khi làm việc trên branch có open PR, footer hiển thị clickable PR link 
 
 Các patterns hay dùng nhất cho developer workflows.
 
+[Nguồn: Claude Code Docs — CLI Reference, Common Workflows] [Ứng dụng Kỹ thuật]
+
 ### Piping & Composition
 
 ```bash

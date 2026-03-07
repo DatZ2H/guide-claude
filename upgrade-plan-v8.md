@@ -48,6 +48,8 @@
 | D14' | Dependency flow | ✅ P3→P4 tuần tự (P4 cần dev/ content), trừ S23/S27-S28 overlap được |
 | D15' | Scope guards | ✅ Thêm guard notes cho S16↔S17, S18↔S22, S19↔S21 overlap |
 | D16' | Tools 3-tier update | ✅ upgrade-guide + validate-doc updated cho guide/{base,doc,dev}/ paths |
+| D17' | dev/01 priority fix timing | ✅ Fix kèm S23 commit (không tạo session riêng) |
+| D18' | skills-guide vs skills-list | ✅ Tạo skills-guide.md riêng (detailed) + giữ skills-list.md (lookup) — cross-link nhau |
 | D1' | M10 extraction strategy | ✅ Session riêng (S10b) — split 4 targets |
 | D2' | M05 5.11-5.14 placement | ✅ base/05 (Planning patterns) |
 | D3' | P2 session count | ✅ 8+2 sub-sessions (tăng từ 7) |
@@ -755,18 +757,20 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 
 **Git workflow (áp dụng mọi P4 session):** Giống P3 — `feat/p4-sXX` branch → PR → merge.
 
-#### S23: Skills Guide → reference/skills-guide.md
+#### S23: Skills Guide → reference/skills-guide.md + minor fixes
 
-**Scope:** Detailed descriptions cho mọi skill/command trong project.
+**Scope:** Detailed descriptions cho mọi skill/command trong project + P3 minor fixes (D17').
 
 1. List tất cả skills (`.claude/skills/`) và commands (`.claude/commands/`)
 2. Mỗi item: purpose, trigger examples, input/output format, tips
 3. Phân nhóm: Session management, Quality assurance, Content management, Version management
-4. Cross-link từ reference/skills-list.md (lookup) → skills-guide.md (detail)
+4. Cross-link từ reference/skills-list.md (lookup) → skills-guide.md (detail) — giữ 2 files tách biệt (D18')
+5. **Fix dev/01** section 1.2 vs 1.7 scope priority contradiction (D17')
+6. **Fix dev/02** section 2.10 thêm source marker
 
-**Output:** `reference/skills-guide.md`
+**Output:** `reference/skills-guide.md` + 2 minor fixes trong dev/
 **Source:** Đọc trực tiếp từ SKILL.md files + CLAUDE.md
-**Checkpoint:** "P4.S23: skills guide"
+**Checkpoint:** "P4.S23: skills guide + dev minor fixes"
 
 #### S24: Cheatsheet Base + Doc → reference/cheatsheet-base.md, cheatsheet-doc.md (v8.4)
 
