@@ -10,6 +10,8 @@ impacts: []
 
 Hướng dẫn chi tiết cách tạo và quản lý Custom Styles trong Claude.ai. Kiến thức nền tảng về 4 preset styles: xem [Setup & Personalization, mục 2.3](../base/02-setup.md#23-styles----tùy-chỉnh-cách-claude-trả-lời).
 
+[Nguồn: Anthropic Help Center - Custom Style] [Cập nhật 03/2026]
+
 ---
 
 ## Tạo Custom Style
@@ -19,6 +21,8 @@ Bạn có thể tạo Custom Style bằng 2 cách:
 **Cách 1: Upload writing sample.** Cung cấp 1-2 văn bản mẫu thể hiện phong cách bạn muốn. Claude sẽ học và bắt chước tone, structure, vocabulary.
 
 **Cách 2: Viết instructions trực tiếp.** Mô tả cách bạn muốn Claude respond.
+
+> [!NOTE] Custom Style là tính năng của Claude.ai (Settings > Styles). Verify tính khả dụng tại support.anthropic.com nếu UI thay đổi.
 
 ---
 

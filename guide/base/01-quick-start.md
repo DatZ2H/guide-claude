@@ -1,7 +1,7 @@
 # Bắt đầu nhanh với Claude trong 15 phút
 
 **Thời gian đọc:** 15 phút | **Mức độ:** Beginner
-**Cập nhật:** 2026-02-28 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs]

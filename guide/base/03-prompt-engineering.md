@@ -1,7 +1,7 @@
 # Prompt Engineering
 
 **Thời gian đọc:** 25-30 phút | **Mức độ:** Beginner --> Advanced
-**Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs, base/04-context-management, doc/01-doc-workflows, doc/02-template-library]

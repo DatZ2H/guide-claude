@@ -1,7 +1,7 @@
 # Đánh giá chất lượng Output
 
 **Thời gian đọc:** 10 phút | **Mức độ:** Intermediate
-**Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs, doc/03-cowork-setup]
