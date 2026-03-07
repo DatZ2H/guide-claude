@@ -86,7 +86,9 @@ Guide Claude/
 │   └── llms.txt                    Index theo convention Florian Bruniaux (CC BY-SA 4.0)
 │
 ├── _scaffold/                      Starter templates cho project mới
-│   ├── templates/                  base/, doc-project/, dev-project/
+│   ├── project-instructions/       4 templates cho claude.ai
+│   ├── global-instructions/        Template Global CLAUDE.md
+│   ├── skill-templates/            Template tạo skill
 │   ├── examples/                   guide-claude/, dev-example/
 │   └── checklists/                 new-project, daily-workflow
 │
