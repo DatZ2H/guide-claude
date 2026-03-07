@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, 07-template-library, base/07-evaluation, 10-claude-desktop-cowork]
+depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, 10-claude-desktop-cowork]
 impacts: []
 ---
 
@@ -455,7 +455,7 @@ Claude dành phần lớn thời gian đọc và phân tích codebase hoặc fil
 | Lỗi lan truyền qua nhiều bước | Validation checkpoint, backup trước mỗi step | 06 (Nhóm 6) |
 | Mỗi chat phải giải thích lại context | Tạo Project với Instructions | [02](02-setup.md) (Setup) |
 | Không biết dùng tool nào | Tra cứu bảng tools | [05](05-tools-features.md) (Tools & Features) |
-| Cần template có sẵn | Tra cứu Template Library | [07](../07-template-library.md) (Templates) |
+| Cần template có sẵn | Tra cứu Template Library | [Doc Templates](../doc/02-template-library.md), [Quick Templates](../reference/quick-templates.md) |
 | Output quá chung | Thêm role, audience, ví dụ mong muốn | [03](03-prompt-engineering.md) (Nguyên tắc 1, 6) |
 | Anti-patterns Claude Code (kitchen sink, correcting loop...) | Xem Nhóm 7 | 06 (Nhóm 7) |
 
