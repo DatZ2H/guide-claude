@@ -1,27 +1,45 @@
 > Claude Guide cho Kỹ sư Phenikaa-X
-> Bộ tài liệu hướng dẫn kỹ sư tại Phenikaa-X sử dụng Claude AI
+> Bộ tài liệu 3-tier hướng dẫn kỹ sư tại Phenikaa-X sử dụng Claude AI
 > cho công việc kỹ thuật (AMR, ROS, SLAM, Lidar).
 > Ngôn ngữ: Tiếng Việt, thuật ngữ kỹ thuật tiếng Anh.
 
-## Modules
+## Base — Ai cũng cần
 
-- guide/00-overview.md: Giới thiệu tổng quan, changelog
-- guide/01-quick-start.md: Bắt đầu nhanh với Claude
-- guide/02-setup-personalization.md: Cấu hình và cá nhân hóa
-- guide/03-prompt-engineering.md: Kỹ thuật viết prompt hiệu quả
-- guide/04-context-management.md: Quản lý context window
-- guide/05-workflow-recipes.md: Quy trình làm việc mẫu
-- guide/06-tools-features.md: Tính năng và công cụ Claude
-- guide/07-template-library.md: Thư viện template prompt
-- guide/08-mistakes-fixes.md: Lỗi thường gặp và cách sửa
-- guide/09-evaluation-framework.md: Framework đánh giá output
-- guide/10-claude-desktop-cowork.md: Claude Desktop, Cowork setup, security, troubleshooting
-- guide/11-cowork-workflows.md: 12 workflow templates cho Cowork (AMR engineering focus)
+- guide/base/00-overview.md: Tổng quan 3-tier, learning paths, dependency graph
+- guide/base/01-quick-start.md: Bắt đầu nhanh với Claude
+- guide/base/02-setup.md: Cấu hình và cá nhân hóa cơ bản
+- guide/base/03-prompt-engineering.md: Kỹ thuật viết prompt hiệu quả
+- guide/base/04-context-management.md: Quản lý context window, Decision Matrix 3-way, Session Lifecycle
+- guide/base/05-tools-features.md: Tính năng, công cụ Claude, Desktop, Planning patterns
+- guide/base/06-mistakes-fixes.md: Lỗi thường gặp và cách sửa (11 patterns)
+- guide/base/07-evaluation.md: Framework đánh giá output
+
+## Doc — Technical Writing audience
+
+- guide/doc/01-doc-workflows.md: Quy trình làm việc doc-specific + Cowork recipes
+- guide/doc/02-template-library.md: Thư viện template prompt (T-06~T-22)
+- guide/doc/03-cowork-setup.md: Cowork config, setup, workflows
+- guide/doc/04-cowork-workflows.md: 12 workflow templates cho Cowork (AMR focus)
+- guide/doc/05-claude-code-doc.md: Claude Code cho documentation workflows
+- guide/doc/06-custom-style.md: Custom Style reference chi tiết
+
+## Dev — Developer audience (placeholders — content P3)
+
+- guide/dev/01-claude-code-setup.md: CLI install, auth, config
+- guide/dev/02-cli-reference.md: Commands, flags, shortcuts
+- guide/dev/03-ide-integration.md: VS Code extension setup
+- guide/dev/04-agents-automation.md: Subagents, Agent Teams, CI/CD
+- guide/dev/05-plugins.md: Discover, install, create plugins
+- guide/dev/06-dev-workflows.md: Git, testing, code review with Claude Code
 
 ## Reference
 
 - guide/reference/config-architecture.md: 6 lớp cấu hình Claude (SSOT)
+- guide/reference/model-specs.md: Model specifications, Mermaid flowchart
 - guide/reference/skills-list.md: Danh sách skills và plugins
+- guide/reference/claude-code-setup.md: Claude Code cheat sheet
+- guide/reference/workflow-patterns.md: External Memory, _scaffold patterns
+- guide/reference/quick-templates.md: Universal templates (T-01~T-05)
 
 ## Key Concepts
 
@@ -30,6 +48,7 @@
 - CLAUDE.md: Folder Instructions cho Claude Code/Cowork
 - Scheduled Tasks: tác vụ tự động định kỳ
 - Skills: slash commands mở rộng tính năng
+- 3-tier: base (universal) / doc (Technical Writing) / dev (Developer)
 
 ## Audience
 

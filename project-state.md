@@ -1,37 +1,64 @@
 # Project Overview — Claude Guide cho Kỹ sư Phenikaa-X
 
-Version: xem `VERSION` (hiện tại: 7.3) | Updated: 2026-03-07
+Version: xem `VERSION` (hiện tại: 8.0) | Updated: 2026-03-07
 
 ## Phase
 
 v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-v8.md`.
 - S0 automation infrastructure: ✅ Done
 - P1 Foundation (S1-S7): ✅ Done (v7.3) — cross-links, source markers, prompt format, Context Sync, 3-way matrix, M08 patterns
-- P2 Structure (S8-S15): Tiếp theo — tách guide/ thành base/doc/dev
+- P2 Structure (S8-S15): ✅ Done (v8.0) — tách guide/ thành base/doc/dev, cleanup, navigation
+- P3 Dev Content (S16-S21): Tiếp theo — viết mới 6 dev modules
 
 ## Trạng thái modules
 
-| Module | File | Score | Status |
-|--------|------|:-----:|--------|
-| 00 | guide/00-overview.md | 🟢 | v7.0 — 13 modules, dependency tags, Learning Paths updated |
-| 01 | guide/01-quick-start.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 02 | guide/02-setup-personalization.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 03 | guide/03-prompt-engineering.md | 🟢 | v7.3 — Prompt format convention, language tags, XML/[]/{{}} standard |
-| 04 | guide/04-context-management.md | 🟢 | v7.3 — Context Sync rebuild, Decision Matrix 3-way, Session Lifecycle |
-| 05 | guide/05-workflow-recipes.md | 🟢 | v7.3 — Prompt format standardized, source markers added |
-| 06 | guide/06-tools-features.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 07 | guide/07-template-library.md | 🟢 | v7.3 — Prompt format standardized, source markers added |
-| 08 | guide/08-mistakes-fixes.md | 🟢 | v7.3 — 11 failure patterns (5 CC anti-patterns added P1.S7) |
-| 09 | guide/09-evaluation-framework.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 10 | guide/10-claude-desktop-cowork.md | 🟢 | v7.3 — Context Sync refs updated, Decision Matrix 3-way expanded |
-| 11 | guide/11-cowork-workflows.md | 🟢 | v7.0 — Full rewrite S08/S10, 12 AMR callouts, 13 model hints |
-| 12 | guide/12-claude-code-documentation.md | 🔵 | New v6.5/v7.0 — Claude Code Documentation, 1190 lines, 26 sections |
-| ref | guide/reference/config-architecture.md | 🟢 | v7.0 — SSOT: 6 lớp cấu hình Claude |
-| ref | guide/reference/model-specs.md | 🟢 | New v5.1 — Mermaid flowchart, 5 AMR examples, Feature table |
-| ref | guide/reference/skills-list.md | 🟢 | v7.0 — Trust labels, Audience tags, [Approved PX], Skill-Recipe Mapping |
-| ref | guide/reference/claude-code-setup.md | 🔵 | New v6.5 — CC cheat sheet, Workflow-first, 272 lines |
+### base/ — Ai cũng cần
 
-> v7.3 released 2026-03-07. P1 Foundation complete. S0+P1 done. 7 project skills, 3 rules, 2 hooks operational. Next: P2 Structure.
+| Module | File | Status |
+|--------|------|--------|
+| 00 | base/00-overview.md | 🟢 v8.0 — 3-tier index, learning paths, dependency graph |
+| 01 | base/01-quick-start.md | 🟢 v8.0 — Hybrid examples, AMR callouts |
+| 02 | base/02-setup.md | 🟢 v8.0 — Setup cơ bản (Custom Style chi tiết → doc/06) |
+| 03 | base/03-prompt-engineering.md | 🟢 v8.0 — Prompt format convention, XML/[]/{{}} standard |
+| 04 | base/04-context-management.md | 🟢 v8.0 — Context Sync, Decision Matrix 3-way, Session Lifecycle, Task Lifecycle |
+| 05 | base/05-tools-features.md | 🟢 v8.0 — Tools + Desktop + Planning patterns (merged M06+M10+M05) |
+| 06 | base/06-mistakes-fixes.md | 🟢 v8.0 — 11 failure patterns (8.7 CC anti-patterns tạm, extract P3) |
+| 07 | base/07-evaluation.md | 🟢 v8.0 — Framework universal, doc examples → callout |
+
+### doc/ — Technical Writing audience
+
+| Module | File | Status |
+|--------|------|--------|
+| 01 | doc/01-doc-workflows.md | 🟢 v8.0 — Doc recipes + Cowork recipes (từ M05) |
+| 02 | doc/02-template-library.md | 🟢 v8.0 — Doc templates T-06~T-22 (từ M07) |
+| 03 | doc/03-cowork-setup.md | 🟢 v8.0 — Cowork config + workflows (từ M10) |
+| 04 | doc/04-cowork-workflows.md | 🟢 v8.0 — 12 Cowork workflows (từ M11) |
+| 05 | doc/05-claude-code-doc.md | 🟢 v8.0 — CC cho documentation (từ M12) |
+| 06 | doc/06-custom-style.md | 🟢 v8.0 — Custom Style reference (từ M02) |
+
+### dev/ — Developer audience (placeholders — P3)
+
+| Module | File | Status |
+|--------|------|--------|
+| 01 | dev/01-claude-code-setup.md | 🟡 Placeholder — P3.S16 |
+| 02 | dev/02-cli-reference.md | 🟡 Placeholder — P3.S16 |
+| 03 | dev/03-ide-integration.md | 🟡 Placeholder — P3.S17 |
+| 04 | dev/04-agents-automation.md | 🟡 Placeholder — P3.S18-S19 |
+| 05 | dev/05-plugins.md | 🟡 Placeholder — P3.S20 |
+| 06 | dev/06-dev-workflows.md | 🟡 Placeholder — P3.S21 |
+
+### reference/
+
+| File | Status |
+|------|--------|
+| config-architecture.md | 🟢 SSOT: 6 lớp cấu hình Claude |
+| model-specs.md | 🟢 Mermaid flowchart, 5 AMR examples |
+| skills-list.md | 🟢 Trust labels, Audience tags |
+| claude-code-setup.md | 🟢 CC cheat sheet |
+| workflow-patterns.md | 🟢 External Memory, _scaffold patterns (từ M10) |
+| quick-templates.md | 🟢 Universal templates T-01~T-05 (từ M07) |
+
+> v8.0 released 2026-03-07. P2 Structure complete. 3-tier structure operational. Next: P3 Dev Content.
 
 ## Cấu trúc thư mục
 
@@ -41,11 +68,11 @@ Guide Claude/
 ├── VERSION                         SSOT cho version number
 ├── project-state.md                File này — project overview
 │
-├── guide/                          Content (13 modules + reference/)
-│   ├── 00-overview.md → 12-claude-code-documentation.md
-│   └── reference/
-│       ├── config-architecture.md  SSOT: 6 lớp cấu hình Claude
-│       └── skills-list.md
+├── guide/                          Content (3-tier + reference/)
+│   ├── base/                       8 modules (00→07) — ai cũng cần
+│   ├── doc/                        6 modules (01→06) — Technical Writing
+│   ├── dev/                        6 placeholders (01→06) — Developer (P3)
+│   └── reference/                  6 files — tra cứu
 │
 ├── machine-readable/               Machine-readable index
 │   └── llms.txt                    Index theo convention Florian Bruniaux (CC BY-SA 4.0)
@@ -59,33 +86,22 @@ Guide Claude/
     ├── CLAUDE.md                   Folder Instructions
     ├── SETUP.md                    Onboarding cho maintainer mới
     ├── settings.json               Hooks (SessionStart, PostToolUse)
-    ├── rules/                       Path-scoped rules (writing-standards, reference, scaffold)
-    ├── hooks/                       format-check.py, link-check.py
-    ├── commands/                    Slash commands (/start, /checkpoint, /weekly-review...)
-    └── skills/                     7 skills (+ source-audit mới)
+    ├── rules/                      6 rules (writing-standards, reference, scaffold, tier-base/doc/dev)
+    ├── hooks/                      format-check.py, link-check.py
+    ├── commands/                   Slash commands (/start, /checkpoint, /weekly-review...)
+    └── skills/                     7 skills (+ source-audit)
 ```
 
 ## Quyết định gần nhất
 
 | Ngày | Quyết định | Rationale |
 |------|-----------|-----------|
+| 2026-03-07 | P2 Structure complete (v8.0) — 3-tier guide/base+doc+dev | 8+2 sessions, old files removed, navigation complete |
 | 2026-03-07 | P1 Foundation complete (v7.3) — plan updated với 5 decisions (D1'-D5') | M10 split 4 targets, M05 5.11-5.14 → base/05, P2 tăng 8+2 sub-sessions |
 | 2026-03-06 | S0: Automation infrastructure — rules, hooks, source-audit skill | QA framework 4 lớp cho upgrade v7→v9 |
 | 2026-03-06 | Upgrade plan v7.0→v9.0 approved — 5 phases, ~34 work units | Tài liệu nền tảng, ưu tiên chất lượng |
-| 2026-03-04 | D9: Claude Code cho Documentation — Option D Hybrid (Module 12 + reference/claude-code-setup.md) | Narrative guide + lookup cheat sheet cho kỹ sư dùng CC trong doc workflow |
-| 2026-03-04 | D8 Emoji policy: Allowlist ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵, Obsidian callouts cho prose | Nhất quán, không noise, dễ maintain |
-| 2026-03-04 | D4 Hybrid examples: Doc context (primary) + AMR callout + model hint | Tăng relevance cho kỹ sư kỹ thuật mà không mất tính tổng quát |
-| 2026-03-04 | D6 Centralize specs: reference/model-specs.md làm SSOT | Tránh stale data phân tán trong 13 modules |
-| 2026-03-03 | Option B cho v5.0: refactor Module 10 + thêm Module 11 + machine-readable layer | Module 10 quá tải → tách setup/security; Module 11 = 12 workflow templates AMR |
-| 2026-03-03 | Thêm machine-readable/llms.txt (convention Florian Bruniaux, CC BY-SA 4.0) | Cho phép AI tools index guide dễ hơn; chuẩn bị cho publish |
-| 2026-03-03 | Bump v4.1 → v4.2: audit cycle closed (24/25 issues) | Ghi nhận 3 sprints fix, health 7.2→8.3/10 |
-| 2026-03-03 | Audit cleanup Option A: giữ final-checkpoint + s7 + next-phase-plan | Lưu record + backlog; xóa s1–s6 đã consumed |
-| 2026-03-03 | Deprecate `_memory/` — git history thay thế | Giảm complexity, bỏ persistence layer không cần thiết |
-| 2026-03-02 | config-architecture.md làm SSOT cho 6 lớp cấu hình | Unified mental model, dễ cross-link |
-| 2026-03-02 | Stable vs Dynamic split: concepts → modules; templates → _scaffold/ | Templates thay đổi nhanh → tách riêng |
-| 2026-03-02 | 2-tier architecture: guide/ (content) + .claude/ (infra) | Phân tách content vs infrastructure |
-| 2026-03-02 | VERSION file làm SSOT | Tránh hardcode version trong 11+ files |
-| 2026-02-28 | Tiếng Việt + thuật ngữ kỹ thuật giữ tiếng Anh | Không Việt hóa AMR, ROS, SLAM, Lidar |
+| 2026-03-04 | D9: Claude Code cho Documentation — Option D Hybrid | Narrative guide + lookup cheat sheet |
+| 2026-03-04 | D8 Emoji policy: Allowlist + Obsidian callouts | Nhất quán, không noise, dễ maintain |
 
 > Decisions cũ hơn 30 ngày: xem `git log`.
 

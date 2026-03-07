@@ -29,7 +29,7 @@ Rules này tự động load khi Claude edit bất kỳ file nào trong guide/.
 
 ## Cross-links
 
-- Dùng relative path: `[tên](../guide/04-context-management.md#section-name)`
+- Dùng relative path: `[tên](../base/04-context-management.md#section-name)`
 - KHÔNG dùng absolute path hoặc URL đến repo
 - KHÔNG hardcode version numbers — link về `../VERSION`
 

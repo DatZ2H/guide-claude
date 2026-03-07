@@ -1,19 +1,22 @@
 # CLAUDE.md — Guide Claude Project
 
 ## Project context
-Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
+Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
 - **Phase:** Upgrade v7.0 → v9.0 (xem `upgrade-plan-v8.md`)
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
-- **Architecture:** 2-tier — guide/ (content) + .claude/ (infra)
+- **Architecture:** 3-tier — guide/base + guide/doc + guide/dev + guide/reference + .claude/ (infra)
 
 ## Folder structure
 ```
-guide/                  13 module files (00→12) + reference/
-guide/reference/        config-architecture.md, skills-list.md
-machine-readable/       llms.txt (machine-readable index theo convention Florian Bruniaux)
+guide/
+├── base/               8 modules (00→07) — ai cũng cần
+├── doc/                6 modules (01→06) — Technical Writing audience
+├── dev/                6 placeholders (01→06) — Developer audience (P3)
+└── reference/          config-architecture, model-specs, skills-list, ...
+machine-readable/       llms.txt (machine-readable index)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
-.claude/rules/          writing-standards.md, reference-standards.md, scaffold-standards.md
+.claude/rules/          writing-standards, reference-standards, scaffold-standards, tier-base, tier-doc, tier-dev
 .claude/hooks/          format-check.py (PostToolUse), link-check.py (standalone)
 .claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
@@ -36,7 +39,7 @@ VERSION                 SSOT cho version number
 ## Writing standards
 - **Heading hierarchy:** `#` title → `##` section → `###` subsection — KHÔNG skip level
 - **Code blocks:** luôn kèm language tag (```python, ```yaml, ```bash...)
-- **Cross-links:** dùng relative paths (`../guide/04-context-management.md#section`)
+- **Cross-links:** dùng relative paths (`../base/04-context-management.md#section`)
 - **File naming:** lowercase, dấu gạch ngang, prefix số thứ tự (01-, 02-...)
 - **Module header:** Module 00 có version link `[VERSION](../VERSION)` (SSOT); modules 01–10 không bắt buộc — KHÔNG hardcode version
 
@@ -108,13 +111,12 @@ VERSION                 SSOT cho version number
 - **Source verification:** 3-tier standard — Tier 1 (Anthropic official), Tier 2 (verified repos), Tier 3 (community + disclaimer)
 
 ## Module status (quick ref)
-| Range | Status |
-|-------|--------|
-| 00–09 | v4.2 base + v5.0 currency sweep — 🟢 |
-| 10 | Refactored v5.0 — Scheduled Tasks, Security, Troubleshooting 🟢 |
-| 11 | New v5.0 — 12 workflow templates 🔵 |
-| 12 | New v6.5 — Claude Code Documentation 🔵 |
-| reference/ | config-architecture 🟢, skills-list Updated v5.0 🟢 |
+| Tier | Files | Status |
+|------|-------|--------|
+| base/ | 00→07 (8 files) | v8.0 — restructured from M00–M09 🟢 |
+| doc/ | 01→06 (6 files) | v8.0 — restructured from M05,M07,M10–M12,M02 🟢 |
+| dev/ | 01→06 (6 files) | Placeholders — content P3 (v8.1–v8.3) 🟡 |
+| reference/ | 6 files | config-architecture, model-specs, skills-list, workflow-patterns, quick-templates, claude-code-setup 🟢 |
 
 ## Khi nào update file này
 - Thêm skill mới → update bảng Available skills

@@ -254,7 +254,7 @@ _scaffold/
 
 ```
 S0 Automation ──> P1 Foundation ──> P2 Structure ──┬──> P3 Dev Content
-  ✅ Done          ✅ Done (v7.3)    (v8.0)         │    (v8.1–v8.3)
+  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)  │    (v8.1–v8.3)
                                                     │
                                                     ├──> P4 Enhancement
                                                     │    (v8.4–v8.5)
@@ -551,15 +551,17 @@ P2 tăng từ 7→8 sessions (S9, S10 có sub-sessions = 10 work units) do M10 e
 
 **Checkpoint:** "P2.S15: cleanup + v8.0"
 
-#### Phase 2 Review Gate
+#### Phase 2 Review Gate — ✅ PASSED (2026-03-07)
 
-- [ ] 3-tier structure hoạt động (base/doc/dev/reference)
-- [ ] Tier-specific rules load đúng
-- [ ] Navigation links trên mọi file
-- [ ] 0 broken cross-links
-- [ ] CLAUDE.md + project-state.md + llms.txt updated
-- [ ] Old guide/*.md files removed
-- [ ] Version = 8.0
+- [x] 3-tier structure hoạt động (base/doc/dev/reference)
+- [x] Tier-specific rules load đúng (tier-base.md, tier-doc.md, tier-dev.md)
+- [x] Navigation links trên mọi file
+- [x] 0 broken cross-links (verified — no stale refs to old guide/*.md)
+- [x] CLAUDE.md + project-state.md + llms.txt updated
+- [x] Old guide/*.md files removed (13 files)
+- [x] Version = 8.0
+
+**Result: PASSED → P3 approved.**
 
 ---
 
@@ -651,7 +653,7 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 |-------|:--------:|----------|:----:|:------:|
 | S0 Automation | 1-2 | — | 🟢 | ✅ Done |
 | P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 | ✅ Done |
-| P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | — |
+| P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | ✅ Done |
 | P3 Dev Content | S16–S21 (6) | v8.1–v8.3 | 🟡 | — |
 | P4 Enhancement | S22–S27 (6) | v8.4–v8.5 | 🟢 | — |
 | P5 Polish | S28–S32 (5) | v9.0 | 🟢 | — |
