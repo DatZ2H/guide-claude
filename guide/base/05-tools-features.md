@@ -1,7 +1,7 @@
 # Tools & Features
 
 **Thời gian đọc:** 30 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs, base/04-context-management]

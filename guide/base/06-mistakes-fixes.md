@@ -1,7 +1,7 @@
 # Lỗi thường gặp và cách khắc phục
 
 **Thời gian đọc:** 15 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, doc/03-cowork-setup]
@@ -170,6 +170,7 @@ Mỗi conversation lại phải giải thích context, standards, format từ đ
 Khi Extended thinking đã bật, Claude TỰ ĐỘNG suy luận từng bước. Thêm instructions thừa có thể làm giảm hiệu quả.
 
 [Nguồn: Anthropic Docs - Extended Thinking Tips]
+URL: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips
 
 **Fix:** Khi bật Extended thinking, viết prompt đơn giản và rõ ràng. Bỏ chain-of-thought instructions.
 
@@ -178,6 +179,7 @@ Khi Extended thinking đã bật, Claude TỰ ĐỘNG suy luận từng bước.
 ## 8.5 Nhóm 5: Lỗi liên quan đến model
 
 [Nguồn: Anthropic Docs - Reduce hallucinations]
+URL: https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/reduce-hallucinations
 
 ### Hallucination -- Claude tạo thông tin sai
 

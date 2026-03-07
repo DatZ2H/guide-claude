@@ -1,11 +1,11 @@
 # Setup & Personalization
 
 **Thời gian đọc:** 20 phút | **Mức độ:** Beginner-Intermediate
-**Cập nhật:** 2026-02-28 | Models: xem [specs](../reference/model-specs.md)
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [reference/model-specs, reference/config-architecture]
-impacts: [base/06-mistakes-fixes, 10-claude-desktop-cowork]
+impacts: [base/06-mistakes-fixes, doc/03-cowork-setup]
 ---
 
 Module này hướng dẫn cấu hình Claude.ai để làm việc hiệu quả nhất. Thay vì dùng default settings, bạn sẽ thiết lập 4 lớp cá nhân hóa: Profile Preferences, Projects, Styles, và Memory. Mỗi lớp giải quyết một nhu cầu khác nhau.
