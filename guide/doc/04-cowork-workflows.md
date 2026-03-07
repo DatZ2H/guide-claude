@@ -8,13 +8,13 @@ depends-on: [../reference/model-specs, doc/03-cowork-setup, doc/01-doc-workflows
 impacts: [doc/03-cowork-setup]
 ---
 
-[Nguồn: Anthropic Help Center - Get started with Cowork]
+[Nguồn: Anthropic Help Center - Get started with Cowork] [Cập nhật 03/2026]
 
 Module này cung cấp workflows copy-paste sẵn sàng dùng cho Cowork — chế độ làm việc trực tiếp trên file system của Claude Desktop. Mỗi workflow bao gồm: mục tiêu, setup, prompt template, và tips thực tế.
 
 **Khác với [Doc Workflows](01-doc-workflows.md)** (general recipes dùng trên mọi interface), workflows ở đây khai thác file system access đặc trưng của Cowork: đọc nhiều file cùng lúc, tạo output trực tiếp vào thư mục, và thao tác batch mà không cần bạn copy-paste từng bước.
 
-> **Yêu cầu:** Cowork cần plan Pro, Max, Team, hoặc Enterprise. Xem hướng dẫn setup tại [Cowork Setup](03-cowork-setup.md).
+> [!IMPORTANT] Cowork cần plan Pro, Max, Team, hoặc Enterprise. Xem hướng dẫn setup tại [Cowork Setup](03-cowork-setup.md).
 
 ---
 
@@ -430,7 +430,7 @@ Cuối prompt: report summary — bao nhiêu documents processed, bao nhiêu có
 
 **Expected output:** 2 CSV files — data table chính và error log. Import vào Excel để filter/analysis; mở error log để biết documents nào cần manual review.
 
-> **Lưu ý về accuracy:** Accuracy cao với fields riêng lẻ trên scans chất lượng tốt. Line-item extraction từ bảng (tables) kém chính xác hơn đáng kể — luôn verify thủ công với loại data này trước khi dùng.
+> [!WARNING] Accuracy cao với fields riêng lẻ trên scans chất lượng tốt. Line-item extraction từ bảng (tables) kém chính xác hơn đáng kể — luôn verify thủ công với loại data này trước khi dùng.
 
 **Tips:**
 - Chia batch thành nhóm 20 files để Claude xử lý ổn định hơn, merge Excel sheets sau.

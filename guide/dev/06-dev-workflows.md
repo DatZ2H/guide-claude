@@ -312,6 +312,8 @@ claude --continue --fork-session
 
 Tạo branch mới từ conversation hiện tại — thử approach khác mà không mất session gốc. Forked sessions hiển thị grouped trong picker.
 
+[Nguồn: Claude Code Docs — Sessions]
+
 ---
 
 ## 6.6 Batch Operations và Headless Mode
@@ -508,9 +510,9 @@ Terminal (Reviewer): claude -p "review @src/feature.ts for edge cases" --output-
 
 ## 6.9 Extended Thinking trong Workflows
 
-Extended thinking được bật mặc định — Claude tự suy luận trước khi trả lời. Opus 4.6 dùng adaptive reasoning: tự phân bổ thinking tokens theo effort level.
+Extended thinking được bật mặc định — Claude tự suy luận trước khi trả lời. Effort level kiểm soát mức độ thinking: `low` cho tasks đơn giản, `high` cho complex reasoning.
 
-[Nguồn: Claude Code Docs — Common Workflows]
+[Nguồn: Claude Code Docs — Extended Thinking] [Cập nhật 03/2026]
 
 ### Cấu hình thinking
 

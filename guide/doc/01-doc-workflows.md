@@ -312,6 +312,8 @@ Style: clean, professional, ít text trên mỗi slide, dùng diagrams khi có t
 
 ## 1.6 Recipe: Research và tổng hợp
 
+[Ứng dụng Kỹ thuật]
+
 **Khi nào dùng:** Cần tìm hiểu thông tin trước khi viết hoặc ra quyết định.
 
 ### Research nhanh (Web Search)
@@ -480,6 +482,7 @@ Chưa cần viết lại -- chỉ cần assessment và migration plan.
 ## 1.9 Recipe: Sử dụng MCP Connectors trong workflow
 
 [Nguồn: Anthropic Help Center - Setting up and using Integrations]
+URL: https://support.claude.com/en/articles/13345193-setting-up-and-using-integrations
 
 **Khi nào dùng:** Muốn Claude tương tác trực tiếp với tools bạn đang dùng -- không cần copy-paste qua lại.
 
@@ -559,7 +562,7 @@ flowchart TD
 
 ## 1.11 Recipe: Cowork Batch Processing
 
-[Cập nhật 03/2026]
+[Ứng dụng Kỹ thuật] [Cập nhật 03/2026]
 
 **Khi nào dùng:** Xử lý nhiều files cùng lúc trong Cowork — convert format hàng loạt, extract thông tin từ nhiều tài liệu, tổ chức lại cấu trúc thư mục lớn.
 
@@ -637,7 +640,7 @@ Báo cáo khi hoàn thành: số thành công, số lỗi, danh sách file lỗi
 
 ## 1.12 Recipe: Cowork + Scheduled Tasks cho báo cáo định kỳ
 
-[Cập nhật 03/2026]
+[Ứng dụng Kỹ thuật] [Cập nhật 03/2026]
 
 **Khi nào dùng:** Cần tạo output tự động theo lịch định kỳ — weekly test report, monthly summary, daily log digest — không cần mở Cowork thủ công mỗi lần.
 

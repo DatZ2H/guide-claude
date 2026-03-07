@@ -1,7 +1,7 @@
 # Cowork Setup & Workflows
 
-**Mức độ:** Intermediate | **Audience:** Technical Writing, Documentation
-**Cập nhật:** 2026-03-07
+**Thời gian đọc:** 35 phút | **Mức độ:** Intermediate | **Audience:** Technical Writing, Documentation
+**Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
 depends-on: [base/02-setup, base/04-context-management, base/05-tools-features, doc/04-cowork-workflows]
@@ -10,7 +10,7 @@ impacts: [doc/04-cowork-workflows, doc/05-claude-code-doc]
 
 Hướng dẫn cấu hình và sử dụng Cowork — chế độ làm việc trực tiếp trên file system của Claude Desktop. Kiến thức nền tảng về Claude Desktop, 3 chế độ (Chat/Cowork/Code), và Global Instructions: xem [Tools & Features](../base/05-tools-features.md).
 
-> **Lưu ý:** Cowork hiện là **research preview** — tính năng có thể thay đổi. Module này cập nhật đến 03/2026.
+> [!NOTE] Cowork hiện là **research preview** — tính năng có thể thay đổi. Module này cập nhật đến 03/2026.
 
 [Nguồn: Anthropic Help Center — Get started with Cowork]
 URL: https://support.claude.com/en/articles/13345190-get-started-with-cowork
@@ -111,26 +111,30 @@ cho vận hành hệ thống AMR tại nhà máy Phenikaa-X.
 ```markdown
 # Folder Instructions — Claude Guide Project
 
-## Project overview
-Đây là dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 13 modules hướng dẫn sử dụng Claude AI.
+## Project context
+Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
+- Version: xem file VERSION (SSOT)
+- Architecture: 3-tier — guide/base + guide/doc + guide/dev + guide/reference + .claude/ (infra)
 
 ## Folder structure
-- guide/ — 13 module files (00-overview đến 12-claude-code-documentation) + reference/
-- project-state.md — project overview
-- VERSION — single source of truth cho version number
+guide/
+├── base/    8 modules (00→07) — ai cũng cần
+├── doc/     6 modules (01→06) — Technical Writing audience
+├── dev/     6 modules (01→06) — Developer audience
+└── reference/  config-architecture, model-specs, skills-list, ...
 
 ## Conventions
 - Language: Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh
 - Source markers: [Nguồn: ...] cho official, [Ứng dụng Kỹ thuật] cho applied examples
-- File naming: lowercase, dấu gạch ngang, có số thứ tự module (01-, 02-...)
+- File naming: lowercase, dấu gạch ngang, prefix số thứ tự (01-, 02-...)
 
 ## Rules
-- KHÔNG sửa file trong guide/ mà không tạo backup (.bak) trước
+- Git-first backup: /checkpoint trước khi edit lớn
 - Khi edit module: đọc VERSION để biết version hiện tại
-- Khi bump version: sửa VERSION trước, sau đó update module headers
+- Khi bump version: sửa VERSION trước — module headers tự reflect
 ```
 
-**Nhận xét cấu trúc:** Folder Instructions này giữ ngắn (~200 words), tập trung vào folder-specific context (structure, conventions, memory protocol, rules). Không lặp lại Global Instructions (language rules, file safety đã có ở Global).
+**Nhận xét cấu trúc:** Folder Instructions này giữ ngắn (~200 words), tập trung vào folder-specific context (structure, conventions, rules). Không lặp lại Global Instructions (language rules, file safety đã có ở Global).
 
 ### Tips quản lý Folder Instructions
 
@@ -835,33 +839,11 @@ Khuyến nghị: bắt đầu với **Ask** cho mọi connector mới. Chuyển 
 
 Plugins đóng gói skills + connectors + MCP servers thành bộ cài đặt hoàn chỉnh. Hai tầng:
 
-**11 Official Plugins (Anthropic):**
-
-| Plugin | Dùng cho |
-|--------|----------|
-| Asana | Task management |
-| Canva | Thiết kế đồ họa |
-| Cloudflare | Infrastructure management |
-| Figma | UI/UX design collaboration |
-| **GitHub** | Code review, issue tracking |
-| Google Drive | Document management |
-| **Jira** | Project & issue tracking |
-| **Linear** | Engineering project management |
-| **Notion** | Knowledge base, docs |
-| Sentry | Error monitoring |
-| **Slack** | Team communication |
-
-**13 Enterprise Plugins mới (02/2026):**
-
-Google Workspace, DocuSign, FactSet, Apollo, Clay, Outreach, Similarweb, MSCI, LegalZoom, Harvey, WordPress, và các partners khác.
+Danh sách đầy đủ 11 Official Plugins + 13 Enterprise Connectors: xem [mục 3.3.8](#338-plugins--skills-đóng-gói-theo-role).
 
 [Nguồn: Anthropic — Claude integrations]
 URL: https://claude.ai/plugins
 [Cập nhật 03/2026]
-
-**Private Marketplace — Team & Enterprise plans:**
-
-Team/Enterprise admins có thể tạo private plugin marketplace kết nối GitHub repo nội bộ — kiểm soát plugins nào employees được cài, phân phối plugins nội bộ không chia sẻ ra ngoài.
 
 ### Ví dụ Phenikaa-X
 
@@ -946,11 +928,11 @@ Mỗi sub-agent có fresh context riêng, không share memory với agent khác 
 
 Section này bổ sung mục 3.4 (An toàn khi dùng Cowork) với Golden Rules và thông tin data privacy.
 
-> **Xem thêm:** Mục 3.4 — nguyên tắc an toàn cơ bản khi cấu hình folder access và file recovery.
+> [!TIP] Xem thêm: Mục 3.4 — nguyên tắc an toàn cơ bản khi cấu hình folder access và file recovery.
 
 ### Golden Rules — Trước mỗi Cowork session
 
-*Adapted từ Florian Bruniaux's claude-cowork-guide, CC BY-SA 4.0*
+[Ghi chú: Adapted từ Florian Bruniaux's claude-cowork-guide, CC BY-SA 4.0 — community resource, không phải official]
 
 **1. Luôn review execution plan trước khi approve.**
 Khi Claude đề xuất plan nhiều bước → đọc từng bước trước khi bấm "Approve". Chú ý bước nào xóa/overwrite file, bước nào truy cập folder ngoài workspace.
