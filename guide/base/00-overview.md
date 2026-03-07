@@ -45,7 +45,7 @@ Tài liệu được tổ chức thành 3 nhóm theo đối tượng sử dụng
 | **05** | [Claude Code Doc](../doc/05-claude-code-doc.md) | Claude Code cho documentation |
 | **06** | [Custom Style](../doc/06-custom-style.md) | Custom Style reference chi tiết |
 
-### Dev — Developer & Automation (P3 — chưa viết)
+### Dev — Developer & Automation
 
 | Module | Tên | Mô tả |
 |--------|-----|-------|
@@ -66,6 +66,7 @@ Tài liệu được tổ chức thành 3 nhóm theo đối tượng sử dụng
 | [Quick Templates](../reference/quick-templates.md) | 5 templates cơ bản |
 | [Workflow Patterns](../reference/workflow-patterns.md) | Patterns tham chiếu |
 | [Claude Code Setup](../reference/claude-code-setup.md) | Cheat sheet Claude Code |
+| [Ecosystem Overview](../reference/ecosystem-overview.md) | Community tools, MCP servers, plugins |
 
 ---
 
