@@ -331,7 +331,7 @@ Khi dùng cả Project Chat và Cowork, phần lớn công việc nên diễn ra
 - **`project-state.md`** là context transfer document — update trên Cowork khi cần, paste vào Project Chat khi cần brainstorm. Không cần update theo lịch cố định.
 - Khi cần nội dung chi tiết trong Project Chat → **paste excerpt** từ file thật, không dựa vào Project Knowledge.
 
-**Chi tiết:** Xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) và Recipe 5.11 ([Workflow Recipes](../05-workflow-recipes.md)).
+**Chi tiết:** Xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) và [Recipe 5.17 — Hybrid Workflow](05-tools-features.md#517-recipe-hybrid-workflow--chat--project--cowork).
 
 ---
 
@@ -560,5 +560,5 @@ flowchart TD
 **Tiếp theo:**
 
 - [Prompt Engineering](03-prompt-engineering.md) -- cách viết prompt hiệu quả với 6 nguyên tắc và 7 kỹ thuật
-- [Claude Desktop & Cowork](../10-claude-desktop-cowork.md) -- nếu dùng Claude Desktop, cấu hình Cowork mode với Global/Folder Instructions
+- [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai--khác-gì) -- giới thiệu Claude Desktop và cấu hình Cowork
 - [Context Management](04-context-management.md) -- quản lý context window, handover giữa các conversation

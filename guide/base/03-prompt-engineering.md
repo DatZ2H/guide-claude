@@ -909,7 +909,7 @@ Tại sao tốt hơn: Template đã duyệt ở Step 1 đóng vai trò "anchor" 
 | **Tách không theo dependency** — bước sau không nhận kết quả bước trước | Bước 2 tự tạo lại thông tin bước 1 đã có, dẫn đến mâu thuẫn giữa các phần | Include summary/output bước trước khi bắt đầu bước sau (dùng `<chain_info>`) |
 | **Không review giữa bước** — chạy liên tục từ Step 1 đến Step N không kiểm tra | Lỗi ở Step 1 lan sang tất cả steps sau, phát hiện muộn phải làm lại toàn bộ (xem Module 08 Nhóm 6) | Đặt review checkpoint sau mỗi step quan trọng, đặc biệt sau step tạo template/outline |
 
-**Xem thêm:** [Template T-19](../07-template-library.md#t-19-task-decomposition-planner) (Task Decomposition Planner, Module 07), [Recipe 5.12](../05-workflow-recipes.md) (Module 05)
+**Xem thêm:** [Template T-19](../07-template-library.md#t-19-task-decomposition-planner) (Task Decomposition Planner, Module 07), [Recipe 5.18 — Task Planning](05-tools-features.md#518-recipe-task-planning-trước-khi-chạy-chain-prompt)
 
 ---
 
