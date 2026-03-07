@@ -8,7 +8,7 @@ depends-on: [dev/01-claude-code-setup, dev/02-cli-reference, dev/03-ide-integrat
 impacts: [dev/05-plugins, dev/06-dev-workflows]
 ---
 
-Module này hướng dẫn hệ thống subagents trong Claude Code — cách dùng built-in agents, tạo custom agents, và các patterns hiệu quả. Phần Agent Teams (experimental) và CI/CD orchestration sẽ được trình bày trong session tiếp theo (S20).
+Module này hướng dẫn hệ thống agents trong Claude Code — từ subagents (stable) đến Agent Teams (experimental), orchestration patterns, Git Worktrees, headless mode, và CI/CD integration.
 
 [Nguồn: Claude Code Docs] [Cập nhật 03/2026]
 
@@ -621,6 +621,379 @@ Claude chạy 10+ Read/Grep trước khi edit, hỏi clarification liên tục, 
 - Cung cấp đủ context từ đầu: file paths, function names, scope
 - Viết rõ expected actions: "Edit file X, function Y, thay đổi Z"
 - `/clear` nếu Claude trong exploration loop không thoát được
+
+---
+
+## 4.12 Agent Teams (Experimental)
+
+Agent Teams cho phép điều phối nhiều Claude Code instances làm việc song song. Một session đóng vai trò lead, phân công tasks và tổng hợp kết quả. Các teammates làm việc độc lập trong context window riêng và giao tiếp trực tiếp với nhau.
+
+> [!WARNING]
+> Agent Teams là tính năng experimental, disabled mặc định. Enable bằng cách thêm `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` vào settings hoặc environment. Có các [limitations](#limitations-của-agent-teams) về session resumption, task coordination, và shutdown behavior.
+
+[Nguồn: Claude Code Docs — Agent Teams] [Cập nhật 03/2026]
+
+### So sánh Subagents vs Agent Teams
+
+Cả hai đều cho phép parallelize work, nhưng hoạt động khác nhau. Chọn dựa trên việc workers có cần giao tiếp với nhau không.
+
+| | Subagents | Agent Teams |
+|---|---|---|
+| **Context** | Context riêng; kết quả trả về caller | Context riêng; hoàn toàn độc lập |
+| **Communication** | Chỉ report kết quả về main agent | Teammates message trực tiếp với nhau |
+| **Coordination** | Main agent quản lý tất cả | Shared task list, tự phối hợp |
+| **Best for** | Tasks focused, chỉ cần kết quả | Work phức tạp cần discussion và collaboration |
+| **Token cost** | Thấp hơn: results summarized về main | Cao hơn: mỗi teammate là instance riêng |
+
+Dùng subagents khi cần workers nhanh, focused, report kết quả. Dùng Agent Teams khi teammates cần share findings, challenge lẫn nhau, và tự coordinate.
+
+### Khi nào dùng Agent Teams
+
+Agent Teams hiệu quả nhất cho:
+
+- **Research & review** — nhiều teammates investigate các khía cạnh khác nhau đồng thời
+- **New modules/features** — mỗi teammate own một phần riêng biệt
+- **Debugging competing hypotheses** — test nhiều theories song song, converge nhanh hơn
+- **Cross-layer coordination** — changes span frontend, backend, tests — mỗi layer một teammate
+
+Agent Teams tốn nhiều tokens hơn single session. Không phù hợp cho sequential tasks, same-file edits, hoặc work có nhiều dependencies.
+
+### Kiến trúc
+
+| Component | Vai trò |
+|-----------|---------|
+| **Team lead** | Session chính — tạo team, spawn teammates, coordinate work |
+| **Teammates** | Claude Code instances riêng biệt, mỗi cái work trên assigned tasks |
+| **Task list** | Danh sách work items chung — teammates claim và complete |
+| **Mailbox** | Hệ thống messaging giữa các agents |
+
+Teams và tasks lưu locally:
+
+- Team config: `~/.claude/teams/{team-name}/config.json`
+- Task list: `~/.claude/tasks/{team-name}/`
+
+---
+
+## 4.13 Thiết lập và điều khiển Agent Teams
+
+Enable Agent Teams và configure display, task management, hooks.
+
+[Nguồn: Claude Code Docs — Agent Teams] [Cập nhật 03/2026]
+
+### Enable
+
+Thêm vào `settings.json` hoặc environment variable:
+
+```json
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
+```
+
+### Display modes
+
+| Mode | Mô tả | Yêu cầu |
+|------|--------|----------|
+| **In-process** (default) | Tất cả teammates chạy trong terminal chính. `Shift+Down` để cycle qua teammates | Không cần setup thêm |
+| **Split panes** | Mỗi teammate có pane riêng, nhìn output đồng thời | tmux hoặc iTerm2 |
+
+Default là `"auto"` — dùng split panes nếu đang trong tmux session, in-process nếu không.
+
+```json
+{
+  "teammateMode": "in-process"
+}
+```
+
+Hoặc CLI flag cho single session:
+
+```bash
+claude --teammate-mode in-process
+```
+
+> [!NOTE]
+> Split-pane mode không hỗ trợ trong VS Code integrated terminal, Windows Terminal, hoặc Ghostty.
+
+### Tạo team
+
+Mô tả task và team structure bằng natural language:
+
+```text
+Create an agent team to refactor these modules in parallel.
+Spawn 3 teammates: one for auth, one for database, one for API layer.
+Use Sonnet for each teammate.
+```
+
+Claude tạo team, spawn teammates, coordinate work dựa trên prompt.
+
+### Quản lý tasks
+
+Shared task list coordinate work across team. Tasks có 3 states: **pending**, **in progress**, **completed**. Tasks có thể depend on other tasks — pending task với unresolved dependencies không thể claimed.
+
+- **Lead assigns** — chỉ định task cho teammate cụ thể
+- **Self-claim** — sau khi finish task, teammate tự pick up task tiếp theo
+
+Task claiming dùng file locking để tránh race conditions.
+
+### Tương tác trực tiếp với teammates
+
+Mỗi teammate là full Claude Code session. Có thể message bất kỳ teammate nào:
+
+- **In-process mode**: `Shift+Down` cycle qua teammates → type message. `Enter` xem session, `Escape` interrupt, `Ctrl+T` toggle task list
+- **Split-pane mode**: click vào pane của teammate
+
+### Plan approval cho teammates
+
+Yêu cầu teammate plan trước khi implement — teammate ở read-only plan mode cho đến khi lead approve:
+
+```text
+Spawn an architect teammate to refactor the auth module.
+Require plan approval before they make any changes.
+```
+
+Lead review plan và approve/reject. Nếu reject, teammate revise và resubmit.
+
+### Hooks cho Agent Teams
+
+Dùng hooks để enforce quality gates khi teammates hoàn thành work.
+
+| Event | Khi nào fire | Exit code 2 |
+|-------|-------------|-------------|
+| `TeammateIdle` | Teammate sắp idle | Send feedback, giữ teammate working |
+| `TaskCompleted` | Task đang được mark complete | Block completion, send feedback |
+
+### Shutdown & cleanup
+
+```text
+# Shut down teammate cụ thể
+Ask the researcher teammate to shut down
+
+# Cleanup toàn bộ team (chạy từ lead)
+Clean up the team
+```
+
+> [!WARNING]
+> Luôn dùng lead để cleanup. Teammates không nên run cleanup — có thể để resources trong trạng thái inconsistent. Shut down tất cả teammates trước khi cleanup.
+
+### Limitations của Agent Teams
+
+- **No session resumption** — `/resume` và `/rewind` không restore in-process teammates
+- **Task status can lag** — teammates đôi khi không mark tasks completed, block dependent tasks
+- **Shutdown chậm** — teammates finish current request trước khi shutdown
+- **One team per session** — cleanup team hiện tại trước khi tạo team mới
+- **No nested teams** — teammates không thể spawn teams riêng
+- **Lead cố định** — không thể promote teammate lên lead
+- **Permissions set at spawn** — tất cả teammates inherit lead's permission mode
+
+---
+
+## 4.14 Git Worktrees — parallel sessions
+
+Git Worktrees cho phép chạy nhiều Claude Code sessions song song trên cùng repository mà không conflict. Mỗi worktree có working directory riêng với files và branch riêng, nhưng share repository history.
+
+[Nguồn: Claude Code Docs — Common Workflows] [Cập nhật 03/2026]
+
+### Tạo worktree
+
+Dùng flag `--worktree` (`-w`) để tạo isolated worktree và start Claude trong đó:
+
+```bash
+# Tạo worktree với tên cụ thể
+claude --worktree feature-auth
+
+# Tạo worktree khác cho task khác
+claude --worktree bugfix-123
+
+# Auto-generate tên ngẫu nhiên
+claude --worktree
+```
+
+Worktrees tạo tại `<repo>/.claude/worktrees/<name>`, branch từ default remote branch. Branch name: `worktree-<name>`.
+
+### Subagent worktrees
+
+Subagents cũng có thể dùng worktree isolation. Thêm `isolation: worktree` vào frontmatter:
+
+```yaml
+---
+name: parallel-worker
+description: Works on isolated changes
+isolation: worktree
+---
+```
+
+Worktree tự động cleanup khi subagent finish mà không có changes.
+
+### Cleanup
+
+- **Không có changes** — worktree và branch tự động xóa
+- **Có changes/commits** — Claude prompt giữ hay xóa
+
+> [!TIP]
+> Thêm `.claude/worktrees/` vào `.gitignore` để tránh worktree contents xuất hiện như untracked files.
+
+---
+
+## 4.15 Headless mode & orchestration patterns
+
+Claude Code có thể chạy non-interactive (headless) cho automation, scripting, và orchestration.
+
+[Nguồn: Claude Code Docs — Common Workflows] [Cập nhật 03/2026]
+
+### Headless mode (`claude -p`)
+
+Chạy Claude với prompt trực tiếp, không cần interactive session:
+
+```bash
+# Basic headless
+claude -p "analyze this codebase and list all API endpoints"
+
+# Với permission mode
+claude --permission-mode plan -p "suggest improvements for the auth system"
+
+# Pipe data qua Claude
+cat build-error.txt | claude -p "explain the root cause of this build error"
+
+# Output format
+claude -p "list all TODO comments" --output-format json
+```
+
+Output formats: `text` (default), `json` (full conversation log), `stream-json` (real-time).
+
+### Orchestration pattern: Command → Agent → Skill
+
+Pattern phân tầng cho workflow automation — mỗi layer có scope và trigger khác nhau:
+
+| Layer | Cơ chế | Scope | Ví dụ |
+|-------|--------|-------|-------|
+| **Command** | `.claude/commands/` | Session entry point, user-triggered | `/start`, `/checkpoint` |
+| **Agent** | `.claude/agents/` hoặc `--agent` | Autonomous worker, isolated context | `code-reviewer`, `debugger` |
+| **Skill** | `.claude/skills/` | Reusable prompt, inject vào context | `claude-api`, `doc-standard-enforcer` |
+
+Workflow ví dụ:
+
+1. User chạy `/review-module` (command) → command prompt chứa instructions
+2. Claude delegate sang `code-reviewer` agent → agent có system prompt riêng, tools giới hạn
+3. Agent load `api-conventions` skill → skill inject coding standards vào context
+
+Mỗi layer có thể dùng độc lập hoặc kết hợp tùy complexity.
+
+[Nguồn: Claude Code Docs — Sub-agents, Skills] [Cập nhật 03/2026]
+
+---
+
+## 4.16 CI/CD Integration
+
+Claude Code tích hợp với GitHub Actions và GitLab CI/CD để automate code review, PR creation, và implementation tasks.
+
+[Nguồn: Claude Code Docs — GitHub Actions, GitLab CI/CD] [Cập nhật 03/2026]
+
+### GitHub Actions
+
+Setup nhanh nhất: chạy `/install-github-app` trong Claude Code terminal. Hoặc manual:
+
+1. Install [Claude GitHub App](https://github.com/apps/claude)
+2. Thêm `ANTHROPIC_API_KEY` vào repository secrets
+3. Copy workflow file vào `.github/workflows/`
+
+Basic workflow:
+
+```yaml
+name: Claude Code
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+```
+
+Trigger bằng `@claude` trong issue hoặc PR comment:
+
+```text
+@claude implement this feature based on the issue description
+@claude fix the TypeError in the user dashboard component
+@claude review this PR for security issues
+```
+
+CLI arguments qua `claude_args`:
+
+```yaml
+claude_args: "--max-turns 5 --model claude-sonnet-4-6"
+```
+
+Hỗ trợ AWS Bedrock và Google Vertex AI cho enterprise environments.
+
+### GitLab CI/CD
+
+> [!NOTE]
+> GitLab CI/CD integration hiện ở beta. Maintained bởi GitLab.
+
+Setup: thêm `ANTHROPIC_API_KEY` masked variable + Claude job vào `.gitlab-ci.yml`:
+
+```yaml
+stages:
+  - ai
+
+claude:
+  stage: ai
+  image: node:24-alpine3.21
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  before_script:
+    - apk update
+    - apk add --no-cache git curl bash
+    - curl -fsSL https://claude.ai/install.sh | bash
+  script:
+    - >
+      claude
+      -p "${AI_FLOW_INPUT:-'Review this MR and suggest improvements'}"
+      --permission-mode acceptEdits
+      --allowedTools "Bash Read Edit Write mcp__gitlab"
+```
+
+Cả hai platforms đều:
+
+- Đọc `CLAUDE.md` cho project standards
+- Hỗ trợ AWS Bedrock và Google Vertex AI
+- Sandbox execution trong isolated runners
+
+---
+
+## 4.17 Community patterns
+
+Một số patterns từ cộng đồng Claude Code — không phải official, nhưng được nhiều người dùng áp dụng.
+
+[Ghi chú: patterns từ cộng đồng, không phải Anthropic official. Dùng tham khảo, tự đánh giá phù hợp.]
+
+### RIPER Framework
+
+Framework 5 phases cho structured workflow với Claude Code:
+
+| Phase | Mục đích | Claude được phép |
+|-------|----------|-----------------|
+| **R**esearch | Khám phá codebase, hiểu context | Chỉ đọc, hỏi questions |
+| **I**nnovate | Brainstorm solutions | Đề xuất approaches, so sánh trade-offs |
+| **P**lan | Lập kế hoạch chi tiết | Viết plan, xác nhận với user |
+| **E**xecute | Implement changes | Edit code theo plan đã approved |
+| **R**eview | Kiểm tra kết quả | Review, test, iterate |
+
+Áp dụng bằng cách include phase instructions trong prompt hoặc CLAUDE.md.
+
+### Ralph Wiggum Technique
+
+Yêu cầu Claude giải thích plan trước khi implement — nếu giải thích không hợp lý, plan có vấn đề. Đặt tên theo nguyên tắc "nếu Ralph Wiggum hiểu được thì plan đủ rõ ràng."
+
+Dùng khi: cần verify Claude hiểu đúng yêu cầu trước khi execute changes phức tạp.
 
 ---
 
