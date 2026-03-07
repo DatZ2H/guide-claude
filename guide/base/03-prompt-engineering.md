@@ -928,7 +928,4 @@ Bạn có thể tự verify bất kỳ thông tin nào bằng cách truy cập U
 
 ---
 
-**Tiếp theo:**
-- [Module 04: Context Management](04-context-management.md) -- quản lý conversation dài hiệu quả
-- [Doc Workflows](../doc/01-doc-workflows.md) -- quy trình theo task cụ thể
-- [Doc Template Library](../doc/02-template-library.md) -- templates copy-paste
+← [Setup](02-setup.md) | [Tổng quan](00-overview.md) | [Context Management →](04-context-management.md)

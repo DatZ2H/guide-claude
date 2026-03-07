@@ -1188,3 +1188,7 @@ Tổng hợp tài liệu tham khảo cho Claude Code documentation workflow. B�
 - [Claude Code GitHub Issues](https://github.com/anthropics/claude-code/issues) — Bug reports, feature requests, community workarounds
 
 [Nguồn: Claude Code Docs]
+
+---
+
+← [Cowork Workflows](04-cowork-workflows.md) | [Tổng quan](../base/00-overview.md) | [Custom Style →](06-custom-style.md)

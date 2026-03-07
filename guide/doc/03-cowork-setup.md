@@ -1090,3 +1090,7 @@ Cài skill `/docx` (mục 3.8) để Claude tạo file Word từ nội dung Mark
 - [Claude Code cho Documentation](05-claude-code-doc.md) — CC cho documentation workflow
 - [Tools & Features](../base/05-tools-features.md) — Claude Desktop basics + Global Instructions
 - [Context Management](../base/04-context-management.md) — Decision Framework, Session Lifecycle
+
+---
+
+← [Template Library](02-template-library.md) | [Tổng quan](../base/00-overview.md) | [Cowork Workflows →](04-cowork-workflows.md)

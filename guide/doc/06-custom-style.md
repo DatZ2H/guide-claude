@@ -98,3 +98,7 @@ Trong thực tế, một dự án documentation thường cần nhiều styles k
 - Style kiểm soát **tone và format** (cách Claude viết)
 - Project Instructions kiểm soát **content và scope** (Claude viết gì)
 - Hai thứ bổ sung nhau, không thay thế
+
+---
+
+← [Claude Code Doc](05-claude-code-doc.md) | [Tổng quan](../base/00-overview.md)

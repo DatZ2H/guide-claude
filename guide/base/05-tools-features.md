@@ -763,8 +763,4 @@ Tại sao không làm 1 task: context window đầy ở module thứ 3-4, qualit
 
 ---
 
-**Tiếp theo:**
-
-- [Mistakes & Fixes](06-mistakes-fixes.md) -- lỗi thường gặp và cách khắc phục
-- [Prompt Engineering](03-prompt-engineering.md) -- kỹ thuật viết prompt hiệu quả
-- [Context Management](04-context-management.md) -- quản lý conversation dài
+← [Context Management](04-context-management.md) | [Tổng quan](00-overview.md) | [Mistakes & Fixes →](06-mistakes-fixes.md)

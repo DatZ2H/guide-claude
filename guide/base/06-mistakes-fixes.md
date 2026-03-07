@@ -514,7 +514,4 @@ Chat luong giam?
 
 ---
 
-**Tiếp theo:**
-
-- [Evaluation Framework](07-evaluation.md) -- cách đánh giá chất lượng output
-- [Prompt Engineering](03-prompt-engineering.md) -- hiểu sâu nguyên tắc để tránh lỗi từ đầu
+← [Tools & Features](05-tools-features.md) | [Tổng quan](00-overview.md) | [Evaluation →](07-evaluation.md)

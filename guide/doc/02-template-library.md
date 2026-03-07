@@ -869,3 +869,7 @@ Mọi template đều có thể mở rộng bằng cách thêm các module tùy 
 - [Prompt Engineering](../base/03-prompt-engineering.md) -- hiểu sâu 6 nguyên tắc và 7 kỹ thuật đằng sau các templates
 - [Doc Workflows](01-doc-workflows.md) -- quy trình hoàn chỉnh sử dụng các templates
 - [Quick Start Templates (T-01~T-05)](../reference/quick-templates.md) -- templates cơ bản dùng ngay
+
+---
+
+← [Doc Workflows](01-doc-workflows.md) | [Tổng quan](../base/00-overview.md) | [Cowork Setup →](03-cowork-setup.md)
