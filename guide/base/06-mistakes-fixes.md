@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, doc/03-cowork-setup]
-impacts: []
+impacts: [dev/04-agents-automation]
 ---
 
 Module này tổng hợp những lỗi phổ biến nhất khi sử dụng Claude và cách khắc phục cụ thể. Chia thành 7 nhóm theo nguyên nhân gốc.
@@ -363,83 +363,11 @@ flowchart TD
 
 ## 8.7 Nhóm 7: Anti-patterns khi dùng Claude Code
 
-<!-- NOTE: Section này giữ tạm trong base/06. Sẽ extract sang dev/ tại P3. -->
+Nhóm lỗi này đặc thù cho Claude Code (CLI). Nội dung chi tiết đã chuyển sang Dev tier:
 
-[Nguồn: Anthropic - Claude Code Best Practices]
+**Xem:** [dev/04 — Anti-patterns khi dùng Claude Code](../dev/04-agents-automation.md#411-anti-patterns-khi-dùng-claude-code)
 
-Nhóm lỗi này đặc thù cho Claude Code (CLI) — khác với Claude Chat. Đây là những pattern thoạt nhìn hợp lý nhưng thực tế làm giảm chất lượng và hiệu quả làm việc.
-
-### Kitchen Sink — Nhồi quá nhiều vào 1 prompt
-
-Đưa vào prompt quá nhiều files, context, và instructions với hy vọng Claude có đủ thông tin để xử lý tất cả.
-
-**Biểu hiện:** Prompt dài > 500 token, attach nhiều file không liên quan trực tiếp, instructions có > 20 rules đặc thù.
-
-**Hậu quả:** Claude bị "overwhelmed" — ưu tiên sai, bỏ sót yêu cầu quan trọng, hoặc cố xử lý tất cả nhưng xử lý nông.
-
-**Fix:**
-
-- 1 prompt = 1 task rõ ràng
-- Chỉ include files Claude thực sự cần đọc hoặc sửa
-- CLAUDE.md: giữ core conventions và decisions quan trọng, không liệt kê mọi edge case
-
-### Correcting Loop — Vòng lặp sửa lỗi không thoát được
-
-Claude tạo output sai → bạn sửa → Claude sửa lại → vẫn sai → bạn sửa tiếp → chất lượng giảm dần theo mỗi iteration.
-
-**Biểu hiện:** Sau 3+ lần sửa, output ngày càng tệ hơn hoặc Claude bắt đầu thêm lỗi mới trong khi sửa lỗi cũ.
-
-**Hậu quả:** Tốn thời gian, context bị "poisoned" bởi các corrections mâu thuẫn nhau, kết quả kém hơn nếu viết thẳng từ đầu.
-
-**Fix:**
-
-- Sau 2-3 lần sửa không hiệu quả → dừng, bắt đầu conversation mới
-- Viết lại prompt gốc với constraints rõ hơn thay vì tiếp tục patch
-- Dùng `/clear` để reset context và thử lại với approach khác
-
-### Over-specified CLAUDE.md — Quá nhiều rules
-
-CLAUDE.md có hàng trăm dòng rules cho mọi tình huống, cố gắng điều khiển từng hành vi nhỏ của Claude.
-
-**Biểu hiện:** CLAUDE.md > 200 dòng, có rules cho edge cases hiếm gặp, rules mâu thuẫn nhau, rules quá chi tiết về style.
-
-**Hậu quả:** Claude xử lý quá nhiều instructions → conflict → chọn rules sai hoặc bỏ qua một số. Token lãng phí vào instructions ít giá trị.
-
-**Fix:**
-
-- CLAUDE.md: chỉ ghi conventions bắt buộc và decisions đã chốt — không phải mọi preference
-- Rules cho tình huống cụ thể → đặt trong prompt khi cần, không phải global
-- Định kỳ review và prune CLAUDE.md: xóa rules không còn relevant hoặc bị override
-
-### Trust-then-Verify Gap — Tin tuyệt đối output
-
-Chấp nhận và apply output của Claude mà không verify — đặc biệt nguy hiểm với code changes và file edits trong Claude Code.
-
-**Biểu hiện:** Approve mọi tool call không đọc, commit code chưa test, apply file changes không review diff.
-
-**Hậu quả:** Bugs, broken functionality, mất code, hoặc security issues — khó detect vì output "trông có vẻ đúng".
-
-**Fix:**
-
-- Review mọi file change trước khi approve, đặc biệt `Edit`, `Write`, và `Bash` với destructive commands
-- Chạy tests sau mỗi thay đổi đáng kể
-- Git checkpoint trước mỗi task lớn: `git commit -m "checkpoint: trước [task]"`
-- Xem thêm: [Module 10 mục 10.7](../doc/03-cowork-setup.md) (An toàn Cowork)
-
-### Infinite Exploration — Khám phá không kết thúc
-
-Claude dành phần lớn thời gian đọc và phân tích codebase hoặc files thay vì thực thi task. Task đơn giản tốn nhiều tool calls không cần thiết.
-
-**Biểu hiện:** Claude chạy 10+ Read hoặc Grep commands trước khi bắt đầu edit, hỏi clarification liên tục, tạo plan dài mà không bắt đầu làm.
-
-**Hậu quả:** Tốn tokens, tốn thời gian, context window bị chiếm bởi exploration thay vì execution — và đôi khi Claude vẫn không làm đúng sau khi khám phá xong.
-
-**Fix:**
-
-- Cung cấp đủ context từ đầu: file paths, function names, scope cụ thể
-- Viết rõ expected actions: "Edit file X, function Y, thay đổi Z"
-- Nếu Claude hỏi quá nhiều: "Đủ thông tin rồi — hãy bắt đầu, hỏi thêm chỉ khi thực sự cần"
-- Dùng `/clear` để reset nếu Claude đang trong exploration loop không thoát được
+5 anti-patterns chính: Kitchen Sink, Correcting Loop, Over-specified CLAUDE.md, Trust-then-Verify Gap, Infinite Exploration.
 
 ---
 
@@ -459,7 +387,7 @@ Claude dành phần lớn thời gian đọc và phân tích codebase hoặc fil
 | Không biết dùng tool nào | Tra cứu bảng tools | [05](05-tools-features.md) (Tools & Features) |
 | Cần template có sẵn | Tra cứu Template Library | [Doc Templates](../doc/02-template-library.md), [Quick Templates](../reference/quick-templates.md) |
 | Output quá chung | Thêm role, audience, ví dụ mong muốn | [03](03-prompt-engineering.md) (Nguyên tắc 1, 6) |
-| Anti-patterns Claude Code (kitchen sink, correcting loop...) | Xem Nhóm 7 | 06 (Nhóm 7) |
+| Anti-patterns Claude Code (kitchen sink, correcting loop...) | Xem Nhóm 7 | [dev/04](../dev/04-agents-automation.md#411-anti-patterns-khi-dùng-claude-code) |
 
 ---
 
