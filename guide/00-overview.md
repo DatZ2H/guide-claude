@@ -211,6 +211,25 @@ Chưa từng dùng Claude hoặc mới dùng vài lần.
 
 [Cập nhật 03/2026]
 
+### Version 7.3 (03/2026)
+
+- **M08 Nhóm 7:** Thêm 5 anti-patterns đặc thù Claude Code — Kitchen Sink, Correcting Loop, Over-specified CLAUDE.md, Trust-then-Verify Gap, Infinite Exploration
+- **P1 Final Review:** Hoàn tất Phase 1 Foundation — cross-links, source markers, prompt format, Context Sync, Decision Matrix 3-way, Session Lifecycle
+- Bump version từ 7.2
+
+### Version 7.2 (03/2026)
+
+- **P1.S4 Prompt format:** Áp dụng convention XML/[]/{{}} nhất quán cho M05 (16 recipes) và M07 (22 templates)
+- **Code blocks:** Thêm language tags cho tất cả code blocks còn thiếu trong M00, M01, M02, M04, M08
+- Bump version từ 7.1
+
+### Version 7.1 (03/2026)
+
+- **P1.S1 Cross-link audit:** Fix broken cross-links, cập nhật URLs docs.anthropic.com → code.claude.com
+- **P1.S2 Source markers:** Thêm source markers 3-tier cho toàn bộ guide/*.md
+- **P1.S3 Prompt format M03:** Document convention XML/[]/{{}} tại M03, fix examples
+- Bump version từ 7.0
+
 ### Version 7.0 (03/2026)
 
 - **Thêm Module 12:** Claude Code cho Documentation & Technical Writing — 15 sections hướng dẫn CC workflow cho non-coding documentation (Plan Mode, Skills, Subagents, Git Integration, Batch & Automation, Plugins & MCP)
