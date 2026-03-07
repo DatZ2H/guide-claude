@@ -71,6 +71,7 @@ Tài liệu được tổ chức thành 3 nhóm theo đối tượng sử dụng
 | [Cheatsheet Base](../reference/cheatsheet-base.md) | Quick-reference Base tier |
 | [Cheatsheet Doc](../reference/cheatsheet-doc.md) | Quick-reference Doc tier |
 | [Cheatsheet Dev](../reference/cheatsheet-dev.md) | Quick-reference Dev tier |
+| [Prompt Format Guide](../reference/prompt-format-guide.md) | XML tags, brackets, placeholders — khi nào dùng gì |
 
 ---
 
@@ -247,6 +248,12 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 ## Thông tin cập nhật
 
 [Cập nhật 03/2026]
+
+### Version 8.5 (03/2026)
+
+- **P4.S28 Prompt Format Guide:** Thêm reference/prompt-format-guide.md — tra cứu XML tags, brackets, placeholders
+- **P4.S28 Custom Style mở rộng:** doc/06 thêm advanced patterns (Style + Project Instructions combo, per-task switching, team style library)
+- **Version bump:** v8.4 → v8.5
 
 ### Version 8.4 (03/2026)
 
