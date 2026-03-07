@@ -302,6 +302,7 @@ Spawn 3 teammates: one for auth, one for database, one for API.
 ```
 
 [Nguồn: Claude Code Docs] [Cập nhật 03/2026]
+[Ghi chú: Số lượng teammates và tasks là best practices từ thực tế, không phải thông số chính thức]
 
 Xem chi tiết: [dev/04 — Agents & Automation](../dev/04-agents-automation.md#412-agent-teams-experimental)
 
