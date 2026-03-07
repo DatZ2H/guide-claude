@@ -742,7 +742,7 @@ Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
 - [Doc Template Library](02-template-library.md) -- templates copy-paste cho doc tasks
 - [Quick Start Templates](../reference/quick-templates.md) -- 5 templates cơ bản dùng ngay
 - [Tools & Features](../base/05-tools-features.md) -- tra cứu nhanh tính năng Claude
-- [Planning Patterns](../base/05-tools-features.md#516-recipe-hybrid-workflow--chat--project--cowork) -- Hybrid Workflow, Task Planning, Multi-file Editing
+- [Planning Patterns](../base/05-tools-features.md#517-recipe-hybrid-workflow--chat--project--cowork) -- Hybrid Workflow, Task Planning, Multi-file Editing
 
 ---
 

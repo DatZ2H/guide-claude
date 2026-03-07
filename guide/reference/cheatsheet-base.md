@@ -2,6 +2,8 @@
 
 **Cập nhật:** 2026-03-07 | Quick-reference card cho guide/base/ (Modules 00–07)
 
+[Nguồn: Tổng hợp từ guide/base/] [Cập nhật 03/2026]
+
 > [!TIP]
 > Cheatsheet này là bảng tra cứu nhanh — mỗi mục link về module gốc để đọc chi tiết.
 
@@ -17,7 +19,7 @@ T = Task      (hành động cụ thể cần làm)
 R = Requirements (format, độ dài, tone, ràng buộc)
 ```
 
-Xem chi tiết: [base/03 — Prompt Engineering](../base/03-prompt-engineering.md#31-nguyên-tắc-cốt-lõi)
+Xem chi tiết: [base/03 — Prompt Engineering](../base/03-prompt-engineering.md#32-sáu-nguyên-tắc-cốt-lõi)
 
 ### 1.2 XML Module System — 13 tags
 
@@ -37,7 +39,7 @@ Xem chi tiết: [base/03 — Prompt Engineering](../base/03-prompt-engineering.m
 | `<evaluation_criteria>` | Tiêu chí đánh giá / so sánh | — |
 | `<chain_info>` | Context cho multi-prompt | — |
 
-Xem chi tiết: [base/03 — 13-Module System](../base/03-prompt-engineering.md#33-hệ-thống-13-module-xml)
+Xem chi tiết: [base/03 — 13-Module System](../base/03-prompt-engineering.md#34-module-system-nâng-cao-advanced)
 
 ### 1.3 Six Core Principles
 
@@ -61,7 +63,7 @@ Xem chi tiết: [base/03 — 13-Module System](../base/03-prompt-engineering.md#
 
 **Outline-First pattern:** Tạo outline trước → Review → Viết từng section → Review tổng thể.
 
-Xem chi tiết: [base/03 — Task Decomposition](../base/03-prompt-engineering.md#35-task-decomposition)
+Xem chi tiết: [base/03 — Task Decomposition](../base/03-prompt-engineering.md#35-task-decomposition--khi-nào-và-cách-tách-task-advanced)
 
 ### 1.5 Prompt theo loại task
 

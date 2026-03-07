@@ -253,7 +253,7 @@ Lưu tại: `.claude/agents/code-reviewer.md`
 | Isolated builder | `isolation: worktree` — worktree riêng |
 | Quality gate | Hooks `PreToolUse` validate trước khi chạy |
 
-Xem chi tiết: [dev/04 — Agents & Automation](../dev/04-agents-automation.md#41-subagents)
+Xem chi tiết: [dev/04 — Agents & Automation](../dev/04-agents-automation.md#41-subagents-là-gì)
 
 ---
 
@@ -301,7 +301,7 @@ Spawn 3 teammates: one for auth, one for database, one for API.
 
 [Nguồn: Claude Code Docs] [Cập nhật 03/2026]
 
-Xem chi tiết: [dev/04 — Agents & Automation](../dev/04-agents-automation.md#42-agent-teams)
+Xem chi tiết: [dev/04 — Agents & Automation](../dev/04-agents-automation.md#412-agent-teams-experimental)
 
 ---
 
@@ -412,7 +412,7 @@ claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
 | `project` | `.mcp.json` | Team-shared |
 | `user` | `~/.claude.json` | Personal, mọi projects |
 
-Xem chi tiết: [dev/05 — Plugins](../dev/05-plugins.md#52-mcp)
+Xem chi tiết: [dev/05 — Plugins](../dev/05-plugins.md#55-mcp-model-context-protocol)
 
 ---
 
@@ -500,7 +500,7 @@ BASH_MAX_TIMEOUT_MS=600000            # Max timeout (10 min)
 CLAUDE_CODE_SHELL=bash                # Shell override
 ```
 
-Xem chi tiết: [dev/02 — CLI Reference](../dev/02-cli-reference.md#26-environment-variables)
+Xem chi tiết: [dev/02 — CLI Reference](../dev/02-cli-reference.md#27-environment-variables)
 
 ---
 
@@ -549,7 +549,7 @@ for file in $(cat files.txt); do
 done
 ```
 
-Xem chi tiết: [dev/06 — Dev Workflows](../dev/06-dev-workflows.md#66-batch-operations)
+Xem chi tiết: [dev/06 — Dev Workflows](../dev/06-dev-workflows.md#66-batch-operations-và-headless-mode)
 
 ---
 
@@ -609,7 +609,7 @@ Xem chi tiết: [dev/06 — Dev Workflows](../dev/06-dev-workflows.md#65-session
 | Linux/WSL2 | bubblewrap (`apt install bubblewrap socat`) |
 | Windows native | Planned |
 
-Xem chi tiết: [dev/01 — Setup](../dev/01-claude-code-setup.md#17-sandbox-mode)
+Xem chi tiết: [dev/01 — Setup](../dev/01-claude-code-setup.md#16-sandbox-mode)
 
 ---
 

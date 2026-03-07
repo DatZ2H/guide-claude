@@ -189,7 +189,7 @@ Hover bất kỳ message nào → nút rewind với 3 options:
 - **Rewind code to here**: revert file changes về điểm này, giữ conversation history
 - **Fork + rewind**: cả hai
 
-Chi tiết: xem [checkpointing](01-claude-code-setup.md#19-checkpointing--rewind).
+Chi tiết: xem [checkpointing](01-claude-code-setup.md#18-checkpointing--rewind).
 
 ---
 
