@@ -577,9 +577,23 @@ Giữ nguyên: Phase, Conventions, Hướng dẫn cho Claude.
 Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledge.
 ```
 
-**Chi tiết quy trình upload:** Module 10, mục 10.8.2.
+**Chi tiết quy trình upload vào Project Knowledge:** Xem [Claude Desktop & Cowork](../10-claude-desktop-cowork.md#1082-project-statemd--context-transfer-document).
 
 ### Decision Matrix: Chat / Cowork / Claude Code
+
+```mermaid
+flowchart TD
+    A["Ban can lam gi?"] --> B{"Can thao tac\ntren file system?"}
+    B -->|"Khong — hoi dap,\nphan tich, brainstorm"| C["Dung Chat\n(claude.ai hoac\nClaude Desktop Chat)"]
+    B -->|"Co"| D{"Can chay lenh\nhoac git?"}
+    D -->|"Co — code, test,\ngit, terminal"| E["Claude Code\n(CLI)"]
+    D -->|"Khong — documents,\nbatch operations"| F{"Task don gian?"}
+    F -->|"Don gian\n(1 file, vai buoc)"| G["Chat + upload/download\ncung duoc"]
+    F -->|"Phuc tap\n(nhieu file, nhieu buoc)"| H["Dung Cowork"]
+    H --> I{"Task lap lai?"}
+    I -->|"Co — dinh ky"| J["Scheduled Task"]
+    I -->|"Khong — 1 lan"| K["Cowork session thuong"]
+```
 
 | Tình huống | Dùng | Lý do |
 |-----------|------|-------|
@@ -593,6 +607,20 @@ Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledg
 | Fix bug, refactor code, chạy tests | **Claude Code** | Terminal access, chạy lệnh trực tiếp, không cần copy-paste |
 | Multi-file code changes với git workflow | **Claude Code** | Đọc/ghi code files + git operations trong 1 session |
 | Viết README, docstrings, technical docs | **Claude Code** | Đọc code context trực tiếp, output vào file cùng thư mục |
+
+### Phân chia công việc giữa các công cụ theo phase
+
+[Cập nhật 03/2026]
+
+| Phase | Chat (claude.ai) | Project | Cowork | Claude Code |
+|-------|-------------------|---------|--------|------------|
+| **Research** | Brainstorm, web search, tổng hợp | Tra cứu reference files đã upload | — | — |
+| **Plan** | Thảo luận approach, ra quyết định | Review plan dựa trên context ổn định | Tạo folder structure | — |
+| **Draft** | Iterate nội dung nhanh | Viết với Custom Instructions giữ tone nhất quán | Ghi file trực tiếp | Code generation, viết docs |
+| **Review** | — | So sánh draft với glossary, style guide | Batch review nhiều files | Code review, chạy tests |
+| **Finalize** | — | — | Chuyển format, tổ chức thư mục, rename | Refactor, cleanup, git merge |
+| **Maintain** | — | — | Scheduled checks, consistency reports | CI/CD, automated tests |
+| **Context Transfer** | — | Paste `project-state.md` khi brainstorm | Update `project-state.md` khi cần | `/checkpoint` + git log |
 
 ### Khi nào áp dụng Context Sync
 
@@ -653,7 +681,7 @@ Kết thúc:  Handover nếu tiếp tục ở session sau (mục 4.5)
 Bắt đầu:  Claude đọc Folder Instructions — không nhớ task trước
 Làm việc: File system là bộ nhớ — Claude ghi ra file để dùng lại
 Kết thúc:  Task complete — không cleanup tự động
-Giữa tasks: Pre-task Planning (Module 10, mục 10.9) để cung cấp context
+Giữa tasks: Pre-task Planning (mục 5.20) để cung cấp context
 ```
 
 #### Claude Code — Command-based
@@ -665,6 +693,33 @@ Kết thúc:  /checkpoint cuối session — push + handover notes nếu cần
 Giữa sessions: CLAUDE.md + git history thay thế memory
 ```
 
+### Bảng so sánh tổng hợp: Claude.ai vs Cowork vs Claude Code
+
+[Cập nhật 03/2026]
+
+| Aspect | Claude.ai (Chat) | Cowork | Claude Code |
+|--------|-------------------|--------|-------------|
+| **Nền tảng** | Web browser | Claude Desktop | Claude Desktop / Terminal |
+| **File access** | Upload thủ công | Truy cập thư mục đã chọn | Full filesystem + terminal |
+| **Thế mạnh** | Hỏi đáp, phân tích, viết nội dung | File operations, automation, batch tasks | Viết code, test, deploy, Git |
+| **Persistence** | Projects + Memory | Global + Folder Instructions | CLAUDE.md + Git |
+| **Scheduled Tasks** | Không | Có | Không (dùng cron) |
+| **Plugins** | MCP Connectors | Plugins (MCP + Skills + Tools) | MCP servers |
+| **Plan yêu cầu** | Free trở lên | Pro trở lên | Pro trở lên |
+| **Đối tượng** | Mọi người | Knowledge workers | Developers |
+
+### Khi nào tạo session mới vs tiếp tục
+
+Nguyên tắc này áp dụng cho mọi công cụ Claude — dù là conversation (Chat), task (Cowork), hay CLI session (Claude Code).
+
+| Tình huống | Hành động | Lý do |
+|-----------|-----------|-------|
+| Cùng project, việc liên quan chặt | **Tiếp tục** session hiện tại | Giữ context, tránh repeat |
+| Cùng project, việc khác hẳn | **Session mới**, cùng scope | Context sạch, focus tốt hơn |
+| Khác project hoàn toàn | **Session mới**, scope khác | Tách biệt context |
+| Session quá dài (>30 messages hoặc chất lượng giảm) | **Session mới** + handover | Tránh context drift |
+| Claude bắt đầu "quên" instructions | **Session mới** + handover | Context window đã đầy |
+
 ### Nguyên tắc
 
 1. **Bắt đầu đúng context** — đọc notes, git log, hoặc Project Instructions trước khi bắt tay vào task.
@@ -673,8 +728,8 @@ Giữa sessions: CLAUDE.md + git history thay thế memory
 
 **Xem thêm:**
 - Mục 4.4–4.5 — Context Refresh và Handover Workflows
-- Module 10, mục 10.9–10.10 — Pre-task Planning và Task Lifecycle (Cowork)
-- Module 12 — Claude Code workflow và SessionStart hook
+- [Claude Desktop & Cowork](../10-claude-desktop-cowork.md#1010-task-lifecycle--bắt-đầu-kết-thúc-và-chuyển-tiếp) — Task Lifecycle chi tiết cho Cowork
+- [Module 12](../12-claude-code-documentation.md) — Claude Code workflow và SessionStart hook
 
 ---
 
