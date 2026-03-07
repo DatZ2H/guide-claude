@@ -20,7 +20,7 @@ machine-readable/       llms.txt (machine-readable index)
 .claude/hooks/          format-check.py (PostToolUse), link-check.py (standalone)
 .claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
-_scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/)
+_scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/, examples/, checklists/)
 upgrade-plan-v8.md      Master plan v7.0 → v9.0
 project-state.md        Project overview (cho người đọc)
 VERSION                 SSOT cho version number
