@@ -555,6 +555,9 @@ flowchart TD
 
 **Quy tắc ưu tiên:** Khi có conflict, Project Instructions > Profile Preferences. Memory chỉ áp dụng trong standalone conversations — không hoạt động trong Projects.
 
+> [!TIP]
+> **Developer dùng Claude Code CLI?** Xem [dev/01 — Claude Code Setup](../dev/01-claude-code-setup.md) để setup CLAUDE.md, permissions, sandbox, và settings cho terminal workflow.
+
 ---
 
 ← [Quick Start](01-quick-start.md) | [Tổng quan](00-overview.md) | [Prompt Engineering →](03-prompt-engineering.md)

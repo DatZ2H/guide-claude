@@ -302,10 +302,10 @@ Khi template cần update (vì Claude features thay đổi) → chỉ cần sử
 ## Cross-references
 
 - **Profile Preferences + Projects (claude.ai):** [Setup & Personalization](../base/02-setup.md)
-- **Global CLAUDE.md + Folder Instructions (Cowork):** Module 10, mục 10.3–10.4
-- **Skills creation workflow:** Module 10, mục 10.6
-- **Plugins:** Module 10, mục 10.6
-- **Scheduled Tasks:** Module 10, mục 10.5
+- **Claude Code CLI setup (CLAUDE.md, permissions, sandbox, settings):** [dev/01 — Claude Code Setup](../dev/01-claude-code-setup.md)
+- **Claude Code CLI reference (commands, flags, shortcuts):** [dev/02 — CLI Reference](../dev/02-cli-reference.md)
+- **Cowork setup:** [doc/03 — Cowork Setup](../doc/03-cowork-setup.md)
+- **Skills creation workflow:** [doc/03 — Cowork Setup](../doc/03-cowork-setup.md)
 - **Templates cho từng lớp:** `_scaffold/` folder
 
 ---
