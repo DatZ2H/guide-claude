@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, reference/claude-code-setup, reference/skills-list, reference/config-architecture]
-impacts: [00-overview, 04-context-management]
+impacts: [00-overview, base/04-context-management]
 ---
 
 Module này hướng dẫn sử dụng Claude Code (CC) — CLI agent chạy trong terminal — cho documentation và technical writing workflow. Nếu bạn không viết code, đây vẫn là công cụ mạnh cho quản lý tài liệu có Git, batch editing, và quality assurance tự động.

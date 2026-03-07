@@ -181,7 +181,7 @@ Hoàn thành checklist sau để xác nhận bạn đã nắm cơ bản:
 |-------------------|-------------|
 | Thiết lập Projects, Styles, Memory | [Setup & Personalization](02-setup.md) |
 | Dùng Claude Desktop / Cowork mode | [Claude Desktop & Cowork](../10-claude-desktop-cowork.md) |
-| Học cách viết prompt hiệu quả | [Prompt Engineering](../03-prompt-engineering.md) |
+| Học cách viết prompt hiệu quả | [Prompt Engineering](03-prompt-engineering.md) |
 | Cần template copy-paste ngay | [Template Library](../07-template-library.md) |
 | Muốn quy trình hoàn chỉnh cho công việc | [Workflow Recipes](../05-workflow-recipes.md) |
 

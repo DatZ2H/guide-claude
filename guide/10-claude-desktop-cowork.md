@@ -881,7 +881,7 @@ project-folder/
 
 [Cập nhật 03/2026]
 
-Khi dùng Hybrid Workflow, Project Knowledge có nguy cơ **desync** với Cowork folder — vì Cowork sửa files nhưng Project Knowledge không tự cập nhật. **Context Sync Practices** ([Module 04, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)) giải quyết bằng cách chỉ giữ `project-state.md` trong Project Knowledge — file summary thay đổi ít hơn nhiều so với working documents.
+Khi dùng Hybrid Workflow, Project Knowledge có nguy cơ **desync** với Cowork folder — vì Cowork sửa files nhưng Project Knowledge không tự cập nhật. **Context Sync Practices** ([Module 04, mục 4.9](base/04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)) giải quyết bằng cách chỉ giữ `project-state.md` trong Project Knowledge — file summary thay đổi ít hơn nhiều so với working documents.
 
 `project-state.md` là **context transfer document**: bạn update nó khi cần briefing Project Chat về trạng thái hiện tại của dự án, không phải theo lịch cố định.
 
