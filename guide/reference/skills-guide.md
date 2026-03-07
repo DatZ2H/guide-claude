@@ -10,7 +10,7 @@ Hướng dẫn sử dụng chi tiết cho từng skill và command trong Guide C
 > Tra cứu nhanh (tên, trust level, install) → xem [skills-list.md](skills-list.md).
 > File này tập trung vào **cách dùng** và **khi nào dùng**.
 
-[Nguồn: Đọc trực tiếp từ SKILL.md và command files trong `.claude/`]
+[Nguồn: Đọc trực tiếp từ SKILL.md và command files trong `.claude/`] [Cập nhật 03/2026]
 
 ---
 
@@ -261,7 +261,7 @@ Working tree: {N} modified, {M} untracked
 **Tips:**
 - Không tự ý bump — luôn hỏi user
 - Module headers tự reflect version qua VERSION link — không sửa thủ công
-- Tạo .bak backup cho 00-overview.md trước khi edit
+- Dùng `/checkpoint` (git commit) trước khi edit — đảm bảo có rollback point
 
 ---
 
@@ -301,6 +301,26 @@ Working tree: {N} modified, {M} untracked
 | Trước version bump | `upgrade-guide` + `cross-ref-checker` + `/review-module` |
 | Weekly maintenance | `/weekly-review` |
 | Commit changes | `/checkpoint` |
+
+---
+
+### `nav-update` (Skill)
+
+**Mục đích:** Auto-update prev/next navigation links trong guide/ files khi thêm/xóa/rename module.
+
+**Trigger:** "update nav", "fix navigation", "nav-update", sau khi thêm/xóa/rename module
+
+**Input:** Không cần (scan toàn bộ guide/).
+
+**Output:** Danh sách files updated + verification:
+- Files có nav links sai hoặc thiếu
+- Nav links đã sửa
+- Verification: tất cả nav links trỏ đến file tồn tại
+
+**Tips:**
+- Chạy sau khi thêm hoặc xóa module
+- Chạy sau rename file
+- Verify output trước khi commit — nav links ảnh hưởng UX đọc tài liệu
 
 ---
 

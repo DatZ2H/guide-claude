@@ -2,6 +2,8 @@
 
 **Cập nhật:** 2026-03-07 | Quick-reference card cho guide/doc/ (Modules 01–06)
 
+[Nguồn: Tổng hợp từ guide/doc/] [Cập nhật 03/2026]
+
 > [!TIP]
 > Cheatsheet này là bảng tra cứu nhanh — mỗi mục link về module gốc để đọc chi tiết.
 

@@ -456,7 +456,7 @@ flowchart LR
     C --> D["Step cuoi:<br/>Review tong the"]
 ```
 
-Tại sao hiệu quả: outline đã được bạn duyệt đóng vai trò "anchor" — mỗi lần viết section mới, bạn include outline vào prompt, Claude reference về đó thay vì phải "nhớ" instructions gốc qua hàng nghìn từ output. Pattern này giải quyết cả output degradation lẫn risk lỗi lan truyền (xem Module 08 Nhóm 6).
+Tại sao hiệu quả: outline đã được bạn duyệt đóng vai trò "anchor" — mỗi lần viết section mới, bạn include outline vào prompt, Claude reference về đó thay vì phải "nhớ" instructions gốc qua hàng nghìn từ output. Pattern này giải quyết cả output degradation lẫn risk lỗi lan truyền (xem [Mistakes & Fixes, nhóm 6](06-mistakes-fixes.md#86-nhóm-6-lỗi-lan-truyền-trong-workflow-nhiều-bước)).
 
 #### Pattern 2 — Section với Context Carry
 
@@ -476,7 +476,7 @@ Viết section tiếp theo: {{tên_section_N}}, theo outline đã duyệt.
 
 Yêu cầu Claude dừng sau mỗi section lớn và hỏi "Tiếp tục không?". Thêm instruction vào prompt: "Viết hết section [tên], sau đó dừng lại và hỏi tôi có muốn tiếp tục không. Không tự viết section tiếp theo." Pattern này ít kiểm soát hơn Pattern 1 (không có outline anchor) nhưng đơn giản hơn và đủ dùng cho tasks có ít dependency giữa sections.
 
-**Xem thêm:** Module 08 Nhóm 3 — output quality degradation là nguyên nhân phổ biến của output kém chất lượng khi viết tài liệu dài. Module 03 mục 3.5 — Task Decomposition giải quyết vấn đề này ở cấp độ planning, trước khi bắt đầu viết.
+**Xem thêm:** [Mistakes & Fixes, nhóm 3](06-mistakes-fixes.md#83-nhóm-3-quản-lý-conversation-kém) — output quality degradation là nguyên nhân phổ biến của output kém chất lượng khi viết tài liệu dài. [Prompt Engineering, mục 3.5](03-prompt-engineering.md#35-task-decomposition--khi-nào-và-cách-tách-task-advanced) — Task Decomposition giải quyết vấn đề này ở cấp độ planning, trước khi bắt đầu viết.
 
 ---
 
@@ -685,7 +685,7 @@ Kết thúc:  Handover nếu tiếp tục ở session sau (mục 4.5)
 Bắt đầu:  Claude đọc Folder Instructions — không nhớ task trước
 Làm việc: File system là bộ nhớ — Claude ghi ra file để dùng lại
 Kết thúc:  Task complete — không cleanup tự động
-Giữa tasks: Pre-task Planning (mục 5.20) để cung cấp context
+Giữa tasks: Pre-task Planning (base/05, mục 5.20) để cung cấp context
 ```
 
 #### Claude Code — Command-based

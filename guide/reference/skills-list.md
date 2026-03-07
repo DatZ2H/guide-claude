@@ -57,59 +57,58 @@ Toàn bộ community skills còn lại — xem [Section 5](#5-community-standalo
 
 Bảng tra cứu nhanh: recipe/workflow nào dùng skill nào. Chỉ liệt kê skills có badge `[Approved PX]` hoặc `Official`.
 
-### Module 05 — Workflow Recipes
+### doc/01 — Doc Workflows (Recipes)
 
 | Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
 |----------------|--------|-------------------|----------------|
-| 5.1 Viết tài liệu từ đầu | 05 | `doc-coauthoring` [Approved PX] | Notes/brief → Document hoàn chỉnh |
-| 5.2 Document Review | 05 | `doc-coauthoring` [Approved PX] | File tài liệu → Review report có issues list |
-| 5.3 Structured Troubleshooting | 05 | Không cần skill đặc biệt | Log/error data → Root cause analysis |
-| 5.4 Terminology Management | 05 | Không cần skill đặc biệt | Tài liệu → Glossary + inconsistency report |
-| 5.5 Document Generation | 05 | `docx` / `xlsx` / `pptx` [Approved PX] | Prompt → File Word/Excel/PowerPoint |
-| 5.6 Research & Synthesis | 05 | Không cần skill đặc biệt | Topic → Research report có citations |
-| 5.7 Structured Output | 05 | Không cần skill đặc biệt | Data input → JSON/CSV sẵn sàng parse |
-| 5.8 Convert & Migrate | 05 | `docx` [Approved PX] (nếu output Word) | File cũ → File đã convert sang format mới |
-| 5.9 MCP Connectors | 05 | Không cần skill đặc biệt | Prompt → Action trực tiếp trên connected service |
-| 5.10 Document Lifecycle | 05 | `doc-coauthoring` [Approved PX] | Brief → Published document (end-to-end) |
-| 5.11 Hybrid Workflow | 05 | Không cần skill đặc biệt | Research/notes → Final document qua Chat+Project+Cowork |
-| 5.12 Task Planning trước Chain Prompt | 05 | Không cần skill đặc biệt | Task description → Task map + dependency table |
-| 5.13 Multi-file Editing | 05 | `cross-ref-checker` [Approved PX] (Internal) | File changes → Impact report + verified consistency |
-| 5.14 Cowork Session Planning | 05 | Không cần skill đặc biệt | Task brief → Scope analysis + task plan |
-| 5.15 Cowork Batch Processing | 05 | `docx` [Approved PX] (nếu output Word) | Folder files → Batch processed output |
-| 5.16 Scheduled Tasks | 05 | Không cần skill đặc biệt | Prompt template → Automated periodic output |
+| 1.1 Viết tài liệu từ đầu | [doc/01](../doc/01-doc-workflows.md) | `doc-coauthoring` [Approved PX] | Notes/brief → Document hoàn chỉnh |
+| 1.2 Document Review | [doc/01](../doc/01-doc-workflows.md) | `doc-coauthoring` [Approved PX] | File tài liệu → Review report có issues list |
+| 1.3 Structured Troubleshooting | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Log/error data → Root cause analysis |
+| 1.4 Terminology Management | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Tài liệu → Glossary + inconsistency report |
+| 1.5 Document Generation | [doc/01](../doc/01-doc-workflows.md) | `docx` / `xlsx` / `pptx` [Approved PX] | Prompt → File Word/Excel/PowerPoint |
+| 1.6 Research & Synthesis | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Topic → Research report có citations |
+| 1.7 Structured Output | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Data input → JSON/CSV sẵn sàng parse |
+| 1.8 Convert & Migrate | [doc/01](../doc/01-doc-workflows.md) | `docx` [Approved PX] (nếu output Word) | File cũ → File đã convert sang format mới |
+| 1.9 MCP Connectors | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Prompt → Action trực tiếp trên connected service |
+| 1.10 Document Lifecycle | [doc/01](../doc/01-doc-workflows.md) | `doc-coauthoring` [Approved PX] | Brief → Published document (end-to-end) |
+| 1.11 Batch Processing | [doc/01](../doc/01-doc-workflows.md) | `docx` [Approved PX] (nếu output Word) | Folder files → Batch processed output |
+| 1.12 Scheduled Tasks | [doc/01](../doc/01-doc-workflows.md) | Không cần skill đặc biệt | Prompt template → Automated periodic output |
 
-### Module 07 — Templates
+> [!NOTE]
+> Recipes 5.11-5.14 (Hybrid Workflow, Task Planning, Multi-file Editing, Session Planning) đã chuyển vào [base/05 — Tools & Features](../base/05-tools-features.md) vì là universal patterns.
 
-| Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
-|----------------|--------|-------------------|----------------|
-| T-03 Viết Email báo cáo | 07 | `internal-comms` Official | Context tiến độ → Email professional ≤200 từ |
-| T-06 User Manual Section | 07 | `doc-coauthoring` [Approved PX] | Spec/context → Section user manual có cấu trúc |
-| T-07 Technical Specification | 07 | `doc-coauthoring` [Approved PX] | System context → Tech spec có requirements + criteria |
-| T-11 Standard Operating Procedure | 07 | `doc-coauthoring` [Approved PX] | Procedure notes → SOP hoàn chỉnh 10 sections |
-| T-12 Incident Report | 07 | `doc-coauthoring` [Approved PX] | Incident data → Report có RCA + corrective actions |
-| T-16 Tạo file Word | 07 | `docx` [Approved PX] | Prompt → .docx professional có TOC |
-| T-17 Tạo file Excel | 07 | `xlsx` [Approved PX] | Prompt → .xlsx có conditional formatting + dashboard |
-| T-18 Tạo file PowerPoint | 07 | `pptx` [Approved PX] | Prompt → .pptx presentation |
-| T-21 Multi-file Consistency Check | 07 | `cross-ref-checker` [Approved PX] (Internal) | File list → Inconsistency report + cascade fixes |
-
-Templates còn lại (T-01, T-02, T-04, T-05, T-08, T-09, T-10, T-13, T-14, T-15, T-19, T-20, T-22) — Không cần skill đặc biệt: dùng trực tiếp làm prompt template.
-
-### Module 11 — Cowork Workflows
+### doc/02 — Template Library
 
 | Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
 |----------------|--------|-------------------|----------------|
-| 11.1 Viết SOP từ notes | 11 | `doc-coauthoring` [Approved PX] + `docx` (nếu output Word) | Folder notes → SOP file hoàn chỉnh |
-| 11.2 Batch review tài liệu | 11 | Không cần skill đặc biệt | Folder tài liệu → Review report có priority ranking |
-| 11.3 Báo cáo tuần từ log | 11 | Không cần skill đặc biệt | Folder logs → Weekly report có executive summary |
-| 11.4 Convert Word ↔ Markdown | 11 | `docx` [Approved PX] (nếu output Word) | Folder .docx/.md → Files converted + conversion report |
-| 11.5 Glossary Enforcement | 11 | `cross-ref-checker` [Approved PX] (Internal) | Folder docs + glossary → Inconsistency report theo file |
-| 11.6 Training materials | 11 | `doc-coauthoring` [Approved PX] + `pptx` (nếu slides) | Tech docs → Training guide/slide outline |
-| 11.7 Extract data từ PDF | 11 | `pdf` [Approved PX] | Folder PDF/images → CSV data table |
-| 11.8 Tổ chức folder | 11 | Không cần skill đặc biệt | Folder lộn xộn → Folder organized + reorganization report |
-| 11.9 Release notes từ git | 11 | Không cần skill đặc biệt | git log → Release notes 2 tầng (stakeholder + technical) |
-| 11.10 Meeting prep | 11 | Không cần skill đặc biệt | Folder meeting docs → Briefing 1–2 trang + agenda |
-| 11.11 Incident report | 11 | `doc-coauthoring` [Approved PX] | Raw logs/notes → Incident report có RCA + prevention |
-| 11.12 Diff report | 11 | Không cần skill đặc biệt | 2 file versions → Diff report có impact + recommendation |
+| T-03 Viết Email báo cáo | [doc/02](../doc/02-template-library.md) | `internal-comms` Official | Context tiến độ → Email professional ≤200 từ |
+| T-06 User Manual Section | [doc/02](../doc/02-template-library.md) | `doc-coauthoring` [Approved PX] | Spec/context → Section user manual có cấu trúc |
+| T-07 Technical Specification | [doc/02](../doc/02-template-library.md) | `doc-coauthoring` [Approved PX] | System context → Tech spec có requirements + criteria |
+| T-11 Standard Operating Procedure | [doc/02](../doc/02-template-library.md) | `doc-coauthoring` [Approved PX] | Procedure notes → SOP hoàn chỉnh 10 sections |
+| T-12 Incident Report | [doc/02](../doc/02-template-library.md) | `doc-coauthoring` [Approved PX] | Incident data → Report có RCA + corrective actions |
+| T-16 Tạo file Word | [doc/02](../doc/02-template-library.md) | `docx` [Approved PX] | Prompt → .docx professional có TOC |
+| T-17 Tạo file Excel | [doc/02](../doc/02-template-library.md) | `xlsx` [Approved PX] | Prompt → .xlsx có conditional formatting + dashboard |
+| T-18 Tạo file PowerPoint | [doc/02](../doc/02-template-library.md) | `pptx` [Approved PX] | Prompt → .pptx presentation |
+| T-21 Multi-file Consistency Check | [doc/02](../doc/02-template-library.md) | `cross-ref-checker` [Approved PX] (Internal) | File list → Inconsistency report + cascade fixes |
+
+Templates còn lại (T-01→T-05 universal: xem [quick-templates.md](quick-templates.md); T-08→T-22 còn lại) — Không cần skill đặc biệt: dùng trực tiếp làm prompt template.
+
+### doc/04 — Cowork Workflows
+
+| Recipe/Workflow | Module | Skill khuyến nghị | Input → Output |
+|----------------|--------|-------------------|----------------|
+| 4.1 Viết SOP từ notes | [doc/04](../doc/04-cowork-workflows.md) | `doc-coauthoring` [Approved PX] + `docx` (nếu output Word) | Folder notes → SOP file hoàn chỉnh |
+| 4.2 Batch review tài liệu | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | Folder tài liệu → Review report có priority ranking |
+| 4.3 Báo cáo tuần từ log | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | Folder logs → Weekly report có executive summary |
+| 4.4 Convert Word ↔ Markdown | [doc/04](../doc/04-cowork-workflows.md) | `docx` [Approved PX] (nếu output Word) | Folder .docx/.md → Files converted + conversion report |
+| 4.5 Glossary Enforcement | [doc/04](../doc/04-cowork-workflows.md) | `cross-ref-checker` [Approved PX] (Internal) | Folder docs + glossary → Inconsistency report theo file |
+| 4.6 Training materials | [doc/04](../doc/04-cowork-workflows.md) | `doc-coauthoring` [Approved PX] + `pptx` (nếu slides) | Tech docs → Training guide/slide outline |
+| 4.7 Extract data từ PDF | [doc/04](../doc/04-cowork-workflows.md) | `pdf` [Approved PX] | Folder PDF/images → CSV data table |
+| 4.8 Tổ chức folder | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | Folder lộn xộn → Folder organized + reorganization report |
+| 4.9 Release notes từ git | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | git log → Release notes 2 tầng (stakeholder + technical) |
+| 4.10 Meeting prep | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | Folder meeting docs → Briefing 1–2 trang + agenda |
+| 4.11 Incident report | [doc/04](../doc/04-cowork-workflows.md) | `doc-coauthoring` [Approved PX] | Raw logs/notes → Incident report có RCA + prevention |
+| 4.12 Diff report | [doc/04](../doc/04-cowork-workflows.md) | Không cần skill đặc biệt | 2 file versions → Diff report có impact + recommendation |
 
 ---
 
@@ -184,7 +183,7 @@ Scheduled Tasks không phải Skills hay Plugins — đây là tính năng riên
 0 9 * * 1-5    # Mỗi ngày trong tuần 9:00 AM
 ```
 
-**Chi tiết và recipe:** Module 10, mục 10.5 | Module 05, mục 5.16
+**Chi tiết và recipe:** [doc/03 — Cowork Setup](../doc/03-cowork-setup.md) | [doc/01 — Doc Workflows, recipe 1.12](../doc/01-doc-workflows.md)
 
 ---
 
@@ -266,6 +265,9 @@ Skills nội bộ dùng trong Guide Claude project, nằm tại `.claude/skills/
 | `doc-standard-enforcer` [Approved PX] | Khi edit file trong `guide/` | Enforce writing standards: heading hierarchy, code block tags, cross-links | ✅ Internal (Phenikaa-X) | maintainer |
 | `cross-ref-checker` [Approved PX] | Kiểm tra module | Scan cross-references, báo cáo broken links và inconsistencies | ✅ Internal (Phenikaa-X) | maintainer |
 | `module-review` [Approved PX] | `/review-module <số>` | Deep review 1 module theo scoring rubric | ✅ Internal (Phenikaa-X) | maintainer |
+| `source-audit` [Approved PX] | "source audit", "kiểm tra sources" | Scan source markers theo 3-tier standard | ✅ Internal (Phenikaa-X) | maintainer |
+| `upgrade-guide` [Approved PX] | "health check", "scan project" | Scan stale data, broken refs, emoji violations | ✅ Internal (Phenikaa-X) | maintainer |
+| `nav-update` [Approved PX] | "update nav", "fix navigation" | Auto-update prev/next nav links | ✅ Internal (Phenikaa-X) | maintainer |
 
 ---
 
