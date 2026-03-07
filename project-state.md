@@ -1,10 +1,13 @@
 # Project Overview — Claude Guide cho Kỹ sư Phenikaa-X
 
-Version: xem `VERSION` (hiện tại: 7.0) | Updated: 2026-03-06
+Version: xem `VERSION` (hiện tại: 7.3) | Updated: 2026-03-07
 
 ## Phase
 
-v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-v8.md`. S0 automation infrastructure hoàn tất. Tiếp theo: P1 Foundation (S1-S7).
+v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-v8.md`.
+- S0 automation infrastructure: ✅ Done
+- P1 Foundation (S1-S7): ✅ Done (v7.3) — cross-links, source markers, prompt format, Context Sync, 3-way matrix, M08 patterns
+- P2 Structure (S8-S15): Tiếp theo — tách guide/ thành base/doc/dev
 
 ## Trạng thái modules
 
@@ -13,14 +16,14 @@ v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-
 | 00 | guide/00-overview.md | 🟢 | v7.0 — 13 modules, dependency tags, Learning Paths updated |
 | 01 | guide/01-quick-start.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
 | 02 | guide/02-setup-personalization.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 03 | guide/03-prompt-engineering.md | 🟢 | v7.0 — Full rewrite S11, 7 AMR callouts, 15 model hints |
-| 04 | guide/04-context-management.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 05 | guide/05-workflow-recipes.md | 🟢 | v7.0 — Full rewrite S09/S10, 16 AMR callouts, 18 model hints |
+| 03 | guide/03-prompt-engineering.md | 🟢 | v7.3 — Prompt format convention, language tags, XML/[]/{{}} standard |
+| 04 | guide/04-context-management.md | 🟢 | v7.3 — Context Sync rebuild, Decision Matrix 3-way, Session Lifecycle |
+| 05 | guide/05-workflow-recipes.md | 🟢 | v7.3 — Prompt format standardized, source markers added |
 | 06 | guide/06-tools-features.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 07 | guide/07-template-library.md | 🟢 | v7.0 — Full rewrite S12, 22 AMR callouts, 26 model hints |
-| 08 | guide/08-mistakes-fixes.md | 🟢 | v7.0 — Full rewrite S11, 5 AMR callouts, 5 model hints |
+| 07 | guide/07-template-library.md | 🟢 | v7.3 — Prompt format standardized, source markers added |
+| 08 | guide/08-mistakes-fixes.md | 🟢 | v7.3 — 11 failure patterns (5 CC anti-patterns added P1.S7) |
 | 09 | guide/09-evaluation-framework.md | 🟢 | v7.0 — Hybrid examples, AMR callouts, model hints |
-| 10 | guide/10-claude-desktop-cowork.md | 🟢 | v7.0 — Refactored S19: 10.13 → intro + redirect to M12 |
+| 10 | guide/10-claude-desktop-cowork.md | 🟢 | v7.3 — Context Sync refs updated, Decision Matrix 3-way expanded |
 | 11 | guide/11-cowork-workflows.md | 🟢 | v7.0 — Full rewrite S08/S10, 12 AMR callouts, 13 model hints |
 | 12 | guide/12-claude-code-documentation.md | 🔵 | New v6.5/v7.0 — Claude Code Documentation, 1190 lines, 26 sections |
 | ref | guide/reference/config-architecture.md | 🟢 | v7.0 — SSOT: 6 lớp cấu hình Claude |
@@ -28,7 +31,7 @@ v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-
 | ref | guide/reference/skills-list.md | 🟢 | v7.0 — Trust labels, Audience tags, [Approved PX], Skill-Recipe Mapping |
 | ref | guide/reference/claude-code-setup.md | 🔵 | New v6.5 — CC cheat sheet, Workflow-first, 272 lines |
 
-> v7.0 released 2026-03-04. Upgrade v7→v9 bắt đầu 2026-03-06. S0 automation done. 7 project skills, 3 rules, 2 hooks operational.
+> v7.3 released 2026-03-07. P1 Foundation complete. S0+P1 done. 7 project skills, 3 rules, 2 hooks operational. Next: P2 Structure.
 
 ## Cấu trúc thư mục
 
@@ -66,8 +69,9 @@ Guide Claude/
 
 | Ngày | Quyết định | Rationale |
 |------|-----------|-----------|
+| 2026-03-07 | P1 Foundation complete (v7.3) — plan updated với 5 decisions (D1'-D5') | M10 split 4 targets, M05 5.11-5.14 → base/05, P2 tăng 8+2 sub-sessions |
 | 2026-03-06 | S0: Automation infrastructure — rules, hooks, source-audit skill | QA framework 4 lớp cho upgrade v7→v9 |
-| 2026-03-06 | Upgrade plan v7.0→v9.0 approved — 5 phases, 32 sessions | Tài liệu nền tảng, ưu tiên chất lượng |
+| 2026-03-06 | Upgrade plan v7.0→v9.0 approved — 5 phases, ~34 work units | Tài liệu nền tảng, ưu tiên chất lượng |
 | 2026-03-04 | D9: Claude Code cho Documentation — Option D Hybrid (Module 12 + reference/claude-code-setup.md) | Narrative guide + lookup cheat sheet cho kỹ sư dùng CC trong doc workflow |
 | 2026-03-04 | D8 Emoji policy: Allowlist ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵, Obsidian callouts cho prose | Nhất quán, không noise, dễ maintain |
 | 2026-03-04 | D4 Hybrid examples: Doc context (primary) + AMR callout + model hint | Tăng relevance cho kỹ sư kỹ thuật mà không mất tính tổng quát |
