@@ -841,7 +841,7 @@ Placeholder values: muc_dich: Stakeholder briefing sau commissioning phase 1 | s
 
 ## Cách tùy chỉnh Templates
 
-Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem [Prompt Engineering, mục 3.4](../base/03-prompt-engineering.md#module-system-nâng-cao-advanced)):
+Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem [Prompt Engineering, mục 3.4](../base/03-prompt-engineering.md#34-module-system-nâng-cao-advanced)):
 
 | Cần thêm | Module XML | Ví dụ |
 |----------|-----------|-------|
