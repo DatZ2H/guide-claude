@@ -4,8 +4,8 @@
 **Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, doc/03-cowork-setup]
-impacts: [base/06-mistakes-fixes, doc/04-cowork-workflows]
+depends-on: [reference/model-specs]
+impacts: [base/06-mistakes-fixes, doc/03-cowork-setup, doc/04-cowork-workflows]
 ---
 
 Module này cung cấp framework đánh giá chất lượng output từ Claude. Thay vì cảm tính "tốt" hay "chưa tốt", bạn sẽ có tiêu chí cụ thể để đánh giá và cải thiện prompts.

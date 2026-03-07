@@ -4,8 +4,8 @@
 **Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, doc/02-template-library, base/07-evaluation, doc/03-cowork-setup]
-impacts: [dev/04-agents-automation]
+depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, base/05-tools-features, base/07-evaluation]
+impacts: [doc/02-template-library, doc/03-cowork-setup, dev/04-agents-automation]
 ---
 
 Module này tổng hợp những lỗi phổ biến nhất khi sử dụng Claude và cách khắc phục cụ thể. Chia thành 7 nhóm theo nguyên nhân gốc.

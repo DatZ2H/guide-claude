@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [../reference/model-specs, ../reference/claude-code-setup, ../reference/skills-list, ../reference/config-architecture]
+depends-on: [reference/model-specs, reference/claude-code-setup, reference/skills-list, reference/config-architecture]
 impacts: [base/00-overview, base/04-context-management]
 ---
 

@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-07 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [../reference/model-specs, doc/03-cowork-setup, doc/01-doc-workflows, doc/02-template-library, base/07-evaluation]
+depends-on: [reference/model-specs, doc/03-cowork-setup, doc/01-doc-workflows, doc/02-template-library, base/07-evaluation]
 impacts: [doc/03-cowork-setup]
 ---
 
