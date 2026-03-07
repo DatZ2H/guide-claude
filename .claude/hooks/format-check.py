@@ -50,7 +50,31 @@ def check_format(file_path):
                 # Closing fence
                 in_code_block = False
 
-    # --- Check 3: Banned emoji in prose ---
+    # --- Check 3: Source markers presence ---
+    # At least one source marker expected in guide/ content files (not overview/index)
+    basename = os.path.basename(file_path).lower()
+    is_content_file = not basename.startswith("00-")  # skip overview/index files
+    if is_content_file:
+        has_source = False
+        source_patterns = [
+            re.compile(r"\[Nguồn:"),
+            re.compile(r"\[Ứng dụng Kỹ thuật\]"),
+            re.compile(r"\[Cập nhật\s+\d{2}/\d{4}\]"),
+        ]
+        for line in lines:
+            for pat in source_patterns:
+                if pat.search(line):
+                    has_source = True
+                    break
+            if has_source:
+                break
+        if not has_source:
+            issues.append(
+                "No source markers found — expected at least one "
+                "[Nguồn: ...], [Ứng dụng Kỹ thuật], or [Cập nhật MM/YYYY]"
+            )
+
+    # --- Check 4: Banned emoji in prose ---
     banned = [
         "\U0001f4a1", "\U0001f680", "\U0001f60a", "\U0001f3af", "\u2728",
         "\U0001f4cc", "\U0001f525", "\U0001f449", "\U0001f4dd", "\U0001f4aa",
