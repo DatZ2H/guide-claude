@@ -312,13 +312,13 @@ TYPE options:
 | **Update version** khi có thay đổi | Giữ files cũ không còn relevant |
 | Ưu tiên **text-based formats** (.md, .txt) | Upload scanned images của text |
 
-#### Two-Layer Knowledge — Cowork-Primary Workflow
+#### Context Sync Practices — Cowork-Primary Workflow
 
 [Cập nhật 03/2026]
 
 Khi dùng cả Project Chat và Cowork, phần lớn công việc nên diễn ra trên **Cowork** (đọc/sửa file trực tiếp, brainstorm có context, thực thi ngay). Project Chat phù hợp cho **pure exploration** hoặc **deep web research** — khi chưa cần action trên files.
 
-**Nguyên tắc Two-Layer:**
+**Nguyên tắc Context Sync:**
 
 | Layer | Chứa gì | Ở đâu | Vai trò |
 |-------|---------|-------|---------|
@@ -331,7 +331,7 @@ Khi dùng cả Project Chat và Cowork, phần lớn công việc nên diễn ra
 - **`project-state.md`** là context transfer document — update trên Cowork khi cần, paste vào Project Chat khi cần brainstorm. Không cần update theo lịch cố định.
 - Khi cần nội dung chi tiết trong Project Chat → **paste excerpt** từ file thật, không dựa vào Project Knowledge.
 
-**Chi tiết:** Xem Module 04 (mục 4.9) và Recipe 5.11 (Module 05).
+**Chi tiết:** Xem [Module 04, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) và Recipe 5.11 (Module 05).
 
 ---
 
