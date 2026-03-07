@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, reference/config-architecture]
-impacts: [08-mistakes-fixes, 10-claude-desktop-cowork]
+impacts: [base/06-mistakes-fixes, 10-claude-desktop-cowork]
 ---
 
 Module này hướng dẫn cấu hình Claude.ai để làm việc hiệu quả nhất. Thay vì dùng default settings, bạn sẽ thiết lập 4 lớp cá nhân hóa: Profile Preferences, Projects, Styles, và Memory. Mỗi lớp giải quyết một nhu cầu khác nhau.

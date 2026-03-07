@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, reference/config-architecture, reference/skills-list, reference/claude-code-setup, base/02-setup, 05-workflow-recipes, 06-tools-features, 11-cowork-workflows]
-impacts: [05-workflow-recipes, 06-tools-features, 08-mistakes-fixes, 09-evaluation-framework, 11-cowork-workflows]
+impacts: [05-workflow-recipes, 06-tools-features, base/06-mistakes-fixes, base/07-evaluation, 11-cowork-workflows]
 ---
 
 Module này hướng dẫn sử dụng Claude Desktop — ứng dụng native trên máy tính — với tính năng Cowork cho phép Claude thao tác trực tiếp trên file system. Nếu bạn chỉ dùng Claude qua web (claude.ai), đây là bước tiếp theo để tăng năng suất.

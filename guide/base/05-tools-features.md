@@ -5,7 +5,7 @@
 
 ---
 depends-on: [reference/model-specs, base/04-context-management]
-impacts: [base/06-mistakes-fixes]
+impacts: [base/06-mistakes-fixes, base/07-evaluation]
 ---
 
 Module này là cheat sheet tra cứu nhanh tất cả tính năng của Claude — từ chọn model đến tools, từ Claude Desktop đến planning patterns cho workflow phức tạp.
