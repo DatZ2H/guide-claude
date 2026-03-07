@@ -1,7 +1,8 @@
+
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-07 | **Status:** P2 complete (v8.0) — ready for P3 | Plan reviewed (D14'-D16')
+**Last updated:** 2026-03-07 | **Status:** P3 complete (v8.3) — ready for P4 | Plan reviewed (D14'-D16')
 
 ---
 
@@ -264,7 +265,7 @@ _scaffold/
 
 ```
 S0 Automation ──> P1 Foundation ──> P2 Structure ──> P3 Dev Content ──> P4 Enhancement ──> P5 Polish
-  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   (v8.1–v8.3)      (v8.4–v8.5)      (v9.0)
+  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   ✅ Done (v8.3)    (v8.4–v8.5)      (v9.0)
 
 Ngoại lệ: S23 (skills-guide), S27 (/nav-update), S28 (prompt-format-guide) có thể overlap cuối P3.
 ```
@@ -731,17 +732,19 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 **Checkpoint:** "P3.S22: dev/06 workflows + ecosystem ref + base updates"
 **Version bump: v8.3**
 
-#### Phase 3 Review Gate
+#### Phase 3 Review Gate — ✅ PASSED (2026-03-07)
 
-- [ ] 6 dev files complete + 1 reference file (ecosystem-overview.md)
-- [ ] Cross-links dev ↔ base valid
-- [ ] Source verification: mọi feature claim có Tier 1 source
-- [ ] Agent Teams marked EXPERIMENTAL with disclaimer
-- [ ] Community patterns marked Tier 3 with disclaimer
-- [ ] base/02 + reference/config-architecture updated
-- [ ] base/06 section 8.7 extracted sang dev/04
-- [ ] Content score ≥ 4 trên 5 chiều
-- [ ] Version = 8.3
+- [x] 6 dev files complete + 1 reference file (ecosystem-overview.md)
+- [x] Cross-links dev ↔ base valid (28 links verified, all targets + anchors exist)
+- [x] Source verification: mọi feature claim có Tier 1 source (56 [Nguồn:] markers, 20 [Cập nhật])
+- [x] Agent Teams marked EXPERIMENTAL with disclaimer ([!WARNING] callouts in dev/04)
+- [x] Community patterns marked Tier 3 with disclaimer ([Ghi chú:] in dev/04, ecosystem-overview)
+- [x] base/02 + reference/config-architecture updated (dev/ cross-links, CLAUDE.md < 200 lines, memory scopes)
+- [x] base/06 section 8.7 extracted sang dev/04 (base/06 giữ cross-link, dev/04 section 4.11 có full content)
+- [x] Content score ≥ 4 trên 5 chiều (dev/01-06: 4.6-5.0 avg, ecosystem-overview: 4.0 after fix)
+- [x] Version = 8.3
+
+**Result: PASSED → P4 approved.**
 
 ---
 
@@ -951,7 +954,7 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 | S0 Automation | 1-2 | — | 🟢 | ✅ Done |
 | P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 | ✅ Done |
 | P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | ✅ Done |
-| P3 Dev Content | S16–S22 (7) | v8.1–v8.3 | 🟡 | — |
+| P3 Dev Content | S16–S22 (7) | v8.1–v8.3 | 🟡 | ✅ Done |
 | P4 Enhancement | S23–S28 (6) | v8.4–v8.5 | 🟢 | — |
 | P5 Polish | S29–S33 (5) | v9.0 | 🟢 | — |
 | **Total** | **~36 work units** | **v7.0 → v9.0** | | |

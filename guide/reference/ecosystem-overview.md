@@ -37,11 +37,11 @@ Repositories tổng hợp best practices và resources.
 
 | Repository | Maintainer | Nội dung | Notes |
 |-----------|------------|----------|-------|
-| claude-code-best-practice | shanraisshan | CLI tips, workflow patterns, URL index | Cập nhật thường xuyên |
-| awesome-claude-code | hesreallyhim | Curated list: tools, plugins, tutorials | Danh mục phong phú |
-| claude-cowork-guide | FlorianBruniaux | Cowork workflows, config patterns | Focus Cowork/Desktop |
+| `claude-code-best-practice` | shanraisshan (GitHub) | CLI tips, workflow patterns, URL index | Cập nhật thường xuyên |
+| `awesome-claude-code` | hesreallyhim (GitHub) | Curated list: tools, plugins, tutorials | Danh mục phong phú |
+| `claude-cowork-guide` | FlorianBruniaux (GitHub) | Cowork workflows, config patterns | Focus Cowork/Desktop |
 
-[Ghi chú: Community repositories — verify thông tin tại official docs trước khi áp dụng]
+[Ghi chú: Community repositories — tên repo và maintainer dựa trên GitHub tại thời điểm viết. Verify thông tin tại official docs trước khi áp dụng.]
 
 ---
 
@@ -49,16 +49,29 @@ Repositories tổng hợp best practices và resources.
 
 MCP servers mở rộng Claude Code với external tools và data sources.
 
-### Official Integrations
+### Anthropic-maintained MCP Servers
+
+MCP servers từ repo `github.com/anthropics/mcp-servers` — do Anthropic phát triển và duy trì.
 
 | Server | Chức năng |
 |--------|-----------|
 | GitHub | Issues, PRs, repos, code search |
 | Slack | Channels, messages, search |
 | Google Drive | Documents, spreadsheets |
-| Jira | Tickets, projects |
-| Linear | Issues, projects |
-| Notion | Pages, databases |
+
+[Nguồn: Anthropic GitHub — mcp-servers] [Cập nhật 03/2026]
+
+### Vendor/Third-party MCP Servers
+
+MCP servers phổ biến — do vendor hoặc community phát triển, không phải Anthropic.
+
+| Server | Chức năng | Maintainer |
+|--------|-----------|------------|
+| Jira | Tickets, projects | Atlassian ecosystem |
+| Linear | Issues, projects | Linear team |
+| Notion | Pages, databases | Community |
+
+[Ghi chú: Verify maintainer và trust level trước khi cài. Xem `/mcp` trong Claude Code để kiểm tra available servers.]
 
 ### Community MCP Servers
 
@@ -88,7 +101,7 @@ Plugins cung cấp precise symbol navigation và error detection:
 | Plugin | Ngôn ngữ | Chức năng |
 |--------|----------|-----------|
 | TypeScript LSP | TypeScript/JavaScript | Go-to-definition, find-references, diagnostics |
-| Python LSP | Python | Type checking, auto-import, diagnostics |
+| `pyright-lsp` | Python | Type checking, auto-import, diagnostics |
 | Rust Analyzer | Rust | Full language server features |
 | Go LSP | Go | Navigation, completion, diagnostics |
 
@@ -140,7 +153,7 @@ Chi tiết: xem [dev/04 — CI/CD Integration](../dev/04-agents-automation.md).
 | IDE | Type | Status |
 |-----|------|--------|
 | VS Code | Official extension | Stable |
-| JetBrains (IntelliJ, PyCharm...) | Official plugin | Stable |
+| JetBrains (IntelliJ, PyCharm...) | Official plugin | Beta |
 | Cursor | Compatible (VS Code-based) | Stable |
 | Neovim | Community | Community |
 | Emacs | Community | Community |
