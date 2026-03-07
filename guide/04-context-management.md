@@ -395,7 +395,7 @@ project-folder/
 
 **Xem thêm:**
 - [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md)
-- Module 04 (mục 4.9) — Two-Layer Knowledge Model khi dùng Hybrid Workflow
+- Module 04 (mục 4.9) — Context Sync Practices khi dùng Hybrid Workflow
 
 ---
 
@@ -472,11 +472,26 @@ Yêu cầu Claude dừng sau mỗi section lớn và hỏi "Tiếp tục không?
 
 ---
 
-## 4.9 Two-Layer Knowledge Model — Giải quyết Desync
+## 4.9 Context Sync Practices — Quản lý Knowledge Across Surfaces
 
 [Cập nhật 03/2026]
 
-Mục 4.7 giải quyết **external memory trong Cowork** (file system làm bộ nhớ). Mục này giải quyết vấn đề lớn hơn: khi dùng **Hybrid Workflow** (Project + Cowork), hai lớp thông tin tồn tại song song và có nguy cơ mâu thuẫn nhau.
+Mục 4.7 giải quyết **external memory trong Cowork** (file system làm bộ nhớ). Mục này giải quyết vấn đề lớn hơn: khi dùng **Hybrid Workflow** (Project + Cowork), hai nguồn external storage tồn tại song song và có nguy cơ desync với nhau.
+
+### Nền tảng: Anthropic Memory Taxonomy
+
+[Nguồn: Anthropic API Docs — Memory types]
+
+Anthropic phân loại 4 loại storage mà Claude có thể sử dụng:
+
+| Loại | Mô tả | Ví dụ trong guide này |
+|------|-------|----------------------|
+| **In-context** | Conversation window hiện tại | Chat messages, paste content |
+| **External** | Files, databases ngoài model | Project Knowledge, Cowork folder |
+| **In-weights** | Tri thức được training vào model | Kiến thức chung của Claude |
+| **In-cache** | KV cache (server-side, kỹ thuật) | — |
+
+Trong Hybrid Workflow, **Project Knowledge** và **Cowork folder** đều là external storage — nhưng cơ chế cập nhật khác nhau. Context Sync Practices giải quyết rủi ro desync giữa hai nguồn này.
 
 ### Vấn đề: Desync
 
@@ -490,7 +505,7 @@ Mục 4.7 giải quyết **external memory trong Cowork** (file system làm bộ
 
 [Ứng dụng Kỹ thuật]
 
-### Giải pháp: Two-Layer Knowledge
+### Giải pháp: Context Sync Practices
 
 ```mermaid
 flowchart LR
@@ -572,9 +587,9 @@ Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledg
 | Hỏi về quyết định cũ, tại sao làm vậy | **Project Chat** (sau khi upload project-state.md mới) | decisions-log được embed vào project-state.md |
 | Task ngắn, 1 session, không cần file output | **Chat thông thường** | Overhead thấp nhất |
 
-### Khi nào áp dụng Two-Layer
+### Khi nào áp dụng Context Sync
 
-| Tình huống | Cần Two-Layer? |
+| Tình huống | Cần Context Sync? |
 |-----------|----------------|
 | Chỉ dùng Chat, không có Cowork | Không cần |
 | Files trong Project Knowledge ổn định, không thay đổi thường xuyên | Không cần |
@@ -591,7 +606,8 @@ Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledg
 | Không nhớ lần cuối update là khi nào | Kiểm tra `last_updated` field trong `project-state.md` — hoặc check git log nếu dùng version control |
 | Team member không hiểu model | Thêm "Knowledge Model" block vào Custom Instructions — xem `project-state.md` |
 
-> **Lưu ý:** Two-Layer Knowledge là best practice từ thực tế sử dụng Hybrid Workflow, không phải tính năng chính thức do Anthropic thiết kế. Workflow này ưu tiên Cowork làm primary — Project Chat dùng khi cần context phong phú hoặc brainstorm.
+> [!NOTE]
+> Context Sync Practices được xây dựng trên nền tảng Anthropic's official external storage model. Các hướng dẫn cụ thể (dùng `project-state.md`, khi nào upload, Cowork-primary) là best practice từ thực tế — không phải official prescription của Anthropic. [Nguồn: Anthropic API Docs — Memory types] [Ghi chú: workflow pattern từ thực tế, không phải official recommendation]
 
 ---
 
