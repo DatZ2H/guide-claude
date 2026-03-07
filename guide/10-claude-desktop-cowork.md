@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, reference/config-architecture, reference/skills-list, reference/claude-code-setup, 02-setup-personalization, 05-workflow-recipes, 06-tools-features, 11-cowork-workflows]
+depends-on: [reference/model-specs, reference/config-architecture, reference/skills-list, reference/claude-code-setup, base/02-setup, 05-workflow-recipes, 06-tools-features, 11-cowork-workflows]
 impacts: [05-workflow-recipes, 06-tools-features, 08-mistakes-fixes, 09-evaluation-framework, 11-cowork-workflows]
 ---
 
@@ -1645,6 +1645,6 @@ Cài skill `/docx` (mục 10.15) để Claude tạo file Word từ nội dung Ma
 **Tiếp theo:**
 
 - [Module 11](../guide/11-cowork-workflows.md) — 12 workflows copy-paste sẵn sàng dùng cho Cowork
-- [Module 02](../guide/02-setup-personalization.md) — cấu hình Claude.ai (web) chi tiết
+- [Setup & Personalization](../guide/base/02-setup.md) — cấu hình Claude.ai (web) chi tiết
 - [Module 05](../guide/05-workflow-recipes.md) — quy trình copy-paste cho từng loại task
 - [Module 06](../guide/06-tools-features.md) — cheat sheet tính năng Claude

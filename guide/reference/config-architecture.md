@@ -69,7 +69,7 @@ SCOPE: ON-DEMAND (chạy khi gọi)
 
 **Priority:** Profile Preferences < Project Instructions (Project Instructions override khi conflict)
 
-**Template:** → Xem Module 02, mục 2.1
+**Template:** → Xem [Setup & Personalization, mục 2.1](../base/02-setup.md#21-account-settings----thiết-lập-cơ-bản)
 
 ---
 
@@ -142,7 +142,7 @@ Project Knowledge/
 
 **Giới hạn kích thước:** Mỗi file khuyến nghị < 10MB. Tổng project knowledge < 200MB.
 
-**Chi tiết:** → Xem Module 02, mục 2.2 (Project Knowledge)
+**Chi tiết:** → Xem [Setup & Personalization, mục 2.2](../base/02-setup.md#22-projects----tổ-chức-không-gian-làm-việc) (Project Knowledge)
 
 ---
 
@@ -301,7 +301,7 @@ Khi template cần update (vì Claude features thay đổi) → chỉ cần sử
 
 ## Cross-references
 
-- **Profile Preferences + Projects (claude.ai):** Module 02 — Setup & Personalization
+- **Profile Preferences + Projects (claude.ai):** [Setup & Personalization](../base/02-setup.md)
 - **Global CLAUDE.md + Folder Instructions (Cowork):** Module 10, mục 10.3–10.4
 - **Skills creation workflow:** Module 10, mục 10.6
 - **Plugins:** Module 10, mục 10.6

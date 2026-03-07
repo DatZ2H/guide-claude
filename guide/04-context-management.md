@@ -681,4 +681,4 @@ Giữa sessions: CLAUDE.md + git history thay thế memory
 **Tiếp theo:**
 - Module 05: Workflow Recipes -- quy trình cụ thể cho từng loại task, bao gồm Hybrid Workflow (Recipe 5.11)
 - Module 10: Claude Desktop & Cowork -- cấu hình external memory cho Cowork
-- Module 02: Setup & Personalization -- cấu hình Projects, Styles, Memory
+- [Setup & Personalization](base/02-setup.md) -- cấu hình Projects, Styles, Memory
