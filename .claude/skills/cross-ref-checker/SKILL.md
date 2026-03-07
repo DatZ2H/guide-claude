@@ -5,7 +5,7 @@ description: Scan toàn bộ guide/ folder tìm stale cross-references trong Gui
 
 # Cross-Reference Checker — Guide Claude Project
 
-Skill này scan tất cả 11 module files để tìm references đã lỗi thời sau restructure hoặc version changes.
+Skill này scan tất cả module files (base/, doc/, dev/, reference/) để tìm references đã lỗi thời sau restructure hoặc version changes.
 
 ## Trigger
 
@@ -20,6 +20,8 @@ Kích hoạt khi user:
 - `outputs/` hoặc `_project-setup/` → phải là `guide/` hoặc `.claude/`
 - `00-README.md` → phải là `00-overview.md`
 - `_memory/` → đã deprecated, xóa references
+- Old flat paths `guide/XX-*.md` (vd `guide/03-prompt-engineering.md`) → phải là `guide/base/03-*.md`, `guide/doc/XX-*.md`, hoặc `guide/dev/XX-*.md`
+- `M00`, `M01`, ..., `M12` references → phải là `base/XX`, `doc/XX`, `dev/XX`
 
 ### Nhóm 2 — Version references (High)
 - Hardcoded `**Version:** X.X` trong module headers → phải link về `VERSION` file
@@ -35,7 +37,7 @@ Kích hoạt khi user:
 ## Quy trình
 
 ### Bước 1 — Đọc danh sách files
-List toàn bộ files trong `guide/` và `guide/reference/`.
+List toàn bộ `.md` files trong `guide/base/`, `guide/doc/`, `guide/dev/`, `guide/reference/`.
 
 ### Bước 2 — Scan từng pattern
 Với mỗi pattern trong 4 nhóm trên: grep/search trong tất cả module .md files (không scan .bak).

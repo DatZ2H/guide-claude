@@ -1,6 +1,6 @@
 # Agents & Automation
 
-<!-- Placeholder — P3.S18-S19: Viết mới -->
+<!-- Placeholder — P3.S19-S20: Viết mới (S19: subagents, S20: agent teams + orchestration) -->
 <!-- Source: code.claude.com/docs — subagents, Agent Teams, CI/CD -->
 
 ---

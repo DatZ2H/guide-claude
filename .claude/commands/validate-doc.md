@@ -1,8 +1,9 @@
-Validate một module guide. Argument: $ARGUMENTS (số module như "03" hoặc full path như "guide/03-prompt-engineering.md").
+Validate một module guide. Argument: $ARGUMENTS (tier/số như "base/03", "dev/01" hoặc full path như "guide/base/03-prompt-engineering.md").
 
 **Bước 1 — Resolve file path:**
-- Nếu $ARGUMENTS là số (vd "03"): tìm file match `guide/03-*.md`
-- Nếu $ARGUMENTS là path: dùng trực tiếp
+- Nếu $ARGUMENTS là `tier/số` (vd "base/03", "doc/01", "dev/04"): tìm file match `guide/{tier}/{số}-*.md`
+- Nếu $ARGUMENTS chỉ là số (vd "03"): tìm trong tất cả tiers `guide/base/03-*.md`, `guide/doc/03-*.md`, `guide/dev/03-*.md` — nếu nhiều match → hỏi user chọn
+- Nếu $ARGUMENTS là full path: dùng trực tiếp
 - Nếu không tìm thấy file → báo lỗi và dừng
 
 **Bước 2 — Đọc file và chạy 5 checks:**
@@ -31,9 +32,9 @@ Validate một module guide. Argument: $ARGUMENTS (số module như "03" hoặc 
 - Report: marker nào sai format
 
 **Check 5: Version reference**
-- Module header phải có link `[VERSION](../VERSION)` hoặc tương đương
-- KHÔNG được hardcode version number trong header
-- Report: nếu thiếu hoặc hardcode
+- Module 00 (base/00-overview.md) phải có link đến VERSION file (`../../VERSION` hoặc `../VERSION` tùy depth)
+- Các modules khác (01-07, doc/*, dev/*): KHÔNG bắt buộc version link — chỉ check không hardcode version number trong header
+- Report: nếu hardcode version (vd "v8.0" trong header metadata)
 
 **Bước 3 — Output:**
 

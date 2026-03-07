@@ -1,7 +1,7 @@
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-07 | **Status:** P2 complete (v8.0) — ready for P3
+**Last updated:** 2026-03-07 | **Status:** P2 complete (v8.0) — ready for P3 | Plan reviewed (D14'-D16')
 
 ---
 
@@ -44,6 +44,9 @@
 | D11' | Community patterns | ✅ Brief mention + Tier 3 disclaimer (RIPER, Ralph Wiggum) |
 | D12' | Ecosystem reference | ✅ Thêm reference/ecosystem-overview.md tại P3.S22 |
 | D13' | _scaffold timing | ✅ P4 — bổ sung missing pieces, giữ structure hiện tại |
+| D14' | Dependency flow | ✅ P3→P4 tuần tự (P4 cần dev/ content), trừ S23/S27-S28 overlap được |
+| D15' | Scope guards | ✅ Thêm guard notes cho S16↔S17, S18↔S22, S19↔S21 overlap |
+| D16' | Tools 3-tier update | ✅ upgrade-guide + validate-doc updated cho guide/{base,doc,dev}/ paths |
 | D1' | M10 extraction strategy | ✅ Session riêng (S10b) — split 4 targets |
 | D2' | M05 5.11-5.14 placement | ✅ base/05 (Planning patterns) |
 | D3' | P2 session count | ✅ 8+2 sub-sessions (tăng từ 7) |
@@ -137,7 +140,7 @@ Mỗi phase có scope cố định. Task ngoài scope → ghi vào BACKLOG, khô
 | S0 | Tạo automation infrastructure | Edit content |
 | P1 | Fix quality (format, links, sources, Two-Layer) | Thay đổi cấu trúc, viết content mới |
 | P2 | Move files, update paths | Sửa content (ngoài cross-links), viết dev content |
-| P3 | Viết dev content mới | Sửa base/doc content |
+| P3 | Viết dev content mới + cross-link updates + planned extractions (per session plan) | Sửa base/doc content (ngoài cross-links và extractions đã plan) |
 | P4 | Cheatsheets, _scaffold, skills, tools | Restructure |
 | P5 | Review, polish, finalize | Thêm features mới |
 
@@ -157,7 +160,8 @@ Session End:
   6. Verify deliverable match scope
   7. Ghi tasks phát sinh → BACKLOG
   8. /checkpoint (save)
-  9. Handover notes cho session tiếp
+  9. Handover: ghi vào git commit message body (format: Handover Template)
+     Ví dụ: git commit -m "P3.S16: dev/01 CLI setup + config" -m "Next: S17 dev/02 CLI ref. No blockers."
 ```
 
 ---
@@ -259,17 +263,13 @@ _scaffold/
 ## Dependency Map
 
 ```
-S0 Automation ──> P1 Foundation ──> P2 Structure ──┬──> P3 Dev Content
-  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)  │    (v8.1–v8.3)
-                                                    │
-                                                    ├──> P4 Enhancement
-                                                    │    (v8.4–v8.5)
-                                                    │
-                                                    └──> P5 Polish
-                                                         (v9.0)
+S0 Automation ──> P1 Foundation ──> P2 Structure ──> P3 Dev Content ──> P4 Enhancement ──> P5 Polish
+  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   (v8.1–v8.3)      (v8.4–v8.5)      (v9.0)
+
+Ngoại lệ: S23 (skills-guide), S27 (/nav-update), S28 (prompt-format-guide) có thể overlap cuối P3.
 ```
 
-S0 → P1 → P2 (tuần tự bắt buộc). P3 và P4 song song sau P2. P5 cuối.
+S0 → P1 → P2 → P3 → P4 → P5 (tuần tự). P4 cần dev/ content từ P3 (cheatsheet-dev, skills-guide reference). Ngoại lệ: S23, S27-S28 có thể overlap cuối P3.
 P2 tăng từ 7→8 sessions (10 work units) do M10 complexity (D1'-D7').
 P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13', decisions 2026-03-07).
 
@@ -582,6 +582,17 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 > Mỗi session P3 bắt đầu bằng: verify features tại code.claude.com/docs trước khi viết.
 > Claude Code features thay đổi nhanh — không dựa vào thông tin cũ.
 
+**Git workflow (áp dụng mọi P3 session):**
+
+```
+1. git checkout master && git pull
+2. git checkout -b feat/p3-sXX        # XX = session number
+3. [Viết content + verify + validate]
+4. git add -A && git commit -m "P3.SXX: [mô tả]" -m "Next: SYY [task]. [Blockers/notes]."
+5. git push -u origin feat/p3-sXX
+6. Tạo PR → merge → checkout master → pull
+```
+
 #### Source Priority (P3)
 
 | Priority | Source | URL | Dùng khi |
@@ -608,7 +619,7 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 5. Permission system: 5 modes (default, acceptEdits, plan, dontAsk, bypassPermissions)
 6. Permission wildcards: `Bash(npm run *)`, `Edit(/docs/**)`, `WebFetch(domain:...)`
 7. Sandbox mode (`/sandbox`) — filesystem & network isolation
-8. Settings hierarchy: managed > CLI > local > project > user
+8. Settings hierarchy: managed > CLI > local > project > user (file-based config only — CLI flags + env vars → S17)
 9. `/doctor` diagnostics, checkpointing & `/rewind` (Esc+Esc)
 10. Status line configuration
 11. Kèm: update base/02 cross-link, update reference/config-architecture
@@ -642,6 +653,7 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 5. Remote Control: continue local session from phone/browser — setup, security, limits
 6. Web interface (claude.ai/code): no local setup, long-running tasks
 7. Cross-surface workflow patterns (terminal → desktop → mobile → web)
+   - **Scope guard:** S18 viết **setup per surface** (cài đặt, connect). S22 viết **workflow switching** (khi nào chuyển, handoff patterns) — cross-link nhau, không duplicate.
 
 **Source:** code.claude.com/docs/en/{vs-code, jetbrains, desktop, remote-control, claude-code-on-the-web}
 **Checkpoint:** "P3.S18: dev/03 IDE integration"
@@ -693,7 +705,7 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 2. Create custom plugins: components (agents, skills, hooks, commands, rules)
 3. Plugin marketplaces
 4. MCP (Model Context Protocol): what, configure servers, .mcp.json
-5. MCP in subagents: mcpServers frontmatter field
+5. MCP in subagents: mcpServers frontmatter field (brief mention + cross-link → dev/05 cho full MCP)
 6. Official MCP integrations: Slack, GitHub, Google Drive, Jira, etc.
 7. Community ecosystem overview (curated from awesome-claude-code — Tier 3)
 
@@ -738,18 +750,96 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 **Mục tiêu:** Cheatsheets, _scaffold bổ sung, skills guide, tooling.
 **Rủi ro:** 🟢 Thấp — additive.
 
-#### S23: Skills guide → reference/skills-guide.md
-#### S24-S25: Cheatsheets (3 files) (v8.4)
-#### S26: _scaffold bổ sung (examples/, checklists/) — giữ structure hiện tại + add missing (D13')
-#### S27: /nav-update skill + validation hooks (v8.5)
-#### S28: prompt-format-guide + custom-style reference mở rộng
+**Git workflow (áp dụng mọi P4 session):** Giống P3 — `feat/p4-sXX` branch → PR → merge.
+
+#### S23: Skills Guide → reference/skills-guide.md
+
+**Scope:** Detailed descriptions cho mọi skill/command trong project.
+
+1. List tất cả skills (`.claude/skills/`) và commands (`.claude/commands/`)
+2. Mỗi item: purpose, trigger examples, input/output format, tips
+3. Phân nhóm: Session management, Quality assurance, Content management, Version management
+4. Cross-link từ reference/skills-list.md (lookup) → skills-guide.md (detail)
+
+**Output:** `reference/skills-guide.md`
+**Source:** Đọc trực tiếp từ SKILL.md files + CLAUDE.md
+**Checkpoint:** "P4.S23: skills guide"
+
+#### S24: Cheatsheet Base + Doc → reference/cheatsheet-base.md, cheatsheet-doc.md (v8.4)
+
+**Scope:** Quick-reference cards cho Base và Doc tiers.
+
+1. cheatsheet-base.md: prompt patterns, context tips, evaluation checklist, common mistakes — 1-2 pages max
+2. cheatsheet-doc.md: doc workflow shortcuts, template index, Cowork commands, style switching
+3. Format: tables + code snippets, no prose — pure lookup
+4. Cross-link mỗi item → full module section
+
+**Output:** 2 files trong `reference/`
+**Checkpoint:** "P4.S24: cheatsheets base + doc"
+
+#### S25: Cheatsheet Dev → reference/cheatsheet-dev.md
+
+**Scope:** Quick-reference card cho Dev tier.
+
+1. CLI commands top-20, subagent patterns, plugin commands, git shortcuts
+2. Agent Teams quick setup (copy-paste ready)
+3. Debugging checklist, permission modes table
+4. Format: tables + code snippets, no prose
+
+**Output:** `reference/cheatsheet-dev.md`
+**Source:** Tổng hợp từ dev/01-06
+**Checkpoint:** "P4.S25: cheatsheet dev"
+**Version bump: v8.4**
+
+#### S26: _scaffold bổ sung — examples/, checklists/ (D13')
+
+**Scope:** Bổ sung missing pieces cho _scaffold — giữ structure hiện tại.
+
+1. Review _scaffold/ hiện tại → identify gaps vs Cấu trúc Target
+2. `examples/guide-claude/`: export config thực tế (CLAUDE.md, settings.json, rules, hooks)
+3. `examples/dev-example/`: minimal dev project config (CLAUDE.md, /start, /checkpoint, SessionStart hook)
+4. `checklists/new-project-checklist.md`: step-by-step từ zero → working .claude/
+5. `checklists/daily-workflow.md`: session start → work → checkpoint → handover
+6. Update `_scaffold/README.md` với workflow mới
+
+**Output:** 4-5 files trong `_scaffold/`
+**Checkpoint:** "P4.S26: scaffold examples + checklists"
+
+#### S27: /nav-update skill + validation hooks enhancement (v8.5)
+
+**Scope:** Tooling improvements.
+
+1. Tạo `/nav-update` skill: auto-update prev/next nav links khi thêm/xóa module
+2. Enhance format-check.py: thêm check source markers presence
+3. Enhance link-check.py: thêm check anchor targets (heading exists in target file)
+4. Test tất cả hooks + skills
+
+**Output:** 1 skill mới + 2 hook updates
+**Checkpoint:** "P4.S27: nav-update skill + hook enhancements"
+
+#### S28: Prompt Format Guide + Custom Style mở rộng
+
+**Scope:** 2 reference files mới/update.
+
+1. `reference/prompt-format-guide.md`: XML tags, `[]` markers, `{{}}` placeholders — when/how to use, examples per tier
+2. Update `doc/06-custom-style.md`: thêm advanced patterns (Style + Project Instructions combo, per-task switching, team style library)
+3. Cross-link từ base/03 → prompt-format-guide
+
+**Output:** 1 new file + 1 updated file
+**Source:** Anthropic Help Center (Custom Style), base/03 conventions
+**Checkpoint:** "P4.S28: prompt format guide + custom style"
+**Version bump: v8.5**
 
 #### Phase 4 Review Gate
 
-- [ ] Skills guide complete
-- [ ] 3 cheatsheets complete
-- [ ] _scaffold bổ sung hoàn tất
-- [ ] Tooling operational
+- [ ] Skills guide complete (reference/skills-guide.md)
+- [ ] 3 cheatsheets complete (cheatsheet-base, cheatsheet-doc, cheatsheet-dev)
+- [ ] _scaffold bổ sung: examples/ + checklists/ + README
+- [ ] /nav-update skill operational
+- [ ] Hook enhancements tested
+- [ ] Prompt format guide complete
+- [ ] Custom style reference updated
+- [ ] Cross-links valid
 - [ ] Version = 8.5
 
 ---
@@ -758,18 +848,82 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 
 **Mục tiêu:** Final quality pass.
 
-#### S29: Full cross-ref audit
-#### S30-S31: Content review per tier (module-review × 5 dimensions)
-#### S32: Index, navigation finalize
-#### S33: Version bump v9.0 + release notes
+**Git workflow (áp dụng mọi P5 session):** Giống P3 — `feat/p5-sXX` branch → PR → merge.
 
-#### Phase 5 Review Gate
+#### S29: Full Cross-ref + Source Audit
 
-- [ ] 0 broken links
-- [ ] All modules score ≥ 4
-- [ ] Navigation complete
-- [ ] project-state.md, CLAUDE.md, llms.txt current
-- [ ] Version = 9.0
+**Scope:** Toàn bộ guide/ — links + sources + stale data.
+
+1. Chạy `cross-ref-checker` trên toàn bộ 3 tiers + reference
+2. Chạy `/source-audit` — verify mọi section có markers
+3. Chạy `upgrade-guide all` — scan stale data, broken deps, emoji violations
+4. Fix tất cả issues found
+
+**Output:** 0 broken links, 0 missing markers, 0 stale data
+**Checkpoint:** "P5.S29: full audit sweep"
+
+#### S30: Content Review — Base + Reference (module-review × 5 dimensions)
+
+**Scope:** Deep review 8 base modules + 6+ reference files.
+
+1. Chạy `/review-module` cho base/00 → base/07 (8 files)
+2. Review reference/ files (config-architecture, model-specs, skills-list, skills-guide, ecosystem-overview, prompt-format-guide)
+3. Score mỗi file trên 5 chiều: Accuracy, Completeness, Clarity, Sources, Format
+4. Fix bất kỳ file nào score < 4
+
+**Output:** Review report + fixes. Mọi base/reference files score ≥ 4
+**Checkpoint:** "P5.S30: base + reference review"
+
+#### S31: Content Review — Doc + Dev (module-review × 5 dimensions)
+
+**Scope:** Deep review 6 doc modules + 6 dev modules.
+
+1. Chạy `/review-module` cho doc/01 → doc/06 (6 files)
+2. Chạy `/review-module` cho dev/01 → dev/06 (6 files)
+3. Score mỗi file trên 5 chiều
+4. Fix bất kỳ file nào score < 4
+5. Verify cross-links giữa doc ↔ dev ↔ base consistent
+
+**Output:** Review report + fixes. Mọi doc/dev files score ≥ 4
+**Checkpoint:** "P5.S31: doc + dev review"
+
+#### S32: Index, Navigation, Cheatsheets Finalize
+
+**Scope:** Final polish trên navigation + index + cheatsheets.
+
+1. Update base/00-overview.md: verify learning paths, dependency graph, module table
+2. Chạy `/nav-update` (skill từ P4) — verify prev/next links toàn bộ
+3. Review 3 cheatsheets — verify match current content
+4. Update machine-readable/llms.txt — final version
+5. Verify _scaffold/ examples match current project config
+
+**Output:** Navigation complete, index current, cheatsheets verified
+**Checkpoint:** "P5.S32: navigation + index finalize"
+
+#### S33: Version Bump v9.0 + Release
+
+**Scope:** Final version bump + release artifacts.
+
+1. `/version-bump` → v9.0
+2. Update project-state.md — final status
+3. Update CLAUDE.md — module status all 🟢
+4. Write release notes trong base/00-overview.md changelog
+5. Final `cross-ref-checker` + `link-check.py` — last verification
+6. Tag: `git tag v9.0`
+
+**Output:** v9.0 released
+**Checkpoint:** "P5.S33: v9.0 release"
+
+#### Phase 5 Review Gate (Final)
+
+- [ ] 0 broken links (cross-ref + link-check)
+- [ ] 0 missing source markers (source-audit)
+- [ ] All modules score ≥ 4 on all 5 dimensions
+- [ ] Navigation links complete and verified
+- [ ] Cheatsheets match current content
+- [ ] llms.txt, project-state.md, CLAUDE.md all current
+- [ ] _scaffold/ examples match project config
+- [ ] Version = 9.0, git tag created
 
 ---
 

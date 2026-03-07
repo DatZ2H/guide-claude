@@ -18,7 +18,7 @@ Kích hoạt khi user:
 
 `$ARGUMENTS` — một trong hai dạng:
 - Module number (vd `03`, `12`) — scan module đó + các files trong `depends-on` của nó
-- `all` — scan toàn bộ: 13 module files (00→12) + `guide/reference/config-architecture.md` + `guide/reference/skills-list.md`
+- `all` — scan toàn bộ: guide/base/ (8 files) + guide/doc/ (6 files) + guide/dev/ (6 files) + guide/reference/
 
 Nếu không có argument → hỏi user: "Scan module cụ thể (số module) hay toàn bộ project (all)?"
 
@@ -29,8 +29,9 @@ Nếu không có argument → hỏi user: "Scan module cụ thể (số module) 
 Đọc `VERSION` để lấy current version.
 
 Xây dựng danh sách files cần scan:
-- Nếu `all`: list toàn bộ `guide/*.md` + `guide/reference/*.md`
-- Nếu module number `XX`: đọc header của `guide/XX-*.md`, parse dòng `depends-on: [...]`, thêm các files đó vào danh sách
+- Nếu `all`: list toàn bộ `guide/base/*.md` + `guide/doc/*.md` + `guide/dev/*.md` + `guide/reference/*.md`
+- Nếu path cụ thể (vd `base/03`, `dev/01`): tìm file match `guide/{tier}/{number}-*.md`, parse `depends-on: [...]`
+- Nếu tier (vd `base`, `doc`, `dev`): scan toàn bộ tier đó
 
 Ghi nhớ: today's date từ context (`currentDate`). Tháng stale threshold = 3 tháng trước hôm nay.
 
@@ -65,7 +66,9 @@ Tìm dòng `depends-on: [...]` trong header của file.
 
 Với mỗi item trong danh sách:
 - Item dạng `reference/model-specs` → check `guide/reference/model-specs.md` tồn tại
-- Item dạng `04-context-management` → check file `guide/04-*.md` tồn tại (glob match prefix)
+- Item dạng `base/04-context-management` → check `guide/base/04-*.md` tồn tại
+- Item dạng `doc/03-cowork-setup` → check `guide/doc/03-*.md` tồn tại
+- Item dạng `dev/01-claude-code-setup` → check `guide/dev/01-*.md` tồn tại
 - Nếu không tồn tại → flag là broken dependency
 
 Cũng check dòng `impacts: [...]` tương tự.
