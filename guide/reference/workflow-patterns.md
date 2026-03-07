@@ -45,7 +45,7 @@ project-folder/
 
 ## `_scaffold/` — Starter Template cho Project Mới
 
-Thay vì thiết lập `project-state.md`, `.claude/CLAUDE.md`, và `VERSION` từ đầu cho mỗi dự án mới, **Guide Claude project cung cấp `_scaffold/`** — bộ template đã được chuẩn hóa theo 2-tier architecture.
+Thay vì thiết lập `project-state.md`, `.claude/CLAUDE.md`, và `VERSION` từ đầu cho mỗi dự án mới, **Guide Claude project cung cấp `_scaffold/`** — bộ template đã được chuẩn hóa theo 3-tier architecture (base/doc/dev).
 
 **Cấu trúc `_scaffold/`:**
 

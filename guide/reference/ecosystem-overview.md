@@ -105,7 +105,10 @@ Plugins cung cấp precise symbol navigation và error detection:
 | Rust Analyzer | Rust | Full language server features |
 | Go LSP | Go | Navigation, completion, diagnostics |
 
-[Nguồn: Claude Code Docs — Discover Plugins]
+[Nguồn: Claude Code Docs — Discover Plugins] [Cập nhật 03/2026]
+
+> [!NOTE]
+> Plugin marketplace thay đổi nhanh. Chạy `/plugin` trong Claude Code để xem danh sách hiện tại.
 
 ### Workflow Plugins
 
@@ -153,7 +156,7 @@ Chi tiết: xem [dev/04 — CI/CD Integration](../dev/04-agents-automation.md).
 | IDE | Type | Status |
 |-----|------|--------|
 | VS Code | Official extension | Stable |
-| JetBrains (IntelliJ, PyCharm...) | Official plugin | Beta |
+| JetBrains (IntelliJ, PyCharm...) | Official plugin | Stable [Cập nhật 03/2026] |
 | Cursor | Compatible (VS Code-based) | Stable |
 | Neovim | Community | Community |
 | Emacs | Community | Community |
