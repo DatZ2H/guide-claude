@@ -2,7 +2,7 @@
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-07 | **Status:** P4 complete (v8.5) — ready for P5 | Plan reviewed (D14'-D16')
+**Last updated:** 2026-03-07 | **Status:** ✅ Complete — v9.0 released | All 5 phases done
 
 ---
 
@@ -267,7 +267,7 @@ _scaffold/
 
 ```
 S0 Automation ──> P1 Foundation ──> P2 Structure ──> P3 Dev Content ──> P4 Enhancement ──> P5 Polish
-  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   ✅ Done (v8.3)    ✅ Done (v8.5)    (v9.0)
+  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   ✅ Done (v8.3)    ✅ Done (v8.5)    ✅ Done (v9.0)
 
 Ngoại lệ: S23 (skills-guide), S27 (/nav-update), S28 (prompt-format-guide) có thể overlap cuối P3.
 ```
@@ -923,16 +923,18 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 **Output:** v9.0 released
 **Checkpoint:** "P5.S33: v9.0 release"
 
-#### Phase 5 Review Gate (Final)
+#### Phase 5 Review Gate (Final) — ✅ PASSED (2026-03-07)
 
-- [ ] 0 broken links (cross-ref + link-check)
-- [ ] 0 missing source markers (source-audit)
-- [ ] All modules score ≥ 4 on all 5 dimensions
-- [ ] Navigation links complete and verified
-- [ ] Cheatsheets match current content
-- [ ] llms.txt, project-state.md, CLAUDE.md all current
-- [ ] _scaffold/ examples match project config
-- [ ] Version = 9.0, git tag created
+- [x] 0 broken links (cross-ref + link-check — 32 files scanned)
+- [x] 0 missing source markers (source-audit)
+- [x] All modules score ≥ 4 on all 5 dimensions
+- [x] Navigation links complete and verified
+- [x] Cheatsheets match current content
+- [x] llms.txt, project-state.md, CLAUDE.md all current
+- [x] _scaffold/ examples match project config
+- [x] Version = 9.0, git tag created
+
+**Result: PASSED — v9.0 released.**
 
 ---
 
@@ -962,7 +964,7 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 | P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | ✅ Done |
 | P3 Dev Content | S16–S22 (7) | v8.1–v8.3 | 🟡 | ✅ Done |
 | P4 Enhancement | S23–S28 (6) | v8.4–v8.5 | 🟢 | ✅ Done |
-| P5 Polish | S29–S33 (5) | v9.0 | 🟢 | — |
+| P5 Polish | S29–S33 (5) | v9.0 | 🟢 | ✅ Done |
 | **Total** | **~36 work units** | **v7.0 → v9.0** | | |
 
 P2 tăng từ 7→8 sessions do M10 complexity. P3 tăng từ 6→7 sessions do Agent Teams + ecosystem scope.

@@ -249,6 +249,14 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 
 [Cập nhật 03/2026]
 
+### Version 9.0 (03/2026)
+
+- **P5 Polish complete:** Full cross-ref audit, source audit, content review (base + doc + dev + reference), navigation finalize
+- **P5.S30:** Base + reference review — mọi files score ≥ 4 trên 5 chiều
+- **P5.S31:** Doc + dev content review — fix 6 files score < 4
+- **P5.S32:** Navigation + index + cheatsheets finalize
+- **Release v9.0:** Upgrade v7.0 → v9.0 hoàn tất. 3-tier guide operational: base/ (8), doc/ (6), dev/ (6), reference/ (12)
+
 ### Version 8.5 (03/2026)
 
 - **P4.S28 Prompt Format Guide:** Thêm reference/prompt-format-guide.md — tra cứu XML tags, brackets, placeholders
