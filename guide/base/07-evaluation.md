@@ -324,7 +324,7 @@ Không phải mọi output đều cần review cùng mức độ. Chọn approac
 | **High** | Tài liệu khách hàng, SOP, config file | Full checklist theo loại output (mục 9.6.1), verify cross-references | 10–15 phút |
 | **Critical** | Safety documentation, config production, tài liệu pháp lý | Full review + verify nguồn + người thứ 2 review độc lập | 30+ phút |
 
-> [!TIP] **Doc audience:** Template T-20 (In-Progress Review Checklist) trong [Template Library](../07-template-library.md) là phiên bản printable của mục này.
+> [!TIP] **Doc audience:** Template T-20 (In-Progress Review Checklist) trong [Doc Template Library](../doc/02-template-library.md#t-20-in-progress-review-checklist) là phiên bản printable của mục này.
 
 ---
 

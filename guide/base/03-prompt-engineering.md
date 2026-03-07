@@ -4,8 +4,8 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, base/04-context-management, 05-workflow-recipes, 07-template-library]
-impacts: [07-template-library, base/06-mistakes-fixes]
+depends-on: [reference/model-specs, base/04-context-management, doc/01-doc-workflows, doc/02-template-library]
+impacts: [doc/02-template-library, base/06-mistakes-fixes]
 ---
 
 Module này là xương sống của toàn bộ bộ tài liệu. Bạn sẽ học cách viết prompt từ cơ bản đến nâng cao, theo đúng best practices chính thức từ Anthropic.
@@ -510,7 +510,7 @@ Review SOP sau. Focus vào:
 
 ## 3.3 Bảy Kỹ thuật Ứng dụng
 
-Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham khảo template hoàn chỉnh ở [Module 07 (Template Library)](../07-template-library.md).
+Mỗi kỹ thuật dưới đây dành cho một loại task cụ thể. Tham khảo template hoàn chỉnh ở [Doc Template Library](../doc/02-template-library.md) và [Quick Start Templates](../reference/quick-templates.md).
 
 ### Kỹ thuật 1: Tạo Nội dung (Content Creation)
 
@@ -909,7 +909,7 @@ Tại sao tốt hơn: Template đã duyệt ở Step 1 đóng vai trò "anchor" 
 | **Tách không theo dependency** — bước sau không nhận kết quả bước trước | Bước 2 tự tạo lại thông tin bước 1 đã có, dẫn đến mâu thuẫn giữa các phần | Include summary/output bước trước khi bắt đầu bước sau (dùng `<chain_info>`) |
 | **Không review giữa bước** — chạy liên tục từ Step 1 đến Step N không kiểm tra | Lỗi ở Step 1 lan sang tất cả steps sau, phát hiện muộn phải làm lại toàn bộ (xem Module 08 Nhóm 6) | Đặt review checkpoint sau mỗi step quan trọng, đặc biệt sau step tạo template/outline |
 
-**Xem thêm:** [Template T-19](../07-template-library.md#t-19-task-decomposition-planner) (Task Decomposition Planner, Module 07), [Recipe 5.18 — Task Planning](05-tools-features.md#518-recipe-task-planning-trước-khi-chạy-chain-prompt)
+**Xem thêm:** [Template T-19](../doc/02-template-library.md#t-19-task-decomposition-planner) (Task Decomposition Planner), [Recipe 5.18 — Task Planning](05-tools-features.md#518-recipe-task-planning-trước-khi-chạy-chain-prompt)
 
 ---
 
@@ -930,5 +930,5 @@ Bạn có thể tự verify bất kỳ thông tin nào bằng cách truy cập U
 
 **Tiếp theo:**
 - [Module 04: Context Management](04-context-management.md) -- quản lý conversation dài hiệu quả
-- [Module 05: Workflow Recipes](../05-workflow-recipes.md) -- quy trình theo task cụ thể
-- [Module 07: Template Library](../07-template-library.md) -- 22 templates copy-paste
+- [Doc Workflows](../doc/01-doc-workflows.md) -- quy trình theo task cụ thể
+- [Doc Template Library](../doc/02-template-library.md) -- templates copy-paste

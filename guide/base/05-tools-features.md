@@ -222,7 +222,7 @@ Paste prompt hiện tại > Claude phân tích điểm yếu và rewrite thành 
 [Nguồn: Anthropic Docs - Structured Outputs]
 URL: https://platform.claude.com/docs/en/build-with-claude/structured-outputs
 
-Yêu cầu Claude trả về JSON theo schema cụ thể. Chi tiết và ví dụ: xem [Workflow Recipes, mục 5.7](../05-workflow-recipes.md#57-recipe-structured-output-cho-automation).
+Yêu cầu Claude trả về JSON theo schema cụ thể. Chi tiết và ví dụ: xem [Doc Workflows, mục 1.7](../doc/01-doc-workflows.md#17-recipe-structured-output-cho-automation).
 
 **Claude.ai:** Dùng prompt-based với schema trong `<output_format>`. Thêm "CHỈ JSON, không markdown."
 
@@ -677,7 +677,7 @@ Liệt kê mọi inconsistency tìm được.
 
 > [!TIP] **Model:** Sonnet 4.6 cho multi-file editing — tác vụ chủ yếu là search-and-update, không cần reasoning sâu. Xem [decision flowchart](../reference/model-specs.md#chọn-model)
 
-**Cross-reference:** [Template T-21](../07-template-library.md#t-21-multi-file-consistency-check) (Multi-file Consistency Check, Module 07) là phiên bản template của recipe này.
+**Cross-reference:** [Template T-21](../doc/02-template-library.md#t-21-multi-file-consistency-check) (Multi-file Consistency Check) là phiên bản template của recipe này.
 
 ---
 
@@ -759,7 +759,7 @@ Tại sao không làm 1 task: context window đầy ở module thứ 3-4, qualit
 
 > [!TIP] **Model:** Sonnet 4.6 cho session planning — structured analysis, không cần deep reasoning. Xem [decision flowchart](../reference/model-specs.md#chọn-model)
 
-**Cross-reference:** [Template T-22](../07-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan, Module 07).
+**Cross-reference:** [Template T-22](../doc/02-template-library.md#t-22-cowork-task-plan-prompt-package) (Cowork Task Plan).
 
 ---
 
