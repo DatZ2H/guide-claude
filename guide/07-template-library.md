@@ -4,8 +4,8 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, 03-prompt-engineering, 05-workflow-recipes]
-impacts: [03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes, 11-cowork-workflows]
+depends-on: [reference/model-specs, base/03-prompt-engineering, 05-workflow-recipes]
+impacts: [base/03-prompt-engineering, 05-workflow-recipes, 08-mistakes-fixes, 11-cowork-workflows]
 ---
 
 Module này tập trung **tất cả 22 templates** vào một nơi duy nhất. Các module khác tham chiếu đến đây bằng mã **T-XX**.
@@ -1050,7 +1050,7 @@ Placeholder values: muc_dich: Stakeholder briefing sau commissioning phase 1 | s
 
 ## Cách tùy chỉnh Templates
 
-Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem [Module 03, mục 3.4](../guide/03-prompt-engineering.md#module-system-nâng-cao-advanced)):
+Mọi template đều có thể mở rộng bằng cách thêm các module tùy chọn (xem [Module 03, mục 3.4](../guide/base/03-prompt-engineering.md#module-system-nâng-cao-advanced)):
 
 | Cần thêm | Module XML | Ví dụ |
 |----------|-----------|-------|
@@ -1075,5 +1075,5 @@ Mọi template đều có thể mở rộng bằng cách thêm các module tùy 
 
 **Tiếp theo:**
 
-- [Module 03: Prompt Engineering](../guide/03-prompt-engineering.md) -- hiểu sâu 6 nguyên tắc và 7 kỹ thuật đằng sau các templates
+- [Module 03: Prompt Engineering](../guide/base/03-prompt-engineering.md) -- hiểu sâu 6 nguyên tắc và 7 kỹ thuật đằng sau các templates
 - [Module 05: Workflow Recipes](../guide/05-workflow-recipes.md) -- quy trình hoàn chỉnh sử dụng các templates

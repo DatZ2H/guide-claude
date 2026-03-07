@@ -4,8 +4,8 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, 04-context-management, 07-template-library, 10-claude-desktop-cowork]
-impacts: [03-prompt-engineering, 10-claude-desktop-cowork, 11-cowork-workflows]
+depends-on: [reference/model-specs, base/04-context-management, 07-template-library, 10-claude-desktop-cowork]
+impacts: [base/03-prompt-engineering, 10-claude-desktop-cowork, 11-cowork-workflows]
 ---
 
 Module này không dạy lý thuyết -- nó cung cấp quy trình copy-paste cho từng loại công việc cụ thể. Mỗi recipe bao gồm: khi nào dùng, setup cần thiết, prompts cụ thể, và tips thực tế.
@@ -565,7 +565,7 @@ flowchart TD
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
 - Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 12: Claude Code cho Documentation](12-claude-code-documentation.md))
-- Project Knowledge chỉ chứa `project-state.md` (xem [Module 04, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) — Context Sync Practices)
+- Project Knowledge chỉ chứa `project-state.md` (xem [Module 04, mục 4.9](base/04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) — Context Sync Practices)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
 
@@ -669,7 +669,7 @@ Output: text sẵn sàng copy vào file .md
 
 2. **Sync context bằng files, không bằng memory.** Copy-paste kết quả quan trọng vào file trong thư mục project. Cowork đọc file, không đọc Chat/Project history.
 
-3. **Áp dụng Context Sync Practices khi files thay đổi thường xuyên qua Cowork** (xem [Module 04, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
+3. **Áp dụng Context Sync Practices khi files thay đổi thường xuyên qua Cowork** (xem [Module 04, mục 4.9](base/04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
 
 4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: [Module 10, mục 10.8.2](../guide/10-claude-desktop-cowork.md).
 

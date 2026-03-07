@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, base/02-setup, 03-prompt-engineering, 04-context-management, 06-tools-features, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
+depends-on: [reference/model-specs, base/02-setup, base/03-prompt-engineering, base/04-context-management, 06-tools-features, 07-template-library, 09-evaluation-framework, 10-claude-desktop-cowork]
 impacts: []
 ---
 
@@ -111,7 +111,7 @@ Nếu không chắc chắn, nói rõ mức độ tin cậy.
 
 Mỗi conversation là độc lập. Claude không tự động nhớ conversation trước (trừ khi Memory được bật và có đủ thời gian cập nhật).
 
-**Fix:** Dùng Handover ([Module 04, mục 4.5](../guide/04-context-management.md)) hoặc Projects ([Module 02](../guide/base/02-setup.md)).
+**Fix:** Dùng Handover ([Module 04, mục 4.5](../guide/base/04-context-management.md)) hoặc Projects ([Module 02](../guide/base/02-setup.md)).
 
 ---
 
@@ -123,13 +123,13 @@ Mỗi conversation là độc lập. Claude không tự động nhớ conversati
 
 **Dấu hiệu:** Claude hỏi lại thông tin đã cung cấp, response không nhất quán, format thay đổi bất thường.
 
-**Fix:** Dùng Context Refresh khi thấy dấu hiệu drift. Tạo conversation mới với Handover khi vượt 50 messages. Chi tiết: [Module 04](../guide/04-context-management.md).
+**Fix:** Dùng Context Refresh khi thấy dấu hiệu drift. Tạo conversation mới với Handover khi vượt 50 messages. Chi tiết: [Module 04](../guide/base/04-context-management.md).
 
 ### Lỗi: Yêu cầu output quá dài trong 1 prompt, phần cuối sơ sài
 
 **Dấu hiệu:** Phần đầu tài liệu chi tiết, format đúng yêu cầu, nhưng từ giữa trở đi chất lượng giảm rõ — sections ngắn dần, format thay đổi (numbered steps chuyển sang bullet points), nội dung lặp lại, hoặc sections đã hứa trong outline bị bỏ qua hoàn toàn.
 
-**Fix:** Đây là đặc tính kỹ thuật của cách language models tạo text, không phải lỗi do prompt. Workaround chính: tách output thành nhiều prompts, mỗi prompt chỉ viết 1-2 sections, dùng Pattern Outline-First (tạo outline trước → duyệt → viết từng section). Chi tiết cơ chế và 3 workaround patterns: [Module 04 mục 4.8](../guide/04-context-management.md).
+**Fix:** Đây là đặc tính kỹ thuật của cách language models tạo text, không phải lỗi do prompt. Workaround chính: tách output thành nhiều prompts, mỗi prompt chỉ viết 1-2 sections, dùng Pattern Outline-First (tạo outline trước → duyệt → viết từng section). Chi tiết cơ chế và 3 workaround patterns: [Module 04 mục 4.8](../guide/base/04-context-management.md).
 
 ### Lỗi: Upload file đầu conversation, hỏi về file ở message thứ 40
 
@@ -355,7 +355,7 @@ flowchart TD
 | **Tạo file mới thay vì sửa file cũ** | Yêu cầu "cập nhật SOP", Claude tạo file mới bên cạnh file cũ thay vì edit | Viết rõ: "Sửa file [tên chính xác], không tạo file mới" |
 | **Cascade edit** (sửa A, Claude tự ý sửa B) | Yêu cầu sửa glossary, Claude tự ý sửa luôn SOP reference glossary đó | Giới hạn scope trong prompt: "Chỉ sửa file [tên]. Không sửa file khác." |
 
-**Xem thêm:** [Module 10 mục 10.7](../guide/10-claude-desktop-cowork.md) (An toàn Cowork), [Module 09 mục 9.6](../guide/09-evaluation-framework.md) (Review giữa các bước), [Module 03 mục 3.5](../guide/03-prompt-engineering.md#task-decomposition--khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
+**Xem thêm:** [Module 10 mục 10.7](../guide/10-claude-desktop-cowork.md) (An toàn Cowork), [Module 09 mục 9.6](../guide/09-evaluation-framework.md) (Review giữa các bước), [Module 03 mục 3.5](../guide/base/03-prompt-engineering.md#task-decomposition--khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
 
 ---
 
@@ -445,16 +445,16 @@ Claude dành phần lớn thời gian đọc và phân tích codebase hoặc fil
 
 | Vấn đề | Giải pháp nhanh | Module tham khảo |
 |--------|----------------|-----------------|
-| Kết quả không liên quan | Thêm context và constraints | [03](../guide/03-prompt-engineering.md) (Prompt Engineering) |
-| Claude "quên" giữa conversation | Context Refresh hoặc Handover | [04](../guide/04-context-management.md) (Context Management) |
-| Hallucination | Thêm `<quality_requirements>`, yêu cầu self-check | [03](../guide/03-prompt-engineering.md), [09](../guide/09-evaluation-framework.md) |
-| Output sai format | Cung cấp template hoặc ví dụ trong prompt | [03](../guide/03-prompt-engineering.md) (Nguyên tắc 2: Use Examples) |
-| Output dài bị sơ sài ở cuối | Tách thành nhiều prompts, dùng Outline-First | [04](../guide/04-context-management.md) (mục 4.8), [03](../guide/03-prompt-engineering.md) (mục 3.5) |
+| Kết quả không liên quan | Thêm context và constraints | [03](../guide/base/03-prompt-engineering.md) (Prompt Engineering) |
+| Claude "quên" giữa conversation | Context Refresh hoặc Handover | [04](../guide/base/04-context-management.md) (Context Management) |
+| Hallucination | Thêm `<quality_requirements>`, yêu cầu self-check | [03](../guide/base/03-prompt-engineering.md), [09](../guide/09-evaluation-framework.md) |
+| Output sai format | Cung cấp template hoặc ví dụ trong prompt | [03](../guide/base/03-prompt-engineering.md) (Nguyên tắc 2: Use Examples) |
+| Output dài bị sơ sài ở cuối | Tách thành nhiều prompts, dùng Outline-First | [04](../guide/base/04-context-management.md) (mục 4.8), [03](../guide/base/03-prompt-engineering.md) (mục 3.5) |
 | Lỗi lan truyền qua nhiều bước | Validation checkpoint, backup trước mỗi step | 08 (Nhóm 6) |
 | Mỗi chat phải giải thích lại context | Tạo Project với Instructions | [02](../guide/base/02-setup.md) (Setup) |
 | Không biết dùng tool nào | Tra cứu bảng tools | [06](../guide/06-tools-features.md) (Tools & Features) |
 | Cần template có sẵn | Tra cứu Template Library | [07](../guide/07-template-library.md) (Templates) |
-| Output quá chung | Thêm role, audience, ví dụ mong muốn | [03](../guide/03-prompt-engineering.md) (Nguyên tắc 1, 6) |
+| Output quá chung | Thêm role, audience, ví dụ mong muốn | [03](../guide/base/03-prompt-engineering.md) (Nguyên tắc 1, 6) |
 | Anti-patterns Claude Code (kitchen sink, correcting loop...) | Xem Nhóm 7 | 08 (Nhóm 7) |
 
 ---
@@ -515,4 +515,4 @@ Chat luong giam?
 **Tiếp theo:**
 
 - [Module 09: Evaluation Framework](../guide/09-evaluation-framework.md) -- cách đánh giá chất lượng output
-- [Module 03: Prompt Engineering](../guide/03-prompt-engineering.md) -- hiểu sâu nguyên tắc để tránh lỗi từ đầu
+- [Module 03: Prompt Engineering](../guide/base/03-prompt-engineering.md) -- hiểu sâu nguyên tắc để tránh lỗi từ đầu
