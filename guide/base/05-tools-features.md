@@ -345,7 +345,7 @@ flowchart TD
 
 **Quy tắc ưu tiên:** Khi có conflict, lớp hẹp hơn được ưu tiên (Folder > Global). Task prompt luôn có quyền cao nhất.
 
-Chi tiết Folder Instructions, Scheduled Tasks, Plugins & Skills: xem [Claude Desktop & Cowork](../10-claude-desktop-cowork.md#104-folder-instructions).
+Chi tiết Folder Instructions, Scheduled Tasks, Plugins & Skills: xem [Cowork Setup](../doc/03-cowork-setup.md).
 
 ---
 
@@ -429,7 +429,7 @@ Chi tiết Folder Instructions, Scheduled Tasks, Plugins & Skills: xem [Claude D
 **Setup cần thiết:**
 - Claude.ai account với Projects enabled (Pro trở lên)
 - Claude Desktop với Cowork
-- Thư mục project đã có `.claude/CLAUDE.md` (xem [Module 12: Claude Code cho Documentation](../12-claude-code-documentation.md))
+- Thư mục project đã có `.claude/CLAUDE.md` (xem [Claude Code cho Documentation](../doc/05-claude-code-doc.md))
 - Project Knowledge chỉ chứa `project-state.md` (xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) — Context Sync Practices)
 
 **Triết lý:** Mỗi công cụ Claude có thế mạnh riêng — dùng đúng công cụ cho đúng giai đoạn, liên kết bằng files.
@@ -536,7 +536,7 @@ Output: text sẵn sàng copy vào file .md
 
 3. **Áp dụng Context Sync Practices khi files thay đổi thường xuyên qua Cowork** (xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces)). Project Knowledge chỉ chứa `project-state.md` — không upload working documents sẽ bị stale.
 
-4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: [Claude Desktop & Cowork, mục 10.8.2](../10-claude-desktop-cowork.md#1082-project-statemd--file-trung-gian).
+4. **Update `project-state.md` khi cần** — sau milestone hoặc trước khi dùng Project Chat cho task mới. Không cần theo lịch cố định. Chi tiết: [Cowork Setup](../doc/03-cowork-setup.md).
 
 **Ví dụ:** Xây dựng Documentation Package cho tính năng phần mềm mới — gồm User Guide + API Reference + Release Notes. Giai đoạn 1: Chat research doc versioning best practices. Giai đoạn 2: Plan outline trong Project Chat, Project Knowledge chứa style guide + glossary. Giai đoạn 3: Cowork setup thư mục (`docs/user-guide/`, `docs/api-ref/`, `docs/release-notes/`). Giai đoạn 4: Draft từng section ở Project Chat, copy nội dung về Cowork ghi file. Giai đoạn 5: Project Review — so sánh với style guide, check terminology. Giai đoạn 6: Cowork finalize — chuyển sang `.docx`, thêm headers chuẩn. Giai đoạn 7: Export `project-state.md` → upload vào Project Knowledge để brief session tiếp theo.
 

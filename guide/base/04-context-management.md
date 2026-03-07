@@ -4,7 +4,7 @@
 **Cập nhật:** 2026-03-01 | Models: xem [specs](../reference/model-specs.md)
 
 ---
-depends-on: [reference/model-specs, 12-claude-code-documentation]
+depends-on: [reference/model-specs, doc/05-claude-code-doc]
 impacts: [base/03-prompt-engineering, doc/01-doc-workflows, base/06-mistakes-fixes]
 ---
 
@@ -389,7 +389,7 @@ project-folder/
 └── ...
 ```
 
-**Thay thế hiện tại:** Dùng `.claude/CLAUDE.md` (Folder Instructions) + `git log` + SessionStart hook. Xem [Module 12: Claude Code cho Documentation](../12-claude-code-documentation.md).
+**Thay thế hiện tại:** Dùng `.claude/CLAUDE.md` (Folder Instructions) + `git log` + SessionStart hook. Xem [Module 12: Claude Code cho Documentation](../doc/05-claude-code-doc.md).
 
 | Cũ (`_memory/`) | Mới (Git-based) |
 |-----------------|-----------------|
@@ -398,7 +398,7 @@ project-folder/
 | 2 files cần maintain mỗi session | Không cần maintain — Git tự ghi |
 
 **Xem thêm:**
-- [Module 12: Claude Code cho Documentation](../12-claude-code-documentation.md)
+- [Module 12: Claude Code cho Documentation](../doc/05-claude-code-doc.md)
 - Module 04 (mục 4.9) — Context Sync Practices khi dùng Hybrid Workflow
 
 ---
@@ -577,7 +577,7 @@ Giữ nguyên: Phase, Conventions, Hướng dẫn cho Claude.
 Output: project-state.md hoàn chỉnh, sẵn sàng upload vào Project Knowledge.
 ```
 
-**Chi tiết quy trình upload vào Project Knowledge:** Xem [Claude Desktop & Cowork](../10-claude-desktop-cowork.md#1082-project-statemd--context-transfer-document).
+**Chi tiết quy trình upload vào Project Knowledge:** Xem [Cowork Setup](../doc/03-cowork-setup.md).
 
 ### Decision Matrix: Chat / Cowork / Claude Code
 
@@ -728,12 +728,12 @@ Nguyên tắc này áp dụng cho mọi công cụ Claude — dù là conversati
 
 **Xem thêm:**
 - Mục 4.4–4.5 — Context Refresh và Handover Workflows
-- [Claude Desktop & Cowork](../10-claude-desktop-cowork.md#1010-task-lifecycle--bắt-đầu-kết-thúc-và-chuyển-tiếp) — Task Lifecycle chi tiết cho Cowork
-- [Module 12](../12-claude-code-documentation.md) — Claude Code workflow và SessionStart hook
+- [Cowork Setup](../doc/03-cowork-setup.md) — Cowork cấu hình và task lifecycle
+- [Claude Code cho Documentation](../doc/05-claude-code-doc.md) — Claude Code workflow và SessionStart hook
 
 ---
 
 **Tiếp theo:**
 - [Tools & Features](05-tools-features.md) -- tools, Desktop, và planning patterns bao gồm Hybrid Workflow (Recipe 5.17)
-- [Claude Desktop & Cowork](../10-claude-desktop-cowork.md) -- cấu hình Cowork chi tiết (Folder Instructions, Scheduled Tasks, Plugins)
+- [Cowork Setup](../doc/03-cowork-setup.md) -- cấu hình Cowork chi tiết (Folder Instructions, Scheduled Tasks, Plugins)
 - [Setup & Personalization](02-setup.md) -- cấu hình Projects, Styles, Memory
