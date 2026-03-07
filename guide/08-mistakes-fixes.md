@@ -215,7 +215,7 @@ Nếu có, đánh dấu và đề xuất cách verify.
 
 **Fix:** Giải thích rõ mục đích:
 
-```
+```text
 Mục đích: Tôi đang viết tài liệu an toàn cho đội vận hành robot.
 Đây là tài liệu nội bộ, không phải để gây hại.
 Hãy giúp tôi liệt kê các rủi ro an toàn khi vận hành AMR trong nhà máy.

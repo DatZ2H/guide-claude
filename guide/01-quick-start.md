@@ -22,7 +22,7 @@ Module này giúp bạn bắt đầu sử dụng Claude ngay lập tức. Không
 2. Đăng nhập bằng email hoặc Google account
 3. Bạn sẽ thấy giao diện chính:
 
-```
+```text
   Sidebar (trái)         Khu vực chat (giữa)
   - Projects             - Ô nhập tin nhắn
   - Conversations        - Nút gửi
@@ -41,7 +41,7 @@ Thử 5 prompts sau để làm quen. Copy-paste trực tiếp, thay thông tin t
 
 ### Prompt 1: Hỏi đáp nhanh
 
-```
+```text
 Giải thích ngắn gọn [khái niệm kỹ thuật] là gì.
 Tôi là kỹ sư, không cần giải thích quá cơ bản.
 ```
@@ -50,7 +50,7 @@ Tôi là kỹ sư, không cần giải thích quá cơ bản.
 
 ### Prompt 2: Phân tích error
 
-```
+```text
 Tôi gặp lỗi sau trên [hệ thống]:
 
 [paste error message hoặc log]
@@ -62,7 +62,7 @@ Nguyên nhân có thể là gì và cách fix?
 
 ### Prompt 3: Viết email
 
-```
+```text
 Viết email ngắn gọn báo cáo tiến độ project [tên project] cho [người nhận].
 Tiến độ: [X]%. Vấn đề: [mô tả]. Kế hoạch tuần tới: [mô tả].
 Tone professional, tiếng Việt.
@@ -70,7 +70,7 @@ Tone professional, tiếng Việt.
 
 ### Prompt 4: Tạo checklist
 
-```
+```text
 Tạo checklist kiểm tra trước khi vận hành [thiết bị].
 Chia theo nhóm: Hardware, Software, Safety.
 Mỗi item có tiêu chí pass/fail rõ ràng.
@@ -78,7 +78,7 @@ Mỗi item có tiêu chí pass/fail rõ ràng.
 
 ### Prompt 5: So sánh giải pháp
 
-```
+```text
 So sánh [Option A] và [Option B] cho [mục đích].
 Tiêu chí: chi phí, thời gian triển khai, độ tin cậy, khả năng mở rộng.
 Đề xuất option nào tốt hơn và tại sao.
@@ -103,7 +103,7 @@ Claude có thể đọc và phân tích files bạn upload.
 
 **Thử ngay với prompt này:**
 
-```
+```text
 [Upload một file tài liệu hoặc log]
 
 Tóm tắt nội dung file này trong 5 bullet points.
@@ -133,7 +133,7 @@ Highlight những điểm quan trọng nhất.
 2. Chọn "Engineering" hoặc "Software Development"
 3. Nhập vào ô Profile Preferences:
 
-```
+```text
 Ngôn ngữ: Tiếng Việt, thuật ngữ kỹ thuật giữ tiếng Anh.
 Tôi là kỹ sư làm việc với [lĩnh vực của bạn].
 Trả lời ngắn gọn, actionable. Khi không chắc chắn, nói rõ.

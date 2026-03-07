@@ -31,7 +31,7 @@ Profile Preferences là hướng dẫn **account-wide** -- áp dụng cho TẤT 
 
 [Ứng dụng Kỹ thuật]
 
-```
+```text
 Ngôn ngữ: Trả lời bằng tiếng Việt. Giữ thuật ngữ kỹ thuật tiếng Anh
 (Lidar, SLAM, ROS, navigation, localization).
 
@@ -94,7 +94,7 @@ flowchart TD
 
 ### Naming Convention
 
-```
+```text
 [Team]-[MucDich]-[Version]
 
 Ví dụ:
@@ -264,7 +264,7 @@ Format review output:
 
 **Nhóm files theo chức năng:**
 
-```
+```text
 Project Knowledge/
   References/           # Tài liệu tra cứu
      SPEC-AMR001-v2.pdf
@@ -288,7 +288,7 @@ Project Knowledge/
 
 #### Naming Convention cho files
 
-```
+```text
 [TYPE]-[Name]-[Version].[ext]
 
 TYPE options:
@@ -392,7 +392,7 @@ Bạn có thể tạo Custom Style bằng 2 cách:
 
 [Ứng dụng Kỹ thuật]
 
-```
+```text
 Name: Phenikaa-X Technical
 
 Instructions:
@@ -412,7 +412,7 @@ Instructions:
 
 [Ứng dụng Kỹ thuật]
 
-```
+```text
 Name: Phenikaa-X Internal
 
 Instructions:
@@ -561,7 +561,7 @@ Danh sách thiết lập cho kỹ sư Phenikaa-X, theo thứ tự ưu tiên.
 
 Test setup bằng cách gửi một prompt đơn giản trong Project vừa tạo:
 
-```
+```text
 Tôi vừa setup Project này.
 Hãy xác nhận bạn đã đọc Project Instructions
 và tóm tắt lại những gì bạn hiểu về role và context của mình.
