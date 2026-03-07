@@ -2,7 +2,7 @@
 # Upgrade Plan — Guide Claude v7.0 → v9.0
 
 **Created:** 2026-03-06 | **Baseline:** v7.0 (commit 49f5ac4)
-**Last updated:** 2026-03-07 | **Status:** P3 complete (v8.3) — ready for P4 | Plan reviewed (D14'-D16')
+**Last updated:** 2026-03-07 | **Status:** P4 complete (v8.5) — ready for P5 | Plan reviewed (D14'-D16')
 
 ---
 
@@ -267,7 +267,7 @@ _scaffold/
 
 ```
 S0 Automation ──> P1 Foundation ──> P2 Structure ──> P3 Dev Content ──> P4 Enhancement ──> P5 Polish
-  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   ✅ Done (v8.3)    (v8.4–v8.5)      (v9.0)
+  ✅ Done          ✅ Done (v7.3)    ✅ Done (v8.0)   ✅ Done (v8.3)    ✅ Done (v8.5)    (v9.0)
 
 Ngoại lệ: S23 (skills-guide), S27 (/nav-update), S28 (prompt-format-guide) có thể overlap cuối P3.
 ```
@@ -837,17 +837,19 @@ P3 tăng từ 6→7 sessions do Agent Teams scope + ecosystem reference (D8'-D13
 **Checkpoint:** "P4.S28: prompt format guide + custom style"
 **Version bump: v8.5**
 
-#### Phase 4 Review Gate
+#### Phase 4 Review Gate — ✅ PASSED (2026-03-07)
 
-- [ ] Skills guide complete (reference/skills-guide.md)
-- [ ] 3 cheatsheets complete (cheatsheet-base, cheatsheet-doc, cheatsheet-dev)
-- [ ] _scaffold bổ sung: examples/ + checklists/ + README
-- [ ] /nav-update skill operational
-- [ ] Hook enhancements tested
-- [ ] Prompt format guide complete
-- [ ] Custom style reference updated
-- [ ] Cross-links valid
-- [ ] Version = 8.5
+- [x] Skills guide complete (reference/skills-guide.md)
+- [x] 3 cheatsheets complete (cheatsheet-base, cheatsheet-doc, cheatsheet-dev)
+- [x] _scaffold bổ sung: examples/ + checklists/ + README
+- [x] /nav-update skill operational
+- [x] Hook enhancements tested
+- [x] Prompt format guide complete
+- [x] Custom style reference updated
+- [x] Cross-links valid
+- [x] Version = 8.5
+
+**Result: PASSED → P5 approved.**
 
 ---
 
@@ -959,7 +961,7 @@ Dev Toolkit thêm: bundled `/simplify`, `/batch`, `/debug`, code-review agent.
 | P1 Foundation | S1–S7 (7) | v7.1–v7.3 | 🟢 | ✅ Done |
 | P2 Structure | S8–S15 (8+2 sub) | v8.0 | 🔴 | ✅ Done |
 | P3 Dev Content | S16–S22 (7) | v8.1–v8.3 | 🟡 | ✅ Done |
-| P4 Enhancement | S23–S28 (6) | v8.4–v8.5 | 🟢 | — |
+| P4 Enhancement | S23–S28 (6) | v8.4–v8.5 | 🟢 | ✅ Done |
 | P5 Polish | S29–S33 (5) | v9.0 | 🟢 | — |
 | **Total** | **~36 work units** | **v7.0 → v9.0** | | |
 
