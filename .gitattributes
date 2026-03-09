@@ -1,0 +1,14 @@
+# Force LF line endings in repo, auto-convert on checkout
+* text=auto eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.txt text eol=lf
+
+# Binary files — không convert
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary

@@ -23,16 +23,16 @@ Tài liệu được tổ chức thành 3 nhóm theo đối tượng sử dụng
 
 ### Base — Kiến thức nền tảng (ai cũng cần)
 
-| Module | Tên | Mô tả |
-|--------|-----|-------|
-| **00** | Overview (file này) | Mục lục, learning paths, conventions |
-| **01** | [Quick Start](01-quick-start.md) | Bắt đầu với Claude trong 15 phút |
-| **02** | [Setup & Personalization](02-setup.md) | Projects, Styles, Memory, MCP |
-| **03** | [Prompt Engineering](03-prompt-engineering.md) | 6 nguyên tắc, 7 kỹ thuật, Module System |
-| **04** | [Context Management](04-context-management.md) | Context Window, Drift, Session Lifecycle, Decision Framework |
-| **05** | [Tools & Features](05-tools-features.md) | Tính năng Claude, Desktop, Planning patterns |
-| **06** | [Mistakes & Fixes](06-mistakes-fixes.md) | 7 nhóm lỗi phổ biến và cách sửa |
-| **07** | [Evaluation](07-evaluation.md) | Framework đánh giá chất lượng output |
+| Module | Tên                                            | Mô tả                                                        |     |
+| ------ | ---------------------------------------------- | ------------------------------------------------------------ | --- |
+| **00** | Overview (file này)                            | Mục lục, learning paths, conventions                         |     |
+| **01** | [Quick Start](01-quick-start.md)               | Bắt đầu với Claude trong 15 phút                             |     |
+| **02** | [Setup & Personalization](02-setup.md)         | Projects, Styles, Memory, MCP                                |     |
+| **03** | [Prompt Engineering](03-prompt-engineering.md) | 6 nguyên tắc, 7 kỹ thuật, Module System                      |     |
+| **04** | [Context Management](04-context-management.md) | Context Window, Drift, Session Lifecycle, Decision Framework |     |
+| **05** | [Tools & Features](05-tools-features.md)       | Tính năng Claude, Desktop, Planning patterns                 |     |
+| **06** | [Mistakes & Fixes](06-mistakes-fixes.md)       | 7 nhóm lỗi phổ biến và cách sửa                              |     |
+| **07** | [Evaluation](07-evaluation.md)                 | Framework đánh giá chất lượng output                         |     |
 
 ### Doc — Technical Writing & Documentation
 
