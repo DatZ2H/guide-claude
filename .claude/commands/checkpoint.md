@@ -3,6 +3,7 @@ Quick commit workflow. Thực hiện tuần tự:
 1. Chạy `git status` — show modified/untracked files
 2. Chạy `git diff --stat` — summary số dòng thay đổi per file
 3. Nếu không có thay đổi → báo "Working tree clean, nothing to commit" và dừng
+3.5. Nếu có thay đổi trong `guide/` → chạy `python3 .claude/hooks/link-check.py` và báo kết quả. Nếu có broken links → cảnh báo trước khi commit (user vẫn có thể chọn commit)
 
 4. Phân tích changes và đề xuất commit message:
    - Format: `Module XX: mô tả ngắn` (nếu thay đổi liên quan module)

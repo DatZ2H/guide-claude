@@ -1,6 +1,12 @@
 ---
 name: cross-ref-checker
 description: Scan toàn bộ guide/ folder tìm stale cross-references trong Guide Claude project. Trigger khi user nói "kiểm tra cross-references", "tìm stale references", "scan references", "cross-ref sweep", hoặc trước khi bump version. Output: danh sách items cần fix, phân loại theo mức độ ưu tiên.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Cross-Reference Checker — Guide Claude Project

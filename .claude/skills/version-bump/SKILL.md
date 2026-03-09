@@ -1,7 +1,17 @@
 ---
 name: version-bump
 description: Workflow bump version cho Guide Claude project: cập nhật VERSION file, thêm changelog entry vào 00-overview.md, update project-state.md. Trigger khi user nói "bump version", "lên version", "release v[X.X]", hoặc "version mới". KHÔNG tự ý bump — luôn confirm version number với user trước.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
+  - Edit
+  - Write
 ---
+
+Current version: !cat VERSION
 
 # Version Bump Workflow — Guide Claude Project
 

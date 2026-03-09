@@ -1,7 +1,15 @@
 ---
 name: upgrade-guide
 description: Scan Guide Claude project for stale data, broken references, and dependency issues. Use when planning updates or checking project health. Trigger khi user nói "upgrade scan", "health check", "kiểm tra stale data", "scan project", hoặc trước khi bắt đầu update cycle.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
+
+Current version: !cat VERSION
 
 # Upgrade Guide Scanner — Guide Claude Project
 
@@ -26,7 +34,7 @@ Nếu không có argument → hỏi user: "Scan module cụ thể (số module) 
 
 ### Bước 1 — Xác định scope
 
-Đọc `VERSION` để lấy current version.
+Version đã inject ở trên — không cần đọc lại.
 
 Xây dựng danh sách files cần scan:
 - Nếu `all`: list toàn bộ `guide/base/*.md` + `guide/doc/*.md` + `guide/dev/*.md` + `guide/reference/*.md`

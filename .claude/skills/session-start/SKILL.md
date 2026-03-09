@@ -1,11 +1,22 @@
 ---
 name: session-start
 description: Workflow mở đầu Cowork session cho Guide Claude project. Trigger khi user bắt đầu session mới, nói "bắt đầu", "tiếp tục", "session mới", hoặc hỏi "còn lại gì cần làm". Đọc git history và trả về orientation ngắn gọn trước khi làm việc.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
+
+Current version: !cat VERSION
 
 # Session Start Workflow — Guide Claude Project
 
 Skill này chạy đầu mỗi Cowork session để nhanh chóng nắm bối cảnh và tránh lãng phí thời gian đọc nhiều files.
+
+> [!NOTE]
+> `/start` (command) = orientation nhanh, chỉ show status. `/session-start` (skill) = full workflow, có suggested next action + hỏi confirm trước khi bắt đầu.
 
 ## Trigger
 
@@ -18,8 +29,7 @@ Kích hoạt khi user:
 
 ### Bước 1 — Đọc trạng thái từ git (LUÔN làm trước)
 
-1. Đọc `VERSION` — version hiện tại
-2. Chạy `git log --oneline -5` — 5 commits gần nhất
+1. Chạy `git log --oneline -5` — 5 commits gần nhất (version đã inject ở trên)
 3. Chạy `git status --short` — đếm files modified/untracked
 
 ### Bước 2 — Orientation summary (ngắn gọn, ~5 dòng)
@@ -47,8 +57,8 @@ Kết thúc bằng: "Tiếp tục với [suggested action] hay anh muốn làm v
 ## Ví dụ output
 
 ```
-**Session orientation — Guide Claude v4.1**
-- Last commit: 13f41da Thêm 4 core slash commands
-- Working tree: 3 modified, 0 untracked
-- Suggested next: Cross-ref sweep cho modules chưa update (01, 03, 06–09)
+**Session orientation — Guide Claude v9.0**
+- Last commit: 9b8e89c Docs: xóa stale ref upgrade-plan-v8 trong README
+- Working tree: clean
+- Suggested next: Tiếp tục infra hardening Phase 2
 ```

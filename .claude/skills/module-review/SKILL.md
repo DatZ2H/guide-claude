@@ -1,6 +1,12 @@
 ---
 name: module-review
 description: Checklist review một module trong Guide Claude project theo 5 tiêu chí chất lượng. Trigger khi user nói "review module X", "kiểm tra module", "đánh giá chất lượng module", hoặc trước khi bump version. Output: review report với điểm số và action items.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Module Review Workflow — Guide Claude Project
@@ -55,36 +61,32 @@ Cũng đọc:
 
 ### Bước 3 — Output review report
 
-Format cố định:
+Format cố định (thống nhất với `/review-module` command — hệ thống /10):
 
 ```
-## Module Review — [XX] [Tên Module] — [ngày]
+## Review: [filename] ([size]KB)
 
-### Tóm tắt
-- Điểm tổng: [X/5] tiêu chí PASS
-- Trạng thái: ✅ Ready to release | ⚠️ Minor fixes needed | 🔴 Major issues
+**Score: [tổng]/10**
 
-### Kết quả từng tiêu chí
+| Tiêu chí | Điểm | Ghi chú |
+|----------|-------|---------|
+| Accuracy | 0-2 | [nhận xét ngắn] |
+| Consistency | 0-2 | [nhận xét ngắn] |
+| Completeness | 0-2 | [nhận xét ngắn] |
+| Clarity | 0-2 | [nhận xét ngắn] |
+| Actionability | 0-2 | [nhận xét ngắn] |
 
-| Tiêu chí | Kết quả | Ghi chú |
-|----------|---------|---------|
-| Accuracy | ✅/⚠️/🔴 | [nhận xét ngắn] |
-| Consistency | ✅/⚠️/🔴 | [nhận xét ngắn] |
-| Completeness | ✅/⚠️/🔴 | [nhận xét ngắn] |
-| Clarity | ✅/⚠️/🔴 | [nhận xét ngắn] |
-| Actionability | ✅/⚠️/🔴 | [nhận xét ngắn] |
+### Strengths
+- [2-3 điểm mạnh]
 
-### Action Items
+### Issues
+- L[line]: [mô tả cụ thể]
 
-**Must fix (trước release):**
-1. [file:dòng] — [vấn đề] → [fix cụ thể]
-
-**Should fix (sprint này):**
-1. [file:dòng] — [vấn đề] → [gợi ý]
-
-**Nice to have:**
-1. [gợi ý cải thiện]
+### Suggestions
+- [2-3 đề xuất cải thiện, ưu tiên theo impact]
 ```
+
+Quy ước điểm: 0 = thiếu/sai nghiêm trọng, 1 = có nhưng cần cải thiện, 2 = tốt.
 
 ### Bước 4 — Hỏi action
 
@@ -93,7 +95,10 @@ Format cố định:
 ## Rules
 
 - Đánh giá khách quan — không nói "tốt" chung chung mà phải chỉ ra cụ thể
+- Score phải reflect thực tế — KHÔNG cho điểm cao vô căn cứ
 - Nếu module quá dài (>40KB), chia làm 2 lần đọc: nửa đầu và nửa sau
 - Không sửa file trực tiếp trong bước review — chỉ report
 - Phân biệt "sai" (accuracy issue) vs "có thể cải thiện" (clarity issue)
-- Luôn ghi rõ dòng số khi flag issue cụ thể
+- Issues PHẢI có line reference cụ thể
+- Suggestions phải actionable — "thêm ví dụ X vào section Y", không phải "cải thiện ví dụ"
+- Tổng output tối đa 30 dòng

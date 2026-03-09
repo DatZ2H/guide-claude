@@ -1,7 +1,11 @@
-Chạy orientation đầu session. Thực hiện tuần tự:
+Chạy orientation nhanh đầu session (version, git status, recent commits — không suggest action).
+Dùng `/session-start` nếu cần full workflow với suggested next action + confirm.
 
-1. Đọc file `VERSION` — lấy version number
-2. Chạy `git status --short` — đếm số files modified/untracked
+Current version: !cat VERSION
+
+Thực hiện tuần tự:
+
+1. Chạy `git status --short` — đếm số files modified/untracked
 3. Chạy `git log --oneline -5` — lấy 5 commits gần nhất
 
 Output một block duy nhất, format:

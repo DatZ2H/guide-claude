@@ -1,6 +1,13 @@
 ---
 name: nav-update
 description: Auto-update prev/next navigation links trong guide/ files. Trigger khi user nói "update nav", "fix navigation", "nav-update", hoặc sau khi thêm/xóa/rename module. Output danh sách files updated + verification.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
+  - Edit
 ---
 
 # Nav Update — Guide Claude Project

@@ -5,6 +5,12 @@ description: >
   "source audit", "kiểm tra sources", "scan sources", "audit markers",
   hoặc cuối session để verify compliance. Output: danh sách sections thiếu markers,
   markers cần update, và phân loại theo mức độ ưu tiên.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Source Audit — Guide Claude Project
@@ -48,11 +54,11 @@ Markers hợp lệ:
 
 ## Quy trình
 
-### Buoc 1 — Scan files
+### Bước 1 — Scan files
 
 List tất cả `.md` files trong `guide/` và `guide/reference/` (skip `.bak`).
 
-### Buoc 2 — Cho mỗi file, kiểm tra
+### Bước 2 — Cho mỗi file, kiểm tra
 
 **A. Sections có source markers:**
 - Grep `[Nguồn:`, `[Ứng dụng Kỹ thuật]`, `[Cập nhật`, `[Ghi chú:`
@@ -67,7 +73,7 @@ List tất cả `.md` files trong `guide/` và `guide/reference/` (skip `.bak`).
 - Tier 3 markers thiếu disclaimer → flag
 - Markers không theo format chuẩn → flag
 
-### Buoc 3 — Output report
+### Bước 3 — Output report
 
 Format:
 
@@ -91,7 +97,7 @@ Format:
 **Tổng: X missing, Y stale, Z format issues**
 ```
 
-### Buoc 4 — Hỏi action
+### Bước 4 — Hỏi action
 
 Sau khi output report, hỏi: "Anh muốn sửa ngay (tôi fix từng item) hay export checklist?"
 

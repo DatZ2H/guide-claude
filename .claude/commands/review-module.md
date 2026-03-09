@@ -1,10 +1,11 @@
 Deep review một module guide. Argument: $ARGUMENTS (tier/số như "base/03", "dev/01" hoặc full path).
 
+Current version: !cat VERSION
+
 **Bước 1 — Resolve và đọc file:**
 - Nếu `tier/số` (vd "base/03", "dev/01"): tìm file match `guide/{tier}/{số}-*.md`
 - Nếu chỉ số (vd "03"): tìm trong tất cả tiers — nếu nhiều match → hỏi user
 - Nếu full path: dùng trực tiếp
-- Đọc file VERSION để biết version hiện tại
 - Nếu file > 20KB: ghi note đầu output `⚠️ Module lớn ({size}KB) — recommend /model opus cho review chính xác hơn`
 
 **Bước 2 — Đọc context:**

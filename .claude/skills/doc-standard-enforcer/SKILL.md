@@ -5,6 +5,12 @@ description: >
   "kiểm tra standards", "deep review", hoặc muốn kiểm tra thủ công chất lượng content.
   Enforcement rules tự động đã chuyển sang .claude/rules/writing-standards.md (auto-load)
   và .claude/hooks/format-check.py (PostToolUse hook). Skill này chỉ dùng cho on-demand review.
+user-invocable: true
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - Bash
 ---
 
 # Doc Standard Enforcer — Guide Claude Project (Manual Review Mode)
