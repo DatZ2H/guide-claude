@@ -652,12 +652,18 @@ PHASE 5 (ongoing, 1-2 sessions/quarter): Ecosystem Growth
 Trước khi bắt tay vào, cần chốt:
 
 1. **Hướng chiến lược:** D+ (Framework-First) hay hướng khác?
+	- Tiếp tục brainstorming, tôi sẽ cung cấp lại painpoint của dự án
 2. **Scope framework:** Chỉ Claude Code hay cả Cowork (claude.ai)?
-3. **Team profiles:** Những team nào cần profile riêng?
-4. **Lean guide:** 12-14 files có chấp nhận được? Hay cần giữ nhiều hơn?
-5. **Timeline:** Phân bổ sessions như thế nào (intensive 2 tuần hay spread 1-2 tháng)?
-6. **Pilot:** Ai sẽ là early adopter để test framework?
-7. **v9.1 archive:** Giữ trong branch riêng hay xoá?
+- Cả 2 vì có nhiều nhóm đối tượng sử dụng, tập trung công việc ở Claude code nhưng cần hỗ trợ cowork
+1. **Team profiles:** Những team nào cần profile riêng?
+-  Trước tiên là team solution và software vì đang gần sử dụng nhất sau đó sẽ scale nhân rộng khi quy trình ổn đinh.
+1. **Lean guide:** 12-14 files có chấp nhận được? Hay cần giữ nhiều hơn?
+- KHông phải con số bao nhiêu là đủ mà cần trao đổi để phân tích phương án
+1. **Timeline:** Phân bổ sessions như thế nào (intensive 2 tuần hay spread 1-2 tháng)?
+- Ưu tiên chất lượng
+1. **Pilot:** Ai sẽ là early adopter để test framework?
+- hiện tại 
+1. **v9.1 archive:** Giữ trong branch riêng hay xoá?
 
 ---
 
