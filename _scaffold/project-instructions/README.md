@@ -53,5 +53,5 @@ Templates này cần review khi:
 - Tech stack của Phenikaa-X thay đổi (ROS version, sensor mới...)
 - Team có feedback về template không fit workflow
 
-Khi update template → **KHÔNG sửa Module 02** trừ khi có thay đổi về khái niệm.
-Templates và modules tách biệt để dễ maintain.
+Khi update template → **KHÔNG sửa guide modules** (base/02, doc/02...) trừ khi có thay đổi về khái niệm.
+Templates và guide modules tách biệt để dễ maintain.

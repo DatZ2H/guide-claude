@@ -19,6 +19,7 @@ Step-by-step từ zero đến working `.claude/` infrastructure.
   - `{{project_name}}` — tên project
   - `{{project_description}}` — 1-2 câu mô tả
   - `{{target_audience}}` — ai dùng output
+  - `{{architecture_tier}}` — "2-tier" (default) hoặc "3-tier" (nhiều audience)
   - `{{content_folder}}` — folder content chính (docs/, guide/, src/...)
   - `{{language_main}}` — ngôn ngữ chính
   - `{{main_branch}}` — master hoặc main
@@ -65,16 +66,6 @@ Step-by-step từ zero đến working `.claude/` infrastructure.
 
 ## Phase 3: Mở rộng (khi cần)
 
-### Rules (khuyến nghị cho doc projects)
-
-- [ ] Tạo `.claude/rules/` folder
-- [ ] Thêm rule files theo path patterns:
-  ```
-  rules/
-  └── writing-standards.md    → docs/**/*.md
-  ```
-- [ ] Nội dung rule: heading hierarchy, code block tags, naming conventions
-
 ### Hooks (khuyến nghị khi team > 1 người)
 
 - [ ] Thêm PostToolUse hook cho format checking:
@@ -84,18 +75,53 @@ Step-by-step từ zero đến working `.claude/` infrastructure.
       "matcher": "Edit|Write",
       "hooks": [{
         "type": "command",
-        "command": "your-lint-script.py",
-        "timeout": 10
+        "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/your-lint-script.py\"",
+        "timeout": 10,
+        "statusMessage": "Checking format..."
       }]
     }]
   }
   ```
+- [ ] Thêm PreToolUse hook cho safety gates (tùy chọn):
+  ```json
+  {
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'review command before execution'",
+        "timeout": 5
+      }]
+    }]
+  }
+  ```
+
+> [!TIP]
+> Trước khi build hook/rule mới, kiểm tra `_scaffold/` và `.claude/` xem đã có pattern tương tự chưa.
+
+### Rules (khi có standards cho folder cụ thể)
+
+- [ ] Tạo `.claude/rules/` folder
+- [ ] Thêm rule files theo path patterns (xem `_scaffold/skill-templates/rule-template.md`):
+  ```
+  rules/
+  └── writing-standards.md    → docs/**/*.md
+  ```
+- [ ] Nội dung rule: heading hierarchy, code block tags, naming conventions
 
 ### Skills (khi có workflow lặp lại)
 
 - [ ] Tạo `.claude/skills/your-skill/SKILL.md`
 - [ ] Copy structure từ `_scaffold/skill-templates/SKILL-template/`
 - [ ] Thêm vào bảng Available skills trong CLAUDE.md
+- [ ] Khi thêm rules/hooks/skills → quay lại CLAUDE.md điền `{{rules_description}}`, `{{hooks_description}}`, `{{skills_count}}`
+
+### Planning workflow (cho projects có multi-phase work)
+
+- [ ] Tạo auto memory directory (Claude tự tạo khi dùng MEMORY.md)
+- [ ] Tạo plan file trong memory: `{memory-dir}/{plan-name}.md`
+- [ ] Cập nhật MEMORY.md với link tới plan file
+- [ ] (Tùy chọn) Tạo `/plan` skill — xem `_scaffold/skill-templates/` cho template
 
 ### project-state.md (cho projects có phases)
 

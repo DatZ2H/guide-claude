@@ -18,13 +18,14 @@
 ├── SETUP.md                # Onboarding guide
 ├── settings.json           # Hooks config (SessionStart, PostToolUse)
 ├── settings.local.json     # Local overrides (không commit)
-├── rules/                  # 6 rule files — auto-load theo path
+├── rules/                  # 7 rule files — auto-load theo path
 │   ├── writing-standards.md    → guide/**/*.md
 │   ├── reference-standards.md  → guide/reference/**
 │   ├── scaffold-standards.md   → _scaffold/**
 │   ├── tier-base.md            → guide/base/**
 │   ├── tier-doc.md             → guide/doc/**
-│   └── tier-dev.md             → guide/dev/**
+│   ├── tier-dev.md             → guide/dev/**
+│   └── planning-standards.md   → project-state.md
 ├── hooks/                  # 2 hook scripts
 │   ├── format-check.py     # PostToolUse — heading hierarchy + code block tags
 │   └── link-check.py       # Standalone — cross-link verification
@@ -34,7 +35,7 @@
 │   ├── validate-doc.md     # /validate-doc [module] — format check
 │   ├── review-module.md    # /review-module [module] — deep review
 │   └── weekly-review.md    # /weekly-review — weekly status
-└── skills/                 # 8 on-demand skills
+└── skills/                 # 9 on-demand skills
     ├── session-start/
     ├── version-bump/
     ├── cross-ref-checker/
@@ -42,7 +43,8 @@
     ├── doc-standard-enforcer/
     ├── source-audit/
     ├── upgrade-guide/
-    └── nav-update/
+    ├── nav-update/
+    └── plan/
 ```
 
 ## Các files mẫu trong thư mục này
@@ -60,7 +62,7 @@
 Toàn bộ context được load mỗi conversation. Giữ ngắn gọn, chi tiết chuyển vào rules/ và skills/.
 
 ### 2. Rules phân theo tier
-Thay vì 1 file rules lớn, dự án dùng 6 rule files nhỏ — mỗi file chỉ load khi edit đúng path. Tiết kiệm context window.
+Thay vì 1 file rules lớn, dự án dùng 7 rule files nhỏ — mỗi file chỉ load khi edit đúng path. Tiết kiệm context window.
 
 ### 3. Hooks enforce tự động
 `format-check.py` chạy sau mỗi Edit/Write — bắt lỗi heading hierarchy và code block tags ngay lập tức, không cần nhớ kiểm tra thủ công.
@@ -71,6 +73,12 @@ Thay vì 1 file rules lớn, dự án dùng 6 rule files nhỏ — mỗi file ch
 
 ### 5. VERSION file là SSOT
 Một file `VERSION` duy nhất — modules reference về đây thay vì hardcode version.
+
+### 6. Discovery Protocol
+CLAUDE.md = project manifest (Claude đọc đầu tiên). MEMORY.md = personal registry (auto-load, chứa links tới plans). Mọi thứ Claude cần biết phải có hoặc được link từ 1 trong 2 file này.
+
+### 7. Planning workflow xuyên session
+Plans lưu trong auto memory directory, link từ MEMORY.md. `/start` tự scan plan status. `/plan` skill quản lý tạo/xem/update plans.
 
 ---
 

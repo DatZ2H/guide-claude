@@ -7,7 +7,7 @@ Thực hiện tuần tự:
 
 1. Chạy `git status --short` — đếm số files modified/untracked
 2. Chạy `git log --oneline -5` — lấy 5 commits gần nhất
-3. Scan memory directory cho active plans — tìm files có `## Phase` + status PENDING/IN-PROGRESS
+3. Scan auto memory directory cho active plans — tìm files có `## Phase` + status PENDING/IN-PROGRESS (xem MEMORY.md cho links tới plan files)
 
 Output một block duy nhất, format:
 

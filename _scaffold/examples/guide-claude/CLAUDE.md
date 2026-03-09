@@ -18,6 +18,7 @@ guide/
 └── reference/          config-architecture, model-specs, skills-list, ...
 .claude/                CLAUDE.md, settings.json, rules/, hooks/, skills/, commands/
 _scaffold/              Starter templates + examples + checklists
+project-state.md        Project overview
 VERSION                 SSOT cho version number
 ```
 
@@ -54,7 +55,8 @@ VERSION                 SSOT cho version number
 | `/weekly-review` | Review hàng tuần |
 
 ## Automation infrastructure
-- **Rules (auto-load):** 6 files trong `.claude/rules/` — load theo path
+- **Rules (auto-load):** 7 files trong `.claude/rules/` — load theo path
 - **PostToolUse hook:** `format-check.py` — heading hierarchy + code block tags
 - **Standalone check:** `link-check.py` — cross-links
 - **Source verification:** 3-tier standard (Anthropic official → verified repos → community + disclaimer)
+- **Skills:** 9 on-demand skills (session-start, version-bump, cross-ref-checker, module-review, doc-standard-enforcer, source-audit, upgrade-guide, nav-update, plan)

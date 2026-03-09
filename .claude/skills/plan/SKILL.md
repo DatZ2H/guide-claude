@@ -26,7 +26,7 @@ Kích hoạt khi user muốn:
 ## Quy trình
 
 ### Mode 1: Xem status (default khi không có argument)
-1. Đọc tất cả files trong memory directory (`C:\Users\quocd\.claude\projects\C--Users-quocd-Claude-Cowork-PNX-Vault-Guide-Claude\memory\`) — tìm files có pattern `## Phase`
+1. Đọc tất cả files trong auto memory directory (xem MEMORY.md cho links tới plan files) — tìm files có pattern `## Phase`
 2. Với mỗi plan file tìm được:
    - Đếm phases DONE / PENDING / IN-PROGRESS
    - Đếm tasks hoàn thành / tổng
@@ -37,8 +37,8 @@ Kích hoạt khi user muốn:
 2. Chia thành phases (mỗi phase độc lập, có thể dừng bất kỳ lúc nào)
 3. Mỗi phase có tasks cụ thể (format: `N.M: mô tả`)
 4. Xác định dependencies giữa phases
-5. Viết plan file vào memory directory: `memory/{tên-plan}.md`
-6. Update `memory/MEMORY.md` — thêm link tới plan mới
+5. Viết plan file vào auto memory directory: `{memory-dir}/{tên-plan}.md`
+6. Update MEMORY.md — thêm link tới plan mới
 
 ### Mode 3: Update progress (khi user báo hoàn thành task/phase)
 1. Đọc plan file liên quan

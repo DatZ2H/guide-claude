@@ -1,6 +1,6 @@
 # Scaffold — Tạo project mới với Claude Code / Cowork
 
-Bộ template này giúp khởi tạo nhanh một project theo 2-tier architecture chuẩn:
+Bộ template này giúp khởi tạo nhanh một project theo 2-tier architecture chuẩn (mở rộng thành 3-tier khi có nhiều audience):
 - **Tầng A** — Content (thư mục chính chứa nội dung)
 - **Tầng B** — Infrastructure (`.claude/` — Folder Instructions + skills + commands)
 
@@ -27,7 +27,7 @@ mv project-state-template.md project-state.md
 
 > **Lưu ý về skills:** KHÔNG copy `skill-templates/` vào project. Thư mục này là nguồn tham khảo —
 > khi cần tạo skill mới, copy `skill-templates/SKILL-template/` vào `.claude/skills/your-skill-name/`
-> rồi rename thành `SKILL.md` và customize. Xem hướng dẫn tại Module 10, mục 10.6.7.
+> rồi rename thành `SKILL.md` và customize. Xem hướng dẫn tại `guide/reference/skills-guide.md`.
 
 ### Bước 3: Customize từng file
 1. `.claude/CLAUDE.md` — thay toàn bộ `{{placeholder}}` bằng thông tin project thật
@@ -98,9 +98,10 @@ _scaffold/
 ├── global-instructions/         Template cho Global CLAUDE.md (user-level)
 │   └── global-CLAUDE-phenikaa-x.md
 │
-├── skill-templates/             Template tạo skill mới
-│   └── SKILL-template/
-│       └── SKILL-template.md
+├── skill-templates/             Templates tạo skill/rule mới
+│   ├── SKILL-template/
+│   │   └── SKILL-template.md
+│   └── rule-template.md         Hướng dẫn tạo rule file
 │
 ├── examples/                    Config thực tế đã hoạt động
 │   ├── guide-claude/            Dự án Guide Claude (doc project, 3-tier)

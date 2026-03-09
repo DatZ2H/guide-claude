@@ -5,7 +5,7 @@
 - **Version:** xem file `VERSION` (SSOT)
 - **Phase:** {{current_phase}}
 - **Đối tượng:** {{target_audience}}
-- **Architecture:** 2-tier — {{content_folder}}/ (content) + .claude/ (infra)
+- **Architecture:** {{architecture_tier}} — {{content_folder}}/ (content) + .claude/ (infra)
 
 ## Folder structure
 ```
@@ -79,6 +79,12 @@
 | `/checkpoint` | Quick commit |
 | {{command_3}} | {{trigger_3}} |
 
+## Automation infrastructure
+<!-- Mô tả rules, hooks, skills đang hoạt động — giúp Claude hiểu project có gì -->
+- **Rules (auto-load):** {{rules_description}}
+- **Hooks:** {{hooks_description}}
+- **Skills:** {{skills_count}} skills trong `.claude/skills/`
+
 ## Deliverable status (quick ref)
 | Range | Status |
 |-------|--------|
@@ -89,6 +95,7 @@
 - Thêm skill mới → update bảng Available skills
 - Thay đổi folder structure → update Folder structure section
 - Thay đổi conventions → update Language rules / Writing standards
+- Thêm rule/hook mới → update Automation infrastructure section
 
 ---
 <!-- HƯỚNG DẪN CUSTOMIZE (xóa section này sau khi điền xong)
@@ -106,6 +113,10 @@ Thay các {{placeholder}} sau:
 
 {{target_audience}}
   → Ai dùng output, ví dụ: "Kỹ sư tự động hóa, R&D tại Phenikaa-X"
+
+{{architecture_tier}}
+  → "2-tier" (content + infra) hoặc "3-tier" (base + specialized + infra)
+  → 2-tier phù hợp hầu hết projects. 3-tier khi có nhiều audience khác nhau.
 
 {{content_folder}} / {{content_folder_description}}
   → Tên folder content chính (guide/, docs/) + mô tả ngắn ("13 module files + reference/")
@@ -140,6 +151,20 @@ Thay các {{placeholder}} sau:
 
 {{deliverable_range_1..2}} / {{status_1..2}}
   → Ví dụ: "Module 00–09" / "v1.0 base — 🟢"
+
+{{rules_description}}
+  → Ví dụ: "3 files trong .claude/rules/ — load theo path" hoặc "Chưa có — thêm khi cần"
+
+{{hooks_description}}
+  → Ví dụ: "SessionStart (version display) + PostToolUse (format check)" hoặc "SessionStart hook only"
+
+{{skills_count}}
+  → Số lượng skill files, ví dụ: "2" hoặc "Chưa có"
+
+DISCOVERY PROTOCOL:
+  CLAUDE.md là project manifest — Claude đọc đầu tiên mỗi session.
+  Mọi thứ Claude cần biết phải có hoặc được link từ đây.
+  Nếu dùng auto memory (MEMORY.md) → Claude tự load, không cần ghi path trong CLAUDE.md.
 
 Sau khi điền xong → xóa toàn bộ section comment này.
 -->
