@@ -61,7 +61,6 @@ Xem [_scaffold/README-scaffold.md](_scaffold/README-scaffold.md) để bắt đ�
 |------|---------|
 | `VERSION` | SSOT cho version number |
 | `project-state.md` | Trạng thái modules, decisions gần nhất |
-| `upgrade-plan-v8.md` | Plan upgrade v7.0 → v9.0 (completed) |
 | `.claude/SETUP.md` | Onboarding cho maintainer mới |
 | `.claude/` | Infra: rules, hooks, skills, commands, settings |
 | `machine-readable/llms.txt` | Machine-readable index cho AI tools |
