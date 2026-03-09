@@ -1,6 +1,6 @@
 # Project Overview — Claude Guide cho Kỹ sư Phenikaa-X
 
-Version: xem `VERSION` (hiện tại: 9.0) | Updated: 2026-03-07
+Version: xem `VERSION` (hiện tại: 9.1) | Updated: 2026-03-09
 
 ## Phase
 
@@ -96,10 +96,10 @@ Guide Claude/
     ├── CLAUDE.md                   Folder Instructions
     ├── SETUP.md                    Onboarding cho maintainer mới
     ├── settings.json               Hooks (SessionStart, PostToolUse)
-    ├── rules/                      6 rules (writing-standards, reference, scaffold, tier-base/doc/dev)
+    ├── rules/                      7 rules (writing-standards, reference, scaffold, tier-base/doc/dev, planning-standards)
     ├── hooks/                      format-check.py, link-check.py
     ├── commands/                   Slash commands (/start, /checkpoint, /weekly-review...)
-    └── skills/                     8 skills (session-start, version-bump, cross-ref-checker, module-review, doc-standard-enforcer, source-audit, upgrade-guide, nav-update)
+    └── skills/                     9 skills (session-start, version-bump, cross-ref-checker, module-review, doc-standard-enforcer, source-audit, upgrade-guide, nav-update, plan)
 ```
 
 ## Quyết định gần nhất

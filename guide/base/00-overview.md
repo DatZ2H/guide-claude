@@ -249,6 +249,13 @@ base/ (tất cả) --> dev/01 Claude Code Setup
 
 [Cập nhật 03/2026]
 
+### Version 9.1 (03/2026)
+
+- **Infrastructure Hardening:** 5-phase audit — fix stale refs, skill hardening (allowed-tools, scoring), planning workflow, scaffold enhancement
+- **Coupling sync:** Fix skills count (8→9), rules count (6→7) trong skills-list, doc/03, config-architecture, project-state
+- **Config-architecture:** Thêm rules/, hooks/, commands/ vào Lớp 5 tree diagram
+- **Version bump:** v9.0 → v9.1
+
 ### Version 9.0 (03/2026)
 
 - **P5 Polish complete:** Full cross-ref audit, source audit, content review (base + doc + dev + reference), navigation finalize

@@ -3,7 +3,7 @@
 ## Project context
 Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
-- **Phase:** v9.0 stable — infrastructure hardening
+- **Phase:** v9.1 stable — infrastructure hardened
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
 - **Architecture:** 3-tier — guide/base + guide/doc + guide/dev + guide/reference + .claude/ (infra)
 

@@ -163,6 +163,7 @@ Project Knowledge/
 - Memory protocol (Claude đọc gì đầu session)
 - Safety rules (KHÔNG xóa file nào, backup trước khi sửa gì)
 - Skills list (liệt kê skills có trong `.claude/skills/`)
+- Rules (auto-load per file type — `.claude/rules/` chứa enforcement rules cho heading, source markers, tier-specific conventions)
 
 **Khác Project Instructions (claude.ai):**
 
@@ -179,6 +180,9 @@ Project Knowledge/
 project/
 ├── .claude/
 │   ├── CLAUDE.md    ← Folder Instructions (bạn đang ở đây)
+│   ├── rules/       ← Auto-load enforcement (per file type)
+│   ├── hooks/       ← PostToolUse checks (format, links)
+│   ├── commands/    ← Slash commands (/start, /checkpoint...)
 │   └── skills/      ← On-demand workflows
 ├── _memory/         ← (deprecated — dùng git history thay thế)
 └── project-state.md ← Project overview

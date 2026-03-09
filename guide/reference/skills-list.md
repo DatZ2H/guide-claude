@@ -268,6 +268,7 @@ Skills nội bộ dùng trong Guide Claude project, nằm tại `.claude/skills/
 | `source-audit` [Approved PX] | "source audit", "kiểm tra sources" | Scan source markers theo 3-tier standard | ✅ Internal (Phenikaa-X) | maintainer |
 | `upgrade-guide` [Approved PX] | "health check", "scan project" | Scan stale data, broken refs, emoji violations | ✅ Internal (Phenikaa-X) | maintainer |
 | `nav-update` [Approved PX] | "update nav", "fix navigation" | Auto-update prev/next nav links | ✅ Internal (Phenikaa-X) | maintainer |
+| `plan` [Approved PX] | `/plan`, "tạo plan", "xem plan", "task list" | Planning workflow — tạo/xem/update plans xuyên session | ✅ Internal (Phenikaa-X) | maintainer |
 
 ---
 

@@ -356,7 +356,7 @@ Skills được lưu tại `.claude/skills/` trong thư mục project — đây 
     └── version-bump/      ← Workflow chốt version: VERSION + changelog + project-state
 ```
 
-**4 skills hiện có và cách dùng:**
+**4 core skills minh họa** (project hiện có 9 skills — danh sách đầy đủ: xem [Skills List](../reference/skills-list.md#7-custom-skills--phenikaa-x-project-skills)):
 
 | Skill | Trigger phrase | Mục đích |
 |-------|----------------|---------|
