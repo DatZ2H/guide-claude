@@ -32,15 +32,7 @@ Nếu user confirm đủ → tiến hành.
 - `git log --oneline -10` — recent changes (dùng cho changelog)
 - `project-state.md` — bảng trạng thái modules
 
-### Bước 2 — Tạo backup
-
-```
-cp guide/00-overview.md guide/00-overview.md.bak
-```
-
-Báo cho user: "Đã tạo backup 00-overview.md.bak."
-
-### Bước 3 — Cập nhật VERSION file
+### Bước 2 — Cập nhật VERSION file
 
 Sửa `VERSION`:
 ```
@@ -48,9 +40,9 @@ Sửa `VERSION`:
 ```
 *Chỉ chứa version number, không có text khác.*
 
-### Bước 4 — Thêm changelog entry vào 00-overview.md
+### Bước 3 — Thêm changelog entry vào 00-overview.md
 
-Tìm section "## Thông tin cập nhật" trong `guide/00-overview.md`.
+Tìm section "## Thông tin cập nhật" trong `guide/base/00-overview.md`.
 
 Thêm entry MỚI ở đầu (trước version cũ):
 
@@ -68,18 +60,18 @@ Thêm entry MỚI ở đầu (trước version cũ):
 - Ghi rõ module và section số: "Update section 10.8.1:", "Thêm mục 4.7:"
 - Không viết chung chung như "Cải thiện chất lượng"
 
-### Bước 5 — KHÔNG sửa module headers
+### Bước 4 — KHÔNG sửa module headers
 
 Module headers dùng link `[VERSION](../VERSION)` — tự động reflect version mới. **Không cần sửa từng file.**
 
-### Bước 6 — Cập nhật project-state.md
+### Bước 5 — Cập nhật project-state.md
 
 Cập nhật dòng đầu:
 ```
 Version guide: [new version] | Last synced: [date]
 ```
 
-### Bước 7 — Xác nhận hoàn thành
+### Bước 6 — Xác nhận hoàn thành
 
 Output summary:
 
@@ -88,7 +80,7 @@ Output summary:
 
 Files đã cập nhật:
 - VERSION: [old] → [new]
-- guide/00-overview.md: thêm changelog entry (backup: .bak)
+- guide/base/00-overview.md: thêm changelog entry
 - project-state.md: version header updated
 
 Bước tiếp theo: commit changes và upload project-state.md lên Project Knowledge nếu cần.
@@ -98,6 +90,6 @@ Bước tiếp theo: commit changes và upload project-state.md lên Project Kno
 
 - KHÔNG bump version mà không confirm number với user
 - KHÔNG sửa module headers — VERSION file là SSOT, link tự động cập nhật
-- KHÔNG xóa backup sau khi bump — để user verify trước
+- Chạy `/checkpoint` trước khi bump để git-based backup
 - Nếu user muốn bump nhiều level cùng lúc (ví dụ 3.5 → 4.0) → hỏi confirm thêm vì là major bump
 - Major bump (X.0) → hỏi user có muốn thêm "Migration notes" trong changelog không

@@ -4,7 +4,7 @@ Version: xem `VERSION` (hiện tại: 9.0) | Updated: 2026-03-07
 
 ## Phase
 
-v7.0 → v9.0 Upgrade (bắt đầu 2026-03-06). Plan chi tiết: `upgrade-plan-v8.md`.
+v9.0 stable — infrastructure hardening. Upgrade v7.0 → v9.0 hoàn tất 2026-03-07.
 - S0 automation infrastructure: ✅ Done
 - P1 Foundation (S1-S7): ✅ Done (v7.3) — cross-links, source markers, prompt format, Context Sync, 3-way matrix, M08 patterns
 - P2 Structure (S8-S15): ✅ Done (v8.0) — tách guide/ thành base/doc/dev, cleanup, navigation

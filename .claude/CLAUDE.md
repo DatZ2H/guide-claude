@@ -3,7 +3,7 @@
 ## Project context
 Dự án "Claude Guide cho Kỹ sư Phenikaa-X" — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
 - **Version:** xem file `VERSION` (SSOT)
-- **Phase:** Upgrade v7.0 → v9.0 (xem `upgrade-plan-v8.md`)
+- **Phase:** v9.0 stable — infrastructure hardening
 - **Đối tượng:** Kỹ sư tự động hóa, R&D, Robotics tại Phenikaa-X
 - **Architecture:** 3-tier — guide/base + guide/doc + guide/dev + guide/reference + .claude/ (infra)
 
@@ -18,10 +18,9 @@ machine-readable/       llms.txt (machine-readable index)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
 .claude/rules/          writing-standards, reference-standards, scaffold-standards, tier-base, tier-doc, tier-dev
 .claude/hooks/          format-check.py (PostToolUse), link-check.py (standalone)
-.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/
+.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/, upgrade-guide/, nav-update/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
 _scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/, examples/, checklists/)
-upgrade-plan-v8.md      Master plan v7.0 → v9.0
 project-state.md        Project overview (cho người đọc)
 VERSION                 SSOT cho version number
 ```

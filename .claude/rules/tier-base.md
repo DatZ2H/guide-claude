@@ -1,6 +1,6 @@
 ---
-description: Rules for base tier content (guide/base/**)
-globs: guide/base/**/*.md
+paths:
+  - "guide/base/**/*.md"
 ---
 
 # Base Tier Writing Rules

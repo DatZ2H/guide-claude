@@ -20,12 +20,13 @@ Rules cho files trong _scaffold/ — starter templates cho dự án mới.
 - Hooks/skills trong template phải thuộc trust level "Anthropic Official" hoặc "Custom (verified)"
 - KHÔNG include community tools chưa qua verification
 
-## Tier Organization
+## Folder Organization
 
-- `templates/base/` — components dùng cho MỌI dự án (start, checkpoint, session-start, SessionStart hook)
-- `templates/doc-project/` — thêm doc-specific tools (validate-doc, doc-standard, format-check hook)
-- `templates/dev-project/` — thêm dev-specific tools (code-review, simplify)
-- Mỗi tier kế thừa từ base — KHÔNG duplicate base components
+- `project-instructions/` — templates cho claude.ai Project Instructions (4 loại: basic, code-review, tech-doc, troubleshooting)
+- `global-instructions/` — template Global CLAUDE.md
+- `skill-templates/` — template tạo skill mới (folder structure + SKILL.md)
+- `examples/` — config thực tế đã hoạt động (guide-claude, dev-example) — KHÔNG phải template
+- `checklists/` — workflow checklists (new-project, daily-workflow)
 
 ## Examples
 

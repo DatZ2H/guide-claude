@@ -74,13 +74,19 @@ def check_format(file_path):
                 "[Nguồn: ...], [Ứng dụng Kỹ thuật], or [Cập nhật MM/YYYY]"
             )
 
-    # --- Check 4: Banned emoji in prose ---
+    # --- Check 4: Banned emoji in prose (skip code blocks) ---
     banned = [
         "\U0001f4a1", "\U0001f680", "\U0001f60a", "\U0001f3af", "\u2728",
         "\U0001f4cc", "\U0001f525", "\U0001f449", "\U0001f4dd", "\U0001f4aa",
         "\U0001f914", "\u2b50", "\U0001f3d7\ufe0f", "\U0001f4ca", "\U0001f6e0\ufe0f",
     ]
+    in_code = False
     for i, line in enumerate(lines, 1):
+        if line.strip().startswith("```"):
+            in_code = not in_code
+            continue
+        if in_code:
+            continue
         for emoji in banned:
             if emoji in line:
                 issues.append(f"Line {i}: Banned emoji found — remove or replace with callout syntax")
@@ -109,9 +115,6 @@ def main():
     if "/guide/" not in normalized and not normalized.startswith("guide/"):
         sys.exit(0)
     if not normalized.endswith(".md"):
-        sys.exit(0)
-    # Skip .bak files
-    if normalized.endswith(".bak"):
         sys.exit(0)
 
     issues = check_format(file_path)

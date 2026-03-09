@@ -1,6 +1,6 @@
 # Example: Guide Claude Project
 
-**Nguồn:** Trích từ dự án Guide Claude v8.5 — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
+**Nguồn:** Trích từ dự án Guide Claude v9.0 — bộ tài liệu 3-tier hướng dẫn sử dụng Claude AI.
 
 **Đặc điểm dự án:**
 - Documentation project (Obsidian Vault)
@@ -34,14 +34,15 @@
 │   ├── validate-doc.md     # /validate-doc [module] — format check
 │   ├── review-module.md    # /review-module [module] — deep review
 │   └── weekly-review.md    # /weekly-review — weekly status
-└── skills/                 # 7 on-demand skills
+└── skills/                 # 8 on-demand skills
     ├── session-start/
     ├── version-bump/
     ├── cross-ref-checker/
     ├── module-review/
     ├── doc-standard-enforcer/
     ├── source-audit/
-    └── upgrade-guide/
+    ├── upgrade-guide/
+    └── nav-update/
 ```
 
 ## Các files mẫu trong thư mục này
@@ -74,4 +75,4 @@ Một file `VERSION` duy nhất — modules reference về đây thay vì hardco
 ---
 
 > [!NOTE]
-> Files trong thư mục này là **snapshot tại v8.4**. Để xem config mới nhất, đọc trực tiếp `.claude/` trong repo gốc.
+> Files trong thư mục này là **snapshot tại v9.0**. Để xem config mới nhất, đọc trực tiếp `.claude/` trong repo gốc.

@@ -43,4 +43,5 @@ Rules này tự động load khi Claude edit bất kỳ file nào trong guide/.
 ## Emoji Rules
 
 - ALLOWED (chỉ trong bảng và status markers): ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+- BANNED: 💡 🚀 😊 🎯 ✨ 📌 🔥 👉 📝 💪 🤔 ⭐ 🏗️ 📊 🛠️ — và mọi emoji/icon khác ngoài allowlist
 - Prose warnings/tips/notes: dùng Obsidian callout syntax (`> [!WARNING]`, `> [!TIP]`, `> [!NOTE]`, `> [!IMPORTANT]`)

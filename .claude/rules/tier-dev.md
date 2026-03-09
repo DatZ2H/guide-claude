@@ -1,6 +1,6 @@
 ---
-description: Rules for dev tier content (guide/dev/**)
-globs: guide/dev/**/*.md
+paths:
+  - "guide/dev/**/*.md"
 ---
 
 # Dev Tier Writing Rules

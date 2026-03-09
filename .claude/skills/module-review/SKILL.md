@@ -18,7 +18,7 @@ Kích hoạt khi user:
 
 ### Bước 1 — Xác định module
 
-Hỏi user module nào cần review (nếu chưa rõ). Đọc file `guide/[XX]-[tên].md` đầy đủ.
+Hỏi user module nào cần review (nếu chưa rõ). Đọc file `guide/{base,doc,dev}/[XX]-[tên].md` đầy đủ.
 
 Cũng đọc:
 - `VERSION` — version hiện tại

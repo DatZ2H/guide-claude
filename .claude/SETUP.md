@@ -7,15 +7,18 @@ Tài liệu này dành cho **maintainer mới** hoặc khi setup lại môi trư
 
 ## Skills đang dùng (Project-level)
 
-5 skills trong `.claude/skills/` — active khi làm việc trong folder này:
+8 skills trong `.claude/skills/` — active khi làm việc trong folder này:
 
 | Skill | Trigger phrase | Mục đích |
 |-------|----------------|---------|
 | `session-start` | "bắt đầu", "tiếp tục", "còn lại gì" | Đọc git history, orientation 5 dòng, gợi ý next action |
 | `version-bump` | "bump version", "release vX.X" | Cập nhật VERSION → changelog → project-state đúng thứ tự |
-| `cross-ref-checker` | "kiểm tra cross-references", "scan stale" | Tìm stale file paths, hardcoded versions trong guide/ |
+| `cross-ref-checker` | "kiểm tra cross-references" | Tìm stale file paths, broken cross-links trong guide/ |
 | `module-review` | "review module X", "đánh giá chất lượng" | Checklist 5 tiêu chí: accuracy, consistency, completeness, clarity, actionability |
-| `doc-standard-enforcer` | Tự động khi edit/tạo content trong `guide/` | Enforce writing standards: code block tags, heading hierarchy, language rules |
+| `doc-standard-enforcer` | "review format", "kiểm tra standards" | Manual deep review content — 6 checks chất lượng |
+| `source-audit` | "source audit", "kiểm tra sources" | Scan source markers theo 3-tier standard |
+| `upgrade-guide` | "health check", "scan project" | Scan stale data, broken refs, dependency issues |
+| `nav-update` | "update nav", "fix navigation" | Auto-update prev/next navigation links |
 
 Skills nằm trong `.claude/skills/[tên-skill]/SKILL.md` — xem từng file để biết chi tiết workflow.
 
@@ -83,7 +86,7 @@ Claude đọc file này tự động khi bắt đầu Cowork session trong folde
 ## Liên kết nhanh
 
 - Project overview: `project-state.md`
-- Module listing + learning paths: `guide/00-overview.md`
+- Module listing + learning paths: `guide/base/00-overview.md`
 - Cấu hình architecture: `guide/reference/config-architecture.md`
 - Danh sách skills hệ thống: `guide/reference/skills-list.md`
 - Templates: `_scaffold/`

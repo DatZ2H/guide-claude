@@ -1,6 +1,6 @@
 ---
-description: Rules for doc tier content (guide/doc/**)
-globs: guide/doc/**/*.md
+paths:
+  - "guide/doc/**/*.md"
 ---
 
 # Doc Tier Writing Rules
