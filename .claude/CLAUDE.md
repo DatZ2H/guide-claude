@@ -16,9 +16,9 @@ guide/
 └── reference/          config-architecture, model-specs, skills-list, ...
 machine-readable/       llms.txt (machine-readable index)
 .claude/                CLAUDE.md, SETUP.md, settings.json, settings.local.json
-.claude/rules/          writing-standards, reference-standards, scaffold-standards, tier-base, tier-doc, tier-dev
+.claude/rules/          writing-standards, reference-standards, scaffold-standards, tier-base, tier-doc, tier-dev, planning-standards
 .claude/hooks/          format-check.py (PostToolUse), link-check.py (standalone)
-.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/, upgrade-guide/, nav-update/
+.claude/skills/         session-start/, version-bump/, cross-ref-checker/, module-review/, doc-standard-enforcer/, source-audit/, upgrade-guide/, nav-update/, plan/
 .claude/commands/       start, checkpoint, validate-doc, review-module, weekly-review (5 files)
 _scaffold/              Starter templates (project-instructions/, global-instructions/, skill-templates/, examples/, checklists/)
 project-state.md        Project overview (cho người đọc)
@@ -86,6 +86,7 @@ VERSION                 SSOT cho version number
 | `/source-audit` | Scan source markers theo 3-tier standard — "source audit", "kiểm tra sources" |
 | `/upgrade-guide` | Scan stale data, broken refs, dependency issues — "health check", "scan project" |
 | `/nav-update` | Auto-update prev/next nav links — "update nav", "fix navigation" |
+| `/plan` | Planning workflow — "tạo plan", "xem plan", "task list", "plan status" |
 
 *Global built-in (không phải project skill):*
 
