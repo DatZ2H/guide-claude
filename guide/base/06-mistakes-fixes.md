@@ -357,7 +357,7 @@ flowchart TD
 | **Tạo file mới thay vì sửa file cũ** | Yêu cầu "cập nhật SOP", Claude tạo file mới bên cạnh file cũ thay vì edit | Viết rõ: "Sửa file [tên chính xác], không tạo file mới" |
 | **Cascade edit** (sửa A, Claude tự ý sửa B) | Yêu cầu sửa glossary, Claude tự ý sửa luôn SOP reference glossary đó | Giới hạn scope trong prompt: "Chỉ sửa file [tên]. Không sửa file khác." |
 
-**Xem thêm:** [Cowork Setup](../doc/03-cowork-setup.md) (An toàn Cowork), [Evaluation, mục 9.6](07-evaluation.md#96-review-giữa-các-bước--in-progress-review) (Review giữa các bước), [Prompt Engineering, mục 3.5](03-prompt-engineering.md#35-task-decomposition--khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
+**Xem thêm:** [Cowork Setup](../doc/03-cowork-setup.md) (An toàn Cowork), [Evaluation, mục 9.6](07-evaluation.md#96-review-giữa-các-bước-in-progress-review) (Review giữa các bước), [Prompt Engineering, mục 3.5](03-prompt-engineering.md#35-task-decomposition-khi-nào-và-cách-tách-task-advanced) (Task Decomposition — prevention ở cấp độ planning)
 
 ---
 

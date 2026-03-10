@@ -180,14 +180,14 @@ Hoàn thành checklist sau để xác nhận bạn đã nắm cơ bản:
 | Mục tiêu của bạn | Khuyến nghị |
 |-------------------|-------------|
 | Thiết lập Projects, Styles, Memory | [Setup & Personalization](02-setup.md) |
-| Dùng Claude Desktop / Cowork mode | [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai--khác-gì) |
+| Dùng Claude Desktop / Cowork mode | [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai-khác-gì) |
 | Học cách viết prompt hiệu quả | [Prompt Engineering](03-prompt-engineering.md) |
 | Cần template copy-paste ngay | [Quick Start Templates](../reference/quick-templates.md), [Doc Template Library](../doc/02-template-library.md) |
 | Muốn quy trình hoàn chỉnh cho công việc | [Doc Workflows](../doc/01-doc-workflows.md) |
 
 ---
 
-**Lưu ý:** Module này chỉ bao gồm tính năng cơ bản nhất. Claude còn nhiều khả năng khác: tạo file Word/Excel/PowerPoint, research sâu, tạo diagrams, phân tích hình ảnh, và hơn thế nữa. Nếu bạn dùng **Claude Desktop**, xem thêm [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai--khác-gì) về Cowork mode — cho phép Claude thao tác trực tiếp với file trên máy tính. Các module tiếp theo sẽ hướng dẫn chi tiết.
+**Lưu ý:** Module này chỉ bao gồm tính năng cơ bản nhất. Claude còn nhiều khả năng khác: tạo file Word/Excel/PowerPoint, research sâu, tạo diagrams, phân tích hình ảnh, và hơn thế nữa. Nếu bạn dùng **Claude Desktop**, xem thêm [Tools & Features — Claude Desktop](05-tools-features.md#514-claude-desktop-vs-claudeai-khác-gì) về Cowork mode — cho phép Claude thao tác trực tiếp với file trên máy tính. Các module tiếp theo sẽ hướng dẫn chi tiết.
 
 ---
 

@@ -63,7 +63,7 @@ Xem chi tiết: [base/03 — 13-Module System](../base/03-prompt-engineering.md#
 
 **Outline-First pattern:** Tạo outline trước → Review → Viết từng section → Review tổng thể.
 
-Xem chi tiết: [base/03 — Task Decomposition](../base/03-prompt-engineering.md#35-task-decomposition--khi-nào-và-cách-tách-task-advanced)
+Xem chi tiết: [base/03 — Task Decomposition](../base/03-prompt-engineering.md#35-task-decomposition-khi-nào-và-cách-tách-task-advanced)
 
 ### 1.5 Prompt theo loại task
 

@@ -736,7 +736,7 @@ Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
 
 > [!TIP] **Model:** Sonnet 4.6 cho scheduled tasks — đọc log, tổng hợp, và format báo cáo không cần reasoning phức tạp. Xem [decision flowchart](../reference/model-specs.md#chọn-model)
 
-**Chi tiết Scheduled Tasks:** Xem [Cowork Setup, mục 3.2](03-cowork-setup.md#32-scheduled-tasks--tự-động-hóa-định-kỳ).
+**Chi tiết Scheduled Tasks:** Xem [Cowork Setup, mục 3.2](03-cowork-setup.md#32-scheduled-tasks-tự-động-hóa-định-kỳ).
 
 ---
 
@@ -745,7 +745,7 @@ Lưu tại: reports/weekly/test-report-{{YYYY-MM-DD}}.md
 - [Doc Template Library](02-template-library.md) -- templates copy-paste cho doc tasks
 - [Quick Start Templates](../reference/quick-templates.md) -- 5 templates cơ bản dùng ngay
 - [Tools & Features](../base/05-tools-features.md) -- tra cứu nhanh tính năng Claude
-- [Planning Patterns](../base/05-tools-features.md#517-recipe-hybrid-workflow--chat--project--cowork) -- Hybrid Workflow, Task Planning, Multi-file Editing
+- [Planning Patterns](../base/05-tools-features.md#517-recipe-hybrid-workflow-chat-project-cowork) -- Hybrid Workflow, Task Planning, Multi-file Editing
 
 ---
 

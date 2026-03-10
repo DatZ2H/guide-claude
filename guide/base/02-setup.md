@@ -331,7 +331,7 @@ Khi dùng cả Project Chat và Cowork, phần lớn công việc nên diễn ra
 - **`project-state.md`** là context transfer document — update trên Cowork khi cần, paste vào Project Chat khi cần brainstorm. Không cần update theo lịch cố định.
 - Khi cần nội dung chi tiết trong Project Chat → **paste excerpt** từ file thật, không dựa vào Project Knowledge.
 
-**Chi tiết:** Xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices--quản-lý-knowledge-across-surfaces) và [Recipe 5.17 — Hybrid Workflow](05-tools-features.md#517-recipe-hybrid-workflow--chat--project--cowork).
+**Chi tiết:** Xem [Context Management, mục 4.9](04-context-management.md#49-context-sync-practices-quản-lý-knowledge-across-surfaces) và [Recipe 5.17 — Hybrid Workflow](05-tools-features.md#517-recipe-hybrid-workflow-chat-project-cowork).
 
 ---
 

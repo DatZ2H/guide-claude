@@ -356,7 +356,7 @@ Skills được lưu tại `.claude/skills/` trong thư mục project — đây 
     └── version-bump/      ← Workflow chốt version: VERSION + changelog + project-state
 ```
 
-**4 core skills minh họa** (project hiện có 9 skills — danh sách đầy đủ: xem [Skills List](../reference/skills-list.md#7-custom-skills--phenikaa-x-project-skills)):
+**4 core skills minh họa** (project hiện có 9 skills — danh sách đầy đủ: xem [Skills List](../reference/skills-list.md#7-custom-skills-phenikaa-x-project-skills)):
 
 | Skill | Trigger phrase | Mục đích |
 |-------|----------------|---------|
@@ -714,7 +714,7 @@ Tóm tắt Global Instructions và Folder Instructions (nếu có) bạn đang n
 
 ## 3.6 Bảng so sánh tổng hợp: Claude.ai vs Cowork vs Claude Code
 
-Bảng so sánh đầy đủ 3 công cụ (session model, platform, persistence) xem [Context Management, mục 4.10](../base/04-context-management.md#410-session-lifecycle--vòng-đời-của-một-phiên-làm-việc).
+Bảng so sánh đầy đủ 3 công cụ (session model, platform, persistence) xem [Context Management, mục 4.10](../base/04-context-management.md#410-session-lifecycle-vòng-đời-của-một-phiên-làm-việc).
 
 Bảng dưới đây tập trung vào khía cạnh **Cowork-specific**:
 
@@ -888,7 +888,7 @@ Không cần cấu hình — hoạt động tự động khi context gần đầ
 
 **Có thể mất:** chi tiết conversation cũ, intermediate outputs từ các bước đã hoàn thành.
 
-**Hệ quả thực tế:** Giảm tần suất cần tạo task mới + handover file (xem [Context Management — Task Lifecycle](../base/04-context-management.md#410-session-lifecycle--vòng-đời-của-một-phiên-làm-việc)). Nhưng với task dài phức tạp, vẫn nên chủ động tạo task mới sau mỗi milestone — không phụ thuộc hoàn toàn vào compaction.
+**Hệ quả thực tế:** Giảm tần suất cần tạo task mới + handover file (xem [Context Management — Task Lifecycle](../base/04-context-management.md#410-session-lifecycle-vòng-đời-của-một-phiên-làm-việc)). Nhưng với task dài phức tạp, vẫn nên chủ động tạo task mới sau mỗi milestone — không phụ thuộc hoàn toàn vào compaction.
 
 > [!TIP]
 > Nếu Cowork "quên" context quan trọng giữa session dài → nhắc lại trong message tiếp theo. Dùng `memory.md` (Desktop Commander, mục 3.7) cho context quan trọng cần persist giữa sessions.
@@ -1043,7 +1043,7 @@ Các vấn đề phổ biến khi sử dụng Claude Desktop và Cowork.
 
 - Nhắc lại key information trong message tiếp theo: "Nhắc lại: chúng ta đang làm X, convention là Y, file đang sửa là Z."
 - Dùng `memory.md` (Desktop Commander, mục 3.7) cho context quan trọng cần persist giữa sessions
-- Với task dài → chủ động tạo task mới + handover file thay vì đợi compaction xử lý (xem [Context Management — Session Lifecycle](../base/04-context-management.md#410-session-lifecycle--vòng-đời-của-một-phiên-làm-việc))
+- Với task dài → chủ động tạo task mới + handover file thay vì đợi compaction xử lý (xem [Context Management — Session Lifecycle](../base/04-context-management.md#410-session-lifecycle-vòng-đời-của-một-phiên-làm-việc))
 
 ### Output sai format — Claude tạo sai loại file
 

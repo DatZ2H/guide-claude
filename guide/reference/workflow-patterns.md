@@ -39,7 +39,7 @@ project-folder/
 
 </details>
 
-**Xem thêm:** [Context Management, mục 4.7](../base/04-context-management.md#47-context-engineering--quản-lý-context-có-chiến-lược) — External Memory trong context engineering.
+**Xem thêm:** [Context Management, mục 4.7](../base/04-context-management.md#47-context-engineering-quản-lý-context-có-chiến-lược) — External Memory trong context engineering.
 
 ---
 

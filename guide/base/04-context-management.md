@@ -476,7 +476,7 @@ Viết section tiếp theo: {{tên_section_N}}, theo outline đã duyệt.
 
 Yêu cầu Claude dừng sau mỗi section lớn và hỏi "Tiếp tục không?". Thêm instruction vào prompt: "Viết hết section [tên], sau đó dừng lại và hỏi tôi có muốn tiếp tục không. Không tự viết section tiếp theo." Pattern này ít kiểm soát hơn Pattern 1 (không có outline anchor) nhưng đơn giản hơn và đủ dùng cho tasks có ít dependency giữa sections.
 
-**Xem thêm:** [Mistakes & Fixes, nhóm 3](06-mistakes-fixes.md#83-nhóm-3-quản-lý-conversation-kém) — output quality degradation là nguyên nhân phổ biến của output kém chất lượng khi viết tài liệu dài. [Prompt Engineering, mục 3.5](03-prompt-engineering.md#35-task-decomposition--khi-nào-và-cách-tách-task-advanced) — Task Decomposition giải quyết vấn đề này ở cấp độ planning, trước khi bắt đầu viết.
+**Xem thêm:** [Mistakes & Fixes, nhóm 3](06-mistakes-fixes.md#83-nhóm-3-quản-lý-conversation-kém) — output quality degradation là nguyên nhân phổ biến của output kém chất lượng khi viết tài liệu dài. [Prompt Engineering, mục 3.5](03-prompt-engineering.md#35-task-decomposition-khi-nào-và-cách-tách-task-advanced) — Task Decomposition giải quyết vấn đề này ở cấp độ planning, trước khi bắt đầu viết.
 
 ---
 
