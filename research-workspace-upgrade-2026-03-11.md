@@ -1,445 +1,765 @@
-# Nghiên cứu: Nâng cấp không gian làm việc Claude — Phân tích hiện trạng & kiến trúc
+# Nghiên cứu: Xây dựng Workspace chuẩn Claude Code — Phenikaa-X
 
-> Tài liệu nghiên cứu nội bộ — tổng hợp phát hiện từ session brainstorm 4 (2026-03-11)
-> Mục đích: capture sự thật và phát hiện, KHÔNG đưa ra khuyến nghị — dùng làm input cho brainstorm tiếp
+> Tài liệu nghiên cứu nội bộ — phân tích kiến trúc workspace, hiện trạng, và phương án xây dựng.
+> Tiếp nối brainstorm sessions 1-4 (2026-03-10/11).
+> **Phương hướng đã chốt:** Workspace chuẩn trước, scaffold sau. Kế thừa PNX → Robotics → Solution → Personal.
 > [Cập nhật 03/2026]
 
 ---
 
 ## Mục lục
 
-1. [Bối cảnh — tại sao nghiên cứu này](#1-bối-cảnh)
-2. [Hiện trạng .claude/ — kiểm kê chi tiết](#2-hiện-trạng-claude)
-3. [Hiện trạng _scaffold/ — kiểm kê chi tiết](#3-hiện-trạng-scaffold)
-4. [Kiến trúc Claude Code 03/2026 — từ official docs](#4-kiến-trúc-claude-code-032026)
-5. [Phân tích gap — hiện trạng vs kiến trúc chuẩn](#5-phân-tích-gap)
-6. [Phát hiện quan trọng](#6-phát-hiện-quan-trọng)
-7. [Các hướng đã thảo luận — chưa chốt](#7-các-hướng-đã-thảo-luận)
-8. [Dữ liệu thô từ official docs](#8-dữ-liệu-thô-từ-official-docs)
+1. [Bối cảnh và phương hướng](#1-bối-cảnh-và-phương-hướng)
+2. [Kiến trúc Claude Code — từ official docs 03/2026](#2-kiến-trúc-claude-code--từ-official-docs-032026)
+3. [Hiện trạng workspace — kiểm kê chi tiết](#3-hiện-trạng-workspace--kiểm-kê-chi-tiết)
+4. [Gap analysis — hiện trạng vs chuẩn](#4-gap-analysis--hiện-trạng-vs-chuẩn)
+5. [Ánh xạ PNX→Robotics→Solution→Personal](#5-ánh-xạ-pnxroboticssolutionpersonal)
+6. [Phương án: Personal-first](#6-phương-án-personal-first)
+7. [Phản biện](#7-phản-biện)
+8. [Checklist "90% capability"](#8-checklist-90-capability)
+9. [Dữ liệu tham khảo từ official docs](#9-dữ-liệu-tham-khảo-từ-official-docs)
+10. [Nguồn](#10-nguồn)
 
 ---
 
-## 1. Bối cảnh
+## 1. Bối cảnh và phương hướng
 
-### Tại sao nghiên cứu này
+### 1.1. Insight cốt lõi
 
-Trong quá trình brainstorm v10 (session 1-3, ngày 09-10/03/2026), phát hiện:
-- Câu hỏi không chỉ là "nâng cấp guide content" mà là "không gian làm việc với Claude đã đúng chuẩn chưa?"
-- Mọi project đều cần không gian làm việc hiệu quả VỚI Claude trước — content/guide là bước sau
-- Scaffold hiện tại được thiết kế cho người đã biết cách — không giúp người mới từ zero (painpoint đã nhận ra từ session 2)
+Từ brainstorm sessions 1-4, nhận ra:
 
-### Góc nhìn của Đạt
+> Dù làm project nào — guide, code, doc — thì cách tương tác với Claude vẫn giống nhau. Workspace chuẩn = mọi project đều hiệu quả.
 
-- Thứ tự: Phenikaa-X → Robotics → Solution → Personal (hoặc ngược lại) — tầng sau cần kế thừa từ tầng trước
-- Cần bàn giao không gian làm việc — người mới clone repo = có environment sẵn
-- Nhận ra đang nhầm lẫn giữa 3 khái niệm: cách làm việc (methodology), rules mong muốn (workflow enforcement), và tone/voice của Claude
+Điều này dẫn đến thay đổi trọng tâm:
+- **Trước:** "Nâng cấp Guide Claude content" (v10 roadmap, 4 delivery mechanisms)
+- **Bây giờ:** "Xây workspace chuẩn" (infrastructure chuẩn → mọi project hưởng lợi → scaffold từ kinh nghiệm thực)
 
-### Scope nghiên cứu
+### 1.2. Phương hướng đã chốt
 
-- Kiểm kê .claude/ hiện tại (23 files infrastructure)
-- Kiểm kê _scaffold/ hiện tại (22 files templates)
-- Nghiên cứu official docs Claude Code 03/2026 (6 trang chính)
-- So sánh hiện trạng vs kiến trúc chuẩn
+1. **Workspace trước, scaffold sau** — workspace hoạt động tốt → rút kinh nghiệm → scaffold tự nhiên
+2. **Kế thừa top-down:** Phenikaa-X → Robotics → Solution → Personal
+3. **Tận dụng official best practices** — không tự sáng tạo khi đã có chuẩn tốt
+4. **Bắt đầu từ Personal** — impact ngay, 0 risk, giải quyết painpoint thật
+
+### 1.3. Painpoints phải giải quyết
+
+| Painpoint | Root cause | Workspace solution |
+|-----------|-----------|-------------------|
+| Mỗi session làm việc 1 kiểu | Methodology chưa encode, nằm trong đầu | Personal rules + CLAUDE.md |
+| Claude quên sau compaction | Không có re-injection mechanism | SessionStart compact hook |
+| Context phình → Claude bỏ qua rules | CLAUDE.md quá dài, trộn concerns | Tách: rules scoped, skills on-demand, hooks deterministic |
+| Format check có, thinking check không | Chỉ có command hooks, chưa dùng prompt/agent hooks | prompt hooks cho semantic verification |
+| 80% infrastructure chỉ cho 1 project | Skills/rules hardcode Guide Claude | Tách personal (reusable) vs project (specific) |
 
 ---
 
-## 2. Hiện trạng .claude/
+## 2. Kiến trúc Claude Code -- từ official docs 03/2026
 
-### Kiểm kê files
+### 2.1. 7 cơ chế mở rộng
+
+| Cơ chế | Bản chất | Context cost | Load khi | Dùng khi |
+|--------|----------|:------------:|----------|----------|
+| **CLAUDE.md** | Advisory text | Mỗi request | Session start | "Luôn làm X" — conventions, build cmds |
+| **Rules** (.claude/rules/) | Advisory text, scoped | Khi match path | File match hoặc launch | File-specific guidelines |
+| **Skills** (.claude/skills/) | On-demand knowledge | Thấp (descriptions) | Invoke/detect | Quy trình lặp lại, reference |
+| **Hooks** (settings.json) | Deterministic scripts | Zero | Event trigger | BẮT BUỘC: lint, format, block |
+| **Subagents** (.claude/agents/) | Isolated workers | Isolated | Claude spawn | Context isolation, parallel |
+| **Plugins** | Bundle everything | Varies | Install | Share cross-repo |
+| **Output Styles** | System prompt mod | Low | Session | Tone/voice/format |
+
+**Quy tắc chọn (official):**
+
+> Claude NÊN biết mỗi session? → **CLAUDE.md**
+> Chỉ khi edit loại file cụ thể? → **Rules**
+> Quy trình gọi khi cần? → **Skills**
+> PHẢI xảy ra, không phụ thuộc Claude? → **Hooks**
+> Task cần isolation? → **Subagents**
+> Chia sẻ cross-repo? → **Plugins**
+
+[Nguồn: code.claude.com/docs/en/best-practices]
+
+### 2.2. Hệ thống phân tầng settings
+
+**Precedence (cao → thấp):**
+
+| # | Tầng | Vị trí | Audience | Git |
+|:-:|------|--------|----------|:---:|
+| 1 | **Managed** | Server / MDM / file-based | Toàn tổ chức | N/A |
+| 2 | **CLI args** | Command line | Session | N/A |
+| 3 | **Local** | .claude/settings.local.json | Cá nhân per-project | No |
+| 4 | **Project** | .claude/settings.json | Team per-repo | Yes |
+| 5 | **User** | ~/.claude/settings.json | Cá nhân mọi project | No |
+
+**Merge rules:**
+- Arrays (permissions, hooks): **concatenate + deduplicate** từ mọi layer
+- Scalars (model, language): **last wins** theo priority
+- Managed: **KHÔNG override được**
+- Hooks: **tất cả fire** — không override by name
+
+**CLAUDE.md cũng additive:** Managed + User + Project = TẤT CẢ load vào context.
+
+> [!WARNING]
+> Tổng CLAUDE.md từ mọi layers phải ngắn. Nếu Managed (80 dòng) + User (80 dòng) + Project (80 dòng) = 240 dòng — vượt ngưỡng 200 dòng. Cần tối ưu TỔNG, không chỉ từng file.
+
+[Nguồn: code.claude.com/docs/en/settings]
+
+### 2.3. CLAUDE.md — include/exclude chuẩn
+
+**Include:**
+- Bash commands Claude không đoán được
+- Code style rules KHÁC defaults
+- Testing instructions, test runners
+- Branch naming, PR conventions
+- Architectural decisions cụ thể
+- Environment quirks (env vars)
+- Common gotchas
+
+**Exclude:**
+- Thứ Claude tự hiểu từ code
+- Standard language conventions
+- API docs dài (LINK thay vì copy)
+- Thông tin thay đổi thường xuyên
+- File-by-file descriptions
+- Self-evident practices ("write clean code")
+- Long explanations, tutorials
+
+**Target: < 200 dòng per file.**
+
+> "Keep it concise. For each line, ask: Would removing this cause Claude to make mistakes? If not, cut it."
+
+> "Treat CLAUDE.md like code: review it when things go wrong, prune it regularly, and test changes by observing whether Claude's behavior actually shifts."
+
+[Nguồn: code.claude.com/docs/en/memory, code.claude.com/docs/en/best-practices]
+
+### 2.4. @import syntax
+
+```text
+@path/to/file                  ← relative to importing file
+@~/path/to/file                ← from home directory
+@./README.md                   ← from project root
+```
+
+- Recursive max **5 hops**
+- Approval dialog lần đầu cho external imports
+- Paths resolve relative to **file chứa import**, không phải CWD
+
+**Pattern cho team:** Project CLAUDE.md import shared conventions:
+```text
+@../../pnx-claude-standards/conventions.md
+@~/.claude/my-project-overrides.md
+```
+
+[Nguồn: code.claude.com/docs/en/memory]
+
+### 2.5. Rules — user-level + path-scoped
+
+**User-level rules** (`~/.claude/rules/`):
+- Auto-load cho MỌI project
+- Đặt personal methodology, coding preferences ở đây
+- Ưu tiên thấp hơn project rules
+
+**Path-scoped rules:**
+```yaml
+---
+paths:
+  - "src/api/**/*.ts"
+---
+# API Development Rules
+...
+```
+
+- Chỉ load khi Claude đọc files match pattern
+- Giảm context cost — không load unnecessary rules
+- Hỗ trợ **symlinks** — chia sẻ rules cross-project
+
+[Nguồn: code.claude.com/docs/en/memory]
+
+### 2.6. Hooks — 18 events, 4 types
+
+**4 hook types:**
+
+| Type | Bản chất | Dùng khi |
+|------|----------|----------|
+| `command` | Shell script | Format, lint, file protection |
+| `http` | POST to endpoint | External logging, audit |
+| `prompt` | Single-turn LLM eval (Haiku) | Judgment: "xong chưa?", "đúng chưa?" |
+| `agent` | Multi-turn verification + tools | Cần inspect files để verify |
+
+**18 events:**
+
+| Nhóm | Event | Block? | Dùng cho |
+|------|-------|:------:|----------|
+| Session | SessionStart | No | Inject context, show status |
+| | SessionEnd | No | Cleanup |
+| | PreCompact | No | Logging trước compact (chỉ command type) |
+| User | UserPromptSubmit | Yes | Validate/transform user input |
+| Tool | PreToolUse | Yes | Block dangerous actions |
+| | PermissionRequest | Yes | Auto-approve/deny |
+| | PostToolUse | No | Format check, lint |
+| | PostToolUseFailure | No | Error logging |
+| Agent | SubagentStart | No | Inject context cho subagent |
+| | SubagentStop | Yes | Verify subagent output |
+| | Stop | Yes | Verify completion before stop |
+| Team | TeammateIdle | Yes | Quality gate |
+| | TaskCompleted | Yes | Completion criteria |
+| System | Notification | No | Desktop notification |
+| | InstructionsLoaded | No | Debug rule loading |
+| | ConfigChange | Yes | Audit settings changes |
+| | WorktreeCreate | Yes | Custom worktree setup |
+| | WorktreeRemove | No | Cleanup |
+
+**Quan trọng:** PreCompact chỉ hỗ trợ `type: "command"`, KHÔNG có decision control. Dùng cho side effects (logging, cleanup). Để re-inject context sau compact → dùng SessionStart với matcher `compact`.
+
+[Nguồn: code.claude.com/docs/en/hooks]
+
+### 2.7. Subagents — persistent memory
+
+**Built-in:**
+
+| Agent | Model | Tools | Purpose |
+|-------|-------|-------|---------|
+| Explore | Haiku | Read-only | Search, analysis |
+| Plan | Inherited | Read-only | Research for plans |
+| general-purpose | Inherited | All | Complex tasks |
+
+**Custom agents** (`.claude/agents/` hoặc `~/.claude/agents/`):
+
+```yaml
+---
+name: reviewer
+description: Review code changes for quality
+tools: Read, Grep, Glob, Bash
+model: sonnet
+memory: project
+---
+You are a senior code reviewer...
+```
+
+**Key features:**
+- **Persistent memory** (`memory: user|project|local`) — agent tích lũy knowledge qua sessions
+- **Worktree isolation** (`isolation: worktree`) — chạy trong git worktree riêng
+- **Background execution** — chạy concurrent, permissions pre-approved
+- **Skill preloading** (`skills: [...]`) — inject skills vào agent startup
+- **Scope:** CLI flag > Project .claude/agents/ > User ~/.claude/agents/ > Plugin
+
+[Nguồn: code.claude.com/docs/en/sub-agents]
+
+### 2.8. Skills — bundled + custom
+
+**Bundled skills (ship sẵn):**
+
+| Skill | Mô tả |
+|-------|--------|
+| `/simplify` | Review changed files cho reuse, quality, efficiency — 3 parallel agents |
+| `/batch` | Parallel changes across codebase — 5-30 worktrees |
+| `/debug` | Troubleshoot từ debug log |
+| `/loop` | Recurring prompt theo schedule |
+| `/claude-api` | Load API reference cho SDK |
+
+**Custom skills** frontmatter:
+
+| Field | Mô tả |
+|-------|--------|
+| `allowed-tools` | Restrict tools khi skill active |
+| `model` | Override model |
+| `context: fork` | Chạy trong isolated subagent |
+| `agent` | Chọn subagent type cho fork |
+| `disable-model-invocation: true` | Chỉ user gọi được |
+| `user-invocable: false` | Chỉ Claude detect + gọi |
+| `hooks` | Lifecycle hooks scoped cho skill |
+| `memory` | Persistent memory cho skill |
+
+**Dynamic injection:** `!`command`` syntax — shell command chạy trước, output thay vào skill content.
+
+**Scope:** Managed > User ~/.claude/skills/ > Project .claude/skills/ > Plugin
+
+[Nguồn: code.claude.com/docs/en/skills]
+
+### 2.9. Output Styles — không chỉ là string
+
+**Built-in:** Default, Explanatory, Learning
+
+**Custom styles:** file `.md` trong `~/.claude/output-styles/` hoặc `.claude/output-styles/`:
+
+```yaml
+---
+name: PNX Concise
+description: Ngắn gọn, tiếng Việt, kỹ thuật
+keep-coding-instructions: true
+---
+Trả lời ngắn gọn bằng tiếng Việt.
+Thuật ngữ kỹ thuật giữ tiếng Anh.
+...
+```
+
+**Shareable qua git** — project output-styles/ commit được.
+
+[Nguồn: code.claude.com/docs/en/output-styles]
+
+### 2.10. Settings keys quan trọng
+
+| Key | Type | Mô tả |
+|-----|------|--------|
+| `model` | string | Default model |
+| `language` | string | Response language |
+| `outputStyle` | string | Style name hoặc custom |
+| `permissions` | object | allow/deny/ask rules |
+| `hooks` | object | Hook configurations |
+| `sandbox` | object | Filesystem + network isolation |
+| `env` | object | Environment variables |
+| `attribution` | object | Git commit/PR attribution |
+| `availableModels` | array | Restrict model selection |
+| `companyAnnouncements` | array | Startup messages |
+| `claudeMdExcludes` | array | Skip CLAUDE.md files |
+| `alwaysThinkingEnabled` | bool | Extended thinking mặc định |
+
+**Managed-only:**
+
+| Key | Mô tả |
+|-----|--------|
+| `disableBypassPermissionsMode` | Block --dangerously-skip-permissions |
+| `allowManagedHooksOnly` | Block user/project hooks |
+| `allowManagedPermissionRulesOnly` | Chỉ managed permissions |
+| `allowManagedMcpServersOnly` | Restrict MCP servers |
+| `strictKnownMarketplaces` | Control plugin sources |
+
+**JSON Schema:** Thêm `"$schema": "https://json.schemastore.org/claude-code-settings.json"` cho IDE autocomplete.
+
+**Server-managed settings (beta):** Cấu hình qua Claude.ai admin console (Teams/Enterprise plan). Không cần MDM/Registry. Fetch lúc startup, poll hàng giờ.
+
+[Nguồn: code.claude.com/docs/en/settings, code.claude.com/docs/en/server-managed-settings]
+
+### 2.11. Managed settings deployment — Windows
+
+3 cơ chế:
+- **Server-managed (beta):** Claude.ai admin console — đơn giản nhất, không cần admin
+- **Registry:** `HKLM\SOFTWARE\Policies\ClaudeCode` → key `Settings` (REG_SZ, JSON string)
+- **File-based:** `C:\Program Files\ClaudeCode\managed-settings.json` + `CLAUDE.md`
+
+[Nguồn: code.claude.com/docs/en/settings]
+
+### 2.12. Environment variables
+
+| Variable | Mô tả |
+|----------|--------|
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | Trigger compaction % (1-100, default ~95) |
+| `CLAUDE_CODE_EFFORT_LEVEL` | low / medium / high |
+| `CLAUDE_CODE_MAX_OUTPUT_TOKENS` | Default 32K, max 64K |
+| `CLAUDE_CODE_DISABLE_AUTO_MEMORY` | Tắt auto memory |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | Model cho subagents |
+
+[Nguồn: code.claude.com/docs/en/settings]
+
+### 2.13. Best practices — 5 anti-patterns tránh
+
+| Anti-pattern | Biểu hiện | Fix |
+|-------------|----------|-----|
+| **Kitchen sink session** | Trộn nhiều task → context nhiễm | `/clear` giữa tasks |
+| **Correcting over and over** | Context đầy failed attempts | Sau 2 lần sửa → `/clear` + prompt tốt hơn |
+| **Over-specified CLAUDE.md** | Rules quan trọng bị mất | Prune ruthlessly, chuyển sang hooks nếu deterministic |
+| **Trust-then-verify gap** | Không có cách verify output | **Highest-leverage:** cung cấp tests/scripts/screenshots |
+| **Infinite exploration** | Request không scope → context phình | Scope narrowly hoặc dùng subagents |
+
+> "Include tests, screenshots, or expected outputs so Claude can check itself. This is the single highest-leverage thing you can do."
+
+[Nguồn: code.claude.com/docs/en/best-practices]
+
+---
+
+## 3. Hiện trạng workspace -- kiểm kê chi tiết
+
+### 3.1. Personal layer (~/.claude/)
+
+**Kiểm kê thực tế (2026-03-11):**
+
+```
+~/.claude/
+├── CLAUDE.md              15 dòng — CHỈ emoji rules
+├── settings.json          6 dòng  — model: sonnet, language: vi
+├── rules/                 KHÔNG TỒN TẠI
+├── agents/                KHÔNG TỒN TẠI
+├── skills/                KHÔNG TỒN TẠI
+├── output-styles/         KHÔNG TỒN TẠI
+└── (system dirs: cache, plugins, projects, plans, tasks...)
+```
+
+**~/.claude/CLAUDE.md** nội dung thực tế:
+```markdown
+# CLAUDE.md — Global Instructions
+
+## File Operations
+<!-- Placeholder — thêm global file operation rules tại đây -->
+
+## Icon & Emoji Rules
+- ALLOWED (chỉ trong bảng và status markers): ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+- BANNED: Mọi emoji/icon khác
+- Prose warnings/tips/notes: dùng Obsidian callout syntax
+```
+
+**~/.claude/settings.json** nội dung thực tế:
+```json
+{
+  "preferences": {
+    "default_model": "sonnet",
+    "language": "vi"
+  }
+}
+```
+
+**Đánh giá:** Gần như trống. Không có methodology, workflow preferences, personal rules, agents, skills. 36 sessions kinh nghiệm chưa encode vào bất kỳ đâu.
+
+### 3.2. Project layer — Guide Claude (.claude/)
+
+**Kiểm kê thực tế:**
 
 ```
 .claude/
-├── CLAUDE.md              126 dòng — project context + skill index + rules
-├── SETUP.md               93 dòng  — onboarding cho maintainer Guide Claude
+├── CLAUDE.md              125 dòng — project context + skill index + emoji + rules
+├── SETUP.md               93 dòng  — onboarding maintainer
 ├── settings.json          28 dòng  — 2 hooks (SessionStart + PostToolUse)
-├── settings.local.json    66 dòng  — permissions (MCP, Bash, WebFetch)
-├── rules/ (7 files)
-│   ├── writing-standards.md      48 dòng — heading, code blocks, source markers, emoji
-│   ├── reference-standards.md    28 dòng — reference file format
-│   ├── scaffold-standards.md     36 dòng — template rules
-│   ├── tier-base.md              26 dòng — base tier audience rules
-│   ├── tier-doc.md               27 dòng — doc tier audience rules
-│   ├── tier-dev.md               68 dòng — dev tier audience rules
-│   └── planning-standards.md     34 dòng — plan format
-├── hooks/ (2 files)
-│   ├── format-check.py    140 dòng — heading hierarchy, code tags, source markers, emoji
-│   └── link-check.py      221 dòng — cross-link + anchor verification
-├── skills/ (9 folders, mỗi folder có SKILL.md)
-│   ├── session-start/     65 dòng
-│   ├── version-bump/      106 dòng
-│   ├── cross-ref-checker/ 83 dòng
-│   ├── doc-standard-enforcer/ 104 dòng
-│   ├── module-review/     105 dòng
-│   ├── source-audit/      111 dòng
-│   ├── upgrade-guide/     188 dòng
-│   ├── nav-update/        103 dòng
-│   └── plan/              73 dòng
+├── settings.local.json    66 dòng  — MCP permissions (personal, hardcode)
+├── rules/ (7 files, 267 dòng tổng)
+│   ├── writing-standards.md      48 — heading, code blocks, source, emoji
+│   ├── reference-standards.md    28 — reference file format
+│   ├── scaffold-standards.md     36 — template rules
+│   ├── tier-base.md              26 — base tier audience
+│   ├── tier-doc.md               27 — doc tier audience
+│   ├── tier-dev.md               68 — dev tier audience
+│   └── planning-standards.md     34 — plan format
+├── hooks/ (2 files, 361 dòng tổng)
+│   ├── format-check.py    140 — heading, code tags, source markers, emoji
+│   └── link-check.py      221 — cross-link + anchor (standalone, không phải hook)
+├── skills/ (9 folders, ~938 dòng tổng SKILL.md)
+│   ├── session-start/      65  │ cross-ref-checker/   83
+│   ├── version-bump/      106  │ module-review/      105
+│   ├── doc-standard-enforcer/ 104 │ source-audit/   111
+│   ├── upgrade-guide/     188  │ nav-update/         103
+│   └── plan/               73
 └── commands/ (5 files)
-    ├── start.md           ← quick orientation
-    ├── checkpoint.md      ← quick commit
-    ├── validate-doc.md    ← module syntax check
-    ├── review-module.md   ← deep module review
-    └── weekly-review.md   ← project health check
+    ├── start.md            │ checkpoint.md
+    ├── validate-doc.md     │ review-module.md
+    └── weekly-review.md
 ```
 
-### Đánh giá theo chức năng
+**Đánh giá theo chức năng:**
 
-| Thành phần | Đánh giá | Ghi chú |
-|------------|----------|---------|
-| CLAUDE.md | Hoạt động cho Guide Claude | 40% là bảng skills/commands — Claude tự detect skills qua description, không cần liệt kê |
-| Rules (7 files) | Đúng pattern — auto-load theo path | Toàn bộ về FORMAT tài liệu, không có rule nào về METHODOLOGY làm việc |
-| Hooks (2 files) | format-check.py hoạt động tốt | Chỉ dùng 1/16+ event types (PostToolUse). link-check.py là standalone, không hook |
-| Skills (9) | Chuyên biệt cho Guide Claude | 0/9 skills có thể reuse cho project khác |
-| Commands (5) | /start và /checkpoint reusable | /validate-doc, /review-module, /weekly-review chỉ cho Guide Claude |
-| settings.json | Minimal, đúng | Chỉ 2 hooks — có thể mở rộng nhiều |
-| settings.local.json | Hardcode MCP cụ thể | Không portable — mỗi người dùng MCP khác |
+| Thành phần | Đánh giá | Gap |
+|------------|----------|-----|
+| CLAUDE.md (125 dòng) | ~40% là bảng skills/commands — không cần, Claude auto-detect | Cần prune: bỏ skill index, tách emoji → personal, dùng @import |
+| settings.json (2 hooks) | Hoạt động, nhưng thiếu $schema, env, permissions | Dùng 2/18 events, 1/4 hook types |
+| Rules (7 files) | 100% format rules, 0% methodology rules | Đúng cho Guide Claude, 0% reusable |
+| Skills (9) | 100% Guide Claude specific | 0/9 reusable cho project khác |
+| Commands (5) | /start, /checkpoint reusable | 3/5 chỉ cho Guide Claude |
+| Hooks (2 files) | format-check.py tốt, link-check.py standalone | Chỉ PostToolUse command hook |
+| Agents | Không tồn tại | Thiếu hoàn toàn |
 
-### Phát hiện từ kiểm kê
+### 3.3. Managed layer
 
-1. **80% infrastructure phục vụ duy nhất Guide Claude** — không reuse được cho project khác
-2. **Không có .claude/agents/** — thiếu hoàn toàn custom subagents
-3. **Không dùng @import** — CLAUDE.md tự chứa mọi thứ thay vì modular
-4. **Hook chỉ kiểm format, không kiểm logic** — painpoint đã nhận ra: "có format check nhưng thiếu thinking check"
-5. **link-check.py chất lượng cao** — xử lý Windows paths, URL encoding, anchor normalization, caching. Portable sang project khác
+**Không tồn tại.** Không có managed-settings.json, không có managed CLAUDE.md, không có server-managed config.
+
+### 3.4. Shared layers (Robotics / Solution)
+
+**Không tồn tại.** Không có shared conventions, shared rules, shared agents.
+
+### 3.5. Nhầm lẫn 3 khái niệm — đã giải mã
+
+Từ brainstorm session 4, Đạt nhận ra đang trộn 3 thứ khác nhau. Claude Code tách bằng 3 cơ chế:
+
+| Khái niệm | Cơ chế đúng | Bản chất | Hiện trạng |
+|------------|------------|----------|------------|
+| **Methodology** (cách làm việc) | CLAUDE.md + Rules + Skills | Advisory | Nằm trong đầu, chưa encode |
+| **Enforcement** (bắt buộc tuân thủ) | Hooks | Deterministic | Chỉ format check |
+| **Tone/Voice** | Settings + Output Styles | Configuration | Chỉ có language: vi |
 
 ---
 
-## 3. Hiện trạng _scaffold/
+## 4. Gap analysis -- hiện trạng vs chuẩn
 
-### Kiểm kê files
+### 4.1. Personal layer
+
+| Component | Chuẩn | Hiện trạng | Gap | Priority |
+|-----------|-------|-----------|-----|:--------:|
+| CLAUDE.md | Methodology, workflow, < 100 dòng | 15 dòng emoji only | **Thiếu methodology** | CAO |
+| settings.json | $schema, model, language, env, outputStyle | model + language only | **Thiếu env, outputStyle** | CAO |
+| rules/ | Personal methodology áp dụng mọi project | Không tồn tại | **Thiếu hoàn toàn** | CAO |
+| agents/ | Personal agents (explorer, reviewer) | Không tồn tại | **Thiếu hoàn toàn** | TRUNG BÌNH |
+| skills/ | Reusable personal skills | Không tồn tại | **Thiếu** | TRUNG BÌNH |
+| output-styles/ | Custom style cho PNX | Không tồn tại | **Thiếu** | THẤP |
+
+### 4.2. Project layer (Guide Claude)
+
+| Component | Chuẩn | Hiện trạng | Gap | Priority |
+|-----------|-------|-----------|-----|:--------:|
+| CLAUDE.md | < 200 dòng, context only, @import | 125 dòng, trộn concerns | **Cần prune + @import** | CAO |
+| settings.json | $schema, hooks, permissions, env | 2 hooks, không schema | **Thiếu schema, env, perms** | TRUNG BÌNH |
+| Rules | Format + methodology + path-scoped | 7 format-only rules | **0% methodology** | THẤP (có ở personal) |
+| Hooks | 18 events, 4 types | 1 event, 1 type | **Dùng ~6%** | TRUNG BÌNH |
+| Agents | Project-specific subagents | Không tồn tại | **Thiếu** | TRUNG BÌNH |
+| Skills | Generic + project-specific | 9 project-specific | **0 reusable** (OK cho project này) | THẤP |
+
+### 4.3. Managed + Shared layers
+
+| Component | Chuẩn | Hiện trạng | Gap | Priority |
+|-----------|-------|-----------|-----|:--------:|
+| Managed settings | Security, model restrictions | Không tồn tại | **Thiếu hoàn toàn** | THẤP (chưa cần) |
+| Managed CLAUDE.md | Company conventions | Không tồn tại | **Thiếu hoàn toàn** | THẤP |
+| Shared conventions | @import files, shared rules | Không tồn tại | **Thiếu** | THẤP (chờ feedback) |
+
+### 4.4. Tổng hợp gap — ưu tiên
 
 ```
-_scaffold/
-├── README-scaffold.md              Entry point — workflow 4 bước
-├── CLAUDE-template.md              170 dòng, 20+ placeholders
-├── project-state-template.md       Project tracking template
-├── VERSION                         "1.0"
-├── checklists/
-│   ├── daily-workflow.md           5-phase workflow
-│   └── new-project-checklist.md    Step-by-step setup (3 phases)
-├── project-instructions/           4 templates cho claude.ai Projects
-│   ├── README.md
-│   ├── template-basic.md
-│   ├── template-code-review.md     Hardcode ROS2/Nav2/Python
-│   ├── template-tech-doc.md
-│   └── template-troubleshooting.md Hardcode AMR/SLAM
-├── global-instructions/
-│   └── global-CLAUDE-phenikaa-x.md PNX-specific
-├── examples/
-│   ├── dev-example/                Minimal working config (4 files)
-│   └── guide-claude/               Advanced config snapshot v9.0 (4 files)
-└── skill-templates/
-    ├── SKILL-template/SKILL-template.md  112 dòng
-    └── rule-template.md                  Với so sánh Rules vs CLAUDE.md vs Skills
+CAO (làm ngay — impact mọi session):
+  ├── Personal CLAUDE.md — encode methodology
+  ├── Personal rules/ — workflow rules cho mọi project
+  ├── Personal settings.json — env, outputStyle, schema
+  └── Project CLAUDE.md — prune + @import
+
+TRUNG BÌNH (làm sau Personal — project-specific):
+  ├── Project settings.json — thêm hooks, env, permissions
+  ├── Project agents/ — tạo agents cho Guide Claude
+  ├── Personal agents/ — explorer, reviewer reusable
+  └── Personal skills/ — daily workflow skills
+
+THẤP (chờ feedback / chưa cần):
+  ├── Managed layer — chưa có team dùng
+  ├── Shared layers — chưa biết share gì
+  ├── Output styles — nice-to-have
+  └── Commands → Skills migration
 ```
 
-### Đánh giá theo tiêu chí chuyển giao
+---
 
-| Tiêu chí | Điểm | Chi tiết |
-|-----------|:-----:|---------|
-| Người biết Claude Code tự setup | 7/10 | Setup 30 phút nếu đọc đúng thứ tự |
-| Người mới tự setup | 4/10 | Kẹt ở "điền gì vào template" — 20 placeholders quá nhiều |
-| Template generic | 6/10 | ~60% generic, ~40% PNX/Robotics-specific |
-| Knowledge tập trung | 5/10 | Setup steps rải qua 8 files, 3 folders |
-| Đầy đủ | 7/10 | Thiếu: hook writing guide, decision tree, onboarding path, .gitignore |
-| Ví dụ | 9/10 | dev-example và guide-claude example rất tốt |
+## 5. Ánh xạ PNX→Robotics→Solution→Personal
 
-### Thiếu gì quan trọng
+### 5.1. Thách thức
 
-| Thiếu | Tại sao quan trọng |
-|-------|-------------------|
-| Hook writing guide | Có settings.json example nhưng không có hướng dẫn viết hook mới |
-| Decision tree | "Khi nào cần rules? Khi nào cần skills? Khi nào cần hooks?" → Không có |
-| Methodology guide | Scaffold dạy SETUP (cấu hình), không dạy WORKFLOW (cách làm việc hiệu quả) |
-| .gitignore template | Người mới có thể commit .env, credentials |
-| Generic global-CLAUDE.md | Chỉ có version PNX, người ngoài PNX phải tự viết |
-| Troubleshooting | "settings.json không hoạt động?" → Không có |
-| "Why" behind each piece | Template cho biết WHAT (cấu trúc), không cho biết WHY (tại sao cần) |
-| Templates theo layer | Chỉ có 1 CLAUDE-template cho mọi level — không phân biệt managed/project/user |
+Claude Code có 4 tầng settings nhưng PNX cần **5 tầng** logic:
+
+```
+PNX muốn:                    Claude Code native:
+  Phenikaa-X (công ty)    →    Managed          ✅
+  Robotics (phòng ban)    →    ???               ❌ không có
+  Solution (nhóm)         →    ???               ❌ không có
+  Personal                →    User (~/.claude/) ✅
+  Per-project             →    Project (.claude/) ✅
+```
+
+### 5.2. Giải pháp: @import + symlinks tạo virtual layers
+
+```
+PNX Managed layer
+  C:\Program Files\ClaudeCode\
+  ├── managed-settings.json     Security, model policies
+  └── CLAUDE.md                 PNX conventions (ngắn)
+
+Robotics layer (virtual — shared files)
+  pnx-claude-standards/robotics/
+  ├── conventions.md            @import vào project CLAUDE.md
+  ├── rules/                    symlink vào .claude/rules/
+  ├── agents/                   symlink vào .claude/agents/
+  └── skills/                   symlink vào .claude/skills/
+
+Solution layer (virtual — shared files)
+  pnx-claude-standards/solution/
+  ├── conventions.md            @import vào project CLAUDE.md
+  ├── rules/                    symlink vào .claude/rules/
+  └── skills/                   symlink vào .claude/skills/
+
+Personal layer
+  ~/.claude/
+  ├── CLAUDE.md                 Personal methodology
+  ├── settings.json             Model, language, env
+  ├── rules/                    Personal rules (mọi project)
+  ├── agents/                   Personal agents
+  ├── skills/                   Personal skills
+  └── output-styles/            Custom styles
+
+Project layer
+  project/.claude/
+  ├── CLAUDE.md                 Project context
+  │   ├── @../../pnx-claude-standards/robotics/conventions.md
+  │   └── @../../pnx-claude-standards/solution/conventions.md
+  ├── settings.json             Project hooks, permissions
+  ├── rules/                    Project rules + symlinks → shared
+  ├── agents/                   Project agents + symlinks → shared
+  └── settings.local.json       Personal per-project
+```
+
+### 5.3. Merge behavior cần hiểu
+
+| Loại | Merge rule | Kế thừa thế nào |
+|------|-----------|-----------------|
+| CLAUDE.md | Additive (tất cả load) | Managed + User + Project (+ @imports) = tất cả trong context |
+| Rules | Additive (tất cả load) | User rules + Project rules + symlinked rules = tất cả active |
+| Settings arrays | Concatenate | Managed deny + User deny + Project deny = cộng dồn |
+| Settings scalars | Last wins (priority) | Managed > Local > Project > User |
+| Skills | Override by name | Managed > User > Project > Plugin |
+| Hooks | All fire | Managed + User + Project = tất cả chạy |
+| Agents | Override by name | CLI > Project > User > Plugin |
+
+### 5.4. Thứ tự xây dựng
+
+```
+Bước 1: Personal layer (~/.claude/)        ← BÂY GIỜ
+  └── Impact: mọi session, mọi project
+
+Bước 2: Nâng cấp Project layer            ← SAU KHI Personal ổn
+  └── Impact: Guide Claude + test workspace
+
+Bước 3: Test với 1 kỹ sư                  ← SAU KHI Bước 2 ổn
+  └── Input: quyết định shared layers cần gì
+
+Bước 4: Shared layers (pnx-claude-standards)  ← SAU KHI có feedback
+  └── Input: feedback từ Bước 3
+
+Bước 5: Managed layer                     ← KHI team > 5 dùng
+  └── Input: shared conventions đã ổn định
+```
 
 ---
 
-## 4. Kiến trúc Claude Code 03/2026
+## 6. Phương án: Personal-first
 
-### Nguồn
+### 6.1. Tại sao Personal trước
 
-Nghiên cứu từ 6 trang official docs tại code.claude.com/docs/en/:
-- overview, memory, best-practices, settings, features-overview, skills, hooks-guide, permissions
+| Lý do | Giải thích |
+|-------|-----------|
+| Impact ngay | Mọi session, mọi project hưởng lợi — không chờ |
+| 0 risk | Chỉ ảnh hưởng cá nhân |
+| Giải quyết painpoint thật | "Mỗi session 1 kiểu" → encode methodology |
+| Tạo ví dụ sống | Personal hoạt động → biết cái gì share |
+| Official docs ủng hộ | "Test changes by observing behavior shifts" |
+| Additive architecture | Thêm layer sau = thêm files, KHÔNG refactor cũ |
 
-### 4.1. Hệ thống phân lớp — 4 tầng settings
+### 6.2. Bước 1 — Personal Workspace (2-3 sessions)
 
-| Tầng | Vị trí | Audience | Git-tracked | Priority |
-|------|--------|----------|:-----------:|:--------:|
-| **Managed** | System dirs + MDM | Toàn tổ chức | N/A (IT deploy) | Cao nhất — không override được |
-| **Project** | .claude/settings.json | Team (per repo) | Yes | 2 |
-| **Local** | .claude/settings.local.json | Cá nhân (per repo) | No (gitignored) | 3 |
-| **User** | ~/.claude/settings.json | Cá nhân (mọi project) | No | Thấp nhất |
+**Deliverables:**
 
-**Merge rules:**
-- Arrays (permissions allow/deny): CỘNG DỒN từ mọi layer
-- Scalars (model, language): LAST WINS theo priority
-- Managed settings: KHÔNG thể override bởi bất kỳ layer nào
+```
+~/.claude/
+├── CLAUDE.md                    ← Methodology (< 80 dòng)
+│   ├── Workflow: Explore → Plan → Implement → Verify
+│   ├── Session discipline: /clear giữa tasks
+│   ├── Context management: subagents cho exploration
+│   ├── Decision-making: phân tích → user chốt → triển khai
+│   └── Handoff: cuối session ghi progress
+│
+├── settings.json                ← Configuration
+│   ├── $schema
+│   ├── model: claude-sonnet-4-6
+│   ├── language: vietnamese
+│   ├── env.CLAUDE_AUTOCOMPACT_PCT_OVERRIDE: "80"
+│   ├── env.CLAUDE_CODE_EFFORT_LEVEL: "medium"
+│   └── permissions (personal defaults)
+│
+├── rules/                       ← Personal rules (mọi project)
+│   ├── methodology.md           Verify-first, plan-before-implement
+│   └── communication.md         Tiếng Việt, thuật ngữ Anh, emoji
+│
+├── agents/                      ← Personal agents
+│   ├── explorer.md              Haiku, read-only, codebase search
+│   └── reviewer.md              Sonnet, persistent memory, review
+│
+├── skills/                      ← Personal skills
+│   └── session-handoff/SKILL.md Cuối session: ghi progress + next steps
+│
+└── output-styles/               ← Custom style
+    └── pnx-concise.md           Concise, Vietnamese, technical
+```
 
-### 4.2. Hệ thống CLAUDE.md — 3+ tầng
+**Đồng thời nâng cấp Guide Claude .claude/:**
+- @import tách CLAUDE.md (bỏ skill index, bỏ emoji → personal)
+- $schema trong settings.json
+- AUTOCOMPACT_PCT=80 trong env
+- SessionStart compact hook (re-inject context)
 
-| Scope | Vị trí | Mục đích | Shared |
-|-------|--------|----------|--------|
-| **Managed policy** | `C:\Program Files\ClaudeCode\CLAUDE.md` (Windows) | Tổ chức — security, standards | Toàn bộ user |
-| **Project** | `./CLAUDE.md` hoặc `./.claude/CLAUDE.md` | Team — project context | Team qua git |
-| **User** | `~/.claude/CLAUDE.md` | Cá nhân — preferences | Chỉ mình |
+### 6.3. Bước 2 — Test với 1 kỹ sư (2-3 sessions)
 
-**Load order:** Walk up directory tree từ cwd. Subdirectory CLAUDE.md load on-demand khi Claude đọc files trong đó.
+**Sau 2 tuần dùng Personal workspace:**
+- Đánh giá: nhất quán hơn? Claude tuân thủ? Output tốt hơn?
+- Tạo simplified version cho 1 kỹ sư
+- QUICK-START.md (1 trang, 5 phút)
+- Thu feedback 1-2 tuần
 
-**@import syntax:** `@path/to/file` trong CLAUDE.md — recursive max 5 hops, approval dialog lần đầu.
+**Feedback quyết định:**
+- Cần role-based? Hay 1 template đủ?
+- Shared conventions nào thực sự cần?
+- Guide modules nào kỹ sư tra cứu?
 
-**Khuyến nghị official:** < 200 dòng per file. Dài hơn → giảm adherence.
+### 6.4. Bước 3+ — dựa trên data (quyết định sau)
 
-### 4.3. 6 cơ chế mở rộng — Phân biệt rõ
-
-| Cơ chế | Bản chất | Khi nào load | Context cost | Dùng khi |
-|--------|----------|-------------|:------------:|----------|
-| **CLAUDE.md** | Advisory text | Mỗi session, tự động | Mỗi request | "Luôn làm X" — conventions, build commands, architecture |
-| **Rules** (.claude/rules/) | Advisory text, scoped | Theo path match | Chỉ khi match | Rules cho loại file cụ thể (Python style khi edit .py) |
-| **Skills** (.claude/skills/) | On-demand knowledge/workflow | Khi gọi hoặc Claude detect | Thấp (descriptions only) | Quy trình lặp lại, reference material, /command workflows |
-| **Hooks** (settings.json) | Deterministic scripts | Trên event cụ thể | Zero | BẮT BUỘC xảy ra — lint, format, block, notify |
-| **Subagents** (.claude/agents/) | Isolated workers | Khi Claude spawn | Isolated | Context isolation, parallel tasks, specialized workers |
-| **Plugins** | Bundle skills+hooks+agents+MCP | Khi install | Tùy thành phần | Chia sẻ setup giữa repos/teams |
-
-**Quy tắc chọn (từ official docs):**
-- Claude NÊN biết mỗi session? → CLAUDE.md
-- Chỉ khi edit loại file cụ thể? → Rules
-- Quy trình gọi khi cần? → Skills
-- PHẢI xảy ra, không phụ thuộc Claude? → Hooks
-- Task cần isolation? → Subagents
-- Chia sẻ cross-repo? → Plugins
-
-### 4.4. Hooks — 16+ event types
-
-| Nhóm | Events |
-|------|--------|
-| Session | SessionStart, SessionEnd, PreCompact |
-| User | UserPromptSubmit |
-| Tool | PreToolUse, PermissionRequest, PostToolUse, PostToolUseFailure |
-| Agent | SubagentStart, SubagentStop, Stop |
-| Team | TeammateIdle, TaskCompleted |
-| System | Notification, InstructionsLoaded, ConfigChange, WorktreeCreate, WorktreeRemove |
-
-**4 loại hook:**
-- `command` — shell script (truyền thống)
-- `http` — POST tới endpoint
-- `prompt` — single-turn LLM evaluation (Haiku mặc định)
-- `agent` — multi-turn verification với tool access
-
-**Guide Claude hiện chỉ dùng:** 1 event type (PostToolUse), 1 loại hook (command).
-
-### 4.5. Skills — Thay đổi quan trọng
-
-- **Commands đã merge vào Skills** — `.claude/commands/` vẫn hoạt động nhưng skills được khuyến nghị
-- **Frontmatter mới:** allowed-tools, model, context:fork, agent, hooks, disable-model-invocation, user-invocable
-- **Bundled skills:** /simplify, /batch, /debug, /loop, /claude-api
-- **Context budget:** 2% context window (~16,000 chars) cho skill descriptions
-- **Skill scope:** Enterprise > Personal > Project. Plugin skills dùng namespace
-
-### 4.6. Settings keys quan trọng
-
-| Key | Loại | Mục đích |
-|-----|------|----------|
-| `outputStyle` | string | Tone & voice ("Concise", "Explanatory", hoặc text tự do) |
-| `language` | string | Ngôn ngữ response ("vietnamese", "english"...) |
-| `model` | string | Default model |
-| `permissions` | object | allow/deny/ask rules |
-| `hooks` | object | Hook configurations |
-| `companyAnnouncements` | array | Startup messages |
-| `sandbox` | object | OS-level isolation |
-| `attribution.commit` | string | Git commit trailer |
-
-### 4.7. Managed-only settings (chỉ dùng ở tầng managed)
-
-| Setting | Mục đích |
-|---------|----------|
-| `allowManagedHooksOnly` | Block user/project hooks, chỉ cho managed hooks |
-| `allowManagedPermissionRulesOnly` | Chỉ rules từ managed settings |
-| `allowManagedMcpServersOnly` | Chỉ MCP servers do admin approve |
-| `disableBypassPermissionsMode` | Không cho dùng --dangerously-skip-permissions |
-| `blockedMarketplaces` | Block plugin sources |
-
-### 4.8. Shared rules across projects
-
-Official docs xác nhận 2 cơ chế:
-1. **Symlinks:** `.claude/rules/` supports symlinks — resolved and loaded normally, circular detected
-2. **Plugins:** Bundle skills + hooks + agents + MCP → install qua /plugin hoặc marketplace
+Chỉ làm SAU KHI có feedback thực tế:
+- pnx-claude-standards repo (nếu cần shared)
+- Enhanced scaffold (nếu setup khó)
+- Managed layer (nếu có Teams plan)
+- Role-based templates (nếu roles thực sự khác)
 
 ---
 
-## 5. Phân tích gap — Hiện trạng vs Kiến trúc chuẩn
+## 7. Phản biện
 
-### 5.1. Không gian cá nhân (~/.claude/)
+### PB1: "Personal trước" = chậm cho team?
 
-| Aspect | Hiện trạng | Kiến trúc chuẩn | Gap |
-|--------|-----------|-----------------|-----|
-| CLAUDE.md | Chỉ có emoji rules | Personal methodology, workflow preferences | Thiếu methodology |
-| settings.json | Không rõ nội dung | model, outputStyle, language, personal permissions | Chưa cấu hình đúng |
-| rules/ | Không có | Personal coding preferences (áp dụng mọi project) | Thiếu hoàn toàn |
-| agents/ | Không có | Personal agents (áp dụng mọi project) | Thiếu hoàn toàn |
+Team chưa có ai dùng Claude Code. "Chậm" so với gì? Nếu mai có kỹ sư mới → `/init` auto-generate CLAUDE.md + QUICK-START.md ngắn = đủ temporary.
 
-### 5.2. Không gian project (.claude/)
+### PB2: Methodology encode được không?
 
-| Aspect | Hiện trạng | Kiến trúc chuẩn | Gap |
-|--------|-----------|-----------------|-----|
-| CLAUDE.md | 126 dòng, trộn context + skill index + emoji rules | < 100 dòng, chỉ project context + build commands | Quá dài, trộn concerns |
-| Rules | 7 files — toàn về format tài liệu | Path-scoped coding rules + format rules | Đúng mục đích cho Guide Claude, nhưng không chuyển giao |
-| Skills | 9 skills — chuyên biệt Guide Claude | Generic + project-specific skills | 0 reusable skills |
-| Commands | 5 commands | Merge vào skills (commands vẫn hoạt động) | Chưa migrate |
-| Hooks | 1 event type, 1 hook type | 16+ events, 4 hook types | Dùng 6% khả năng |
-| Agents | Không có | Custom subagents (.claude/agents/) | Thiếu hoàn toàn |
-| @import | Không dùng | CLAUDE.md dùng @import cho modularity | Chưa áp dụng |
+Bắt đầu từ official best practices (Explore → Plan → Implement → Commit) + PNX-specific từ 36 sessions. Iterate, không cần hoàn hảo lần đầu.
 
-### 5.3. Không gian tổ chức (Managed)
+### PB3: Refactor khi thêm layers sau?
 
-| Aspect | Hiện trạng | Kiến trúc chuẩn | Gap |
-|--------|-----------|-----------------|-----|
-| Managed CLAUDE.md | Không tồn tại | Company-wide instructions, security | Thiếu hoàn toàn |
-| managed-settings.json | Không tồn tại | Security rules, denied tools, approved MCPs | Thiếu hoàn toàn |
-| Department rules | Không tồn tại | Shared rules qua symlinks hoặc plugins | Thiếu hoàn toàn |
+Claude Code merge rules là additive. Thêm layer = thêm files, KHÔNG refactor files cũ. Rules concatenate, hooks all fire, CLAUDE.md additive.
 
-### 5.4. Scaffold
+### PB4: CLAUDE.md tổng quá dài khi có nhiều layers?
 
-| Aspect | Hiện trạng | Kiến trúc chuẩn | Gap |
-|--------|-----------|-----------------|-----|
-| Layer structure | 1 template cho mọi level | Templates cho mỗi layer (managed/project/user) | Không phân biệt layers |
-| Hook templates | Không có | Template + guide cho viết hooks | Thiếu hoàn toàn |
-| Agent templates | Không có | Template cho custom subagents | Thiếu hoàn toàn |
-| Decision tree | Không có | "CLAUDE.md vs Rules vs Skills vs Hooks — khi nào dùng gì" | Thiếu — gây nhầm lẫn |
-| Onboarding path | Không có | Guided journey cho người mới từ zero | Thiếu — painpoint đã xác định |
+Risk thực. Cần budget:
+- Managed: < 30 dòng (security + language only)
+- Personal: < 80 dòng (methodology)
+- Project: < 100 dòng (context + @imports)
+- **Tổng: < 210 dòng** — sát ngưỡng nhưng chấp nhận được nếu mỗi dòng đều cần thiết
 
-### 5.5. Sự nhầm lẫn 3 khái niệm — Giải mã
+Giảm bằng: rules (scoped, không always-load), skills (on-demand), hooks (zero context).
 
-Đạt nhận ra đang nhầm lẫn giữa 3 khái niệm. Claude Code tách chúng bằng 3 cơ chế khác nhau:
+### PB5: Tốn sessions cho infrastructure?
 
-| Khái niệm | Cơ chế Claude Code | Bản chất | Ví dụ |
-|------------|-------------------|----------|-------|
-| **Cách làm việc** (methodology) | CLAUDE.md + Skills | Advisory — Claude đọc và CỐ tuân thủ | "Verify trước commit", "Plan Mode cho task phức tạp" |
-| **Rules mong muốn** (output enforcement) | Hooks + Rules | Deterministic (hooks) hoặc Advisory scoped (rules) | format-check.py LUÔN chạy sau edit; Python style CHỈ khi edit .py |
-| **Tone & voice** | Settings (`outputStyle`, `language`) | Configuration — thay đổi behavior mặc định | `"outputStyle": "Concise"`, `"language": "vietnamese"` |
+5 sessions Personal workspace → tiết kiệm 50+ sessions work sau đó. ROI cao. Và deliverables có giá trị ngay lập tức.
 
-**Quan trọng:**
-- CLAUDE.md = advisory — Claude đọc nhưng CÓ THỂ quên, đặc biệt khi file dài
-- Hooks = deterministic — LUÔN chạy, Claude không kiểm soát
-- Settings = configuration — thay đổi system behavior, không phải instruction
+### PB6: Session 3 cảnh báo "paralysis by analysis"
+
+Đúng. Phương án Personal-first giải quyết: Bước 1 = 2-3 sessions rồi DÙNG. Không phải 7 sessions planning rồi mới bắt đầu.
+
+### PB7: Sao không build managed/shared trước rồi personal?
+
+Managed cần biết enforce cái gì — chưa biết nếu chưa dùng. Shared cần biết share cái gì — chưa biết nếu chỉ 1 người dùng. Personal → kinh nghiệm → shared.
 
 ---
 
-## 6. Phát hiện quan trọng
+## 8. Checklist "90% capability"
 
-### PH1: .claude/ hiện tại hiệu quả cho Đạt, nhưng không chuyển giao được
+Thay vì mục tiêu mơ hồ "tiệm cận 90%", 10 tiêu chí đo lường được:
 
-- 80% infrastructure phục vụ Guide Claude cụ thể
-- Người khác clone repo → có infrastructure nhưng không biết TẠI SAO mỗi phần tồn tại
-- Skills, rules, hooks đều hardcode Guide Claude logic
+| # | Tiêu chí | Đo bằng | Hiện trạng |
+|:-:|----------|---------|:----------:|
+| 1 | CLAUDE.md < 200 dòng, dùng @import | Đếm dòng | ❌ 125 dòng, 0 import |
+| 2 | Personal methodology encoded | ~/.claude/ có rules + CLAUDE.md | ❌ Gần trống |
+| 3 | Rules scoped theo path | Paths frontmatter, không load unnecessary | ✅ 5/7 rules có paths |
+| 4 | Hooks deterministic cho enforcement | Hooks thay vì advisory cho critical rules | ❌ Chỉ format check |
+| 5 | Subagents cho context isolation | .claude/agents/ có ít nhất 1 agent | ❌ Không tồn tại |
+| 6 | Compaction handling | SessionStart compact hook re-inject | ❌ Không có |
+| 7 | Verification loop | Format + semantic checks (prompt/agent hooks) | ❌ Chỉ format |
+| 8 | Token optimization | Haiku exploration, Sonnet work, Opus architecture | ❌ Chỉ Sonnet |
+| 9 | Session consistency | Mỗi session follow cùng workflow | ❌ Mỗi session 1 kiểu |
+| 10 | Env optimized | AUTOCOMPACT, EFFORT_LEVEL configured | ❌ Default values |
 
-### PH2: Thiếu hoàn toàn 2 tầng trong hệ thống 4 tầng
+**Hiện tại: 1/10 ✅ = ~10%**
 
-- Managed (PNX company-wide): không tồn tại
-- Department (Robotics shared rules): không tồn tại
-- Chỉ có Project + Personal (một phần)
-
-### PH3: Dùng CLAUDE.md cho mọi thứ thay vì dùng đúng cơ chế
-
-- Emoji enforcement → nên là hook (deterministic), đang là rule (advisory)
-- Skill index trong CLAUDE.md → không cần, Claude tự detect qua description
-- Personal methodology → nên ở ~/.claude/CLAUDE.md, đang trộn vào project CLAUDE.md
-
-### PH4: Hooks chưa khai thác
-
-- Claude Code có 16+ event types, 4 hook types
-- Guide Claude chỉ dùng 1 event type (PostToolUse) và 1 hook type (command)
-- Các event hữu ích chưa dùng: SessionStart (inject context), PreToolUse (block actions), Stop (verify completion), Notification (alert user), PreCompact (preserve context)
-
-### PH5: Scaffold thiếu hướng dẫn "tại sao"
-
-- Templates dạy WHAT (cấu trúc gì), không dạy WHY (tại sao cần)
-- Không có decision tree: khi nào dùng CLAUDE.md vs Rules vs Skills vs Hooks
-- Không có onboarding path cho người từ zero
-- Knowledge rải qua 8+ files — không có 1 entry point duy nhất
-
-### PH6: Personal layer (~/.claude/) gần như trống
-
-- CLAUDE.md chỉ có emoji rules
-- Không có methodology, workflow preferences, model selection
-- 36 sessions kinh nghiệm vẫn nằm trong đầu Đạt, chưa encode
-- Đây có thể là root cause của "mỗi session làm việc 1 kiểu khác nhau"
-
-### PH7: Symlinks + Plugins = giải pháp cho department layer
-
-- Official docs xác nhận .claude/rules/ supports symlinks
-- Plugin marketplace cho phép bundle và distribute setup
-- Cả 2 cơ chế đều production-ready — không cần tự build
-
-### PH8: outputStyle là setting, không phải instruction
-
-- Trước đó có thể đang cố dùng CLAUDE.md để kiểm soát tone/voice
-- Claude Code có setting riêng: `outputStyle` (string) và `language` (string)
-- Đặt trong settings.json, không phải CLAUDE.md
+**Sau Bước 1: target 8/10 ✅**
 
 ---
 
-## 7. Các hướng đã thảo luận — Chưa chốt
+## 9. Dữ liệu tham khảo từ official docs
 
-### Hướng A: Nâng cấp từ dưới lên (Personal → Project → Managed → Scaffold)
-
-**Ý tưởng:** Bắt đầu từ personal layer (~/.claude/), rồi lan ra.
-
-**Ưu điểm:**
-- Ảnh hưởng ngay tới mọi session của Đạt
-- Ít risk — chỉ thay đổi cá nhân trước
-- Mỗi bước tạo ví dụ sống cho bước sau
-
-**Câu hỏi chưa trả lời:**
-- Personal methodology encode cái gì? (Đạt biết implicit nhưng chưa explicit)
-- outputStyle nào phù hợp? Cần test
-- Bao nhiêu rules ở personal vs project?
-
-### Hướng B: Nâng cấp từ trên xuống (Managed → Project → Personal → Scaffold)
-
-**Ý tưởng:** Bắt đầu từ company-wide standards, enforce xuống.
-
-**Ưu điểm:**
-- Nền tảng cho mọi user/project
-- Security rules có sẵn từ đầu
-
-**Câu hỏi chưa trả lời:**
-- Deploy managed settings bằng cách nào trên Windows? (file system vs Group Policy)
-- Những security rules nào cần enforce? Cần review với team
-- Managed settings có ảnh hưởng performance không?
-
-### Hướng C: Nâng cấp scaffold trước — tạo "golden template"
-
-**Ý tưởng:** Thiết kế scaffold đúng chuẩn trước, rồi áp dụng cho chính .claude/.
-
-**Ưu điểm:**
-- Thiết kế 1 lần, dùng nhiều nơi
-- Scaffold trở thành specification
-
-**Câu hỏi chưa trả lời:**
-- Scaffold cho Guide Claude hay cho generic project?
-- Scaffold nên có bao nhiêu layers? (risk over-engineering cho team nhỏ)
-
-### Hướng D: Song song — nâng cấp .claude/ + cập nhật scaffold cùng lúc
-
-**Ý tưởng:** Làm .claude/ → rút kinh nghiệm → cập nhật scaffold ngay.
-
-**Câu hỏi chưa trả lời:**
-- Resource đủ không? (1 maintainer)
-- Scope creep risk?
-
-> [!NOTE]
-> Chưa có hướng nào được chốt. Các hướng trên là ghi nhận từ trao đổi, cần brainstorm thêm.
-
----
-
-## 8. Dữ liệu thô từ official docs
-
-### 8.1. CLAUDE.md — Best practices (trích nguyên văn)
+### 9.1. CLAUDE.md best practices (trích nguyên văn)
 
 > "Keep it concise. For each line, ask: Would removing this cause Claude to make mistakes? If not, cut it. Bloated CLAUDE.md files cause Claude to ignore your actual instructions!"
 
@@ -449,7 +769,30 @@ Official docs xác nhận 2 cơ chế:
 
 > "Treat CLAUDE.md like code: review it when things go wrong, prune it regularly, and test changes by observing whether Claude's behavior actually shifts."
 
-Include table từ docs:
+> "Most best practices are based on one constraint: Claude's context window fills up fast, and performance degrades as it fills."
+
+> "Include tests, screenshots, or expected outputs so Claude can check itself. This is the single highest-leverage thing you can do."
+
+### 9.2. Features decision matrix (trích nguyên văn)
+
+| Feature | What it does | When to use it |
+|---------|-------------|---------------|
+| CLAUDE.md | Persistent context loaded every conversation | Project conventions, "always do X" rules |
+| Skill | Instructions, knowledge, and workflows Claude can use | Reusable content, reference docs, repeatable tasks |
+| Subagent | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers |
+| Agent teams | Coordinate multiple independent Claude Code sessions | Parallel research, new feature development |
+| MCP | Connect to external services | External data or actions |
+| Hook | Deterministic script that runs on events | Predictable automation, no LLM involved |
+
+### 9.3. CLAUDE.md vs Rules vs Skills (trích nguyên văn)
+
+| Aspect | CLAUDE.md | .claude/rules/ | Skill |
+|--------|-----------|----------------|-------|
+| Loads | Every session | Every session, or when matching files opened | On demand, when invoked or relevant |
+| Scope | Whole project | Can be scoped to file paths | Task-specific |
+| Best for | Core conventions and build commands | Language-specific or directory-specific guidelines | Reference material, repeatable workflows |
+
+### 9.4. Include/Exclude table (trích nguyên văn)
 
 | Include | Exclude |
 |---------|---------|
@@ -461,94 +804,134 @@ Include table từ docs:
 | Developer environment quirks (required env vars) | File-by-file descriptions of the codebase |
 | Common gotchas or non-obvious behaviors | Self-evident practices like "write clean code" |
 
-### 8.2. Features decision matrix (trích nguyên văn)
+### 9.5. Permission rule syntax
 
-| Feature | What it does | When to use it |
-|---------|-------------|---------------|
-| CLAUDE.md | Persistent context loaded every conversation | Project conventions, "always do X" rules |
-| Skill | Instructions, knowledge, and workflows Claude can use | Reusable content, reference docs, repeatable tasks |
-| Subagent | Isolated execution context that returns summarized results | Context isolation, parallel tasks, specialized workers |
-| Agent teams | Coordinate multiple independent Claude Code sessions | Parallel research, new feature development |
-| MCP | Connect to external services | External data or actions |
-| Hook | Deterministic script that runs on events | Predictable automation, no LLM involved |
+Format: `Tool` hoặc `Tool(specifier)`. Evaluation: **deny → ask → allow** (first match wins).
 
-### 8.3. CLAUDE.md vs Rules vs Skills (trích nguyên văn)
+```
+Bash(npm run *)        → commands starting with "npm run"
+Read(./.env)           → reading .env file
+Edit(/docs/**)         → edits in project docs/
+WebFetch(domain:x.com) → requests to x.com
+Agent(Explore)         → explore subagent
+```
 
-| Aspect | CLAUDE.md | .claude/rules/ | Skill |
-|--------|-----------|----------------|-------|
-| Loads | Every session | Every session, or when matching files opened | On demand, when invoked or relevant |
-| Scope | Whole project | Can be scoped to file paths | Task-specific |
-| Best for | Core conventions and build commands | Language-specific or directory-specific guidelines | Reference material, repeatable workflows |
+Path prefixes: `//` = absolute, `~/` = home, `/` = project root, `./` = relative.
 
-### 8.4. Skill vs Subagent (trích nguyên văn)
+### 9.6. Hook configuration pattern
 
-| Aspect | Skill | Subagent |
-|--------|-------|---------|
-| What it is | Reusable instructions, knowledge, or workflows | Isolated worker with its own context |
-| Key benefit | Share content across contexts | Context isolation. Work happens separately, only summary returns |
-| Best for | Reference material, invocable workflows | Tasks that read many files, parallel work, specialized workers |
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Re-read CLAUDE.md for context after compaction'"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Has the task been fully completed? Check if there are remaining TODOs or untested changes."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-### 8.5. Hook event types đầy đủ
+### 9.7. Custom subagent configuration
 
-| Event | Matcher field | Khi nào fire |
-|-------|-------------|-------------|
-| SessionStart | how session started (startup/resume/clear/compact) | Bắt đầu hoặc resume session |
-| SessionEnd | reason (clear/logout/other) | Kết thúc session |
-| UserPromptSubmit | (không có matcher) | User submit prompt, trước Claude xử lý |
-| PreToolUse | tool name | Trước tool call — có thể BLOCK |
-| PermissionRequest | tool name | Khi permission dialog xuất hiện |
-| PostToolUse | tool name | Sau tool call thành công |
-| PostToolUseFailure | tool name | Sau tool call thất bại |
-| Notification | notification type | Claude cần attention |
-| SubagentStart | agent type | Spawn subagent |
-| SubagentStop | agent type | Subagent hoàn thành |
-| Stop | (không có matcher) | Claude xong responding |
-| TeammateIdle | (không có matcher) | Agent team member idle |
-| TaskCompleted | (không có matcher) | Task marked completed |
-| InstructionsLoaded | (không có matcher) | CLAUDE.md hoặc rules loaded |
-| ConfigChange | config source | Settings/skills file thay đổi |
-| PreCompact | trigger (manual/auto) | Trước compaction |
-| WorktreeCreate | (không có matcher) | Tạo worktree |
-| WorktreeRemove | (không có matcher) | Xóa worktree |
+```yaml
+---
+name: reviewer
+description: Reviews code changes for quality and consistency
+tools: Read, Grep, Glob, Bash
+model: sonnet
+memory: project
+---
+You are a senior code reviewer. Focus on:
+- Logic errors and edge cases
+- Security vulnerabilities
+- Performance issues
+- Code readability
+```
 
-### 8.6. 4 loại hooks
+### 9.8. Custom output style
 
-| Type | Cách hoạt động | Dùng khi |
-|------|----------------|----------|
-| command | Chạy shell command, đọc stdin JSON, trả exit code | Rules đơn giản, format, lint |
-| http | POST event data tới URL endpoint | External services, audit logging |
-| prompt | Single-turn LLM eval (Haiku mặc định) | Judgment calls — "task đã xong chưa?" |
-| agent | Multi-turn verification với tool access | Cần inspect files/run commands để verify |
+```yaml
+---
+name: PNX Concise
+description: Concise Vietnamese technical output
+keep-coding-instructions: true
+---
+Respond concisely in Vietnamese.
+Keep technical terms in English.
+Use Obsidian callout syntax for warnings/tips.
+No emoji except: ⚠️ ✅ ❌ 🔴 🟡 🟢 🔵
+```
 
-### 8.7. Permission rule syntax
+---
 
-Format: `Tool` hoặc `Tool(specifier)`. Evaluation order: **deny → ask → allow**.
+## 10. Nguồn
 
-| Rule | Matches |
+### Official Documentation (code.claude.com/docs/en/)
+
+| Page | Nội dung chính |
+|------|---------------|
+| [memory](https://code.claude.com/docs/en/memory) | CLAUDE.md, @import, rules, auto memory |
+| [best-practices](https://code.claude.com/docs/en/best-practices) | Anti-patterns, workflow, verification |
+| [settings](https://code.claude.com/docs/en/settings) | 4-layer system, merge rules, all keys, env vars |
+| [hooks](https://code.claude.com/docs/en/hooks) | 18 events, 4 types, configuration |
+| [sub-agents](https://code.claude.com/docs/en/sub-agents) | Custom agents, persistent memory, isolation |
+| [skills](https://code.claude.com/docs/en/skills) | Frontmatter, bundled skills, Agent Skills standard |
+| [plugins](https://code.claude.com/docs/en/plugins) | Marketplace, distribution |
+| [output-styles](https://code.claude.com/docs/en/output-styles) | Custom styles, built-in styles |
+| [permissions](https://code.claude.com/docs/en/permissions) | Rule syntax, modes, security |
+| [server-managed-settings](https://code.claude.com/docs/en/server-managed-settings) | Beta, web console |
+
+### Community
+
+| Nguồn | Nội dung |
+|-------|---------|
+| [claudefa.st](https://claudefa.st/) | Community framework, skill activation, context conservation |
+| [agentskills.io](https://agentskills.io) | Agent Skills open standard |
+
+### Research nội bộ
+
+| File | Nội dung |
 |------|---------|
-| `Bash` | All bash commands |
-| `Bash(npm run *)` | Commands starting with "npm run" |
-| `Read(./.env)` | Reading .env file |
-| `Read(./src/**)` | All files under src/ recursively |
-| `Edit(/docs/**)` | Edits in project docs/ |
-| `WebFetch(domain:example.com)` | Requests to example.com |
-| `Agent(Explore)` | Explore subagent |
-| `Skill(deploy *)` | Deploy skill with any arguments |
-
-### 8.8. Managed settings deployment — Windows
-
-- Registry (admin): `HKLM\SOFTWARE\Policies\ClaudeCode` với `Settings` REG_SZ
-- File-based: `C:\Program Files\ClaudeCode\managed-settings.json`
-- CLAUDE.md: `C:\Program Files\ClaudeCode\CLAUDE.md`
+| brainstorm-session-2026-03-10.md | Sessions 1-3: painpoints, mâu thuẫn, phản biện |
+| brainstorm-session-2026-03-11.md | Session 4: scaffold cho team, 5 quyết định |
+| research-upgrade-strategy-2026.md | 5 strategic options, D+ recommendation |
+| research-claude-code-2026.md | 29 gaps analysis, 33 sources |
 
 ---
 
 > [!NOTE]
-> File này là TÀI LIỆU NGHIÊN CỨU — ghi nhận sự thật và phát hiện.
-> Không chứa khuyến nghị hay kế hoạch thực thi.
-> Dùng làm input cho brainstorm sessions tiếp theo.
+> File này là TÀI LIỆU NGHIÊN CỨU — ghi nhận kiến trúc chuẩn, hiện trạng, gaps, và phương án.
+> Mọi quyết định cần user confirm trước khi triển khai.
 
----
-
-> [Nguồn: code.claude.com/docs/en/ — overview, memory, best-practices, settings, features-overview, skills, hooks-guide, permissions | Kiểm kê thực tế .claude/ và _scaffold/ | Brainstorm sessions 1-4]
+> [Nguồn: code.claude.com/docs/en/ (03/2026) | Kiểm kê thực tế ~/.claude/ và .claude/ | Brainstorm sessions 1-4]
 > [Cập nhật 03/2026]
